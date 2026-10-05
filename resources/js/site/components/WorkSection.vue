@@ -8,7 +8,7 @@ import { state, vm } from '../store';
       <div v-if="vm.isHome" data-reveal class="sec-head">
         <div class="col gap12 mw640">
           <p class="mono-eyebrow">{{ vm.L.workLabel }}</p>
-          <h2 id="work-title" class="h2">{{ vm.L.workTitle }}</h2>
+          <h2 id="work-title" class="h2 nobal">{{ vm.L.workTitle }}</h2>
           <p class="muted-17">{{ vm.L.workIntro }}</p>
         </div>
         <RouterLink :to="vm.hrefs.work" class="btn btn-outline md">{{ vm.L.allWork }} <span class="mono-12">{{ vm.projCount }}</span></RouterLink>

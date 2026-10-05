@@ -38,7 +38,7 @@ import { setField, state, submitContact, vm } from '../store';
             <dd class="lg"><a v-if="cr.href" :href="cr.href" class="ink-link">{{ cr.value }}</a><template v-else>{{ cr.value }}</template></dd>
           </div>
           <div>
-            <dt>§{{ vm.availNum }} · {{ vm.L.availShort }}</dt>
+            <dt class="dt-gap"><span>§</span>{{ vm.availNum }} · {{ vm.L.availShort }}</dt>
             <dd class="reg">{{ vm.L.replyTime }}</dd>
           </div>
         </dl>

@@ -9,7 +9,7 @@ import { pad } from '../../shared/util';
       <div v-if="vm.isHome" data-reveal class="sec-head">
         <div class="col gap12 mw640">
           <p class="mono-eyebrow">{{ vm.L.servicesLabel }}</p>
-          <h2 id="services-title" class="h2">{{ vm.L.servicesTitle }}</h2>
+          <h2 id="services-title" class="h2 nobal">{{ vm.L.servicesTitle }}</h2>
         </div>
         <RouterLink :to="vm.hrefs.services" class="btn btn-outline md">{{ vm.L.allServices }}</RouterLink>
       </div>

@@ -52,7 +52,7 @@ const del = (m) => ask('Supprimer « ' + m.name + ' » ?', used(m) ? 'Ce fichier
   <div v-if="!media.length" class="empty-box dashed">
     <span aria-hidden="true" class="ms big">perm_media</span>
     <p class="fw6">La médiathèque est vide</p>
-    <p class="sm-mu">Importez votre portrait, votre CV et les captures de vos projets.</p>
+    <p class="mu14">Importez votre portrait, votre CV et les captures de vos projets.</p>
   </div>
 
   <div class="media-grid">

@@ -32,7 +32,7 @@ import { vm } from '../store';
       <div class="hero-visual" :style="{ paddingRight: vm.annotPad }">
         <div class="portrait">
           <div v-if="vm.p.photo" role="img" :aria-label="vm.p.photoAlt" class="portrait-img" :style="{ backgroundImage: 'url(&quot;' + vm.p.photo + '&quot;)' }"></div>
-          <div v-else class="portrait-empty" role="img" :aria-label="vm.p.photoAlt"><span>FS</span></div>
+          <div v-else class="portrait-empty" role="img" :aria-label="vm.p.photoAlt"><span class="ms">image</span><span>{{ vm.fr ? 'Portrait professionnel de Fawoziath' : 'Professional portrait of Fawoziath' }}</span></div>
           <span aria-hidden="true" class="corner tl"></span>
           <span aria-hidden="true" class="corner br"></span>
           <div class="stack-card">

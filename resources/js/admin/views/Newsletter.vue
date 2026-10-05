@@ -19,7 +19,7 @@ const del = (x) => ask('Retirer cet inscrit ?', x.email, () => save((d) => { d.s
     <div v-if="!subs.length" class="empty-box">
       <span aria-hidden="true" class="ms acc big">mark_email_unread</span>
       <p class="fw6">Aucun inscrit pour le moment</p>
-      <p class="sm-mu">Les inscriptions du formulaire du footer apparaîtront ici.</p>
+      <p class="mu14">Les inscriptions du formulaire du footer apparaîtront ici.</p>
     </div>
     <div v-else class="scroll-x">
       <table class="tbl wide">
