@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
-import { ask, fmtMD, save, state, t } from '../store';
+import { TRASH_HINT, ask, fmtMD, save, state, t, trash } from '../store';
 
 const DEFS = [
   ['all', 'Tous', (m) => m.status !== 'archived'],
@@ -23,10 +23,10 @@ const open = (m) => { state.msgId = m.id; if (m.status === 'new') setStatus(m, '
 const meta = (m) => [{ label: 'Nom', value: m.name }, { label: 'E-mail', value: m.email }, m.phone && { label: 'Téléphone', value: m.phone }, m.service && { label: 'Service', value: m.service }, { label: 'Langue', value: (m.lang || 'fr').toUpperCase() }].filter(Boolean);
 const mailto = (m) => 'mailto:' + m.email + '?subject=' + encodeURIComponent('Re: ' + (t(m.subject) || 'Votre message'));
 const digits = (m) => String(m.phone || '').replace(/\D/g, '');
-const del = (m) => ask('Supprimer ce message ?', 'Cette action est définitive.', () => {
-  save((d) => { d.messages = d.messages.filter((x) => x.id !== m.id); }, 'Message supprimé', () => api.delete('/admin/messages/' + m.id));
+const del = (m) => ask('Placer ce message dans la corbeille ?', TRASH_HINT, () => {
+  save((d) => { d.messages = d.messages.filter((x) => x.id !== m.id); }, 'Message placé dans la corbeille', () => trash(api.delete('/admin/messages/' + m.id)));
   state.msgId = null;
-});
+}, 'Mettre à la corbeille');
 </script>
 
 <template>
@@ -62,7 +62,7 @@ const del = (m) => ask('Supprimer ce message ?', 'Cette action est définitive.'
         <a v-if="digits(cm).length > 6" :href="'https://wa.me/' + digits(cm)" target="_blank" rel="noopener" class="abtn"><span class="ms">chat</span>WhatsApp</a>
         <button type="button" class="abtn" @click="setStatus(cm, cm.status === 'new' ? 'read' : 'new')"><span class="ms">mark_email_read</span>{{ cm.status === 'new' ? 'Marquer comme lu' : 'Marquer comme non lu' }}</button>
         <button type="button" class="abtn" @click="setStatus(cm, cm.status === 'archived' ? 'read' : 'archived', cm.status === 'archived' ? 'Message restauré' : 'Message archivé')"><span class="ms">archive</span>{{ cm.status === 'archived' ? 'Désarchiver' : 'Archiver' }}</button>
-        <button type="button" class="abtn red" @click="del(cm)"><span class="ms">delete</span>Supprimer</button>
+        <button type="button" class="abtn red" @click="del(cm)"><span class="ms">delete</span>Corbeille</button>
       </div>
     </div></div>
   </div>

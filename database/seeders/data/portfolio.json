@@ -60,7 +60,8 @@
             "fr": "Cadrage",
             "en": "Scoping"
           }
-        ]
+        ],
+        "icon": "psychology"
       },
       {
         "id": "v2",
@@ -85,7 +86,8 @@
             "fr": "Laravel & Vue.js",
             "en": "Laravel & Vue.js"
           }
-        ]
+        ],
+        "icon": "construction"
       },
       {
         "id": "v3",
@@ -110,7 +112,8 @@
             "fr": "SEO & performance",
             "en": "SEO & performance"
           }
-        ]
+        ],
+        "icon": "trending_up"
       }
     ],
     "languages": [
@@ -123,7 +126,9 @@
         "level": {
           "fr": "Courant",
           "en": "Fluent"
-        }
+        },
+        "featured": true,
+        "cefr": null
       },
       {
         "id": "l2",
@@ -134,7 +139,9 @@
         "level": {
           "fr": "A2, en progression",
           "en": "A2, improving"
-        }
+        },
+        "featured": true,
+        "cefr": "A2"
       },
       {
         "id": "l3",
@@ -145,34 +152,11 @@
         "level": {
           "fr": "Notions",
           "en": "Basic"
-        }
+        },
+        "featured": false,
+        "cefr": null
       }
     ],
-    "github": {
-      "handle": "Fawoziath0501",
-      "url": "https://github.com/Fawoziath0501",
-      "publicRepos": 6,
-      "since": "2022",
-      "visible": true,
-      "repos": [
-        {
-          "name": "30-Days-Of-Python",
-          "lang": ""
-        },
-        {
-          "name": "prixcomp",
-          "lang": "HTML"
-        },
-        {
-          "name": "Translator_Flutter_App",
-          "lang": ""
-        },
-        {
-          "name": "git-mon-cv",
-          "lang": "HTML"
-        }
-      ]
-    },
     "softSkills": {
       "fr": "Esprit d’équipe · Rigueur · Organisation",
       "en": "Team player · Rigour · Organisation"
@@ -210,12 +194,30 @@
         "handle": "@fawoziath_05",
         "visible": true
       }
-    ]
-  },
-  "home": {
-    "eyebrow": {
-      "fr": "Développeuse fullstack · Cotonou, Bénin",
-      "en": "Fullstack developer · Cotonou, Benin"
+    ],
+    "availabilityShort": {
+      "fr": "Disponible pour missions",
+      "en": "Available for projects"
+    },
+    "status": {
+      "fr": "Ouverte au freelance et au CDI",
+      "en": "Open to freelance and full-time roles"
+    },
+    "replyTime": {
+      "fr": "Réponse sous 24 h en général",
+      "en": "Usually replies within 24 h"
+    },
+    "replyDelay": {
+      "fr": "24 h en général",
+      "en": "Usually 24 h"
+    },
+    "formats": {
+      "fr": "Freelance · Mission · Formation",
+      "en": "Freelance · Contract · Training"
+    },
+    "zone": {
+      "fr": "Bénin & à distance",
+      "en": "Benin & remote"
     },
     "ctaPrimary": {
       "fr": "Voir mes projets",
@@ -224,45 +226,43 @@
     "ctaSecondary": {
       "fr": "Me contacter",
       "en": "Contact me"
-    },
+    }
+  },
+  "home": {
     "sections": [
       {
-        "id": "about",
         "type": "about",
         "enabled": true
       },
       {
-        "id": "projects",
         "type": "projects",
         "enabled": true
       },
       {
-        "id": "experience",
         "type": "experience",
         "enabled": true
       },
       {
-        "id": "skills",
         "type": "skills",
         "enabled": true
       },
       {
-        "id": "services",
         "type": "services",
         "enabled": true
       },
       {
-        "id": "education",
         "type": "education",
         "enabled": true
       },
       {
-        "id": "testimonials",
         "type": "testimonials",
         "enabled": true
       },
       {
-        "id": "contact",
+        "type": "blog",
+        "enabled": true
+      },
+      {
         "type": "contact",
         "enabled": true
       }
@@ -876,12 +876,21 @@
       "visible": true,
       "skills": [
         {
-          "name": "Laravel"
+          "name": {
+            "fr": "Laravel",
+            "en": "Laravel"
+          },
+          "heroPosition": 1
         },
         {
-          "name": "PHP"
+          "name": {
+            "fr": "PHP",
+            "en": "PHP"
+          },
+          "heroPosition": 3
         }
-      ]
+      ],
+      "icon": "dns"
     },
     {
       "id": "sg2",
@@ -892,25 +901,42 @@
       "visible": true,
       "skills": [
         {
-          "name": "Vue.js"
+          "name": {
+            "fr": "Vue.js",
+            "en": "Vue.js"
+          },
+          "heroPosition": 2
         },
         {
-          "name": "JavaScript"
+          "name": {
+            "fr": "JavaScript",
+            "en": "JavaScript"
+          }
         },
         {
-          "name": "HTML"
+          "name": {
+            "fr": "HTML",
+            "en": "HTML"
+          }
         },
         {
-          "name": "CSS"
+          "name": {
+            "fr": "CSS",
+            "en": "CSS"
+          }
         },
         {
-          "name": "Angular",
+          "name": {
+            "fr": "Angular",
+            "en": "Angular"
+          },
           "note": {
             "fr": "intermédiaire",
             "en": "intermediate"
           }
         }
-      ]
+      ],
+      "icon": "web"
     },
     {
       "id": "sg3",
@@ -921,12 +947,21 @@
       "visible": true,
       "skills": [
         {
-          "name": "SQL"
+          "name": {
+            "fr": "SQL",
+            "en": "SQL"
+          },
+          "icon": "database",
+          "heroPosition": 4
         },
         {
-          "name": "Python"
+          "name": {
+            "fr": "Python",
+            "en": "Python"
+          }
         }
-      ]
+      ],
+      "icon": "database"
     },
     {
       "id": "sg4",
@@ -940,21 +975,30 @@
           "name": {
             "fr": "SEO technique",
             "en": "Technical SEO"
-          }
+          },
+          "icon": "travel_explore"
         },
         {
           "name": {
             "fr": "Optimisation on-page",
             "en": "On-page SEO"
+          },
+          "icon": "find_in_page"
+        },
+        {
+          "name": {
+            "fr": "Google Search Console",
+            "en": "Google Search Console"
           }
         },
         {
-          "name": "Google Search Console"
-        },
-        {
-          "name": "Google Analytics"
+          "name": {
+            "fr": "Google Analytics",
+            "en": "Google Analytics"
+          }
         }
-      ]
+      ],
+      "icon": "travel_explore"
     },
     {
       "id": "sg5",
@@ -965,18 +1009,32 @@
       "visible": true,
       "skills": [
         {
-          "name": "Git"
+          "name": {
+            "fr": "Git",
+            "en": "Git"
+          }
         },
         {
-          "name": "GitHub"
+          "name": {
+            "fr": "GitHub",
+            "en": "GitHub"
+          }
         },
         {
-          "name": "GitLab"
+          "name": {
+            "fr": "GitLab",
+            "en": "GitLab"
+          }
         },
         {
-          "name": "Pack Office"
+          "name": {
+            "fr": "Pack Office",
+            "en": "Pack Office"
+          },
+          "icon": "description"
         }
-      ]
+      ],
+      "icon": "build"
     }
   ],
   "services": [
@@ -1105,7 +1163,8 @@
       "excerpt": {
         "fr": "Lancer une boutique en ligne, c’est une chose. Mais faire en sorte qu’elle génère vraiment des ventes, c’est une autre histoire.",
         "en": "Launching an online store is one thing. Making it actually generate sales is another story."
-      }
+      },
+      "icon": "shopping_bag"
     },
     {
       "id": "b2",
@@ -1130,7 +1189,8 @@
       "excerpt": {
         "fr": "Avoir un beau site web, c’est bien. Mais si personne ne le trouve sur Google, c’est comme ouvrir un magasin au fond d’une impasse.",
         "en": "A beautiful website is great. But if nobody can find it on Google, it’s like opening a shop at the end of a dead-end street."
-      }
+      },
+      "icon": "travel_explore"
     },
     {
       "id": "b3",
@@ -1155,13 +1215,12 @@
       "excerpt": {
         "fr": "Si vous vous lancez dans le développement web ou que vous cherchez à moderniser vos applications, ce duo mérite votre attention.",
         "en": "If you’re getting into web development or modernising your applications, this pairing deserves your attention."
-      }
+      },
+      "icon": "code_blocks"
     }
   ],
-  "subscribers": [],
   "certifications": [],
   "testimonials": [],
-  "messages": [],
   "settings": {
     "siteName": "Fawoziath.dev",
     "notifyEmail": "saloufawoziath236@gmail.com",

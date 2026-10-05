@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 import { api, tx } from '../shared/util';
 
-export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects', 'posts', 'experiences', 'education', 'skills', 'services', 'certifications', 'testimonials', 'profile', 'home', 'media', 'seo', 'settings'];
+export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects', 'posts', 'experiences', 'education', 'skills', 'services', 'certifications', 'testimonials', 'profile', 'home', 'media', 'seo', 'settings', 'trash'];
 
 export const state = reactive({
     data: null, user: null, ready: false,
@@ -91,6 +91,12 @@ export async function save(mutate, msg, sync) {
         await reload();
     }
 }
+export async function trash(req, msg) {
+    const { data } = await req;
+    if (data && data.trashCount != null) state.data.trashCount = data.trashCount;
+    if (msg) logActivity(msg);
+}
+export const TRASH_HINT = 'Il restera 30 jours dans la corbeille, d’où vous pourrez le restaurer.';
 export const errorText = (e) => {
     const r = e && e.response && e.response.data;
     if (r && r.errors) return Object.values(r.errors)[0][0];
@@ -99,7 +105,11 @@ export const errorText = (e) => {
 
 /* ---------- Synchronisation ---------- */
 const clean = (item) => { const o = { ...item }; delete o.id; return o; };
-export const syncItem = (col, item, activity) => api.put(`/admin/${col}/${item.id}`, { item: clean(item), activity });
+const adoptIds = (local, remote) => (local || []).forEach((x, i) => { if (remote && remote[i] && x.id == null) x.id = remote[i].id; });
+export const syncItem = (col, item, activity) => api.put(`/admin/${col}/${item.id}`, { item: clean(item), activity }).then((r) => {
+    if (col === 'skillGroups') adoptIds(item.skills, r.data.skills);
+    return r;
+});
 export const syncOrder = (col, activity) => api.post(`/admin/${col}/reorder`, { ids: state.data[col].map((x) => x.id), activity });
 
 // Les documents (profil, SEO…) sont enregistrés automatiquement, avec un léger délai.
@@ -107,7 +117,10 @@ const docTimers = {};
 export function syncDoc(key, activity) {
     clearTimeout(docTimers[key]);
     return new Promise((resolve, reject) => {
-        docTimers[key] = setTimeout(() => api.put(`/admin/documents/${key}`, { value: state.data[key], activity }).then(resolve, reject), 450);
+        docTimers[key] = setTimeout(() => api.put(`/admin/documents/${key}`, { value: state.data[key], activity }).then((r) => {
+            if (key === 'profile') ['languages', 'values', 'socials'].forEach((k) => adoptIds(state.data.profile[k], r.data[k]));
+            resolve(r);
+        }, reject), 450);
     });
 }
 const itemTimers = {};
@@ -227,8 +240,8 @@ export const COLS = {
         blank: () => ({ published: false, featured: false, slug: 'nouveau-projet-' + Date.now().toString(36), title: T('Nouveau projet', 'New project'), year: '', link: '', repo: '', images: [], category: T('', ''), role: T('', ''), summary: T('', ''), context: T('', ''), problem: T('', ''), contribution: T('', ''), solution: T('', ''), results: T('', ''), tech: [] }),
         fields: [F('title', 'Titre', 'i18n'), F('category', 'Catégorie', 'i18n'), F('role', 'Rôle', 'i18n'), F('slug', 'Slug (adresse)', 'text'), F('year', 'Année', 'text'), F('link', 'Lien du site', 'url', { ph: 'https://' }), F('summary', 'Résumé', 'i18nArea', { full: true }), F('context', 'Contexte', 'i18nArea', { full: true }), F('problem', 'Enjeu', 'i18nArea', { full: true }), F('contribution', 'Ma contribution', 'i18nArea', { full: true, hint: 'Un point par ligne' }), F('solution', 'Fonctionnalités', 'i18nArea', { full: true, hint: 'Un point par ligne' }), F('results', 'Résultat', 'i18nArea', { full: true, hint: 'Uniquement des résultats réels' }), F('tech', 'Technologies', 'tags', { full: true, hint: 'Séparées par des virgules' }), F('images', 'Captures', 'mediaList', { full: true, hint: 'Ajoutez depuis la médiathèque (adresses séparées par des virgules)' }), F('featured', 'Accueil', 'switch', { on: 'Mis en avant', off: 'Non mis en avant' }), pubF] },
     posts: { label: 'Articles', icon: 'article', title: (x) => t(x.title), meta: (x) => [x.date, (x.tags || []).map((v) => t(v)).join(', '), x.url ? 'Lien OK' : 'Sans lien'].filter(Boolean).join(' · '),
-        blank: () => ({ published: false, date: iso(new Date()), readMin: 3, url: '', tags: [], title: T('Nouvel article', 'New article'), excerpt: T('', '') }),
-        fields: [F('title', 'Titre', 'i18n', { full: true }), F('excerpt', 'Extrait', 'i18nArea', { full: true }), F('tags', 'Étiquettes', 'i18nTags', { full: true, hint: 'Séparées par des virgules, dans le même ordre en FR et EN' }), F('date', 'Date', 'date'), F('readMin', 'Lecture (min)', 'number'), F('url', 'Lien de l’article complet', 'url', { full: true, ph: 'https://' }), pubF] },
+        blank: () => ({ published: false, icon: 'article', date: iso(new Date()), readMin: 3, url: '', tags: [], title: T('Nouvel article', 'New article'), excerpt: T('', '') }),
+        fields: [F('title', 'Titre', 'i18n', { full: true }), F('excerpt', 'Extrait', 'i18nArea', { full: true }), F('tags', 'Étiquettes', 'i18nTags', { full: true, hint: 'Séparées par des virgules, dans le même ordre en FR et EN' }), F('date', 'Date', 'date'), F('readMin', 'Lecture (min)', 'number'), F('icon', 'Icône', 'text', { hint: 'Nom d’icône Material Symbols (ex. shopping_bag, travel_explore, code_blocks)' }), F('url', 'Lien de l’article complet', 'url', { full: true, ph: 'https://' }), pubF] },
     experiences: { label: 'Expériences', icon: 'work_history', title: (x) => t(x.role), meta: (x) => [x.company, t(x.start) + ' → ' + t(x.end)].join(' · '),
         blank: () => ({ published: false, current: false, company: '', location: T('', ''), role: T('Nouveau poste', 'New role'), start: T('', ''), end: T('', ''), description: T('', ''), duties: T('', '') }),
         fields: [F('role', 'Poste', 'i18n'), F('company', 'Entreprise', 'text'), F('location', 'Lieu', 'i18n'), F('start', 'Début', 'i18n'), F('end', 'Fin', 'i18n'), F('description', 'Description', 'i18nArea', { full: true }), F('duties', 'Missions', 'i18nArea', { full: true, hint: 'Une mission par ligne' }), F('current', 'Poste actuel', 'switch', { on: 'Oui', off: 'Non' }), pubF] },
@@ -250,6 +263,7 @@ export const FORMS = {
     profile: [
         { title: 'Identité', sub: 'Affichée dans le hero et le footer', fields: [F('firstName', 'Prénom', 'text'), F('middleName', 'Deuxième prénom', 'text'), F('lastName', 'Nom', 'text'), F('since', 'Début d’activité (année)', 'text'), F('title', 'Titre', 'i18n'), F('stack', 'Stack principale', 'i18n')] },
         { title: 'Présentation', fields: [F('tagline', 'Proposition de valeur (hero)', 'i18nArea', { full: true }), F('bio', 'Biographie', 'i18nArea', { full: true, hint: 'Un paragraphe par ligne' }), F('availability', 'Disponibilité', 'i18n', { full: true }), F('softSkills', 'Qualités', 'i18n', { full: true, hint: 'Séparées par « · »' })] },
+        { title: 'Statut & conditions', sub: 'Affichés dans le hero, « En bref » et la page Contact', fields: [F('availabilityShort', 'Disponibilité (courte)', 'i18n'), F('status', 'Statut', 'i18n'), F('replyTime', 'Délai de réponse (phrase)', 'i18n'), F('replyDelay', 'Délai de réponse (court)', 'i18n'), F('formats', 'Formats de mission', 'i18n'), F('zone', 'Zone d’intervention', 'i18n')] },
         { title: 'Coordonnées', fields: [F('email', 'E-mail', 'email'), F('phone', 'Téléphone', 'text'), F('location', 'Localisation', 'i18n'), F('hours', 'Horaires', 'i18n')] },
         { title: 'Médias', sub: 'Adresses depuis la médiathèque ou un hébergement', fields: [F('photo', 'Portrait', 'media', { full: true }), F('cv', 'CV (PDF)', 'media', { full: true, accept: 'doc' })] },
     ],

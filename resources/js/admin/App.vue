@@ -14,6 +14,7 @@ import Skills from './views/Skills.vue';
 import HomeSections from './views/HomeSections.vue';
 import FormView from './views/FormView.vue';
 import MediaLib from './views/MediaLib.vue';
+import Trash from './views/Trash.vue';
 
 const router = useRouter();
 const onResize = () => { state.w = window.innerWidth; };
@@ -45,7 +46,7 @@ const groups = computed(() => {
     { label: 'Pilotage', items: [it('dashboard', 'Tableau de bord', 'space_dashboard'), it('stats', 'Statistiques', 'monitoring')] },
     { label: 'Échanges', items: [it('messages', 'Messages', 'mail', newCount), it('newsletter', 'Newsletter', 'mark_email_unread', (d.subscribers || []).length)] },
     { label: 'Contenu', items: [it('projects', 'Projets', 'grid_view'), it('posts', 'Blog', 'article'), it('experiences', 'Expériences', 'work_history'), it('education', 'Formation', 'school'), it('skills', 'Compétences', 'bolt'), it('services', 'Services', 'design_services'), it('certifications', 'Certifications', 'verified'), it('testimonials', 'Témoignages', 'format_quote')] },
-    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('settings', 'Paramètres', 'settings')] },
+    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('settings', 'Paramètres', 'settings'), it('trash', 'Corbeille', 'delete', d.trashCount)] },
   ];
 });
 
@@ -60,6 +61,7 @@ const META = {
   home: ['Site', 'Page d’accueil', 'Page d’accueil', 'Activez ou masquez les sections de l’accueil.'],
   seo: ['Site', 'SEO & partage', 'SEO & partage', 'Titres, descriptions et image de partage, en FR et en EN.'],
   settings: ['Site', 'Paramètres', 'Paramètres', 'Source des statistiques, notifications et réglages du site.'],
+  trash: ['Site', 'Corbeille', 'Corbeille', 'Éléments supprimés : restaurez-les ou supprimez-les définitivement.'],
 };
 const col = computed(() => COLS[state.view]);
 const view = computed(() => {
@@ -141,6 +143,7 @@ const doLogout = async () => { await logout(); router.push('/admin'); };
             <Skills v-else-if="state.view === 'skills'" />
             <HomeSections v-else-if="state.view === 'home'" />
             <MediaLib v-else-if="state.view === 'media'" />
+            <Trash v-else-if="state.view === 'trash'" />
             <FormView v-else :key="state.view" :doc="state.view" />
           </main>
         </div>

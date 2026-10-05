@@ -1,6 +1,6 @@
 <script setup>
 import { api } from '../../shared/util';
-import { ask, createItem, save, state, syncItem, syncItemLater } from '../store';
+import { TRASH_HINT, ask, createItem, save, state, syncItem, syncItemLater, trash } from '../store';
 
 const groups = () => state.data.skillGroups;
 const name = (k) => (typeof k.name === 'object' ? (k.name.fr || '') : (k.name || ''));
@@ -8,9 +8,11 @@ const setLabel = (g, lang, v) => save(() => { g.label = { ...g.label, [lang]: v 
 const setSkill = (g, k, v) => save(() => { k.name = typeof k.name === 'object' ? { ...k.name, fr: v } : v; }, null, () => syncItemLater('skillGroups', g));
 const toggle = (g) => save(() => { g.visible = !g.visible; }, null, () => syncItem('skillGroups', g));
 const addSkill = (g) => save(() => { g.skills.push({ name: 'Nouvelle' }); }, null, () => syncItem('skillGroups', g));
+const heroNext = () => Math.max(0, ...state.data.skillGroups.flatMap((x) => x.skills).map((k) => k.heroPosition || 0)) + 1;
+const toggleHero = (g, k) => save(() => { k.heroPosition = k.heroPosition ? null : heroNext(); }, k.heroPosition ? 'Retirée de la carte Stack' : 'Ajoutée à la carte Stack', () => syncItem('skillGroups', g));
 const delSkill = (g, ki) => save(() => { g.skills.splice(ki, 1); }, null, () => syncItem('skillGroups', g));
-const delGroup = (g) => ask('Supprimer ce groupe ?', 'Ses compétences seront aussi supprimées.', () =>
-  save((d) => { d.skillGroups = d.skillGroups.filter((x) => x.id !== g.id); }, 'Groupe supprimé', () => api.delete('/admin/skillGroups/' + g.id, { data: { activity: 'Groupe supprimé' } })));
+const delGroup = (g) => ask('Placer ce groupe dans la corbeille ?', 'Ses compétences le suivent et seront restaurées avec lui. ' + TRASH_HINT, () =>
+  save((d) => { d.skillGroups = d.skillGroups.filter((x) => x.id !== g.id); }, 'Groupe placé dans la corbeille', () => trash(api.delete('/admin/skillGroups/' + g.id, { data: { activity: 'Groupe placé dans la corbeille' } }))), 'Mettre à la corbeille');
 const addGroup = () => save(() => {}, 'Groupe ajouté', async () => {
   const created = await createItem('skillGroups', { label: { fr: 'Nouveau groupe', en: 'New group' }, visible: true, skills: [] }, groups().length, 'Groupe ajouté');
   state.data.skillGroups.push(created);
@@ -30,6 +32,7 @@ const addGroup = () => save(() => {}, 'Groupe ajouté', async () => {
       <div class="row-wrap gap8">
         <span v-for="(k, ki) in g.skills" :key="ki" class="skill-chip">
           <input :value="name(k)" aria-label="Compétence" :style="{ width: Math.max(60, name(k).length * 8.6 + 8) + 'px' }" @input="setSkill(g, k, $event.target.value)">
+          <button type="button" class="ms hero-star" :class="{ on: k.heroPosition }" :aria-pressed="!!k.heroPosition" :title="k.heroPosition ? 'Affichée dans la carte « Stack » du hero (n° ' + k.heroPosition + ')' : 'Afficher dans la carte « Stack » du hero'" @click="toggleHero(g, k)">star</button>
           <button type="button" aria-label="Retirer" class="ms" @click="delSkill(g, ki)">close</button>
         </span>
       </div>

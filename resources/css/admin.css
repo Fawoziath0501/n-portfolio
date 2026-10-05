@@ -322,3 +322,19 @@ label.abtn { position: relative; }
 .confirm-actions { display: flex; justify-content: flex-end; gap: 8px; }
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 95; display: flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 10px; background: #0B1530; color: #FFFFFF; font-size: 14px; box-shadow: 0 12px 30px rgba(5, 11, 28, .3); }
 .toast .ms { font-size: 18px; color: #8FA3E8; }
+
+/* Éléments liés au profil */
+.rel-list { display: flex; flex-direction: column; gap: 10px; padding: 16px 20px 20px; }
+.rel-row { display: grid; grid-template-columns: repeat(4, minmax(110px, 1fr)) 80px auto auto; gap: 8px; align-items: center; }
+@media (max-width: 1100px) { .rel-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.val-card { display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid var(--ln2); border-radius: 8px; background: var(--sf2); }
+.w80 { width: 80px; } .w140 { width: 140px; flex: none; }
+
+/* Compétences : carte « Stack » du hero */
+.skill-chip .hero-star { color: var(--ln); font-variation-settings: 'FILL' 1; }
+.skill-chip .hero-star.on { color: #E0A100; }
+.skill-chip .hero-star:hover { color: #E0A100; background: var(--ln2); }
+
+/* Corbeille */
+.trash-type { flex: none; min-width: 120px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--aci); background: var(--acs); padding: 4px 8px; border-radius: 6px; text-align: center; }
+.trash-left { font-size: 12px; color: #B54708; white-space: nowrap; }

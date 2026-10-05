@@ -2,11 +2,30 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Trashable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Message extends Model
 {
-    protected $fillable = ['type', 'status', 'service', 'name', 'email', 'phone', 'subject', 'body', 'lang'];
+    use Trashable;
+
+    protected $fillable = ['type', 'status', 'service_id', 'service', 'name', 'email', 'phone', 'subject', 'body', 'lang'];
+
+    public function serviceItem(): BelongsTo
+    {
+        return $this->belongsTo(Service::class, 'service_id')->withTrashed();
+    }
+
+    public function trashLabel(): string
+    {
+        return $this->name.' · '.($this->subject ?: '(sans sujet)');
+    }
+
+    public function trashMeta(): string
+    {
+        return $this->email;
+    }
 
     public function toFront(): array
     {
@@ -14,6 +33,7 @@ class Message extends Model
             'id' => $this->id,
             'type' => $this->type,
             'status' => $this->status,
+            'serviceId' => $this->service_id,
             'service' => $this->service,
             'name' => $this->name,
             'email' => $this->email,

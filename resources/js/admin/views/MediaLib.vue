@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
-import { ask, errorText, flash, save, state, syncDoc } from '../store';
+import { TRASH_HINT, ask, errorText, flash, save, state, syncDoc, trash } from '../store';
 
 const media = computed(() => state.data.media || []);
 const used = (m) => JSON.stringify({ p: state.data.profile, pr: state.data.projects, s: state.data.seo }).includes(m.src);
@@ -35,8 +35,8 @@ async function addUrl() {
 }
 const copy = (m) => { try { navigator.clipboard.writeText(m.src); flash('Adresse copiée'); } catch (er) { flash(m.src); } };
 const setProfile = (k, m, msg) => save((d) => { d.profile[k] = m.src; }, msg, () => syncDoc('profile', msg));
-const del = (m) => ask('Supprimer « ' + m.name + ' » ?', used(m) ? 'Ce fichier est utilisé sur le site : il disparaîtra des pages concernées.' : 'Cette action est définitive.', () =>
-  save((d) => { d.media = d.media.filter((x) => x.id !== m.id); }, 'Fichier supprimé', () => api.delete('/admin/media/' + m.id)));
+const del = (m) => ask('Placer « ' + m.name + ' » dans la corbeille ?', (used(m) ? 'Ce fichier est utilisé sur le site : il disparaîtra des pages concernées jusqu’à sa restauration. ' : '') + TRASH_HINT, () =>
+  save((d) => { d.media = d.media.filter((x) => x.id !== m.id); }, 'Fichier placé dans la corbeille', () => trash(api.delete('/admin/media/' + m.id))), 'Mettre à la corbeille');
 </script>
 
 <template>

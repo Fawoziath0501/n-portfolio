@@ -4,6 +4,7 @@ import { api } from '../../shared/util';
 import { FORMS, ask, flash, reload, save, setPath, state, syncDoc } from '../store';
 import Fields from '../components/Fields.vue';
 import Panel from '../components/Panel.vue';
+import ProfileRelations from '../components/ProfileRelations.vue';
 
 const props = defineProps({ doc: String });
 const cards = computed(() => FORMS[props.doc] || []);
@@ -52,6 +53,8 @@ function importJson(e) {
       <label class="abtn"><span class="ms">upload</span>Importer<input type="file" accept="application/json,.json" class="hidden-file" @change="importJson"></label>
     </div>
   </div>
+
+  <ProfileRelations v-if="doc === 'profile'" />
 
   <Panel v-if="doc === 'profile'" title="Réseaux & liens" sub="Affichés dans le hero, le contact et le footer">
     <div class="socials">

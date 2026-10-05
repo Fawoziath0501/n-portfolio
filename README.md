@@ -49,6 +49,30 @@ Le site est alors sur <http://127.0.0.1:8000> et l'administration sur <http://12
 Le compte administrateur est créé à partir de `ADMIN_EMAIL` et `ADMIN_PASSWORD` dans `.env`
 (mot de passe `password` si la variable est absente : **changez-le avant toute mise en ligne**).
 
+## Base de données
+
+Toutes les informations affichées sur le site viennent de la base. Seuls les libellés d'interface
+(menus, titres de sections) restent dans le code, comme des fichiers de traduction.
+
+\
+Autres tables : , ,  (ordre et affichage des sections de l'accueil),
+,  (suivi d'audience sans cookie),  (SEO, statistiques, notifications, maintenance).
+Les champs traduisibles sont stockés en JSON .
+
+## Corbeille (soft delete)
+
+- Projets, articles, expériences, formations, services, certifications, témoignages, groupes de compétences,
+  messages, inscrits et fichiers ne sont jamais effacés directement : ils reçoivent une date   et disparaissent du site.
+- Page **Corbeille** de l'administration : restauration en un clic (l'élément retrouve sa place et ses éléments liés)
+  ou suppression définitive. Un fichier n'est effacé du disque qu'à sa suppression définitive.
+- Purge automatique après 30 jours () via   [37;41m ERROR [39;49m Command "model:prune" is not defined. Did you mean one of these?  
+
+  [90m⇂ model:prune[39m  
+  [90m⇂ model:show[39m  , planifiée chaque jour.
+  En production, ajoutez la tâche cron : .
+- Unicité préservée : un slug utilisé par un projet en corbeille est refusé avec un message explicite ;
+  un e-mail retiré de la newsletter qui se réinscrit est restauré au lieu d'être dupliqué.
+
 ## Organisation du code
 
 ```
@@ -56,7 +80,7 @@ app/
   Http/Controllers/SiteController.php        page publique + SEO, données du site
   Http/Controllers/InteractionController.php contact, newsletter, suivi d'audience
   Http/Controllers/Admin/*                   authentification, contenus, messages, médias, stats, sauvegarde
-  Models/                                    un modèle par contenu (trait ContentModel : JSON camelCase, ordre)
+  Models/                                    un modèle par table, avec relations (traits ContentModel et Trashable)
   Support/Portfolio.php                      assemble les données envoyées aux applications Vue
 database/seeders/data/portfolio.json        contenu initial (repris des maquettes)
 resources/js/site/                           application Vue publique (store + un composant par section)

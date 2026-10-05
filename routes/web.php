@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\StatsController;
+use App\Http\Controllers\Admin\TrashController;
 use App\Http\Controllers\InteractionController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,11 @@ Route::prefix('api')->group(function () {
 
             Route::get('events', [StatsController::class, 'events']);
             Route::delete('events', [StatsController::class, 'clear']);
+
+            Route::get('trash', [TrashController::class, 'index']);
+            Route::delete('trash', [TrashController::class, 'empty']);
+            Route::post('trash/{type}/{id}/restore', [TrashController::class, 'restore'])->whereNumber('id');
+            Route::delete('trash/{type}/{id}', [TrashController::class, 'destroy'])->whereNumber('id');
 
             Route::get('export', [BackupController::class, 'export']);
             Route::post('import', [BackupController::class, 'import']);

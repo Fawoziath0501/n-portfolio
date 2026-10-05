@@ -20,9 +20,6 @@ export function parseRoute(r) {
     return { lang, route, slug };
 }
 
-const LOGOS = { 'laravel': 'laravel', 'php': 'php', 'vue.js': 'vuejs', 'javascript': 'javascript', 'html': 'html5', 'css': 'css3', 'angular': 'angularjs', 'python': 'python', 'git': 'git', 'github': 'github', 'gitlab': 'gitlab', 'google search console': 'google', 'google analytics': 'google' };
-const ICONS = { 'sql': 'database', 'seo technique': 'travel_explore', 'technical seo': 'travel_explore', 'optimisation on-page': 'find_in_page', 'on-page seo': 'find_in_page', 'pack office': 'description' };
-export const logoOf = (n) => { const k = String(n).toLowerCase(); return LOGOS[k] ? { logo: '/images/devicons/dv_' + LOGOS[k] + '.svg' } : { icon: ICONS[k] || 'code' }; };
 
 const TONES = [{ bg: '#0B1530', fg: '#FFFFFF', sub: '#8FA3E8' }, { bg: '#2448C8', fg: '#FFFFFF', sub: '#D3DCF8' }, { bg: '#E8EDFB', fg: '#1B379E', sub: '#2448C8' }];
 
@@ -38,7 +35,14 @@ export const state = reactive({
 const t = (v) => tx(v, state.lang);
 
 export const vm = computed(() => {
-    const s = state, d = s.data, fr = s.lang === 'fr', r = s.route, L = labels(fr);
+    const s = state, d = s.data, fr = s.lang === 'fr', r = s.route, pr = d.profile;
+    // Faits du profil (base de données) injectés dans les libellés.
+    const featuredLangs = (pr.languages || []).filter((l) => l.featured);
+    const L = { ...labels(fr),
+        fSinceV: (fr ? 'Depuis ' : 'Since ') + pr.since + ' · ' + d.experiences.length + (fr ? ' postes' : ' roles'),
+        fLangV: featuredLangs.map((l) => t(l.name) + (l.cefr ? ' (' + l.cefr + ')' : '')).join(' · '),
+        iStatusV: t(pr.status), availShort: t(pr.availabilityShort), replyTime: t(pr.replyTime), gReplyV: t(pr.replyDelay),
+        gFormatsV: t(pr.formats), gZoneV: t(pr.zone) };
     const mobile = s.w < 960, isHome = r === 'home';
     const H = (route) => href(s.lang, route);
     const hrefs = { home: H('home'), about: H('about'), work: H('work'), services: H('services'), contact: H('contact'), blog: H('blog') };
@@ -51,8 +55,7 @@ export const vm = computed(() => {
         exp: r === 'about', edu: r === 'about' && en.education !== false,
         skills: (isHome && en.skills) || r === 'about', services: (isHome && en.services) || r === 'services',
     };
-    const pr = d.profile;
-    const socials = (pr.socials || []).filter((x) => x.visible && x.url).map((x) => ({ label: x.label, url: x.url, icon: x.icon || 'link' }));
+    const socials = (pr.socials || []).map((x) => ({ label: x.label, url: x.url, icon: x.icon || 'link' }));
     const wa = (pr.socials || []).find((x) => x.label === 'WhatsApp' && x.visible && x.url);
     const p = {
         lastUp: (pr.lastName || '').toUpperCase(), first: pr.firstName, middle: pr.middleName || '', title: t(pr.title), stack: t(pr.stack), tagline: t(pr.tagline), location: t(pr.location),
@@ -110,13 +113,13 @@ export const vm = computed(() => {
     const tl = mobile ? { cols: '20px minmax(0,1fr)', colGap: '16px', dotCol: '1', line: '9px', gap: '36px' } : { cols: 'minmax(0,1fr) 40px minmax(0,1fr)', colGap: '32px', dotCol: '2', line: '50%', gap: '8px' };
     const softList = String(t(pr.softSkills) || '').split('·').map((x) => x.trim()).filter(Boolean);
 
-    const allSkills = d.skillGroups.flatMap((g) => g.skills.map((k) => ({ name: t(k.name), ...logoOf(t(k.name)) })));
-    const ptIcon = (po) => /seo/i.test(t(po.tags[0])) ? 'travel_explore' : /laravel|vue/i.test(t(po.tags[0])) ? 'code_blocks' : 'shopping_bag';
-    const fmtDate = (iso) => { try { return new Date(iso + 'T12:00:00').toLocaleDateString(fr ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } };
+    const allSkills = d.skillGroups.flatMap((g) => g.skills.map((k) => ({ name: t(k.name), logo: k.logo, icon: k.icon || 'code' })));
+    const heroStack = d.skillGroups.flatMap((g) => g.skills).filter((k) => k.heroPosition).sort((a, b) => a.heroPosition - b.heroPosition).map((k) => t(k.name));
+        const fmtDate = (iso) => { try { return new Date(iso + 'T12:00:00').toLocaleDateString(fr ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } };
     const allPosts = (d.posts || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
-    const posts = (isHome ? allPosts.slice(0, 3) : allPosts).map((x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read, icon: ptIcon(x), url: x.url, tags: (x.tags || []).map((v) => t(v)) }));
+    const posts = (isHome ? allPosts.slice(0, 3) : allPosts).map((x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read, icon: x.icon || 'article', url: x.url, tags: (x.tags || []).map((v) => t(v)) }));
     if (isHome && !posts.length) show.blog = false;
-    const aboutChips = [{ icon: 'location_on', text: t(pr.location) }, cur && { icon: 'work', text: cur.company + ' · ' + (fr ? 'depuis ' : 'since ') + t(cur.start) }, { icon: 'translate', text: fr ? 'Français · Anglais A2' : 'French · English A2' }].filter(Boolean);
+    const aboutChips = [{ icon: 'location_on', text: t(pr.location) }, cur && { icon: 'work', text: cur.company + ' · ' + (fr ? 'depuis ' : 'since ') + t(cur.start) }, featuredLangs.length && { icon: 'translate', text: featuredLangs.map((l) => t(l.name) + (l.cefr ? ' ' + l.cefr : '')).join(' · ') }].filter(Boolean);
 
     const pages = { blog: L.pBlog, about: L.pAbout, work: L.pWork, services: L.pServices, contact: L.pContact };
     const picons = { blog: 'article', about: 'person', work: 'grid_view', services: 'design_services', contact: 'mail' };
@@ -145,10 +148,10 @@ export const vm = computed(() => {
         home: { cta1: t(d.home.ctaPrimary), cta2: t(d.home.ctaSecondary) },
         bio: lines(t(pr.bio)),
         values: (pr.values || []).map((v, i) => ({ ...[{ bg: '#0B1530', fg: '#FFFFFF', sub: '#8FA3E8' }, { bg: '#2448C8', fg: '#FFFFFF', sub: '#D3DCF8' }, { bg: '#E8EDFB', fg: '#0B1530', sub: '#2448C8' }][i % 3],
-            num: pad(i + 1), title: t(v.title), text: t(v.text), icon: ['psychology', 'construction', 'trending_up'][i % 3], keys: (v.keys || []).map((k) => t(k)), open: s.flip === i })),
+            num: pad(i + 1), title: t(v.title), text: t(v.text), icon: v.icon, keys: (v.keys || []).map((k) => t(k)), open: s.flip === i })),
         cards, filters, projCount: pad(pub.length), cs, page,
-        skillGroups: d.skillGroups.map((g, gi) => ({ id: g.id, num: pad(gi + 1), label: t(g.label), skills: g.skills.map((k) => ({ name: t(k.name), note: t(k.note), ...logoOf(t(k.name)) })) })),
-        allSkills, posts, aboutChips, heroStats, heroStack: ['Laravel', 'Vue.js', 'PHP', 'SQL'], annots, annotPad: mobile ? '0px' : '150px',
+        skillGroups: d.skillGroups.map((g, gi) => ({ id: g.id, num: pad(gi + 1), label: t(g.label), skills: g.skills.map((k) => ({ name: t(k.name), note: t(k.note), logo: k.logo, icon: k.icon || 'code' })) })),
+        allSkills, posts, aboutChips, heroStats, heroStack, annots, annotPad: mobile ? '0px' : '150px',
         aboutInfo, tlItems, tl, softList, services: svcList,
         languages: (pr.languages || []).map((l) => ({ name: t(l.name), level: t(l.level) })),
         certs: (d.certifications || []).map((c) => ({ id: c.id, name: t(c.name), issuer: c.issuer, date: c.date, verify: c.verify })),

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use App\Models\Setting;
 use App\Models\User;
 use App\Support\Portfolio;
@@ -12,6 +13,8 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Contenu réel du portfolio (repris des maquettes) + compte administrateur.
+     * Chaque élément passe par saveFromFront(), qui crée aussi ses relations
+     * (technologies, étiquettes, entreprises, missions, compétences, langues…).
      */
     public function run(): void
     {
@@ -22,24 +25,21 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Fawoziath Salou', 'password' => Hash::make(env('ADMIN_PASSWORD', 'password'))]
         );
 
-        $sections = collect($data['home']['sections']);
-        if (! $sections->contains('type', 'blog')) {
-            $sections->splice($sections->count() - 1, 0, [['id' => 'blog', 'type' => 'blog', 'enabled' => true]]);
-            $data['home']['sections'] = $sections->values()->all();
-        }
+        (Profile::query()->first() ?? new Profile)->saveFromFront($data['profile']);
+        Portfolio::saveHome($data['home']);
 
-        foreach (Portfolio::DOCUMENTS as $doc) {
-            Setting::put($doc, $data[$doc]);
+        foreach (Portfolio::SETTINGS as $key) {
+            Setting::put($key, $data[$key]);
         }
 
         foreach (Portfolio::COLLECTIONS as $key => $model) {
-            $model::query()->delete();
+            $model::withTrashed()->forceDelete();
             foreach ($data[$key] ?? [] as $i => $item) {
                 if ($key === 'skillGroups') {
                     $item['code'] = $item['id'];
                 }
                 unset($item['id']);
-                (new $model)->fillFromFront($item + ['position' => $i])->save();
+                (new $model)->saveFromFront($item + ['position' => $i]);
             }
         }
     }

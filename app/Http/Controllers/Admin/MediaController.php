@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Media;
+use App\Support\Portfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,25 +41,18 @@ class MediaController extends Controller
     public function addUrl(Request $request)
     {
         $request->validate(['url' => 'required|url|max:500']);
-        $url = $request->input('url');
-        $media = Media::create([
-            'name' => basename(parse_url($url, PHP_URL_PATH) ?: '') ?: $url,
-            'url' => $url,
-            'kind' => preg_match('/\.pdf($|\?)/i', $url) ? 'doc' : 'image',
-        ]);
+        $media = Media::fromUrl($request->input('url'));
         Activity::log('Fichier ajouté');
 
         return response()->json($media->toFront(), 201);
     }
 
+    /** Fichier placé dans la corbeille ; il n'est effacé du disque qu'à la suppression définitive. */
     public function destroy(Media $media)
     {
-        if ($media->path) {
-            Storage::disk('public')->delete($media->path);
-        }
         $media->delete();
-        Activity::log('Fichier supprimé');
+        Activity::log('Fichier placé dans la corbeille');
 
-        return response()->noContent();
+        return response()->json(['trashCount' => Portfolio::trashCount()]);
     }
 }

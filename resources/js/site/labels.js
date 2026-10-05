@@ -3,14 +3,14 @@ export function labels(fr) {
   const L = fr ? {
     navAria: 'Navigation principale', langAria: 'Langue', crumbAria: 'Fil d’Ariane', menu: 'Menu', close: 'Fermer', footNav: 'Navigation', resources: 'Ressources', toTop: 'Revenir en haut', rights: 'Tous droits réservés',
     nav: ['Accueil', 'À propos', 'Projets', 'Services', 'Contact'], nav0: 'Accueil', nav2: 'Projets', ctaContact: 'Me contacter',
-    fWhere: 'Basée à', fNow: 'Poste actuel', fSince: 'Expérience', fSinceV: 'Depuis 2023 · 4 postes', fLang: 'Langues', fLangV: 'Français · Anglais (A2)',
+    fWhere: 'Basée à', fNow: 'Poste actuel', fSince: 'Expérience', fLang: 'Langues',
     aboutLabel: 'À propos', aboutTitle: 'Construire des produits web utiles, pas simplement écrire du code.', moreAbout: 'En savoir plus sur moi',
     workLabel: 'Projets sélectionnés', workTitle: 'Des applications réelles, du besoin au produit', workIntro: 'Applications métier, plateformes et sites développés au fil de mes expériences professionnelles.', allWork: 'Tous les projets', readCase: 'Étude de cas', filterAria: 'Filtrer les projets', fAll: 'Tous', kApp: 'Application', kSite: 'Site web',
     expLabel: 'Expérience', expTitle: 'Parcours professionnel', expIntro: 'Quatre postes en développement web fullstack, de l’e-commerce aux applications métier.', current: 'Poste actuel', fullPath: 'Voir tout le parcours',
     skillsLabel: 'Compétences', skillsTitle: 'Mon environnement technique', skillsIntro: 'Les langages, frameworks et outils que j’utilise au quotidien, regroupés par domaine.',
     servicesLabel: 'Services', servicesTitle: 'Comment je peux vous aider', allServices: 'Tous les services', askService: 'Demander ce service',
     eduLabel: 'Formation', certLabel: 'Certifications', langLabel: 'Langues', soft: 'Qualités', verify: 'Vérifier', testiTitle: 'Témoignages',
-    ctaHome: 'Un projet en tête ?', ctaCase: 'Vous avez un projet similaire ? Parlons-en.', ctaText: 'Disponible pour des missions freelance, des projets web complets ou une opportunité en équipe.', availShort: 'Disponible pour missions',
+    ctaHome: 'Un projet en tête ?', ctaCase: 'Vous avez un projet similaire ? Parlons-en.', ctaText: 'Disponible pour des missions freelance, des projets web complets ou une opportunité en équipe.',
     footBio: 'Je conçois des applications web concrètes, de l’analyse du besoin à la mise en ligne.',
     contactLabel: 'Contact', formTitle: 'Écrivez-moi', email: 'E-mail', phone: 'Téléphone', location: 'Localisation', hours: 'Horaires', follow: 'Suivez-moi',
     fName: 'Nom', fNamePh: 'Votre nom', emailPh: 'vous@exemple.com', subject: 'Sujet', message: 'Message',
@@ -27,14 +27,14 @@ export function labels(fr) {
   } : {
     navAria: 'Main navigation', langAria: 'Language', crumbAria: 'Breadcrumb', menu: 'Menu', close: 'Close', footNav: 'Navigation', resources: 'Resources', toTop: 'Back to top', rights: 'All rights reserved',
     nav: ['Home', 'About', 'Work', 'Services', 'Contact'], nav0: 'Home', nav2: 'Work', ctaContact: 'Contact me',
-    fWhere: 'Based in', fNow: 'Current role', fSince: 'Experience', fSinceV: 'Since 2023 · 4 roles', fLang: 'Languages', fLangV: 'French · English (A2)',
+    fWhere: 'Based in', fNow: 'Current role', fSince: 'Experience', fLang: 'Languages',
     aboutLabel: 'About', aboutTitle: 'Building useful web products, not just writing code.', moreAbout: 'More about me',
     workLabel: 'Selected work', workTitle: 'Real applications, from need to product', workIntro: 'Business applications, platforms and websites built across my professional roles.', allWork: 'All projects', readCase: 'Case study', filterAria: 'Filter projects', fAll: 'All', kApp: 'Application', kSite: 'Website',
     expLabel: 'Experience', expTitle: 'Where I’ve worked', expIntro: 'Four fullstack web development roles, from e-commerce to business applications.', current: 'Current role', fullPath: 'See full background',
     skillsLabel: 'Skills', skillsTitle: 'My technical toolkit', skillsIntro: 'The languages, frameworks and tools I use day to day, grouped by area.',
     servicesLabel: 'Services', servicesTitle: 'How I can help', allServices: 'All services', askService: 'Request this service',
     eduLabel: 'Education', certLabel: 'Certifications', langLabel: 'Languages', soft: 'Strengths', verify: 'Verify', testiTitle: 'Testimonials',
-    ctaHome: 'Got a project in mind?', ctaCase: 'Working on something similar? Let’s talk.', ctaText: 'Available for freelance work, complete web projects or a role in a team.', availShort: 'Available for projects',
+    ctaHome: 'Got a project in mind?', ctaCase: 'Working on something similar? Let’s talk.', ctaText: 'Available for freelance work, complete web projects or a role in a team.',
     footBio: 'I build practical web applications, from understanding the need to going live.',
     contactLabel: 'Contact', formTitle: 'Send me a message', email: 'Email', phone: 'Phone', location: 'Location', hours: 'Hours', follow: 'Follow me',
     fName: 'Name', fNamePh: 'Your name', emailPh: 'you@example.com', subject: 'Subject', message: 'Message',
@@ -50,17 +50,17 @@ export function labels(fr) {
     pContact: ['Contact', 'Let’s talk about your project', 'I’m available for freelance work, complete web projects or technical advice.']
   };
   Object.assign(L, fr ? {
-    svcEyebrow: 'Demande de service', svcService: 'Service souhaité', nameLbl: 'Nom', emailLbl: 'E-mail', phoneLbl: 'Téléphone / WhatsApp', svcWhen: 'Délai souhaité', svcWhens: ['Dès que possible', 'Dans le mois', 'Dans les 3 mois', 'Pas de date fixe'], svcNeed: 'Votre besoin', svcNeedPh: 'Décrivez le projet, le contexte et ce que vous attendez.', svcSend: 'Envoyer la demande', svcSending: 'Envoi…', svcOkTitle: 'Demande envoyée', svcOkText: 'Merci ! J’ai bien reçu votre demande et je reviens vers vous rapidement par e-mail.', cancel: 'Annuler', choose: 'Choisir…', ctaEyebrow: 'Travaillons ensemble', glance: 'En bref', onPage: 'Sur cette page', jMethod: 'Méthode', jPath: 'Parcours', jLang: 'Langues', jSkills: 'Compétences', gProjects: 'Projets', gOnline: 'En ligne', gTopics: 'Thèmes', gArticles: 'Articles', gReply: 'Délai de réponse', gReplyV: '24 h en général', gServices: 'Prestations', gFormats: 'Formats', gFormatsV: 'Freelance · Mission · Formation', gZone: 'Zone', gZoneV: 'Bénin & à distance', methodTitle: 'Ma méthode en 3 temps', flipHint: 'Survolez ou touchez une carte', statusLabel: 'Statut', heroBadge: 'Développeuse fullstack', hello: 'Bonjour, je suis', sYears: 'ans d’expérience', sProjects: 'projets réalisés', sRoles: 'expériences pro',
+    svcEyebrow: 'Demande de service', svcService: 'Service souhaité', nameLbl: 'Nom', emailLbl: 'E-mail', phoneLbl: 'Téléphone / WhatsApp', svcWhen: 'Délai souhaité', svcWhens: ['Dès que possible', 'Dans le mois', 'Dans les 3 mois', 'Pas de date fixe'], svcNeed: 'Votre besoin', svcNeedPh: 'Décrivez le projet, le contexte et ce que vous attendez.', svcSend: 'Envoyer la demande', svcSending: 'Envoi…', svcOkTitle: 'Demande envoyée', svcOkText: 'Merci ! J’ai bien reçu votre demande et je reviens vers vous rapidement par e-mail.', cancel: 'Annuler', choose: 'Choisir…', ctaEyebrow: 'Travaillons ensemble', glance: 'En bref', onPage: 'Sur cette page', jMethod: 'Méthode', jPath: 'Parcours', jLang: 'Langues', jSkills: 'Compétences', gProjects: 'Projets', gOnline: 'En ligne', gTopics: 'Thèmes', gArticles: 'Articles', gReply: 'Délai de réponse', gServices: 'Prestations', gFormats: 'Formats', gZone: 'Zone', methodTitle: 'Ma méthode en 3 temps', flipHint: 'Survolez ou touchez une carte', statusLabel: 'Statut', heroBadge: 'Développeuse fullstack', hello: 'Bonjour, je suis', sYears: 'ans d’expérience', sProjects: 'projets réalisés', sRoles: 'expériences pro',
     aRole: 'Rôle', aLoc: 'Localisation', aStatus: 'Statut', ghTitle: 'Activité GitHub', ghRepos: 'dépôts publics', ghSince: 'membre depuis',
-    iName: 'Nom complet', iLoc: 'Localisation', iLang: 'Langues', iStatus: 'Statut', iStatusV: 'Ouverte au freelance et au CDI',
+    iName: 'Nom complet', iLoc: 'Localisation', iLang: 'Langues', iStatus: 'Statut',
     expLabel: 'Mon parcours', expTitle: 'Expériences & Formations', kCdi: 'Expérience · CDI', kCdd: 'Expérience · CDD', kStage: 'Expérience · Stage', kEdu: 'Formation',
-    crumbWork: 'Mes réalisations', replyTime: 'Réponse sous 24 h en général', formTitle: 'Écrivez-moi'
+    crumbWork: 'Mes réalisations', formTitle: 'Écrivez-moi'
   } : {
-    svcEyebrow: 'Service request', svcService: 'Service', nameLbl: 'Name', emailLbl: 'Email', phoneLbl: 'Phone / WhatsApp', svcWhen: 'Preferred timing', svcWhens: ['As soon as possible', 'Within a month', 'Within 3 months', 'No fixed date'], svcNeed: 'Your need', svcNeedPh: 'Describe the project, the context and what you expect.', svcSend: 'Send request', svcSending: 'Sending…', svcOkTitle: 'Request sent', svcOkText: 'Thank you! I’ve received your request and will get back to you shortly by email.', cancel: 'Cancel', choose: 'Choose…', ctaEyebrow: 'Let’s work together', glance: 'At a glance', onPage: 'On this page', jMethod: 'Method', jPath: 'Journey', jLang: 'Languages', jSkills: 'Skills', gProjects: 'Projects', gOnline: 'Live', gTopics: 'Topics', gArticles: 'Articles', gReply: 'Response time', gReplyV: 'Usually 24 h', gServices: 'Services', gFormats: 'Formats', gFormatsV: 'Freelance · Contract · Training', gZone: 'Area', gZoneV: 'Benin & remote', methodTitle: 'My three-step method', flipHint: 'Hover or tap a card', statusLabel: 'Status', heroBadge: 'Fullstack developer', hello: 'Hi, I’m', sYears: 'years of experience', sProjects: 'projects delivered', sRoles: 'professional roles',
+    svcEyebrow: 'Service request', svcService: 'Service', nameLbl: 'Name', emailLbl: 'Email', phoneLbl: 'Phone / WhatsApp', svcWhen: 'Preferred timing', svcWhens: ['As soon as possible', 'Within a month', 'Within 3 months', 'No fixed date'], svcNeed: 'Your need', svcNeedPh: 'Describe the project, the context and what you expect.', svcSend: 'Send request', svcSending: 'Sending…', svcOkTitle: 'Request sent', svcOkText: 'Thank you! I’ve received your request and will get back to you shortly by email.', cancel: 'Cancel', choose: 'Choose…', ctaEyebrow: 'Let’s work together', glance: 'At a glance', onPage: 'On this page', jMethod: 'Method', jPath: 'Journey', jLang: 'Languages', jSkills: 'Skills', gProjects: 'Projects', gOnline: 'Live', gTopics: 'Topics', gArticles: 'Articles', gReply: 'Response time', gServices: 'Services', gFormats: 'Formats', gZone: 'Area', methodTitle: 'My three-step method', flipHint: 'Hover or tap a card', statusLabel: 'Status', heroBadge: 'Fullstack developer', hello: 'Hi, I’m', sYears: 'years of experience', sProjects: 'projects delivered', sRoles: 'professional roles',
     aRole: 'Role', aLoc: 'Location', aStatus: 'Status', ghTitle: 'GitHub activity', ghRepos: 'public repos', ghSince: 'member since',
-    iName: 'Full name', iLoc: 'Location', iLang: 'Languages', iStatus: 'Status', iStatusV: 'Open to freelance and full-time roles',
+    iName: 'Full name', iLoc: 'Location', iLang: 'Languages', iStatus: 'Status',
     expLabel: 'My journey', expTitle: 'Experience & Education', kCdi: 'Experience · Full-time', kCdd: 'Experience · Fixed-term', kStage: 'Experience · Internship', kEdu: 'Education',
-    crumbWork: 'Work', replyTime: 'Usually replies within 24 h', formTitle: 'Send me a message'
+    crumbWork: 'Work', formTitle: 'Send me a message'
   });
   Object.assign(L, fr ? {
     aboutShortTitle: 'Développeuse fullstack, orientée produit.',

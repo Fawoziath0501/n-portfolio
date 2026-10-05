@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
-import { COLS, ask, createItem, missingEn, save, state, syncItem, syncOrder } from '../store';
+import { COLS, TRASH_HINT, ask, createItem, missingEn, save, state, syncItem, syncOrder, trash } from '../store';
 
 const v = state.view;
 const col = COLS[v];
@@ -25,8 +25,8 @@ const dup = (x, i) => {
   if (c.slug) c.slug += '-copie';
   save(() => {}, 'Élément dupliqué', async () => { const created = await createItem(v, c, i + 1, 'Élément dupliqué'); state.data[v].splice(i + 1, 0, created); });
 };
-const del = (x) => ask('Supprimer « ' + (col.title(x) || 'cet élément') + ' » ?', 'Cette action est définitive.', () =>
-  save((d) => { d[v] = d[v].filter((y) => y.id !== x.id); }, 'Élément supprimé', () => api.delete(`/admin/${v}/${x.id}`, { data: { activity: 'Élément supprimé' } })));
+const del = (x) => ask('Placer « ' + (col.title(x) || 'cet élément') + ' » dans la corbeille ?', TRASH_HINT, () =>
+  save((d) => { d[v] = d[v].filter((y) => y.id !== x.id); }, 'Placé dans la corbeille', () => trash(api.delete(`/admin/${v}/${x.id}`, { data: { activity: 'Placé dans la corbeille : ' + col.title(x) } }))), 'Mettre à la corbeille');
 const edit = (x) => { state.edit = { col: v, isNew: false, draft: JSON.parse(JSON.stringify(x)) }; };
 </script>
 
@@ -54,7 +54,7 @@ const edit = (x) => { state.edit = { col: v, isNew: false, draft: JSON.parse(JSO
         <button v-if="col.featured" type="button" class="ibtn" aria-label="Mettre en avant" title="Mettre en avant" @click="update(x, { featured: !x.featured }, x.featured ? 'Retiré de l’accueil' : 'Mis en avant')"><span class="ms">star</span></button>
         <button type="button" class="ibtn" :aria-label="x.published ? 'Dépublier' : 'Publier'" :title="x.published ? 'Dépublier' : 'Publier'" @click="update(x, { published: !x.published }, x.published ? 'Passé en brouillon' : 'Publié')"><span class="ms">{{ x.published ? 'visibility' : 'visibility_off' }}</span></button>
         <button type="button" class="ibtn" aria-label="Dupliquer" title="Dupliquer" @click="dup(x, i)"><span class="ms">content_copy</span></button>
-        <button type="button" class="ibtn red" aria-label="Supprimer" title="Supprimer" @click="del(x)"><span class="ms">delete</span></button>
+        <button type="button" class="ibtn red" aria-label="Mettre à la corbeille" title="Mettre à la corbeille" @click="del(x)"><span class="ms">delete</span></button>
         <a v-if="['projects', 'posts', 'services'].includes(v) && x.published" :href="preview(x)" target="_blank" rel="noopener" class="ibtn" aria-label="Voir sur le site" title="Voir sur le site"><span class="ms">open_in_new</span></a>
         <button type="button" class="abtn xs" @click="edit(x)"><span class="ms">edit</span>Modifier</button>
       </span>

@@ -1,14 +1,14 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
-import { ask, fmtMD, iso, save, state } from '../store';
+import { TRASH_HINT, ask, fmtMD, iso, save, state, trash } from '../store';
 
 const subs = computed(() => (state.data.subscribers || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))));
 const kpis = computed(() => {
   const d30 = iso(new Date(Date.now() - 30 * 864e5));
   return [{ label: 'Inscrits au total', value: subs.value.length }, { label: 'Nouveaux (30 j)', value: subs.value.filter((x) => x.date >= d30).length }, { label: 'En anglais', value: subs.value.filter((x) => x.lang === 'en').length }];
 });
-const del = (x) => ask('Retirer cet inscrit ?', x.email, () => save((d) => { d.subscribers = d.subscribers.filter((y) => y.id !== x.id); }, 'Inscrit retiré', () => api.delete('/admin/subscribers/' + x.id)));
+const del = (x) => ask('Retirer ' + x.email + ' ?', TRASH_HINT + ' S’il se réinscrit, il sera restauré automatiquement.', () => save((d) => { d.subscribers = d.subscribers.filter((y) => y.id !== x.id); }, 'Inscrit placé dans la corbeille', () => trash(api.delete('/admin/subscribers/' + x.id))), 'Retirer');
 </script>
 
 <template>

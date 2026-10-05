@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\NewMessageMail;
 use App\Models\Event;
 use App\Models\Message;
+use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
@@ -38,8 +39,11 @@ class InteractionController extends Controller
             ]));
         }
 
+        $service = $isService ? Service::published()->get()->first(fn ($x) => in_array($v['service'] ?? '', [$x->title['fr'] ?? '', $x->title['en'] ?? ''], true)) : null;
+
         $message = Message::create([
             'type' => $isService ? 'service' : 'contact',
+            'service_id' => $service?->id,
             'service' => $v['service'] ?? '',
             'name' => trim($v['name']),
             'email' => trim($v['email']),
@@ -66,10 +70,17 @@ class InteractionController extends Controller
         $v = $request->validate(['email' => 'required|email|max:180', 'lang' => 'nullable|in:fr,en']);
         $email = strtolower(trim($v['email']));
 
-        if (Subscriber::where('email', $email)->exists()) {
+        $existing = Subscriber::withTrashed()->where('email', $email)->first();
+        if ($existing && ! $existing->trashed()) {
             return response()->json(['error' => 'dup'], 409);
         }
-        Subscriber::create(['email' => $email, 'lang' => $v['lang'] ?? 'fr']);
+        if ($existing) {
+            // Inscrit retiré qui revient : on restaure plutôt que de dupliquer.
+            $existing->restore();
+            $existing->update(['lang' => $v['lang'] ?? $existing->lang]);
+        } else {
+            Subscriber::create(['email' => $email, 'lang' => $v['lang'] ?? 'fr']);
+        }
 
         return response()->json(['ok' => true], 201);
     }
