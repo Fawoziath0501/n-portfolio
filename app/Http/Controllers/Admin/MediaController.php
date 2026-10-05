@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Activity;
+use App\Models\Media;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class MediaController extends Controller
+{
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'files' => 'required|array|max:20',
+            'files.*' => 'file|mimes:jpg,jpeg,png,webp,gif,svg,pdf|max:8192',
+        ]);
+
+        $created = [];
+        foreach ($request->file('files') as $file) {
+            $isDoc = strtolower($file->getClientOriginalExtension()) === 'pdf';
+            $path = $file->store('media', 'public');
+            [$w, $h] = $isDoc ? [0, 0] : (@getimagesize($file->getRealPath()) ?: [0, 0]);
+            $created[] = Media::create([
+                'name' => $file->getClientOriginalName(),
+                'path' => $path,
+                'url' => Storage::disk('public')->url($path),
+                'kind' => $isDoc ? 'doc' : 'image',
+                'width' => $w,
+                'height' => $h,
+                'size' => $file->getSize(),
+            ])->toFront();
+        }
+        Activity::log(count($created).' fichier(s) importé(s)');
+
+        return response()->json($created, 201);
+    }
+
+    public function addUrl(Request $request)
+    {
+        $request->validate(['url' => 'required|url|max:500']);
+        $url = $request->input('url');
+        $media = Media::create([
+            'name' => basename(parse_url($url, PHP_URL_PATH) ?: '') ?: $url,
+            'url' => $url,
+            'kind' => preg_match('/\.pdf($|\?)/i', $url) ? 'doc' : 'image',
+        ]);
+        Activity::log('Fichier ajouté');
+
+        return response()->json($media->toFront(), 201);
+    }
+
+    public function destroy(Media $media)
+    {
+        if ($media->path) {
+            Storage::disk('public')->delete($media->path);
+        }
+        $media->delete();
+        Activity::log('Fichier supprimé');
+
+        return response()->noContent();
+    }
+}

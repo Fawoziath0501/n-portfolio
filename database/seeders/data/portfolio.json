@@ -1,0 +1,1192 @@
+{
+  "profile": {
+    "firstName": "Fawoziath",
+    "middleName": "Modjissola",
+    "lastName": "Salou",
+    "title": {
+      "fr": "Développeuse fullstack",
+      "en": "Fullstack developer"
+    },
+    "stack": {
+      "fr": "Laravel · Vue.js · Applications web",
+      "en": "Laravel · Vue.js · Web applications"
+    },
+    "tagline": {
+      "fr": "Je transforme des besoins métier en applications web concrètes, de la compréhension du besoin jusqu’au produit en ligne.",
+      "en": "I build web applications made to work in the real world, from understanding the need to shipping the product."
+    },
+    "location": {
+      "fr": "Abomey-Calavi, Bénin",
+      "en": "Abomey-Calavi, Benin"
+    },
+    "email": "saloufawoziath236@gmail.com",
+    "phone": "+229 01 59 97 08 90",
+    "hours": {
+      "fr": "Lun – Ven, 8h – 18h",
+      "en": "Mon – Fri, 8am – 6pm"
+    },
+    "since": "2023",
+    "bio": {
+      "fr": "Je conçois et développe des applications web complètes avec Laravel et Vue.js : outils métier, plateformes, sites connectés à une application. J’interviens de l’analyse du besoin jusqu’à la mise en ligne, avec une attention particulière à la qualité du code, à l’expérience utilisateur et au référencement.\nDepuis octobre 2024, je travaille chez Megatech SARL à Cotonou, où je participe à l’analyse et au développement d’applications comme Wura, Forbmit, CISTE ou Présentia.",
+      "en": "I design and build complete web applications with Laravel and Vue.js: business tools, platforms, websites connected to an app. I work from understanding the need through to launch, with close attention to code quality, user experience and search visibility.\nSince October 2024 I have been working at Megatech SARL in Cotonou, contributing to the analysis and development of applications such as Wura, Forbmit, CISTE and Présentia."
+    },
+    "availability": {
+      "fr": "Disponible pour missions freelance et opportunités",
+      "en": "Open to freelance work and new roles"
+    },
+    "photo": "",
+    "cv": "",
+    "values": [
+      {
+        "id": "v1",
+        "title": {
+          "fr": "Comprendre",
+          "en": "Understand"
+        },
+        "text": {
+          "fr": "Comprendre le besoin métier et les utilisateurs avant d’écrire la première ligne de code.",
+          "en": "Understand the business need and the people using the product before writing the first line of code."
+        },
+        "keys": [
+          {
+            "fr": "Analyse du besoin",
+            "en": "Needs analysis"
+          },
+          {
+            "fr": "Échanges métier",
+            "en": "Business input"
+          },
+          {
+            "fr": "Cadrage",
+            "en": "Scoping"
+          }
+        ]
+      },
+      {
+        "id": "v2",
+        "title": {
+          "fr": "Construire",
+          "en": "Build"
+        },
+        "text": {
+          "fr": "Livrer une solution maintenable, un code propre et une expérience cohérente.",
+          "en": "Deliver a maintainable solution, clean code and a consistent experience."
+        },
+        "keys": [
+          {
+            "fr": "Code maintenable",
+            "en": "Maintainable code"
+          },
+          {
+            "fr": "UX cohérente",
+            "en": "Consistent UX"
+          },
+          {
+            "fr": "Laravel & Vue.js",
+            "en": "Laravel & Vue.js"
+          }
+        ]
+      },
+      {
+        "id": "v3",
+        "title": {
+          "fr": "Améliorer",
+          "en": "Improve"
+        },
+        "text": {
+          "fr": "Tester, corriger, sécuriser et faire évoluer le produit dans le temps.",
+          "en": "Test, fix, secure and keep the product evolving over time."
+        },
+        "keys": [
+          {
+            "fr": "Tests",
+            "en": "Testing"
+          },
+          {
+            "fr": "Sécurité",
+            "en": "Security"
+          },
+          {
+            "fr": "SEO & performance",
+            "en": "SEO & performance"
+          }
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "id": "l1",
+        "name": {
+          "fr": "Français",
+          "en": "French"
+        },
+        "level": {
+          "fr": "Courant",
+          "en": "Fluent"
+        }
+      },
+      {
+        "id": "l2",
+        "name": {
+          "fr": "Anglais",
+          "en": "English"
+        },
+        "level": {
+          "fr": "A2, en progression",
+          "en": "A2, improving"
+        }
+      },
+      {
+        "id": "l3",
+        "name": {
+          "fr": "Espagnol",
+          "en": "Spanish"
+        },
+        "level": {
+          "fr": "Notions",
+          "en": "Basic"
+        }
+      }
+    ],
+    "github": {
+      "handle": "Fawoziath0501",
+      "url": "https://github.com/Fawoziath0501",
+      "publicRepos": 6,
+      "since": "2022",
+      "visible": true,
+      "repos": [
+        {
+          "name": "30-Days-Of-Python",
+          "lang": ""
+        },
+        {
+          "name": "prixcomp",
+          "lang": "HTML"
+        },
+        {
+          "name": "Translator_Flutter_App",
+          "lang": ""
+        },
+        {
+          "name": "git-mon-cv",
+          "lang": "HTML"
+        }
+      ]
+    },
+    "softSkills": {
+      "fr": "Esprit d’équipe · Rigueur · Organisation",
+      "en": "Team player · Rigour · Organisation"
+    },
+    "socials": [
+      {
+        "id": "so1",
+        "label": "GitHub",
+        "icon": "code",
+        "url": "https://github.com/Fawoziath0501",
+        "handle": "@Fawoziath0501",
+        "visible": true
+      },
+      {
+        "id": "so2",
+        "label": "LinkedIn",
+        "icon": "work",
+        "url": "https://www.linkedin.com/in/fawoziath-modjissola",
+        "handle": "fawoziath-modjissola",
+        "visible": true
+      },
+      {
+        "id": "so3",
+        "label": "WhatsApp",
+        "icon": "chat",
+        "url": "https://wa.me/qr/HOSZP76MHTJ5M1",
+        "handle": "+229 01 59 97 08 90",
+        "visible": true
+      },
+      {
+        "id": "so4",
+        "label": "Instagram",
+        "icon": "photo_camera",
+        "url": "https://instagram.com/fawoziath_05",
+        "handle": "@fawoziath_05",
+        "visible": true
+      }
+    ]
+  },
+  "home": {
+    "eyebrow": {
+      "fr": "Développeuse fullstack · Cotonou, Bénin",
+      "en": "Fullstack developer · Cotonou, Benin"
+    },
+    "ctaPrimary": {
+      "fr": "Voir mes projets",
+      "en": "View my work"
+    },
+    "ctaSecondary": {
+      "fr": "Me contacter",
+      "en": "Contact me"
+    },
+    "sections": [
+      {
+        "id": "about",
+        "type": "about",
+        "enabled": true
+      },
+      {
+        "id": "projects",
+        "type": "projects",
+        "enabled": true
+      },
+      {
+        "id": "experience",
+        "type": "experience",
+        "enabled": true
+      },
+      {
+        "id": "skills",
+        "type": "skills",
+        "enabled": true
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "enabled": true
+      },
+      {
+        "id": "education",
+        "type": "education",
+        "enabled": true
+      },
+      {
+        "id": "testimonials",
+        "type": "testimonials",
+        "enabled": true
+      },
+      {
+        "id": "contact",
+        "type": "contact",
+        "enabled": true
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "p1",
+      "published": true,
+      "featured": true,
+      "slug": "presentia",
+      "title": {
+        "fr": "Présentia",
+        "en": "Présentia"
+      },
+      "year": "",
+      "link": "",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Application interne · RH & présence",
+        "en": "Internal tool · HR & attendance"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Application interne de gestion des ressources humaines et de suivi de présence.",
+        "en": "Internal application for HR management and attendance tracking."
+      },
+      "context": {
+        "fr": "Présentia centralise la gestion RH et la présence des équipes au sein d’une même application interne.",
+        "en": "Présentia brings HR management and team attendance together in a single internal application."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "Tâches et projets\nRôles et permissions dynamiques\nGestion documentaire\nDigitalisation des conventions de stage\nTableaux de bord et indicateurs clés\nTests automatisés\nRevues de sécurité",
+        "en": "Tasks and projects\nDynamic roles and permissions\nDocument management\nDigital internship agreements\nDashboards and key indicators\nAutomated tests\nSecurity reviews"
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p2",
+      "published": true,
+      "featured": true,
+      "slug": "ciste",
+      "title": {
+        "fr": "CISTE",
+        "en": "CISTE"
+      },
+      "year": "",
+      "link": "https://www.ciste.org",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Site web & application santé au travail",
+        "en": "Website & occupational health app"
+      },
+      "role": {
+        "fr": "Développeuse fullstack · SEO",
+        "en": "Fullstack developer · SEO"
+      },
+      "summary": {
+        "fr": "Site web intégrant une application de suivi de santé au travail.",
+        "en": "Website with a built-in occupational health tracking application."
+      },
+      "context": {
+        "fr": "CISTE dispose d’un site web public et d’une application intégrée dédiée au suivi de la santé au travail.",
+        "en": "CISTE runs a public website with an integrated application for occupational health tracking."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "Développement du site et de l’application intégrée\nMise en œuvre de la stratégie SEO",
+        "en": "Development of the website and integrated application\nImplementation of the SEO strategy"
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p3",
+      "published": true,
+      "featured": true,
+      "slug": "wura",
+      "title": {
+        "fr": "Wura",
+        "en": "Wura"
+      },
+      "year": "",
+      "link": "https://www.wura.africa",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Application web de recrutement",
+        "en": "Recruitment web app"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Application web de recrutement.",
+        "en": "Recruitment web application."
+      },
+      "context": {
+        "fr": "Wura est une application web dédiée au recrutement.",
+        "en": "Wura is a web application dedicated to recruitment."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "",
+        "en": ""
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p4",
+      "published": true,
+      "featured": true,
+      "slug": "doubovo",
+      "title": {
+        "fr": "Doubovo",
+        "en": "Doubovo"
+      },
+      "year": "",
+      "link": "https://doubovo.tech",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Plateforme de services de repas",
+        "en": "Meal service platform"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Plateforme web de gestion de services de repas : vitrine, client, livreur, administration.",
+        "en": "Web platform for meal services: website, customer app, courier features, admin."
+      },
+      "context": {
+        "fr": "Doubovo est une plateforme de gestion de services de repas.",
+        "en": "Doubovo is a platform for managing meal services."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "",
+        "en": ""
+      },
+      "solution": {
+        "fr": "Site vitrine\nApplication client\nFonctionnalités livreur\nAdministration",
+        "en": "Public website\nCustomer application\nCourier features\nAdministration"
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p5",
+      "published": true,
+      "featured": true,
+      "slug": "forbmit",
+      "title": {
+        "fr": "Forbmit",
+        "en": "Forbmit"
+      },
+      "year": "",
+      "link": "https://www.forbmit.com",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Générateur de formulaires",
+        "en": "Form builder"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Application web de génération de formulaires.",
+        "en": "Web application for building forms."
+      },
+      "context": {
+        "fr": "Forbmit permet de créer et générer des formulaires en ligne.",
+        "en": "Forbmit lets users create and generate online forms."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "",
+        "en": ""
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p6",
+      "published": true,
+      "featured": true,
+      "slug": "eventreet",
+      "title": {
+        "fr": "Eventreet",
+        "en": "Eventreet"
+      },
+      "year": "",
+      "link": "",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Gestion d’événements & badges",
+        "en": "Event management & badges"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Refonte fonctionnelle et applicative d’une application de gestion d’événements et de génération de badges.",
+        "en": "Functional and technical overhaul of an event management and badge generation app."
+      },
+      "context": {
+        "fr": "Eventreet est une application de gestion d’événements et de génération de badges.",
+        "en": "Eventreet is an event management and badge generation application."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "Refonte fonctionnelle\nRefonte applicative",
+        "en": "Functional overhaul\nApplication overhaul"
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p9",
+      "published": true,
+      "featured": false,
+      "slug": "lecommercial",
+      "title": {
+        "fr": "Le Commercial",
+        "en": "Le Commercial"
+      },
+      "year": "",
+      "link": "https://lecommercial.xyz",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Campagnes WhatsApp Business",
+        "en": "WhatsApp Business campaigns"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Application de gestion de communications et de campagnes digitales via WhatsApp Business.",
+        "en": "App for managing communications and digital campaigns through WhatsApp Business."
+      },
+      "context": {
+        "fr": "Le Commercial centralise la gestion des communications et des campagnes digitales menées via WhatsApp Business.",
+        "en": "Le Commercial centralises communications and digital campaigns run through WhatsApp Business."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "Développement de l’application",
+        "en": "Application development"
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p10",
+      "published": true,
+      "featured": false,
+      "slug": "becsarl",
+      "title": {
+        "fr": "BEC SARL",
+        "en": "BEC SARL"
+      },
+      "year": "",
+      "link": "https://becsarl.com",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Site vitrine · expertise comptable",
+        "en": "Website · accounting firm"
+      },
+      "role": {
+        "fr": "Développeuse web",
+        "en": "Web developer"
+      },
+      "summary": {
+        "fr": "Site de présentation d’un cabinet d’expertise comptable, d’audit et de conseil.",
+        "en": "Website for an accounting, audit and advisory firm."
+      },
+      "context": {
+        "fr": "Le site BEC SARL présente un cabinet d’expertise comptable, d’audit et de conseil. Réalisé pendant le stage chez Waouh Monde.",
+        "en": "The BEC SARL website presents an accounting, audit and advisory firm. Built during the Waouh Monde internship."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "",
+        "en": ""
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": [
+        "WordPress",
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "id": "p7",
+      "published": true,
+      "featured": false,
+      "slug": "gstock",
+      "title": {
+        "fr": "GStock",
+        "en": "GStock"
+      },
+      "year": "",
+      "link": "",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Gestion de stock multi-rôles",
+        "en": "Multi-role stock management"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Application de gestion de stock de compléments alimentaires, avec gestion multi-rôles.",
+        "en": "Stock management app for food supplements, with multi-role access."
+      },
+      "context": {
+        "fr": "GStock gère le stock de compléments alimentaires avec plusieurs profils d’utilisateurs.",
+        "en": "GStock manages food supplement stock across several user roles."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "",
+        "en": ""
+      },
+      "solution": {
+        "fr": "Gestion de stock\nGestion multi-rôles",
+        "en": "Stock management\nMulti-role access"
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p8",
+      "published": true,
+      "featured": false,
+      "slug": "wisafrica",
+      "title": {
+        "fr": "WisAfrica",
+        "en": "WisAfrica"
+      },
+      "year": "",
+      "link": "",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Plateforme de formation",
+        "en": "Training platform"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Plateforme de formation aux métiers du numérique.",
+        "en": "Training platform for digital careers."
+      },
+      "context": {
+        "fr": "WisAfrica propose des formations aux métiers du numérique.",
+        "en": "WisAfrica offers training for careers in digital."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "",
+        "en": ""
+      },
+      "solution": {
+        "fr": "",
+        "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    }
+  ],
+  "experiences": [
+    {
+      "id": "e1",
+      "published": true,
+      "current": true,
+      "company": "Megatech SARL",
+      "location": {
+        "fr": "Cotonou, Bénin",
+        "en": "Cotonou, Benin"
+      },
+      "role": {
+        "fr": "Développeuse web fullstack",
+        "en": "Fullstack web developer"
+      },
+      "start": {
+        "fr": "Oct. 2024",
+        "en": "Oct 2024"
+      },
+      "end": {
+        "fr": "aujourd’hui",
+        "en": "present"
+      },
+      "description": {
+        "fr": "Analyse, conception et développement d’applications web et d’outils métier.",
+        "en": "Analysis, design and development of web applications and business tools."
+      },
+      "duties": {
+        "fr": "Analyse et développement d’une application web de recrutement (wura.africa)\nApplication de gestion de communications et campagnes digitales via WhatsApp Business (lecommercial.xyz)\nApplication web de génération de formulaires (forbmit.com)\nApplication de suivi de la santé au travail pour CISTE (ciste.org), avec stratégie SEO complète\nPrésentia : rôles et permissions, gestion documentaire, tableaux de bord, tests et revues de sécurité",
+        "en": "Analysis and development of a recruitment web app (wura.africa)\nCommunications and digital campaign management app via WhatsApp Business (lecommercial.xyz)\nForm-builder web application (forbmit.com)\nOccupational health tracking app for CISTE (ciste.org), with a full SEO strategy\nPrésentia: roles and permissions, document management, dashboards, tests and security reviews"
+      }
+    },
+    {
+      "id": "e2",
+      "published": true,
+      "current": false,
+      "company": "Waouh Monde",
+      "location": {
+        "fr": "Abomey-Calavi, Bénin",
+        "en": "Abomey-Calavi, Benin"
+      },
+      "role": {
+        "fr": "Stagiaire en développement web fullstack",
+        "en": "Fullstack web development intern"
+      },
+      "start": {
+        "fr": "Mai 2024",
+        "en": "May 2024"
+      },
+      "end": {
+        "fr": "oct. 2024",
+        "en": "Oct 2024"
+      },
+      "description": {
+        "fr": "",
+        "en": ""
+      },
+      "duties": {
+        "fr": "Application web de gestion de cabinets d’avocats\nSite de présentation d’un cabinet d’expertise comptable",
+        "en": "Law-firm management web application\nWebsite for an accounting firm"
+      }
+    },
+    {
+      "id": "e3",
+      "published": true,
+      "current": false,
+      "company": "Formatplus",
+      "location": {
+        "fr": "",
+        "en": ""
+      },
+      "role": {
+        "fr": "Développeuse web fullstack (CDD)",
+        "en": "Fullstack web developer (fixed-term)"
+      },
+      "start": {
+        "fr": "Oct. 2023",
+        "en": "Oct 2023"
+      },
+      "end": {
+        "fr": "avr. 2024",
+        "en": "Apr 2024"
+      },
+      "description": {
+        "fr": "",
+        "en": ""
+      },
+      "duties": {
+        "fr": "Sites e-commerce\nPlateformes e-learning\nTests, débogage et documentation",
+        "en": "E-commerce websites\nE-learning platforms\nTesting, debugging and documentation"
+      }
+    },
+    {
+      "id": "e4",
+      "published": true,
+      "current": false,
+      "company": "Formatplus",
+      "location": {
+        "fr": "",
+        "en": ""
+      },
+      "role": {
+        "fr": "Stagiaire en développement web fullstack",
+        "en": "Fullstack web development intern"
+      },
+      "start": {
+        "fr": "Juil. 2023",
+        "en": "Jul 2023"
+      },
+      "end": {
+        "fr": "sept. 2023",
+        "en": "Sep 2023"
+      },
+      "description": {
+        "fr": "",
+        "en": ""
+      },
+      "duties": {
+        "fr": "",
+        "en": ""
+      }
+    }
+  ],
+  "skillGroups": [
+    {
+      "id": "sg1",
+      "label": {
+        "fr": "Backend",
+        "en": "Backend"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": "Laravel"
+        },
+        {
+          "name": "PHP"
+        }
+      ]
+    },
+    {
+      "id": "sg2",
+      "label": {
+        "fr": "Frontend",
+        "en": "Frontend"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": "Vue.js"
+        },
+        {
+          "name": "JavaScript"
+        },
+        {
+          "name": "HTML"
+        },
+        {
+          "name": "CSS"
+        },
+        {
+          "name": "Angular",
+          "note": {
+            "fr": "intermédiaire",
+            "en": "intermediate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sg3",
+      "label": {
+        "fr": "Données",
+        "en": "Data"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": "SQL"
+        },
+        {
+          "name": "Python"
+        }
+      ]
+    },
+    {
+      "id": "sg4",
+      "label": {
+        "fr": "SEO",
+        "en": "SEO"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": {
+            "fr": "SEO technique",
+            "en": "Technical SEO"
+          }
+        },
+        {
+          "name": {
+            "fr": "Optimisation on-page",
+            "en": "On-page SEO"
+          }
+        },
+        {
+          "name": "Google Search Console"
+        },
+        {
+          "name": "Google Analytics"
+        }
+      ]
+    },
+    {
+      "id": "sg5",
+      "label": {
+        "fr": "Outils",
+        "en": "Tools"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": "Git"
+        },
+        {
+          "name": "GitHub"
+        },
+        {
+          "name": "GitLab"
+        },
+        {
+          "name": "Pack Office"
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "id": "s1",
+      "published": true,
+      "icon": "code",
+      "title": {
+        "fr": "Développement web fullstack",
+        "en": "Fullstack web development"
+      },
+      "description": {
+        "fr": "Conception et développement d’applications web complètes, de la base de données à l’interface, avec Laravel et Vue.js.",
+        "en": "Design and development of complete web applications, from database to interface, with Laravel and Vue.js."
+      }
+    },
+    {
+      "id": "s2",
+      "published": true,
+      "icon": "search",
+      "title": {
+        "fr": "Référencement naturel (SEO)",
+        "en": "Search engine optimisation (SEO)"
+      },
+      "description": {
+        "fr": "Audit SEO, optimisation on-page, SEO technique et stratégie de référencement pour améliorer votre visibilité.",
+        "en": "SEO audits, on-page optimisation, technical SEO and a search strategy to improve your visibility."
+      }
+    },
+    {
+      "id": "s3",
+      "published": true,
+      "icon": "storefront",
+      "title": {
+        "fr": "Sites e-commerce & e-learning",
+        "en": "E-commerce & e-learning sites"
+      },
+      "description": {
+        "fr": "Plateformes e-commerce et e-learning performantes, intuitives et adaptées à vos besoins métier.",
+        "en": "Fast, intuitive e-commerce and e-learning platforms built around your business needs."
+      }
+    },
+    {
+      "id": "s4",
+      "published": true,
+      "icon": "build",
+      "title": {
+        "fr": "Maintenance & support",
+        "en": "Maintenance & support"
+      },
+      "description": {
+        "fr": "Suivi technique, corrections de bugs, mises à jour de sécurité et évolutions pour un site déjà en ligne.",
+        "en": "Technical follow-up, bug fixes, security updates and improvements for a live website."
+      }
+    },
+    {
+      "id": "s5",
+      "published": true,
+      "icon": "fact_check",
+      "title": {
+        "fr": "Audit technique de site",
+        "en": "Technical website audit"
+      },
+      "description": {
+        "fr": "Analyse de performance, de sécurité et de qualité de code d’un site existant, avec un plan d’action priorisé.",
+        "en": "Performance, security and code-quality review of an existing site, with a prioritised action plan."
+      }
+    },
+    {
+      "id": "s6",
+      "published": true,
+      "icon": "school",
+      "title": {
+        "fr": "Formation en programmation",
+        "en": "Programming training"
+      },
+      "description": {
+        "fr": "Formation personnalisée en développement web pour débutants : HTML, CSS, JavaScript, PHP et frameworks modernes.",
+        "en": "Tailored web development training for beginners: HTML, CSS, JavaScript, PHP and modern frameworks."
+      }
+    }
+  ],
+  "education": [
+    {
+      "id": "ed1",
+      "published": true,
+      "degree": {
+        "fr": "Licence en Informatique, Réseaux et Télécommunications, option Architecture logicielle",
+        "en": "Bachelor’s in Computer Science, Networks & Telecommunications, Software Architecture"
+      },
+      "school": "ESGIS Bénin · Cotonou",
+      "period": "2020 → 2023"
+    },
+    {
+      "id": "ed2",
+      "published": true,
+      "degree": {
+        "fr": "Baccalauréat scientifique, série D",
+        "en": "Scientific baccalaureate (Series D)"
+      },
+      "school": "Complexe Scolaire Évangélique BERAKA · Abomey-Calavi",
+      "period": "2019 → 2020"
+    }
+  ],
+  "posts": [
+    {
+      "id": "b1",
+      "published": true,
+      "date": "2026-04-03",
+      "readMin": 1,
+      "url": "",
+      "tags": [
+        {
+          "fr": "E-commerce",
+          "en": "E-commerce"
+        },
+        {
+          "fr": "Boutique en ligne",
+          "en": "Online store"
+        }
+      ],
+      "title": {
+        "fr": "Comment créer une boutique en ligne qui vend vraiment ?",
+        "en": "How to build an online store that actually sells"
+      },
+      "excerpt": {
+        "fr": "Lancer une boutique en ligne, c’est une chose. Mais faire en sorte qu’elle génère vraiment des ventes, c’est une autre histoire.",
+        "en": "Launching an online store is one thing. Making it actually generate sales is another story."
+      }
+    },
+    {
+      "id": "b2",
+      "published": true,
+      "date": "2026-04-03",
+      "readMin": 1,
+      "url": "",
+      "tags": [
+        {
+          "fr": "SEO",
+          "en": "SEO"
+        },
+        {
+          "fr": "Référencement naturel",
+          "en": "Organic search"
+        }
+      ],
+      "title": {
+        "fr": "SEO : les 5 erreurs que font la plupart des sites web (et comment les éviter)",
+        "en": "SEO: 5 mistakes most websites make (and how to avoid them)"
+      },
+      "excerpt": {
+        "fr": "Avoir un beau site web, c’est bien. Mais si personne ne le trouve sur Google, c’est comme ouvrir un magasin au fond d’une impasse.",
+        "en": "A beautiful website is great. But if nobody can find it on Google, it’s like opening a shop at the end of a dead-end street."
+      }
+    },
+    {
+      "id": "b3",
+      "published": true,
+      "date": "2026-04-03",
+      "readMin": 1,
+      "url": "",
+      "tags": [
+        {
+          "fr": "Laravel",
+          "en": "Laravel"
+        },
+        {
+          "fr": "VueJS",
+          "en": "VueJS"
+        }
+      ],
+      "title": {
+        "fr": "Laravel et VueJS : pourquoi ce duo est idéal pour vos projets web ?",
+        "en": "Laravel and VueJS: why this pairing is ideal for your web projects"
+      },
+      "excerpt": {
+        "fr": "Si vous vous lancez dans le développement web ou que vous cherchez à moderniser vos applications, ce duo mérite votre attention.",
+        "en": "If you’re getting into web development or modernising your applications, this pairing deserves your attention."
+      }
+    }
+  ],
+  "subscribers": [],
+  "certifications": [],
+  "testimonials": [],
+  "messages": [],
+  "settings": {
+    "siteName": "Fawoziath.dev",
+    "notifyEmail": "saloufawoziath236@gmail.com",
+    "notifyOnMessage": true,
+    "maintenance": false,
+    "analytics": {
+      "provider": "local",
+      "siteId": "",
+      "gscProperty": "",
+      "gscConnected": false
+    }
+  },
+  "seo": {
+    "canonical": "",
+    "ogImage": "",
+    "favicon": "",
+    "indexable": true,
+    "structuredData": true,
+    "siteTitle": {
+      "fr": "Fawoziath Modjissola Salou | Développeuse fullstack",
+      "en": "Fawoziath Modjissola Salou | Fullstack developer"
+    },
+    "metaDescription": {
+      "fr": "Développeuse fullstack à Cotonou : applications web Laravel et Vue.js, outils métier, SEO technique.",
+      "en": "Fullstack developer in Cotonou: Laravel and Vue.js web applications, business tools, technical SEO."
+    }
+  }
+}
