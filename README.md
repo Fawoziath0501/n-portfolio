@@ -54,22 +54,37 @@ Le compte administrateur est créé à partir de `ADMIN_EMAIL` et `ADMIN_PASSWOR
 Toutes les informations affichées sur le site viennent de la base. Seuls les libellés d'interface
 (menus, titres de sections) restent dans le code, comme des fichiers de traduction.
 
-\
-Autres tables : , ,  (ordre et affichage des sections de l'accueil),
-,  (suivi d'audience sans cookie),  (SEO, statistiques, notifications, maintenance).
-Les champs traduisibles sont stockés en JSON .
+```mermaid
+erDiagram
+    profiles ||--o{ languages : parle
+    profiles ||--o{ profile_values : "méthode"
+    profile_values ||--o{ value_keywords : "mots-clés"
+    profiles ||--o{ social_links : réseaux
+    profiles }o--o| media : "photo / CV"
+    skill_groups ||--o{ skills : contient
+    projects }o--o{ technologies : project_technology
+    projects }o--o{ media : "project_media (captures)"
+    projects ||--o{ testimonials : "cité dans"
+    posts }o--o{ tags : post_tag
+    companies ||--o{ experiences : emploie
+    experiences ||--o{ experience_duties : missions
+    services ||--o{ messages : "demandes de service"
+    users ||--o{ activities : "journal admin"
+```
+
+Autres tables : `education`, `certifications`, `home_sections` (ordre et affichage des sections de l'accueil),
+`subscribers`, `events` (suivi d'audience sans cookie), `settings` (SEO, statistiques, notifications, maintenance).
+Les champs traduisibles sont stockés en JSON `{ "fr": "…", "en": "…" }`.
 
 ## Corbeille (soft delete)
 
 - Projets, articles, expériences, formations, services, certifications, témoignages, groupes de compétences,
-  messages, inscrits et fichiers ne sont jamais effacés directement : ils reçoivent une date   et disparaissent du site.
+  messages, inscrits et fichiers ne sont jamais effacés directement : ils reçoivent une date `deleted_at`
+  et disparaissent du site.
 - Page **Corbeille** de l'administration : restauration en un clic (l'élément retrouve sa place et ses éléments liés)
   ou suppression définitive. Un fichier n'est effacé du disque qu'à sa suppression définitive.
-- Purge automatique après 30 jours () via   [37;41m ERROR [39;49m Command "model:prune" is not defined. Did you mean one of these?  
-
-  [90m⇂ model:prune[39m  
-  [90m⇂ model:show[39m  , planifiée chaque jour.
-  En production, ajoutez la tâche cron : .
+- Purge automatique après 30 jours (`Portfolio::TRASH_DAYS`) via `php artisan model:prune`, planifiée chaque jour.
+  En production, ajoutez la tâche cron : `* * * * * php artisan schedule:run`.
 - Unicité préservée : un slug utilisé par un projet en corbeille est refusé avec un message explicite ;
   un e-mail retiré de la newsletter qui se réinscrit est restauré au lieu d'être dupliqué.
 
