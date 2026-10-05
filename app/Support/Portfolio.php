@@ -17,6 +17,7 @@ use App\Models\Setting;
 use App\Models\SkillGroup;
 use App\Models\Subscriber;
 use App\Models\Testimonial;
+use App\Models\UiLabel;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -67,6 +68,7 @@ class Portfolio
         }
         $data['profile'] = self::profile(publicOnly: true);
         $data['home'] = self::home();
+        $data['labels'] = UiLabel::dictionary();
         $data['seo'] = Setting::get('seo');
         $settings = Setting::get('settings');
         $data['settings'] = [
@@ -94,6 +96,7 @@ class Portfolio
         $data['media'] = Media::latest()->get()->map->toFront()->all();
         $data['activity'] = Activity::latest('id')->limit(30)->get()
             ->map(fn ($a) => ['ts' => $a->created_at->getTimestampMs(), 'msg' => $a->msg])->all();
+        $data['labels'] = UiLabel::forAdmin();
         $data['trashCount'] = self::trashCount();
 
         return $data;

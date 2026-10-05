@@ -32,11 +32,11 @@ import { vm } from '../store';
       <div class="hero-visual" :style="{ paddingRight: vm.annotPad }">
         <div class="portrait">
           <div v-if="vm.p.photo" role="img" :aria-label="vm.p.photoAlt" class="portrait-img" :style="{ backgroundImage: 'url(&quot;' + vm.p.photo + '&quot;)' }"></div>
-          <div v-else class="portrait-empty" role="img" :aria-label="vm.p.photoAlt"><span class="ms">image</span><span>{{ vm.fr ? 'Portrait professionnel de Fawoziath' : 'Professional portrait of Fawoziath' }}</span></div>
+          <div v-else class="portrait-empty" role="img" :aria-label="vm.p.photoAlt"><span class="ms">image</span><span>{{ vm.p.photoPlaceholder }}</span></div>
           <span aria-hidden="true" class="corner tl"></span>
           <span aria-hidden="true" class="corner br"></span>
           <div class="stack-card">
-            <span class="mono-eyebrow xs">Stack</span>
+            <span class="mono-eyebrow xs">{{ vm.L.stackLabel }}</span>
             <span class="row-wrap gap6"><span v-for="hs in vm.heroStack" :key="hs" class="chip">{{ hs }}</span></span>
           </div>
         </div>

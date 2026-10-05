@@ -22,7 +22,7 @@ import { vm } from '../store';
           </div>
         </dl>
         <div v-if="vm.cs.tech.length" class="col gap10 pt20">
-          <span class="mono-eyebrow">Stack</span>
+          <span class="mono-eyebrow">{{ vm.L.stackLabel }}</span>
           <ul class="tech"><li v-for="tg in vm.cs.tech" :key="tg">{{ tg }}</li></ul>
         </div>
       </aside>

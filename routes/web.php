@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\InboxController;
+use App\Http\Controllers\Admin\LabelController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\StatsController;
 use App\Http\Controllers\Admin\TrashController;
@@ -29,6 +30,7 @@ Route::prefix('api')->group(function () {
             Route::post('logout', [AuthController::class, 'logout']);
             Route::get('data', [ContentController::class, 'index']);
             Route::put('documents/{key}', [ContentController::class, 'document']);
+            Route::put('labels', [LabelController::class, 'update']);
 
             Route::patch('messages/{message}', [InboxController::class, 'updateMessage']);
             Route::delete('messages/{message}', [InboxController::class, 'destroyMessage']);
@@ -60,5 +62,5 @@ Route::prefix('api')->group(function () {
 });
 
 // Applications Vue (routage côté client en mode « history »).
-Route::view('/admin/{any?}', 'admin')->where('any', '.*');
+Route::get('/admin/{any?}', fn () => view('admin', ['owner' => \App\Models\Profile::query()->first(['first_name', 'last_name'])]))->where('any', '.*');
 Route::get('/{any?}', [SiteController::class, 'show'])->where('any', '^(?!storage/).*$');

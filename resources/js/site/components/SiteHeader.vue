@@ -10,9 +10,9 @@ const setLang = (l) => { if (l !== state.lang) router.push(href(l, state.route, 
   <header class="hdr">
     <div class="hdr-progress" aria-hidden="true" :style="{ width: state.pc + '%' }"></div>
     <div class="wrap hdr-in" :style="{ height: state.scrolled || vm.mobile ? '64px' : '76px' }">
-      <RouterLink :to="vm.hrefs.home" class="brand" :aria-label="'Fawoziath Salou, ' + vm.L.nav0">
-        <span class="brand-mark">[ FS ]</span>
-        <span class="brand-name">Fawoziath<span>.dev</span></span>
+      <RouterLink :to="vm.hrefs.home" class="brand" :aria-label="vm.brand.short + ', ' + vm.L.nav0">
+        <span class="brand-mark">{{ vm.brand.mark }}</span>
+        <span class="brand-name">{{ vm.brand.name }}<span>{{ vm.brand.tld }}</span></span>
       </RouterLink>
 
       <nav v-if="!vm.mobile" :aria-label="vm.L.navAria" class="hdr-nav">
@@ -35,7 +35,7 @@ const setLang = (l) => { if (l !== state.lang) router.push(href(l, state.route, 
 
   <div v-if="state.menu && vm.mobile" role="dialog" aria-modal="true" :aria-label="vm.L.menu" class="mnav">
     <div class="mnav-top">
-      <span class="mnav-name">Fawoziath Salou</span>
+      <span class="mnav-name">{{ vm.brand.short }}</span>
       <button type="button" class="mnav-close" @click="state.menu = false">{{ vm.L.close }}</button>
     </div>
     <nav :aria-label="vm.L.navAria" class="mnav-list">

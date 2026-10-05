@@ -51,8 +51,11 @@ Le compte administrateur est créé à partir de `ADMIN_EMAIL` et `ADMIN_PASSWOR
 
 ## Base de données
 
-Toutes les informations affichées sur le site viennent de la base. Seuls les libellés d'interface
-(menus, titres de sections) restent dans le code, comme des fichiers de traduction.
+Tout ce qui s'affiche sur le site public vient de la base : contenus, profil, nom du site,
+et aussi les textes de l'interface (menus, titres de sections, formulaires, messages), stockés dans `ui_labels`
+et modifiables depuis l'écran **Textes du site** de l'administration. Les listes y sont numérotées
+(`nav.0`, `nav.1`…) et certains textes contiennent des variables remplacées automatiquement
+(`{name}`, `{year}`, `{count}`…).
 
 ```mermaid
 erDiagram
@@ -73,7 +76,8 @@ erDiagram
 ```
 
 Autres tables : `education`, `certifications`, `home_sections` (ordre et affichage des sections de l'accueil),
-`subscribers`, `events` (suivi d'audience sans cookie), `settings` (SEO, statistiques, notifications, maintenance).
+`subscribers`, `events` (suivi d'audience sans cookie), `ui_labels` (textes de l'interface, FR / EN),
+`settings` (nom du site, SEO, statistiques, notifications, maintenance).
 Les champs traduisibles sont stockés en JSON `{ "fr": "…", "en": "…" }`.
 
 ## Corbeille (soft delete)

@@ -338,3 +338,13 @@ label.abtn { position: relative; }
 /* Corbeille */
 .trash-type { flex: none; min-width: 120px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--aci); background: var(--acs); padding: 4px 8px; border-radius: 6px; text-align: center; }
 .trash-left { font-size: 12px; color: #B54708; white-space: nowrap; }
+
+/* Textes du site */
+.lbl-list { display: flex; flex-direction: column; padding: 8px 20px 16px; }
+.lbl-row { display: grid; grid-template-columns: 220px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--ln2); }
+.lbl-row:first-child { border-top: none; }
+@media (max-width: 1100px) { .lbl-row { grid-template-columns: 1fr; } }
+.lbl-key { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--mu); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; gap: 6px; align-items: center; }
+.lbl-var { font-family: 'Hanken Grotesk', sans-serif; font-size: 10px; font-weight: 600; color: var(--aci); background: var(--acs); padding: 1px 6px; border-radius: 5px; }
+.ain.miss { border-color: #F5B66B; background: #FEF8EE; }
+.banner code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--acs); padding: 1px 5px; border-radius: 4px; }

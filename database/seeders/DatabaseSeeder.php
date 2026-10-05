@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Profile;
 use App\Models\Setting;
+use App\Models\UiLabel;
 use App\Models\User;
 use App\Support\Portfolio;
 use Illuminate\Database\Seeder;
@@ -27,6 +28,11 @@ class DatabaseSeeder extends Seeder
 
         (Profile::query()->first() ?? new Profile)->saveFromFront($data['profile']);
         Portfolio::saveHome($data['home']);
+
+        // Textes de l'interface publique (FR / EN).
+        foreach (json_decode(file_get_contents(__DIR__.'/data/labels.json'), true) as $i => $label) {
+            UiLabel::updateOrCreate(['key' => $label['key']], $label + ['position' => $i]);
+        }
 
         foreach (Portfolio::SETTINGS as $key) {
             Setting::put($key, $data[$key]);

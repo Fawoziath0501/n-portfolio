@@ -1,5 +1,5 @@
 import { computed, reactive } from 'vue';
-import { labels } from './labels';
+import { fill, labels } from './labels';
 import { api, host, isEmail, lines, pad, reducedMotion, tx } from '../shared/util';
 
 // Segments d'URL par route : [fr, en].
@@ -38,12 +38,13 @@ export const vm = computed(() => {
     const s = state, d = s.data, fr = s.lang === 'fr', r = s.route, pr = d.profile;
     // Faits du profil (base de données) injectés dans les libellés.
     const featuredLangs = (pr.languages || []).filter((l) => l.featured);
-    const L = { ...labels(fr),
-        fSinceV: (fr ? 'Depuis ' : 'Since ') + pr.since + ' · ' + d.experiences.length + (fr ? ' postes' : ' roles'),
+    const base = labels(d.labels, s.lang);
+    const L = { ...base,
+        fSinceV: fill(base.sinceValue, { year: pr.since, count: d.experiences.length }),
         fLangV: featuredLangs.map((l) => t(l.name) + (l.cefr ? ' (' + l.cefr + ')' : '')).join(' · '),
         iStatusV: t(pr.status), availShort: t(pr.availabilityShort), replyTime: t(pr.replyTime), gReplyV: t(pr.replyDelay),
         gFormatsV: t(pr.formats), gZoneV: t(pr.zone) };
-    const mobile = s.w < 960, isHome = r === 'home';
+    const mobile = s.w < 960, isHome = r === 'home', siteName = (d.settings && d.settings.siteName) || '';
     const H = (route) => href(s.lang, route);
     const hrefs = { home: H('home'), about: H('about'), work: H('work'), services: H('services'), contact: H('contact'), blog: H('blog') };
     const activeNav = r === 'project' ? 'work' : r;
@@ -60,7 +61,8 @@ export const vm = computed(() => {
     const p = {
         lastUp: (pr.lastName || '').toUpperCase(), first: pr.firstName, middle: pr.middleName || '', title: t(pr.title), stack: t(pr.stack), tagline: t(pr.tagline), location: t(pr.location),
         email: pr.email, mailto: 'mailto:' + pr.email, phone: pr.phone, photo: pr.photo, cv: pr.cv,
-        photoAlt: fr ? 'Portrait de Fawoziath Modjissola Salou' : 'Portrait of Fawoziath Modjissola Salou',
+        photoAlt: fill(L.photoAlt, { fullName: [pr.firstName, pr.middleName, pr.lastName].filter(Boolean).join(' ') }),
+        photoPlaceholder: fill(L.photoPlaceholder, { name: pr.firstName }),
     };
     const contactRows = [
         pr.email && { icon: 'mail', label: L.email, value: pr.email, href: 'mailto:' + pr.email },
@@ -115,11 +117,11 @@ export const vm = computed(() => {
 
     const allSkills = d.skillGroups.flatMap((g) => g.skills.map((k) => ({ name: t(k.name), logo: k.logo, icon: k.icon || 'code' })));
     const heroStack = d.skillGroups.flatMap((g) => g.skills).filter((k) => k.heroPosition).sort((a, b) => a.heroPosition - b.heroPosition).map((k) => t(k.name));
-        const fmtDate = (iso) => { try { return new Date(iso + 'T12:00:00').toLocaleDateString(fr ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } };
+        const fmtDate = (iso) => { try { return new Date(iso + 'T12:00:00').toLocaleDateString(L.dateLocale || (fr ? 'fr-FR' : 'en-GB'), { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } };
     const allPosts = (d.posts || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
     const posts = (isHome ? allPosts.slice(0, 3) : allPosts).map((x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read, icon: x.icon || 'article', url: x.url, tags: (x.tags || []).map((v) => t(v)) }));
     if (isHome && !posts.length) show.blog = false;
-    const aboutChips = [{ icon: 'location_on', text: t(pr.location) }, cur && { icon: 'work', text: cur.company + ' · ' + (fr ? 'depuis ' : 'since ') + t(cur.start) }, featuredLangs.length && { icon: 'translate', text: featuredLangs.map((l) => t(l.name) + (l.cefr ? ' ' + l.cefr : '')).join(' · ') }].filter(Boolean);
+    const aboutChips = [{ icon: 'location_on', text: t(pr.location) }, cur && { icon: 'work', text: fill(L.sinceChip, { company: cur.company, start: t(cur.start) }) }, featuredLangs.length && { icon: 'translate', text: featuredLangs.map((l) => t(l.name) + (l.cefr ? ' ' + l.cefr : '')).join(' · ') }].filter(Boolean);
 
     const pages = { blog: L.pBlog, about: L.pAbout, work: L.pWork, services: L.pServices, contact: L.pContact };
     const picons = { blog: 'article', about: 'person', work: 'grid_view', services: 'design_services', contact: 'mail' };
@@ -127,7 +129,7 @@ export const vm = computed(() => {
     if (pages[r]) page = { eyebrow: pages[r][0], title: pages[r][1], intro: pages[r][2], crumb: pages[r][1], icon: picons[r] };
     if (cp) page = { eyebrow: t(cp.category), title: t(cp.title), intro: t(cp.summary), crumb: t(cp.title), icon: 'folder_open' };
     const pIdx = ['home', 'about', 'work', 'services', 'contact'].indexOf(r === 'project' ? 'work' : r);
-    page.index = pIdx > 0 ? pad(pIdx + 1) + ' / 05' : (r === 'blog' ? 'Blog' : '');
+    page.index = pIdx > 0 ? pad(pIdx + 1) + ' / 05' : (r === 'blog' ? L.blogNav : '');
     const panels = {
         about: [{ label: L.fWhere, value: t(pr.location) }, cur && { label: L.fNow, value: cur.company }, { label: L.fSince, value: L.fSinceV }, { label: L.fLang, value: L.fLangV }],
         work: [{ label: L.gProjects, value: String(pub.length) }, { label: L.kApp, value: String(pub.filter((x) => kindOf(x) === 'app').length) }, { label: L.kSite, value: String(pub.filter((x) => kindOf(x) === 'site').length) }, { label: L.gOnline, value: String(pub.filter((x) => x.link).length) }],
@@ -142,7 +144,9 @@ export const vm = computed(() => {
     const svcList = d.services.map((x) => ({ id: x.id, icon: x.icon || 'code', title: t(x.title), desc: t(x.description) }));
 
     return {
-        L, fr, mobile, isHome, r, hrefs, navItems, show, p, socials, contactRows, wa: wa ? wa.url : '',
+        L, fr, mobile, isHome, r, hrefs, navItems,
+        brand: { mark: '[ ' + ((pr.firstName || '')[0] || '') + ((pr.lastName || '')[0] || '') + ' ]', name: siteName.replace(/\.[^.]*$/, ''), tld: (siteName.match(/\.[^.]*$/) || [''])[0],
+            short: [pr.firstName, pr.lastName].filter(Boolean).join(' '), full: [pr.firstName, pr.middleName, pr.lastName].filter(Boolean).join(' ') }, show, p, socials, contactRows, wa: wa ? wa.url : '',
         isWork: r === 'work', isContact: r === 'contact', isProject: !!cp, hasPageHead: r !== 'home', showCta: r !== 'contact', ctaTitle: cp ? L.ctaCase : L.ctaHome,
         showTesti: isHome && en.testimonials && testis.length > 0, testis,
         home: { cta1: t(d.home.ctaPrimary), cta2: t(d.home.ctaSecondary) },
@@ -155,7 +159,7 @@ export const vm = computed(() => {
         aboutInfo, tlItems, tl, softList, services: svcList,
         languages: (pr.languages || []).map((l) => ({ name: t(l.name), level: t(l.level) })),
         certs: (d.certifications || []).map((c) => ({ id: c.id, name: t(c.name), issuer: c.issuer, date: c.date, verify: c.verify })),
-        resItems: [{ label: L.skillsLabel, href: hrefs.about }, { label: L.eduLabel, href: hrefs.about }, { label: L.nav2, href: hrefs.work }, { label: 'Blog', href: hrefs.blog }],
+        resItems: [{ label: L.skillsLabel, href: hrefs.about }, { label: L.eduLabel, href: hrefs.about }, { label: L.nav2, href: hrefs.work }, { label: L.blogNav, href: hrefs.blog }],
         availNum: pad(contactRows.length + 1), year: new Date().getFullYear(),
     };
 });
@@ -174,7 +178,7 @@ export function setField(k, v) {
 }
 
 export async function submitContact() {
-    const L = labels(state.lang === 'fr'), c = state.cf, errs = {};
+    const L = labels(state.data.labels, state.lang), c = state.cf, errs = {};
     if (!c.name.trim()) errs.name = L.eName;
     if (!isEmail(c.email)) errs.email = L.eEmail;
     if (c.message.trim().length < 10) errs.message = L.eMsg;
@@ -208,7 +212,7 @@ export function closeSvc() {
 }
 
 export async function submitSvc() {
-    const L = labels(state.lang === 'fr'), c = state.svc, errs = {};
+    const L = labels(state.data.labels, state.lang), c = state.svc, errs = {};
     if (!c.name.trim()) errs.name = L.eName;
     if (!isEmail(c.email)) errs.email = L.eEmail;
     if (c.message.trim().length < 10) errs.message = L.eMsg;

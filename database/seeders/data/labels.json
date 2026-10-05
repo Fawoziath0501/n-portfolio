@@ -1,0 +1,1094 @@
+[
+ {
+  "key": "navAria",
+  "group": "Navigation & en-tête",
+  "fr": "Navigation principale",
+  "en": "Main navigation"
+ },
+ {
+  "key": "langAria",
+  "group": "Navigation & en-tête",
+  "fr": "Langue",
+  "en": "Language"
+ },
+ {
+  "key": "crumbAria",
+  "group": "Navigation & en-tête",
+  "fr": "Fil d’Ariane",
+  "en": "Breadcrumb"
+ },
+ {
+  "key": "menu",
+  "group": "Navigation & en-tête",
+  "fr": "Menu",
+  "en": "Menu"
+ },
+ {
+  "key": "close",
+  "group": "Navigation & en-tête",
+  "fr": "Fermer",
+  "en": "Close"
+ },
+ {
+  "key": "nav.0",
+  "group": "Navigation & en-tête",
+  "fr": "Accueil",
+  "en": "Home"
+ },
+ {
+  "key": "nav.1",
+  "group": "Navigation & en-tête",
+  "fr": "À propos",
+  "en": "About"
+ },
+ {
+  "key": "nav.2",
+  "group": "Navigation & en-tête",
+  "fr": "Projets",
+  "en": "Work"
+ },
+ {
+  "key": "nav.3",
+  "group": "Navigation & en-tête",
+  "fr": "Services",
+  "en": "Services"
+ },
+ {
+  "key": "nav.4",
+  "group": "Navigation & en-tête",
+  "fr": "Contact",
+  "en": "Contact"
+ },
+ {
+  "key": "nav0",
+  "group": "Navigation & en-tête",
+  "fr": "Accueil",
+  "en": "Home"
+ },
+ {
+  "key": "nav2",
+  "group": "Navigation & en-tête",
+  "fr": "Projets",
+  "en": "Work"
+ },
+ {
+  "key": "ctaContact",
+  "group": "Navigation & en-tête",
+  "fr": "Me contacter",
+  "en": "Contact me"
+ },
+ {
+  "key": "glance",
+  "group": "Navigation & en-tête",
+  "fr": "En bref",
+  "en": "At a glance"
+ },
+ {
+  "key": "onPage",
+  "group": "Navigation & en-tête",
+  "fr": "Sur cette page",
+  "en": "On this page"
+ },
+ {
+  "key": "crumbWork",
+  "group": "Navigation & en-tête",
+  "fr": "Mes réalisations",
+  "en": "Work"
+ },
+ {
+  "key": "aboutLabel",
+  "group": "Accueil",
+  "fr": "À propos",
+  "en": "About"
+ },
+ {
+  "key": "moreAbout",
+  "group": "Accueil",
+  "fr": "En savoir plus sur moi",
+  "en": "More about me"
+ },
+ {
+  "key": "workLabel",
+  "group": "Accueil",
+  "fr": "Projets sélectionnés",
+  "en": "Selected work"
+ },
+ {
+  "key": "workTitle",
+  "group": "Accueil",
+  "fr": "Des applications réelles, du besoin au produit",
+  "en": "Real applications, from need to product"
+ },
+ {
+  "key": "workIntro",
+  "group": "Accueil",
+  "fr": "Applications métier, plateformes et sites développés au fil de mes expériences professionnelles.",
+  "en": "Business applications, platforms and websites built across my professional roles."
+ },
+ {
+  "key": "allWork",
+  "group": "Accueil",
+  "fr": "Tous les projets",
+  "en": "All projects"
+ },
+ {
+  "key": "servicesLabel",
+  "group": "Accueil",
+  "fr": "Services",
+  "en": "Services"
+ },
+ {
+  "key": "servicesTitle",
+  "group": "Accueil",
+  "fr": "Comment je peux vous aider",
+  "en": "How I can help"
+ },
+ {
+  "key": "allServices",
+  "group": "Accueil",
+  "fr": "Tous les services",
+  "en": "All services"
+ },
+ {
+  "key": "testiTitle",
+  "group": "Accueil",
+  "fr": "Témoignages",
+  "en": "Testimonials"
+ },
+ {
+  "key": "heroBadge",
+  "group": "Accueil",
+  "fr": "Développeuse fullstack",
+  "en": "Fullstack developer"
+ },
+ {
+  "key": "hello",
+  "group": "Accueil",
+  "fr": "Bonjour, je suis",
+  "en": "Hi, I’m"
+ },
+ {
+  "key": "sYears",
+  "group": "Accueil",
+  "fr": "ans d’expérience",
+  "en": "years of experience"
+ },
+ {
+  "key": "sProjects",
+  "group": "Accueil",
+  "fr": "projets réalisés",
+  "en": "projects delivered"
+ },
+ {
+  "key": "sRoles",
+  "group": "Accueil",
+  "fr": "expériences pro",
+  "en": "professional roles"
+ },
+ {
+  "key": "aRole",
+  "group": "Accueil",
+  "fr": "Rôle",
+  "en": "Role"
+ },
+ {
+  "key": "aLoc",
+  "group": "Accueil",
+  "fr": "Localisation",
+  "en": "Location"
+ },
+ {
+  "key": "aStatus",
+  "group": "Accueil",
+  "fr": "Statut",
+  "en": "Status"
+ },
+ {
+  "key": "aboutShortTitle",
+  "group": "Accueil",
+  "fr": "Développeuse fullstack, orientée produit.",
+  "en": "Fullstack developer with a product mindset."
+ },
+ {
+  "key": "aboutShortText",
+  "group": "Accueil",
+  "fr": "Je conçois des applications web avec Laravel et Vue.js, de l’analyse du besoin jusqu’à la mise en ligne. Mon objectif : des outils fiables, simples à utiliser et faciles à faire évoluer.",
+  "en": "I build web applications with Laravel and Vue.js, from understanding the need through to launch. My goal: reliable tools that are simple to use and easy to evolve."
+ },
+ {
+  "key": "stackLabel",
+  "group": "Accueil",
+  "fr": "Stack",
+  "en": "Stack"
+ },
+ {
+  "key": "photoPlaceholder",
+  "group": "Accueil",
+  "fr": "Portrait professionnel de {name}",
+  "en": "Professional portrait of {name}"
+ },
+ {
+  "key": "photoAlt",
+  "group": "Accueil",
+  "fr": "Portrait de {fullName}",
+  "en": "Portrait of {fullName}"
+ },
+ {
+  "key": "sinceChip",
+  "group": "Accueil",
+  "fr": "{company} · depuis {start}",
+  "en": "{company} · since {start}"
+ },
+ {
+  "key": "fWhere",
+  "group": "À propos",
+  "fr": "Basée à",
+  "en": "Based in"
+ },
+ {
+  "key": "fNow",
+  "group": "À propos",
+  "fr": "Poste actuel",
+  "en": "Current role"
+ },
+ {
+  "key": "fSince",
+  "group": "À propos",
+  "fr": "Expérience",
+  "en": "Experience"
+ },
+ {
+  "key": "fLang",
+  "group": "À propos",
+  "fr": "Langues",
+  "en": "Languages"
+ },
+ {
+  "key": "aboutTitle",
+  "group": "À propos",
+  "fr": "Construire des produits web utiles, pas simplement écrire du code.",
+  "en": "Building useful web products, not just writing code."
+ },
+ {
+  "key": "expLabel",
+  "group": "À propos",
+  "fr": "Mon parcours",
+  "en": "My journey"
+ },
+ {
+  "key": "expTitle",
+  "group": "À propos",
+  "fr": "Expériences & Formations",
+  "en": "Experience & Education"
+ },
+ {
+  "key": "expIntro",
+  "group": "À propos",
+  "fr": "Quatre postes en développement web fullstack, de l’e-commerce aux applications métier.",
+  "en": "Four fullstack web development roles, from e-commerce to business applications."
+ },
+ {
+  "key": "current",
+  "group": "À propos",
+  "fr": "Poste actuel",
+  "en": "Current role"
+ },
+ {
+  "key": "fullPath",
+  "group": "À propos",
+  "fr": "Voir tout le parcours",
+  "en": "See full background"
+ },
+ {
+  "key": "skillsLabel",
+  "group": "À propos",
+  "fr": "Compétences",
+  "en": "Skills"
+ },
+ {
+  "key": "skillsTitle",
+  "group": "À propos",
+  "fr": "Mon environnement technique",
+  "en": "My technical toolkit"
+ },
+ {
+  "key": "skillsIntro",
+  "group": "À propos",
+  "fr": "Les langages, frameworks et outils que j’utilise au quotidien, regroupés par domaine.",
+  "en": "The languages, frameworks and tools I use day to day, grouped by area."
+ },
+ {
+  "key": "eduLabel",
+  "group": "À propos",
+  "fr": "Formation",
+  "en": "Education"
+ },
+ {
+  "key": "certLabel",
+  "group": "À propos",
+  "fr": "Certifications",
+  "en": "Certifications"
+ },
+ {
+  "key": "langLabel",
+  "group": "À propos",
+  "fr": "Langues",
+  "en": "Languages"
+ },
+ {
+  "key": "soft",
+  "group": "À propos",
+  "fr": "Qualités",
+  "en": "Strengths"
+ },
+ {
+  "key": "verify",
+  "group": "À propos",
+  "fr": "Vérifier",
+  "en": "Verify"
+ },
+ {
+  "key": "pAbout.0",
+  "group": "À propos",
+  "fr": "Mon parcours",
+  "en": "My background"
+ },
+ {
+  "key": "pAbout.1",
+  "group": "À propos",
+  "fr": "À propos de moi",
+  "en": "About me"
+ },
+ {
+  "key": "pAbout.2",
+  "group": "À propos",
+  "fr": "Développeuse fullstack, je conçois des applications web avec Laravel et Vue.js, de la compréhension du besoin à la mise en ligne.",
+  "en": "Fullstack developer building web applications with Laravel and Vue.js, from understanding the need to going live."
+ },
+ {
+  "key": "jMethod",
+  "group": "À propos",
+  "fr": "Méthode",
+  "en": "Method"
+ },
+ {
+  "key": "jPath",
+  "group": "À propos",
+  "fr": "Parcours",
+  "en": "Journey"
+ },
+ {
+  "key": "jLang",
+  "group": "À propos",
+  "fr": "Langues",
+  "en": "Languages"
+ },
+ {
+  "key": "jSkills",
+  "group": "À propos",
+  "fr": "Compétences",
+  "en": "Skills"
+ },
+ {
+  "key": "methodTitle",
+  "group": "À propos",
+  "fr": "Ma méthode en 3 temps",
+  "en": "My three-step method"
+ },
+ {
+  "key": "flipHint",
+  "group": "À propos",
+  "fr": "Survolez ou touchez une carte",
+  "en": "Hover or tap a card"
+ },
+ {
+  "key": "iName",
+  "group": "À propos",
+  "fr": "Nom complet",
+  "en": "Full name"
+ },
+ {
+  "key": "iLoc",
+  "group": "À propos",
+  "fr": "Localisation",
+  "en": "Location"
+ },
+ {
+  "key": "iLang",
+  "group": "À propos",
+  "fr": "Langues",
+  "en": "Languages"
+ },
+ {
+  "key": "iStatus",
+  "group": "À propos",
+  "fr": "Statut",
+  "en": "Status"
+ },
+ {
+  "key": "kCdi",
+  "group": "À propos",
+  "fr": "Expérience · CDI",
+  "en": "Experience · Full-time"
+ },
+ {
+  "key": "kCdd",
+  "group": "À propos",
+  "fr": "Expérience · CDD",
+  "en": "Experience · Fixed-term"
+ },
+ {
+  "key": "kStage",
+  "group": "À propos",
+  "fr": "Expérience · Stage",
+  "en": "Experience · Internship"
+ },
+ {
+  "key": "kEdu",
+  "group": "À propos",
+  "fr": "Formation",
+  "en": "Education"
+ },
+ {
+  "key": "sinceValue",
+  "group": "À propos",
+  "fr": "Depuis {year} · {count} postes",
+  "en": "Since {year} · {count} roles"
+ },
+ {
+  "key": "readCase",
+  "group": "Projets & études de cas",
+  "fr": "Étude de cas",
+  "en": "Case study"
+ },
+ {
+  "key": "filterAria",
+  "group": "Projets & études de cas",
+  "fr": "Filtrer les projets",
+  "en": "Filter projects"
+ },
+ {
+  "key": "fAll",
+  "group": "Projets & études de cas",
+  "fr": "Tous",
+  "en": "All"
+ },
+ {
+  "key": "kApp",
+  "group": "Projets & études de cas",
+  "fr": "Application",
+  "en": "Application"
+ },
+ {
+  "key": "kSite",
+  "group": "Projets & études de cas",
+  "fr": "Site web",
+  "en": "Website"
+ },
+ {
+  "key": "caseLabel",
+  "group": "Projets & études de cas",
+  "fr": "Étude de cas",
+  "en": "Case study"
+ },
+ {
+  "key": "caseNav",
+  "group": "Projets & études de cas",
+  "fr": "Navigation entre projets",
+  "en": "Project navigation"
+ },
+ {
+  "key": "prev",
+  "group": "Projets & études de cas",
+  "fr": "Projet précédent",
+  "en": "Previous project"
+ },
+ {
+  "key": "next",
+  "group": "Projets & études de cas",
+  "fr": "Projet suivant",
+  "en": "Next project"
+ },
+ {
+  "key": "noShots",
+  "group": "Projets & études de cas",
+  "fr": "Captures à venir",
+  "en": "Screenshots coming soon"
+ },
+ {
+  "key": "mType",
+  "group": "Projets & études de cas",
+  "fr": "Catégorie",
+  "en": "Category"
+ },
+ {
+  "key": "mRole",
+  "group": "Projets & études de cas",
+  "fr": "Rôle",
+  "en": "Role"
+ },
+ {
+  "key": "mYear",
+  "group": "Projets & études de cas",
+  "fr": "Année",
+  "en": "Year"
+ },
+ {
+  "key": "mLink",
+  "group": "Projets & études de cas",
+  "fr": "Lien",
+  "en": "Link"
+ },
+ {
+  "key": "bContext",
+  "group": "Projets & études de cas",
+  "fr": "Contexte",
+  "en": "Context"
+ },
+ {
+  "key": "bChallenge",
+  "group": "Projets & études de cas",
+  "fr": "Enjeu",
+  "en": "Challenge"
+ },
+ {
+  "key": "bContrib",
+  "group": "Projets & études de cas",
+  "fr": "Ma contribution",
+  "en": "My contribution"
+ },
+ {
+  "key": "bSolution",
+  "group": "Projets & études de cas",
+  "fr": "Fonctionnalités",
+  "en": "Features"
+ },
+ {
+  "key": "bResult",
+  "group": "Projets & études de cas",
+  "fr": "Résultat",
+  "en": "Result"
+ },
+ {
+  "key": "pWork.0",
+  "group": "Projets & études de cas",
+  "fr": "Mes réalisations",
+  "en": "What I’ve built"
+ },
+ {
+  "key": "pWork.1",
+  "group": "Projets & études de cas",
+  "fr": "Projets",
+  "en": "Work"
+ },
+ {
+  "key": "pWork.2",
+  "group": "Projets & études de cas",
+  "fr": "Applications métier, plateformes et sites web sur lesquels j’ai travaillé.",
+  "en": "Business applications, platforms and websites I have worked on."
+ },
+ {
+  "key": "gProjects",
+  "group": "Projets & études de cas",
+  "fr": "Projets",
+  "en": "Projects"
+ },
+ {
+  "key": "gOnline",
+  "group": "Projets & études de cas",
+  "fr": "En ligne",
+  "en": "Live"
+ },
+ {
+  "key": "askService",
+  "group": "Services",
+  "fr": "Demander ce service",
+  "en": "Request this service"
+ },
+ {
+  "key": "pServices.0",
+  "group": "Services",
+  "fr": "Ce que je propose",
+  "en": "What I offer"
+ },
+ {
+  "key": "pServices.1",
+  "group": "Services",
+  "fr": "Services",
+  "en": "Services"
+ },
+ {
+  "key": "pServices.2",
+  "group": "Services",
+  "fr": "Du développement d’application à la formation, des prestations adaptées à votre projet.",
+  "en": "From application development to training: services shaped around your project."
+ },
+ {
+  "key": "svcEyebrow",
+  "group": "Services",
+  "fr": "Demande de service",
+  "en": "Service request"
+ },
+ {
+  "key": "svcService",
+  "group": "Services",
+  "fr": "Service souhaité",
+  "en": "Service"
+ },
+ {
+  "key": "nameLbl",
+  "group": "Services",
+  "fr": "Nom",
+  "en": "Name"
+ },
+ {
+  "key": "emailLbl",
+  "group": "Services",
+  "fr": "E-mail",
+  "en": "Email"
+ },
+ {
+  "key": "phoneLbl",
+  "group": "Services",
+  "fr": "Téléphone / WhatsApp",
+  "en": "Phone / WhatsApp"
+ },
+ {
+  "key": "svcWhen",
+  "group": "Services",
+  "fr": "Délai souhaité",
+  "en": "Preferred timing"
+ },
+ {
+  "key": "svcWhens.0",
+  "group": "Services",
+  "fr": "Dès que possible",
+  "en": "As soon as possible"
+ },
+ {
+  "key": "svcWhens.1",
+  "group": "Services",
+  "fr": "Dans le mois",
+  "en": "Within a month"
+ },
+ {
+  "key": "svcWhens.2",
+  "group": "Services",
+  "fr": "Dans les 3 mois",
+  "en": "Within 3 months"
+ },
+ {
+  "key": "svcWhens.3",
+  "group": "Services",
+  "fr": "Pas de date fixe",
+  "en": "No fixed date"
+ },
+ {
+  "key": "svcNeed",
+  "group": "Services",
+  "fr": "Votre besoin",
+  "en": "Your need"
+ },
+ {
+  "key": "svcNeedPh",
+  "group": "Services",
+  "fr": "Décrivez le projet, le contexte et ce que vous attendez.",
+  "en": "Describe the project, the context and what you expect."
+ },
+ {
+  "key": "svcSend",
+  "group": "Services",
+  "fr": "Envoyer la demande",
+  "en": "Send request"
+ },
+ {
+  "key": "svcSending",
+  "group": "Services",
+  "fr": "Envoi…",
+  "en": "Sending…"
+ },
+ {
+  "key": "svcOkTitle",
+  "group": "Services",
+  "fr": "Demande envoyée",
+  "en": "Request sent"
+ },
+ {
+  "key": "svcOkText",
+  "group": "Services",
+  "fr": "Merci ! J’ai bien reçu votre demande et je reviens vers vous rapidement par e-mail.",
+  "en": "Thank you! I’ve received your request and will get back to you shortly by email."
+ },
+ {
+  "key": "cancel",
+  "group": "Services",
+  "fr": "Annuler",
+  "en": "Cancel"
+ },
+ {
+  "key": "choose",
+  "group": "Services",
+  "fr": "Choisir…",
+  "en": "Choose…"
+ },
+ {
+  "key": "gServices",
+  "group": "Services",
+  "fr": "Prestations",
+  "en": "Services"
+ },
+ {
+  "key": "gFormats",
+  "group": "Services",
+  "fr": "Formats",
+  "en": "Formats"
+ },
+ {
+  "key": "gZone",
+  "group": "Services",
+  "fr": "Zone",
+  "en": "Area"
+ },
+ {
+  "key": "gTopics",
+  "group": "Blog",
+  "fr": "Thèmes",
+  "en": "Topics"
+ },
+ {
+  "key": "gArticles",
+  "group": "Blog",
+  "fr": "Articles",
+  "en": "Articles"
+ },
+ {
+  "key": "blogLabel",
+  "group": "Blog",
+  "fr": "Blog & actualités",
+  "en": "Blog & news"
+ },
+ {
+  "key": "blogTitle",
+  "group": "Blog",
+  "fr": "Derniers articles",
+  "en": "Latest articles"
+ },
+ {
+  "key": "allPosts",
+  "group": "Blog",
+  "fr": "Tous les articles",
+  "en": "All articles"
+ },
+ {
+  "key": "read",
+  "group": "Blog",
+  "fr": "min de lecture",
+  "en": "min read"
+ },
+ {
+  "key": "pBlog.0",
+  "group": "Blog",
+  "fr": "Blog & actualités",
+  "en": "Blog & news"
+ },
+ {
+  "key": "pBlog.1",
+  "group": "Blog",
+  "fr": "Articles",
+  "en": "Articles"
+ },
+ {
+  "key": "pBlog.2",
+  "group": "Blog",
+  "fr": "Conseils et retours d’expérience sur le développement web, Laravel, Vue.js et le SEO.",
+  "en": "Tips and lessons learned on web development, Laravel, Vue.js and SEO."
+ },
+ {
+  "key": "blogNav",
+  "group": "Blog",
+  "fr": "Blog",
+  "en": "Blog"
+ },
+ {
+  "key": "dateLocale",
+  "group": "Blog",
+  "fr": "fr-FR",
+  "en": "en-GB"
+ },
+ {
+  "key": "contactLabel",
+  "group": "Contact & formulaires",
+  "fr": "Contact",
+  "en": "Contact"
+ },
+ {
+  "key": "formTitle",
+  "group": "Contact & formulaires",
+  "fr": "Écrivez-moi",
+  "en": "Send me a message"
+ },
+ {
+  "key": "email",
+  "group": "Contact & formulaires",
+  "fr": "E-mail",
+  "en": "Email"
+ },
+ {
+  "key": "phone",
+  "group": "Contact & formulaires",
+  "fr": "Téléphone",
+  "en": "Phone"
+ },
+ {
+  "key": "location",
+  "group": "Contact & formulaires",
+  "fr": "Localisation",
+  "en": "Location"
+ },
+ {
+  "key": "hours",
+  "group": "Contact & formulaires",
+  "fr": "Horaires",
+  "en": "Hours"
+ },
+ {
+  "key": "follow",
+  "group": "Contact & formulaires",
+  "fr": "Suivez-moi",
+  "en": "Follow me"
+ },
+ {
+  "key": "fName",
+  "group": "Contact & formulaires",
+  "fr": "Nom",
+  "en": "Name"
+ },
+ {
+  "key": "fNamePh",
+  "group": "Contact & formulaires",
+  "fr": "Votre nom",
+  "en": "Your name"
+ },
+ {
+  "key": "emailPh",
+  "group": "Contact & formulaires",
+  "fr": "vous@exemple.com",
+  "en": "you@example.com"
+ },
+ {
+  "key": "subject",
+  "group": "Contact & formulaires",
+  "fr": "Sujet",
+  "en": "Subject"
+ },
+ {
+  "key": "message",
+  "group": "Contact & formulaires",
+  "fr": "Message",
+  "en": "Message"
+ },
+ {
+  "key": "subjectPh",
+  "group": "Contact & formulaires",
+  "fr": "Mission freelance, poste, collaboration…",
+  "en": "Freelance project, role, collaboration…"
+ },
+ {
+  "key": "messagePh",
+  "group": "Contact & formulaires",
+  "fr": "Décrivez votre projet ou votre besoin en quelques lignes.",
+  "en": "Tell me about your project or need in a few lines."
+ },
+ {
+  "key": "send",
+  "group": "Contact & formulaires",
+  "fr": "Envoyer le message",
+  "en": "Send message"
+ },
+ {
+  "key": "sending",
+  "group": "Contact & formulaires",
+  "fr": "Envoi…",
+  "en": "Sending…"
+ },
+ {
+  "key": "sent",
+  "group": "Contact & formulaires",
+  "fr": "Message envoyé. Merci, je vous réponds rapidement.",
+  "en": "Message sent. Thank you, I’ll get back to you soon."
+ },
+ {
+  "key": "eName",
+  "group": "Contact & formulaires",
+  "fr": "Indiquez votre nom.",
+  "en": "Please enter your name."
+ },
+ {
+  "key": "eEmail",
+  "group": "Contact & formulaires",
+  "fr": "Saisissez une adresse e-mail valide.",
+  "en": "Please enter a valid email address."
+ },
+ {
+  "key": "eMsg",
+  "group": "Contact & formulaires",
+  "fr": "Votre message doit contenir au moins 10 caractères.",
+  "en": "Your message needs at least 10 characters."
+ },
+ {
+  "key": "pContact.0",
+  "group": "Contact & formulaires",
+  "fr": "Contact",
+  "en": "Contact"
+ },
+ {
+  "key": "pContact.1",
+  "group": "Contact & formulaires",
+  "fr": "Parlons de votre projet",
+  "en": "Let’s talk about your project"
+ },
+ {
+  "key": "pContact.2",
+  "group": "Contact & formulaires",
+  "fr": "Je suis disponible pour des missions freelance, des projets web complets ou des conseils techniques.",
+  "en": "I’m available for freelance work, complete web projects or technical advice."
+ },
+ {
+  "key": "gReply",
+  "group": "Contact & formulaires",
+  "fr": "Délai de réponse",
+  "en": "Response time"
+ },
+ {
+  "key": "cv",
+  "group": "Contact & formulaires",
+  "fr": "Télécharger mon CV",
+  "en": "Download my CV"
+ },
+ {
+  "key": "errSend",
+  "group": "Contact & formulaires",
+  "fr": "L’envoi a échoué. Réessayez dans un instant.",
+  "en": "Sending failed. Please try again in a moment."
+ },
+ {
+  "key": "ctaHome",
+  "group": "Appel à l’action",
+  "fr": "Un projet en tête ?",
+  "en": "Got a project in mind?"
+ },
+ {
+  "key": "ctaCase",
+  "group": "Appel à l’action",
+  "fr": "Vous avez un projet similaire ? Parlons-en.",
+  "en": "Working on something similar? Let’s talk."
+ },
+ {
+  "key": "ctaText",
+  "group": "Appel à l’action",
+  "fr": "Disponible pour des missions freelance, des projets web complets ou une opportunité en équipe.",
+  "en": "Available for freelance work, complete web projects or a role in a team."
+ },
+ {
+  "key": "ctaEyebrow",
+  "group": "Appel à l’action",
+  "fr": "Travaillons ensemble",
+  "en": "Let’s work together"
+ },
+ {
+  "key": "footNav",
+  "group": "Pied de page & newsletter",
+  "fr": "Navigation",
+  "en": "Navigation"
+ },
+ {
+  "key": "resources",
+  "group": "Pied de page & newsletter",
+  "fr": "Ressources",
+  "en": "Resources"
+ },
+ {
+  "key": "toTop",
+  "group": "Pied de page & newsletter",
+  "fr": "Revenir en haut",
+  "en": "Back to top"
+ },
+ {
+  "key": "rights",
+  "group": "Pied de page & newsletter",
+  "fr": "Tous droits réservés",
+  "en": "All rights reserved"
+ },
+ {
+  "key": "footBio",
+  "group": "Pied de page & newsletter",
+  "fr": "Je conçois des applications web concrètes, de l’analyse du besoin à la mise en ligne.",
+  "en": "I build practical web applications, from understanding the need to going live."
+ },
+ {
+  "key": "nlText",
+  "group": "Pied de page & newsletter",
+  "fr": "Recevez mes nouveaux articles sur le développement web et le SEO. Pas de spam, désinscription en un clic.",
+  "en": "Get my new articles on web development and SEO. No spam, unsubscribe in one click."
+ },
+ {
+  "key": "nlCta",
+  "group": "Pied de page & newsletter",
+  "fr": "S’abonner",
+  "en": "Subscribe"
+ },
+ {
+  "key": "nlOk",
+  "group": "Pied de page & newsletter",
+  "fr": "Merci ! Votre inscription est enregistrée.",
+  "en": "Thank you! You’re subscribed."
+ },
+ {
+  "key": "nlErr",
+  "group": "Pied de page & newsletter",
+  "fr": "Saisissez une adresse e-mail valide.",
+  "en": "Please enter a valid email address."
+ },
+ {
+  "key": "nlDup",
+  "group": "Pied de page & newsletter",
+  "fr": "Cette adresse est déjà inscrite.",
+  "en": "This address is already subscribed."
+ },
+ {
+  "key": "newsletterTitle",
+  "group": "Pied de page & newsletter",
+  "fr": "Newsletter",
+  "en": "Newsletter"
+ },
+ {
+  "key": "footNavTitle",
+  "group": "Pied de page & newsletter",
+  "fr": "Navigation",
+  "en": "Navigation"
+ },
+ {
+  "key": "footContactTitle",
+  "group": "Pied de page & newsletter",
+  "fr": "Contact",
+  "en": "Contact"
+ },
+ {
+  "key": "adminLink",
+  "group": "Pied de page & newsletter",
+  "fr": "Admin",
+  "en": "Admin"
+ },
+ {
+  "key": "maintTitle",
+  "group": "Maintenance",
+  "fr": "Site en maintenance",
+  "en": "Under maintenance"
+ },
+ {
+  "key": "maintText",
+  "group": "Maintenance",
+  "fr": "Le portfolio revient très vite. Vous pouvez me joindre par e-mail en attendant.",
+  "en": "The portfolio will be back shortly. Feel free to reach me by email in the meantime."
+ }
+]

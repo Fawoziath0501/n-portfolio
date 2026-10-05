@@ -23,7 +23,7 @@ class SiteController extends Controller
         if (in_array($segments[1] ?? '', ['projets', 'work'], true) && isset($segments[2])) {
             $project = Project::published()->where('slug', $segments[2])->first();
             if ($project) {
-                $title = Portfolio::tx($project->title, $lang).' | Fawoziath Salou';
+                $title = Portfolio::tx($project->title, $lang).' | '.trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
                 $description = Portfolio::tx($project->summary, $lang);
             }
         }

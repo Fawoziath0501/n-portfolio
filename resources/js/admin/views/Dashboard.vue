@@ -29,7 +29,7 @@ const health = computed(() => {
   const d = state.data, pr = d.profile, pub = d.projects.filter((x) => x.published);
   const noImg = pub.filter((x) => !(x.images || []).length).length, noYear = pub.filter((x) => !x.year).length, noTech = pub.filter((x) => !(x.tech || []).length).length;
   const postsNoUrl = (d.posts || []).filter((x) => x.published && !x.url).length;
-  const miss = missingEn({ profile: d.profile, projects: d.projects, experiences: d.experiences, services: d.services, education: d.education, posts: d.posts, seo: d.seo });
+  const miss = (d.labels || []).filter((l) => l.fr && !l.en).length + missingEn({ profile: d.profile, projects: d.projects, experiences: d.experiences, services: d.services, education: d.education, posts: d.posts, seo: d.seo });
   const noSource = !isLocal() && !(d.settings.analytics && d.settings.analytics.siteId);
   const items = [
     { label: 'Portrait professionnel', done: !!pr.photo, go: 'profile' },

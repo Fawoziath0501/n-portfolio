@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 import { api, tx } from '../shared/util';
 
-export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects', 'posts', 'experiences', 'education', 'skills', 'services', 'certifications', 'testimonials', 'profile', 'home', 'media', 'seo', 'settings', 'trash'];
+export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects', 'posts', 'experiences', 'education', 'skills', 'services', 'certifications', 'testimonials', 'profile', 'home', 'media', 'seo', 'labels', 'settings', 'trash'];
 
 export const state = reactive({
     data: null, user: null, ready: false,

@@ -33,7 +33,7 @@ function meta() {
     const d = state.data;
     document.documentElement.lang = state.lang;
     const p = state.route === 'project' && d.projects.find((x) => x.slug === state.slug);
-    document.title = p ? tx(p.title, state.lang) + ' | Fawoziath Salou' : tx(d.seo.siteTitle, state.lang);
+    document.title = p ? tx(p.title, state.lang) + ' | ' + [d.profile.firstName, d.profile.lastName].join(' ') : tx(d.seo.siteTitle, state.lang);
     const m = document.querySelector('meta[name="description"]');
     if (m) m.content = p ? tx(p.summary, state.lang) : tx(d.seo.metaDescription, state.lang);
 }
@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div v-if="state.data.settings.maintenance" class="maint">
-    <span class="logo-mark">[ FS ]</span>
+    <span class="logo-mark">{{ vm.brand.mark }}</span>
     <h1>{{ vm.L.maintTitle }}<span class="dot">.</span></h1>
     <p>{{ vm.L.maintText }}</p>
     <a :href="vm.p.mailto">{{ vm.p.email }}</a>

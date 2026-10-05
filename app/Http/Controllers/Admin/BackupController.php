@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Profile;
 use App\Models\Setting;
+use App\Models\UiLabel;
 use App\Support\Portfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,11 @@ class BackupController extends Controller
             Profile::current()->saveFromFront($data['profile']);
             if (isset($data['home']) && is_array($data['home'])) {
                 Portfolio::saveHome($data['home']);
+            }
+            foreach ($data['labels'] ?? [] as $l) {
+                if (isset($l['key'])) {
+                    UiLabel::where('key', $l['key'])->update(['fr' => (string) ($l['fr'] ?? ''), 'en' => (string) ($l['en'] ?? '')]);
+                }
             }
             foreach (Portfolio::SETTINGS as $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {

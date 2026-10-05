@@ -11,7 +11,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
     <div class="wrap ftr-in">
       <div class="nl">
         <div class="nl-l">
-          <h2><span class="ms">mark_email_unread</span>Newsletter</h2>
+          <h2><span class="ms">mark_email_unread</span>{{ vm.L.newsletterTitle }}</h2>
           <p>{{ vm.L.nlText }}</p>
         </div>
         <form novalidate class="nl-form" @submit.prevent="subscribe">
@@ -27,14 +27,14 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
 
       <div class="ftr-grid">
         <div class="col gap18">
-          <span class="ftr-name">Fawoziath Salou<span class="ftr-dot"></span></span>
+          <span class="ftr-name">{{ vm.brand.short }}<span class="ftr-dot"></span></span>
           <p class="ftr-bio">{{ vm.p.title }} · {{ vm.p.stack }}. {{ vm.L.footBio }}</p>
           <div class="row gap8">
             <a v-for="so in vm.socials" :key="so.label" :href="so.url" target="_blank" rel="noopener" :aria-label="so.label" :title="so.label" class="ftr-soc ms">{{ so.icon }}</a>
           </div>
         </div>
         <nav :aria-label="vm.L.footNav" class="ftr-col">
-          <h2>Navigation</h2>
+          <h2>{{ vm.L.footNavTitle }}</h2>
           <RouterLink v-for="n in vm.navItems" :key="n.key" :to="n.href"><span>›</span>{{ n.label }}</RouterLink>
         </nav>
         <nav :aria-label="vm.L.resources" class="ftr-col">
@@ -42,7 +42,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
           <RouterLink v-for="n in vm.resItems" :key="n.label" :to="n.href"><span>›</span>{{ n.label }}</RouterLink>
         </nav>
         <div class="ftr-col">
-          <h2>Contact</h2>
+          <h2>{{ vm.L.footContactTitle }}</h2>
           <div v-for="cr in vm.contactRows" :key="cr.num" class="ftr-contact">
             <span class="ms">{{ cr.icon }}</span>
             <a v-if="cr.href" :href="cr.href">{{ cr.value }}</a>
@@ -52,9 +52,9 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
       </div>
 
       <div class="ftr-bottom">
-        <span>© {{ vm.year }} Fawoziath Modjissola Salou · {{ vm.L.rights }}</span>
+        <span>© {{ vm.year }} {{ vm.brand.full }} · {{ vm.L.rights }}</span>
         <div class="row center gap16">
-          <a href="/admin" class="ftr-admin">Admin</a>
+          <a href="/admin" class="ftr-admin">{{ vm.L.adminLink }}</a>
           <button type="button" class="ftr-top ms" :aria-label="vm.L.toTop" @click="toTop">arrow_upward</button>
         </div>
       </div>
