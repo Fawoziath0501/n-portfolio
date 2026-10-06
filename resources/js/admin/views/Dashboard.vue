@@ -1,7 +1,9 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { COLS, ask, fmtMD, go, isLocal, missingEn, nf, save, state, stats, syncDoc, t } from '../store';
+import { COLS, PRESETS, ask, fmtMD, go, inboxStats, isLocal, loadEvents, missingEn, nf, save, state, stats, statsRange, syncDoc, t } from '../store';
+import AudienceChart from '../components/AudienceChart.vue';
+import BarList from '../components/BarList.vue';
 import Panel from '../components/Panel.vue';
 import KpiGrid from '../components/KpiGrid.vue';
 
@@ -24,18 +26,29 @@ const newCount = computed(() => msgs.value.filter((m) => m.status === 'new').len
 const toHandle = computed(() => msgs.value.filter((m) => m.status === 'new' || m.status === 'read'));
 const openMsg = (m) => { go(router, 'messages'); state.msgId = m.id; };
 
+// Période du tableau de bord (indépendante des filtres des statistiques).
+const dp = computed({ get: () => state.dp, set: (v) => { state.dp = v; } });
+watch(() => state.dp, () => loadEvents());
+const DP = PRESETS.filter(([v]) => v !== 'custom');
+const dpLabel = computed(() => (DP.find(([v]) => v === state.dp) || DP[1])[1]);
+const st = computed(() => { state.events; return stats({ preset: state.dp }); });
+const ib = computed(() => inboxStats(statsRange({ preset: state.dp })));
+// Ancienneté d'un message en attente.
+const age = (m) => { const h = (Date.now() - new Date(m.at || m.date)) / 36e5; return h < 1 ? 'à l’instant' : h < 24 ? 'il y a ' + Math.round(h) + ' h' : 'il y a ' + Math.round(h / 24) + ' j'; };
+const lastSubs = computed(() => (state.data.subscribers || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 5));
+
 const kpis = computed(() => {
   state.events; // recalcul quand les événements du suivi intégré arrivent
-  const s = stats({ preset: '30' }), d = state.data;
+  const s = st.value, d = state.data;
   const svc = toHandle.value.filter((m) => m.type === 'service').length;
   const pub = (d.projects || []).filter((x) => x.published).length + (d.posts || []).filter((x) => x.published).length;
   const drafts = (d.projects || []).filter((x) => !x.published).length + (d.posts || []).filter((x) => !x.published).length;
   return [
     { label: 'Messages non lus', icon: 'mark_email_unread', value: String(newCount.value), delta: toHandle.value.length + ' en attente de réponse', ...(newCount.value ? WARN : NEUTRAL), onClick: () => go(router, 'messages') },
     { label: 'Demandes de service', icon: 'design_services', value: String(svc), delta: svc ? 'à traiter' : 'Aucune en attente', ...(svc ? WARN : NEUTRAL), onClick: () => go(router, 'messages') },
-    { label: 'Inscrits newsletter', icon: 'group_add', value: String(s.subsTotal), delta: (s.nC ? '+' + s.nC : 'Aucun nouveau') + ' sur 30 jours', ...(s.nC ? GOOD : NEUTRAL), onClick: () => go(router, 'newsletter') },
+    { label: 'Inscrits newsletter', icon: 'group_add', value: String(s.subsTotal), delta: (s.nC ? '+' + s.nC : 'Aucun nouveau') + ' · ' + dpLabel.value, ...(s.nC ? GOOD : NEUTRAL), onClick: () => go(router, 'newsletter') },
     { label: 'Projets et articles publiés', icon: 'public', value: String(pub), delta: drafts ? drafts + ' brouillon(s)' : 'Aucun brouillon', ...NEUTRAL, onClick: () => go(router, 'projects') },
-    { label: 'Visiteurs · 30 jours', icon: 'query_stats', value: s.tracking ? nf(s.V) : '—', delta: s.tracking ? 'Voir les statistiques →' : 'Suivi désactivé', ...NEUTRAL, onClick: () => go(router, 'stats') },
+    { label: 'Visiteurs · ' + dpLabel.value, icon: 'query_stats', value: s.tracking ? nf(s.V) : '—', delta: s.tracking ? 'Voir les statistiques →' : 'Suivi désactivé', ...NEUTRAL, onClick: () => go(router, 'stats') },
   ];
 });
 
@@ -93,16 +106,23 @@ const when = (ts) => { const m = Math.round((Date.now() - ts) / 60000); return m
     <button type="button" class="abtn" :class="{ primary: maint }" @click="toggleMaint"><span class="ms">{{ maint ? 'public' : 'construction' }}</span>{{ maint ? 'Remettre le site en ligne' : 'Mettre en maintenance' }}</button>
   </div>
 
+  <div class="row-wrap center gap10 dash-period">
+    <span class="sm-mu">Période :</span>
+    <div role="group" aria-label="Période du tableau de bord" class="periods">
+      <button v-for="[v, lb] in DP" :key="v" type="button" :aria-pressed="dp === v" :class="{ on: dp === v }" @click="dp = v">{{ lb }}</button>
+    </div>
+  </div>
+
   <KpiGrid :kpis="kpis" />
 
   <div class="grid g360">
-    <Panel title="Messages récents" :sub="newCount ? newCount + ' non lu(s)' : 'Tout est lu'">
+    <Panel title="À traiter" :sub="toHandle.length ? toHandle.length + ' message(s) en attente de réponse, du plus ancien au plus récent' : 'Aucun message en attente'">
       <template #action><button type="button" class="abtn xs" @click="go(router, 'messages')">Boîte de réception</button></template>
       <div class="list-pad">
-        <p v-if="!msgs.length" class="empty-txt">Aucun message pour le moment.</p>
-        <button v-for="m in msgs.slice(0, 5)" :key="m.id" type="button" class="msg-row" @click="openMsg(m)">
+        <p v-if="!ib.pending.length" class="empty-txt">Tout est traité.</p>
+        <button v-for="m in ib.pending.slice(0, 6)" :key="m.id" type="button" class="msg-row" @click="openMsg(m)">
           <span class="msg-ico ms">{{ m.type === 'service' ? 'design_services' : 'mail' }}</span>
-          <span class="msg-txt"><span class="msg-l1"><strong>{{ m.name }}</strong><span>{{ fmtMD(m.date) }}</span></span><span class="msg-sub">{{ t(m.subject) || '(sans sujet)' }}</span></span>
+          <span class="msg-txt"><span class="msg-l1"><strong>{{ m.name }}</strong><span :title="fmtMD(m.date)">{{ age(m) }}</span></span><span class="msg-sub">{{ t(m.subject) || '(sans sujet)' }}</span></span>
           <span v-if="m.status === 'new'" class="new-tag">Nouveau</span>
         </button>
       </div>
@@ -115,6 +135,22 @@ const when = (ts) => { const m = Math.round((Date.now() - ts) / 60000); return m
           <span class="health-txt"><span :class="{ done: hi.done }">{{ hi.label }}</span><span v-if="hi.detail" class="sm-mu">{{ hi.detail }}</span></span>
           <button v-if="!hi.done" type="button" class="abtn xxs" @click="go(router, hi.go)">Compléter</button>
         </div>
+      </div>
+    </Panel>
+  </div>
+
+  <div class="grid g320">
+    <Panel title="Visites" :sub="st.tracking ? st.rangeLabel : 'Suivi des visites désactivé'">
+      <template #action><button type="button" class="abtn xs" @click="go(router, 'stats')">Statistiques</button></template>
+      <div v-if="st.tracking" class="pad-chart"><AudienceChart :chart="st.chart" /></div>
+      <p v-else class="empty-txt">Activez le suivi intégré dans Paramètres.</p>
+    </Panel>
+    <Panel title="Demandes par service" :sub="ib.requests + ' demande(s) · ' + dpLabel"><BarList :rows="ib.byService" /></Panel>
+    <Panel title="Derniers inscrits" :sub="(state.data.subscribers || []).length + ' inscrit(s) à la newsletter'">
+      <template #action><button type="button" class="abtn xs" @click="go(router, 'newsletter')">Newsletter</button></template>
+      <div class="list-pad">
+        <p v-if="!lastSubs.length" class="empty-txt">Aucun inscrit pour le moment.</p>
+        <div v-for="x in lastSubs" :key="x.id" class="sub-row"><span class="ms" aria-hidden="true">mail</span><span class="f1 ellipsis">{{ x.email }}</span><span class="mono13 mu">{{ (x.lang || 'fr').toUpperCase() }} · {{ fmtMD(x.date) }}</span></div>
       </div>
     </Panel>
   </div>

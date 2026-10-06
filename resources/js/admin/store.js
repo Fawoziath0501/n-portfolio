@@ -5,7 +5,7 @@ export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects'
 
 export const state = reactive({
     data: null, user: null, ready: false,
-    view: 'dashboard', theme: 'light', sf: defaultFilters(), menu: false, w: window.innerWidth,
+    view: 'dashboard', theme: 'light', sf: defaultFilters(), dp: '30', menu: false, w: window.innerWidth,
     edit: null, mf: 'all', msgId: null, confirm: null, toasts: [], q: '', pick: null, mUrl: '',
     events: null, eventsTotal: 0,
 });
@@ -154,7 +154,7 @@ export const PRESETS = [['7', '7 jours'], ['30', '30 jours'], ['90', '90 jours']
 export const SECTIONS = [['home', 'Accueil'], ['about', 'À propos'], ['work', 'Projets'], ['services', 'Services'], ['blog', 'Blog'], ['contact', 'Contact'], ['legal', 'Pages légales']];
 export const DEVICES = [['mobile', 'Mobile'], ['desktop', 'Ordinateur'], ['tablet', 'Tablette']];
 // Déclaration de fonction (et non const) : utilisée dans « state », défini plus haut dans ce fichier.
-export function defaultFilters() { return { preset: '30', from: '', to: '', lang: 'all', device: 'all', source: 'all', section: 'all' }; }
+export function defaultFilters() { return { preset: '30', from: '', to: '', lang: 'all', device: 'all', source: 'all', section: 'all', page: 'all' }; }
 
 const day0 = (dt) => new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
 const addDays = (dt, n) => new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + n);
@@ -186,8 +186,9 @@ const srcName = (r) => (!r ? ['Accès direct', 'link'] : /google/.test(r) ? ['Go
 let loadedKey = '';
 export async function loadEvents(force = false) {
     if (!state.data || !isLocal()) return; // pas encore connecté, ou suivi désactivé
-    const r = statsRange(), today = day0(new Date()), min = addDays(today, -59);
-    const from = iso(r.prevFrom < min ? r.prevFrom : min), to = iso(today);
+    // Période des statistiques et période du tableau de bord (chacune avec sa période précédente).
+    const today = day0(new Date()), starts = [statsRange().prevFrom, statsRange({ preset: state.dp }).prevFrom, addDays(today, -59)];
+    const from = iso(new Date(Math.min(...starts))), to = iso(today);
     if (!force && loadedKey === from + to) return;
     try {
         const { data } = await api.get('/admin/events', { params: { from, to } });
@@ -197,7 +198,31 @@ export async function loadEvents(force = false) {
     } catch (e) { state.events = []; }
 }
 
-/** Indicateurs de la période choisie, après filtres (langue, appareil, provenance, rubrique). */
+/**
+ * Échanges d'une période : messages et demandes reçus (par jour), demandes par service, taux de réponse,
+ * délai moyen de première réponse, inscriptions à la newsletter et leur langue. Messages en attente : toutes périodes.
+ */
+export function inboxStats(r) {
+    const d = state.data, s = iso(r.from), e = iso(r.to), inR = (m) => m.date >= s && m.date <= e;
+    const msgs = (d.messages || []).filter(inR), subs = (d.subscribers || []).filter(inR);
+    const perDay = (arr) => Array.from({ length: r.len }, (_, i) => { const day = iso(addDays(r.from, i)); return arr.filter((m) => m.date === day).length; });
+    const svc = msgs.filter((m) => m.type === 'service'), answered = msgs.filter((m) => m.status === 'replied' || (m.replies || []).length);
+    const delays = msgs.filter((m) => (m.replies || []).length && m.at).map((m) => (new Date(m.replies[0].at) - new Date(m.at)) / 36e5).filter((h) => h >= 0);
+    const avg = delays.length ? delays.reduce((a, h) => a + h, 0) / delays.length : null;
+    const byService = {}; svc.forEach((m) => { const k = m.service || 'Autre'; byService[k] = (byService[k] || 0) + 1; });
+    const pending = (d.messages || []).filter((m) => m.status === 'new' || m.status === 'read').sort((a, b) => String(a.at || a.date).localeCompare(String(b.at || b.date)));
+    const langs = { fr: subs.filter((x) => x.lang !== 'en').length, en: subs.filter((x) => x.lang === 'en').length };
+    return {
+        received: msgs.length, contacts: msgs.length - svc.length, requests: svc.length,
+        perDay: perDay(msgs), subsPerDay: perDay(subs),
+        byService: barList(Object.entries(byService).map(([label, n]) => ({ label, icon: 'design_services', n })).sort((a, b) => b.n - a.n), svc.length),
+        replyRate: msgs.length ? Math.round(answered.length / msgs.length * 100) : null,
+        avgDelay: avg === null ? '—' : avg < 1 ? Math.max(1, Math.round(avg * 60)) + ' min' : avg < 48 ? Math.round(avg) + ' h' : Math.round(avg / 24) + ' j',
+        pending, newSubs: subs.length, subsLangs: barList([{ label: 'Français', icon: 'translate', n: langs.fr }, { label: 'Anglais', icon: 'translate', n: langs.en }], subs.length),
+    };
+}
+
+/** Indicateurs de la période choisie, après filtres (langue, appareil, provenance, rubrique, page). */
 export function stats(filters = {}) {
     const f = { ...defaultFilters(), ...filters }, d = state.data, tracking = isLocal(), r = statsRange(f);
     const a0 = r.from.getTime(), a1 = addDays(r.to, 1).getTime(), b0 = r.prevFrom.getTime();
@@ -208,7 +233,8 @@ export function stats(filters = {}) {
     const keep = (e) => (f.lang === 'all' || (String(e.path || '').startsWith('/en') ? 'en' : 'fr') === f.lang)
         && (f.device === 'all' || (e.dev || 'desktop') === f.device)
         && (f.source === 'all' || sessionSrc[e.sid] === f.source)
-        && (f.section === 'all' || sectionOf(e.path, d) === f.section);
+        && (f.section === 'all' || sectionOf(e.path, d) === f.section)
+        && (f.page === 'all' || (e.path || '/') === f.page);
     const ev = all.filter(keep);
     const cE = ev.filter((e) => e.ts >= a0 && e.ts < a1), pE = ev.filter((e) => e.ts >= b0 && e.ts < a0), pvE = cE.filter((e) => e.t === 'pv');
 
@@ -218,12 +244,15 @@ export function stats(filters = {}) {
     });
     const pvP = pE.filter((e) => e.t === 'pv');
     const V = new Set(pvE.map((e) => e.sid)).size, PV = pvE.length, V0 = new Set(pvP.map((e) => e.sid)).size, PV0 = pvP.length;
-    const n = cur.length, maxY = Math.max(4, ...cur.map((x) => x.pv)) * 1.12;
+    // Au-delà de 120 jours, un point par semaine pour garder une courbe lisible.
+    const weekly = r.len > 120;
+    const pts = weekly ? Array.from({ length: Math.ceil(cur.length / 7) }, (_, i) => cur.slice(i * 7, i * 7 + 7)).map((g) => ({ dt: g[0].dt, v: g.reduce((a, x) => a + x.v, 0), pv: g.reduce((a, x) => a + x.pv, 0) })) : cur;
+    const n = pts.length, maxY = Math.max(4, ...pts.map((x) => x.pv)) * 1.12;
     const X = (i) => (n > 1 ? i * 640 / (n - 1) : 320), Y = (v) => 205 - v / maxY * 190;
-    const line = (k) => (n > 1 ? cur.map((x, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(x[k]).toFixed(1)).join(' ') : 'M 0 ' + Y(cur[0][k]).toFixed(1) + ' L 640 ' + Y(cur[0][k]).toFixed(1));
+    const line = (k) => (n > 1 ? pts.map((x, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(x[k]).toFixed(1)).join(' ') : 'M 0 ' + Y(pts[0][k]).toFixed(1) + ' L 640 ' + Y(pts[0][k]).toFixed(1));
     const area = (k) => line(k) + ' L 640 205 L 0 205 Z';
     const grid = [0.25, 0.5, 0.75, 1].map((g) => { const val = Math.round(maxY * g / 1.12); return { y: Y(val).toFixed(1), ty: (Y(val) - 4).toFixed(1), label: nf(val) }; });
-    const chart = { vLine: line('v'), pvLine: line('pv'), vArea: area('v'), pvArea: area('pv'), grid, xl: [cur[0], cur[Math.floor(n / 2)], cur[n - 1]].map((x) => fmtD(x.dt)), aria: 'Visiteurs et pages vues du ' + fmtD(r.from) + ' au ' + fmtD(r.to) };
+    const chart = { vLine: line('v'), pvLine: line('pv'), vArea: area('v'), pvArea: area('pv'), grid, xl: [pts[0], pts[Math.floor(n / 2)], pts[n - 1]].map((x) => fmtD(x.dt)), aria: 'Visiteurs et pages vues du ' + fmtD(r.from) + ' au ' + fmtD(r.to) + (weekly ? ', par semaine' : ''), weekly };
 
     const label = (path) => {
         if (path === '/fr' || path === '/en' || path === '/') return ['Accueil', 'home'];
@@ -238,6 +267,11 @@ export function stats(filters = {}) {
     const grp = (arr, key) => { const o = {}; arr.forEach((e) => { const k = key(e); if (k != null) o[k] = (o[k] || 0) + 1; }); return o; };
     const rowsP = Object.entries(grp(pvE, (e) => e.path || '/')).map(([path, c]) => { const [lb, ic] = label(path); return { label: lb, path, icon: ic, n: c }; }).sort((x, y) => y.n - x.n);
     const firsts = {}; pvE.forEach((e) => { if (!firsts[e.sid]) firsts[e.sid] = e; });
+    // Moments de visite (heure locale) et pages d'entrée (première page vue de chaque visite).
+    const byHour = Array(24).fill(0), byDay = Array(7).fill(0);
+    pvE.forEach((e) => { const dt = new Date(e.ts); byHour[dt.getHours()]++; byDay[(dt.getDay() + 6) % 7]++; });
+    const entries = Object.entries(grp(Object.values(firsts), (e) => e.path || '/')).map(([path, c]) => { const [lb, ic] = label(path); return { label: lb, icon: ic, n: c }; }).sort((x, y) => y.n - x.n).slice(0, 8);
+    const pageOptions = Object.entries(grp(all.filter((e) => e.t === 'pv' && e.ts >= a0 && e.ts < a1), (e) => e.path || '/')).sort((x, y) => y[1] - x[1]).map(([path, c]) => ({ path, label: label(path)[0] + ' · ' + path + ' (' + c + ')' }));
     const bySrc = {}; Object.values(firsts).forEach((e) => { const [lb, ic] = srcName(e.ref || ''); bySrc[lb] = bySrc[lb] || { label: lb, icon: ic, n: 0 }; bySrc[lb].n++; });
     const devN = { mobile: 0, desktop: 0, tablet: 0 }; Object.values(firsts).forEach((e) => { devN[e.dev || 'desktop']++; }); const devT = Math.max(1, devN.mobile + devN.desktop + devN.tablet);
     const devices = [['Mobile', 'smartphone', devN.mobile, 'var(--ac)'], ['Ordinateur', 'computer', devN.desktop, 'var(--dev2)'], ['Tablette', 'tablet', devN.tablet, 'var(--dev3)']]
@@ -257,8 +291,11 @@ export function stats(filters = {}) {
     const isSvc = (m) => m.type === 'service', isMsg = (m) => m.type !== 'service';
     const fmtLong = (dt) => dt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
     return { tracking, V, PV, V0, PV0, chart, range: r,
-        sourceOptions: [...new Set(Object.values(sessionSrc))].sort(),
-        filtered: f.lang !== 'all' || f.device !== 'all' || f.source !== 'all' || f.section !== 'all',
+        sourceOptions: [...new Set(Object.values(sessionSrc))].sort(), pageOptions,
+        byHour: byHour.map((c, h) => ({ label: String(h).padStart(2, '0') + ' h', n: c })),
+        byDay: byDay.map((c, i) => ({ label: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'][i], n: c })),
+        entries: barList(entries, V),
+        filtered: f.lang !== 'all' || f.device !== 'all' || f.source !== 'all' || f.section !== 'all' || f.page !== 'all',
         topPages: rowsP.slice(0, 10).map((x) => ({ label: x.label, path: x.path, value: nf(x.n), pct: PV ? Math.round(x.n / PV * 100) + ' %' : '' })),
         // Études de cas : versions FR et EN d'un même projet regroupées.
         topProjects: barList(Object.values(rowsP.filter((x) => x.icon === 'folder_open').reduce((o, x) => {

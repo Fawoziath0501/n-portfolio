@@ -1,7 +1,8 @@
 <script setup>
 import { computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { DEVICES, PRESETS, SECTIONS, barList, defaultFilters, delta, go, iso, loadEvents, nf, spark, state, stats, t } from '../store';
+import { DEVICES, PRESETS, SECTIONS, barList, defaultFilters, delta, go, inboxStats, iso, loadEvents, nf, spark, state, stats, t } from '../store';
+import ColumnChart from '../components/ColumnChart.vue';
 import Panel from '../components/Panel.vue';
 import KpiGrid from '../components/KpiGrid.vue';
 import BarList from '../components/BarList.vue';
@@ -18,7 +19,24 @@ const setPreset = (p) => {
   if (p === 'custom' && !f.from) Object.assign(f, { from: iso(st.value.range.from), to: iso(st.value.range.to) });
   f.preset = p;
 };
-const reset = () => Object.assign(f, { lang: 'all', device: 'all', source: 'all', section: 'all' });
+const reset = () => Object.assign(f, { lang: 'all', device: 'all', source: 'all', section: 'all', page: 'all' });
+const ib = computed(() => inboxStats(st.value.range));
+// Échanges par jour (étiquette tous les ~7 jours sur les longues périodes).
+const perDay = (arr) => arr.map((n, i) => { const dt = new Date(st.value.range.from); dt.setDate(dt.getDate() + i); return { label: dt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }), n }; });
+const every = computed(() => Math.max(1, Math.ceil(st.value.range.len / 8)));
+/** Export CSV de la période : jours (visiteurs, pages vues, messages, inscrits) et pages les plus vues. */
+function exportCsv() {
+  const s = st.value, r = s.range, rows = [['date', 'messages', 'inscrits']];
+  ib.value.perDay.forEach((n, i) => { const dt = new Date(r.from); dt.setDate(dt.getDate() + i); rows.push([iso(dt), n, ib.value.subsPerDay[i]]); });
+  rows.push([], ['page', 'vues', 'part']); s.topPages.forEach((p) => rows.push([p.path, p.value.replace(/\s/g, ''), p.pct]));
+  rows.push([], ['indicateur', 'valeur'], ['visiteurs', s.V], ['pages vues', s.PV]);
+  const cell = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\uFEFF' + rows.map((x) => x.map(cell).join(';')).join('\n')], { type: 'text/csv' }));
+  a.download = 'statistiques-' + iso(r.from) + '-' + iso(r.to) + '.csv';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
 const filtered = computed(() => JSON.stringify({ ...f, preset: 0, from: 0, to: 0 }) !== JSON.stringify({ ...defaultFilters(), preset: 0, from: 0, to: 0 }));
 
 const topPosts = computed(() => {
@@ -72,6 +90,9 @@ const kpis = computed(() => {
           <select v-model="f.source" class="ain"><option value="all">Toutes</option><option v-for="s in st.sourceOptions" :key="s" :value="s">{{ s }}</option></select></label>
         <label class="flt"><span>Rubrique</span>
           <select v-model="f.section" class="ain"><option value="all">Tout le site</option><option v-for="[v, lb] in SECTIONS" :key="v" :value="v">{{ lb }}</option></select></label>
+        <label class="flt wide"><span>Page précise</span>
+          <select v-model="f.page" class="ain"><option value="all">Toutes les pages</option><option v-for="o in st.pageOptions" :key="o.path" :value="o.path">{{ o.label }}</option></select></label>
+        <button type="button" class="abtn sm" @click="exportCsv"><span class="ms">download</span>Exporter (CSV)</button>
         <button v-if="filtered" type="button" class="abtn sm" @click="reset"><span class="ms">filter_alt_off</span>Réinitialiser les filtres</button>
       </div>
     </div>
@@ -111,6 +132,31 @@ const kpis = computed(() => {
         <div class="devices">
           <div v-for="cv in st.conv" :key="cv.label" class="dev-row"><span class="row center gap8"><span aria-hidden="true" class="ms acc">{{ cv.icon }}</span>{{ cv.label }}</span><span class="mono13"><strong>{{ cv.value }}</strong> <span class="mu">· {{ cv.note }}</span></span></div>
         </div>
+      </Panel>
+    </div>
+
+    <div class="grid g320">
+      <Panel title="Visites par heure" sub="Pages vues selon l’heure (heure locale)"><ColumnChart :rows="st.byHour" :every="3" label="Pages vues par heure" /></Panel>
+      <Panel title="Visites par jour de la semaine" sub="Pages vues, du lundi au dimanche"><ColumnChart :rows="st.byDay" label="Pages vues par jour de la semaine" /></Panel>
+      <Panel title="Pages d’entrée" sub="Première page vue de chaque visite"><BarList :rows="st.entries" /></Panel>
+    </div>
+
+    <h2 class="sec-title">Échanges <span class="sm-mu">· messages, demandes et newsletter sur la période (filtrés par dates uniquement)</span></h2>
+    <Panel title="Messages et demandes" :sub="st.rangeLabel">
+      <div class="kv-row">
+        <div class="kv"><strong>{{ ib.received }}</strong><span>reçus</span></div>
+        <div class="kv"><strong>{{ ib.requests }}</strong><span>demandes de service</span></div>
+        <div class="kv"><strong>{{ ib.replyRate === null ? '—' : ib.replyRate + ' %' }}</strong><span>taux de réponse</span></div>
+        <div class="kv"><strong>{{ ib.avgDelay }}</strong><span>délai moyen de 1re réponse</span></div>
+        <div class="kv"><strong>{{ ib.pending.length }}</strong><span>en attente (toutes périodes)</span></div>
+      </div>
+      <ColumnChart :rows="perDay(ib.perDay)" :every="every" label="Messages reçus par jour" :height="90" />
+    </Panel>
+    <div class="grid g320">
+      <Panel title="Demandes par service" sub="Services demandés sur la période"><BarList :rows="ib.byService" /></Panel>
+      <Panel title="Newsletter" :sub="ib.newSubs + ' nouvel(s) inscrit(s) sur la période'">
+        <ColumnChart :rows="perDay(ib.subsPerDay)" :every="every" label="Inscriptions par jour" :height="70" />
+        <BarList :rows="ib.subsLangs" />
       </Panel>
     </div>
 
