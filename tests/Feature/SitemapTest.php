@@ -19,7 +19,7 @@ class SitemapTest extends TestCase
             ->assertSee('<loc>https://fawoziath.dev/fr/a-propos</loc>', false)
             ->assertSee('<loc>https://fawoziath.dev/en/work/presentia</loc>', false)
             ->assertSee('hreflang="en" href="https://fawoziath.dev/en/about"', false)
-            ->assertDontSee('ciste');
+            ->assertDontSee('/projets/ciste<', false)->assertDontSee('/work/ciste<', false);
     }
 
     public function test_robots_points_to_sitemap(): void

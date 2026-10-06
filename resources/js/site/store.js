@@ -181,7 +181,9 @@ export const vm = computed(() => {
     if (pages[r]) page = { eyebrow: pages[r][0], title: pages[r][1], intro: pages[r][2], crumb: pages[r][1], icon: picons[r] };
     if (cp) page = { eyebrow: t(cp.category), title: t(cp.title), intro: t(cp.summary), crumb: t(cp.title), icon: 'folder_open' };
     const pIdx = ['home', 'about', 'work', 'services', 'contact'].indexOf(r === 'project' ? 'work' : r);
-    page.index = pIdx > 0 ? pad(pIdx + 1) + ' / 05' : (r === 'blog' ? L.blogNav : '');
+    // Fiche projet : position du projet dans la liste ; autres pages : numéro de la rubrique.
+    const pPos = cp ? pub.indexOf(cp) : -1;
+    page.index = pPos >= 0 ? pad(pPos + 1) + ' / ' + pad(pub.length) : pIdx > 0 ? pad(pIdx + 1) + ' / 05' : (r === 'blog' ? L.blogNav : '');
     const panels = {
         about: [{ label: L.fWhere, value: t(pr.location) }, cur && { label: L.fNow, value: cur.company }, { label: L.fSince, value: L.fSinceV }, { label: L.fLang, value: L.fLangV }],
         work: [{ label: L.gProjects, value: String(pub.length) }, { label: L.kApp, value: String(pub.filter((x) => kindOf(x) === 'app').length) }, { label: L.kSite, value: String(pub.filter((x) => kindOf(x) === 'site').length) }, { label: L.gOnline, value: String(pub.filter((x) => x.link).length) }],

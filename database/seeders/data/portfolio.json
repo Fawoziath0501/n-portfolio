@@ -334,38 +334,87 @@
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Site web & application santé au travail",
-        "en": "Website & occupational health app"
+        "fr": "Site web · santé au travail · SEO",
+        "en": "Website · occupational health · SEO"
       },
       "role": {
         "fr": "Développeuse fullstack · SEO",
         "en": "Fullstack developer · SEO"
       },
       "summary": {
-        "fr": "Site web avec application intégrée de suivi de la santé au travail, et stratégie SEO complète.",
-        "en": "Website with a built-in occupational health tracking application and a full SEO strategy."
+        "fr": "Site public de CISTE, service de santé au travail au Bénin : prestations, inscription des entreprises en ligne, contenus gérés depuis l’administration et stratégie SEO complète.",
+        "en": "Public website of CISTE, an occupational health service in Benin: services, online company registration, content managed from the admin area and a full SEO strategy."
       },
       "context": {
-        "fr": "CISTE dispose d’un site web public et d’une application intégrée dédiée au suivi de la santé au travail.",
-        "en": "CISTE runs a public website with an integrated application for occupational health tracking."
+        "fr": "CISTE accompagne les entreprises béninoises dans la santé et la sécurité au travail de leurs salariés. Le site présente le service et ses prestations, explique la santé au travail au Bénin, présente l’application LogiCISTE et permet aux entreprises de s’inscrire en ligne.",
+        "en": "CISTE supports companies in Benin with their employees’ occupational health and safety. The website presents the service and what it offers, explains occupational health in Benin, introduces the LogiCISTE application and lets companies register online."
       },
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Être trouvé par les entreprises qui cherchent un service de santé au travail, et transformer ces visites en demandes et en inscriptions.",
+        "en": "Being found by companies looking for an occupational health service, and turning those visits into requests and registrations."
       },
       "contribution": {
-        "fr": "Analyse et conception\nDéveloppement du site et de l’application intégrée\nMise en œuvre complète de la stratégie de référencement naturel (SEO)",
-        "en": "Analysis and design\nDevelopment of the website and built-in application\nFull search engine optimisation (SEO) strategy"
+        "fr": "Analyse, conception et développement du site\nContenus du site entièrement administrables\nParcours d’inscription des entreprises en plusieurs étapes\nMise en œuvre complète de la stratégie de référencement naturel (SEO)",
+        "en": "Analysis, design and development of the website\nFully manageable website content\nMulti-step company registration flow\nFull search engine optimisation (SEO) strategy"
       },
       "solution": {
-        "fr": "",
-        "en": ""
+        "fr": "Accueil, page « Santé au travail au Bénin » et présentation de LogiCISTE\nPrestations organisées en rubriques, contenus et sous-contenus gérés depuis l’administration\nBlog, réalisations, partenaires et clients, centres prestataires\nFAQ séparées pour le grand public, les salariés et les employeurs\nContact et formulaire « Demander le service »\nInscription d’une entreprise en plusieurs étapes : rejoindre, contact, adresse, confirmation\nPages légales (mentions légales, CGU, cookies, confidentialité), plan du site et sitemap",
+        "en": "Home page, “Occupational health in Benin” page and LogiCISTE presentation\nServices organised in sections, content and sub-content managed from the admin area\nBlog, case studies, partners and clients, provider centres\nSeparate FAQs for the general public, employees and employers\nContact page and “Request the service” form\nMulti-step company registration: join, contact, address, confirmation\nLegal pages (legal notice, terms, cookies, privacy), sitemap page and XML sitemap"
       },
       "results": {
         "fr": "",
         "en": ""
       },
       "tech": []
+    },
+    {
+      "id": "p13",
+      "published": true,
+      "featured": true,
+      "slug": "logiciste",
+      "year": "",
+      "link": "",
+      "repo": "",
+      "images": [],
+      "title": {
+        "fr": "LogiCISTE",
+        "en": "LogiCISTE"
+      },
+      "category": {
+        "fr": "Application web · santé au travail",
+        "en": "Web application · occupational health"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Application de suivi de la santé au travail : six espaces (administration, entreprise, médecin, prestataires, salarié), dossier médical, accidents et arrêts, rappels automatiques et API.",
+        "en": "Occupational health tracking application: six areas (admin, company, doctor, providers, employee), medical records, accidents and sick leave, automatic reminders and an API."
+      },
+      "context": {
+        "fr": "LogiCISTE est l’application intégrée au service CISTE. Elle réunit tous les acteurs de la santé au travail : l’équipe CISTE, les entreprises clientes, les médecins, les prestataires et les salariés, chacun dans son propre espace.",
+        "en": "LogiCISTE is the application built into the CISTE service. It brings together everyone involved in occupational health: the CISTE team, client companies, doctors, providers and employees, each in their own area."
+      },
+      "problem": {
+        "fr": "Faire travailler ensemble des profils très différents sur des données médicales sensibles, en garantissant à chacun l’accès aux seules informations qui le concernent, et automatiser les relances liées aux obligations de santé au travail.",
+        "en": "Getting very different profiles to work together on sensitive medical data, making sure each one only accesses the information that concerns them, and automating the reminders tied to occupational health obligations."
+      },
+      "contribution": {
+        "fr": "Analyse, conception et développement de l’application\nSix espaces utilisateurs avec rôles et permissions\nDossier médical, consultations, accidents et arrêts de travail\nSécurité : double authentification, reCAPTCHA, journalisation des actions\nTâches automatiques et API LogiCISTE",
+        "en": "Analysis, design and development of the application\nSix user areas with roles and permissions\nMedical records, consultations, work accidents and sick leave\nSecurity: two-factor authentication, reCAPTCHA, action logging\nScheduled tasks and the LogiCISTE API"
+      },
+      "solution": {
+        "fr": "Administration : incidents, clients et statut de leur demande, assignation des entreprises aux prestataires et aux médecins, rendez-vous et visites, équipements et maintenance, documents\nCommunication : campagnes de sensibilisation avec suivi des envois et ouvertures, notifications, e-mails en échec\nGénérateur de rapports, échéances des contrats et paiements\nActivités du service de santé : registre SST, signalements de situations dangereuses, surveillance du milieu de travail\nEspace entreprise : personnel, accidents et arrêts de travail, consultations, visites et rapports\nEspace médecin : consultations (ordonnance, examens), recommandations envoyées en PDF par e-mail, dossier médical complet du salarié avec historique et recherche, cachet et signature\nEspaces prestataires : entreprises suivies, équipements et rappels de révision, saisie des résultats\nEspace salarié : accidents, arrêts, consultations, visites annuelles, téléconsultation, certificats d’aptitude et passeport de prévention\nSécurité : connexion par espace, double authentification par code e-mail réglable par type de compte, reCAPTCHA, approbation des salariés avant activation\nJournal des actions et des connexions, avec les données sensibles masquées\nRappels automatiques quotidiens : révision des équipements, validations en attente, questionnaire de reprise après plus de 28 jours d’arrêt, fins d’arrêt, alerte mensuelle des 9 mois\nEnvoi des messages programmés en continu\nAPI LogiCISTE : connexion par jeton, clés API, journal des appels ; gestion des agents (création unitaire ou par lot) et de leurs résultats, visites, consultations, examens, accidents et arrêts",
+        "en": "Admin: incidents, clients and the status of their request, assigning companies to providers and doctors, appointments and visits, equipment and maintenance, documents\nCommunication: awareness campaigns with send and open tracking, notifications, failed emails\nReport generator, contract deadlines and payments\nHealth service activities: occupational safety register, hazard reports, workplace monitoring\nCompany area: staff, work accidents and sick leave, consultations, visits and reports\nDoctor area: consultations (prescription, tests), recommendations emailed as PDF, full employee medical record with history and search, stamp and signature\nProvider areas: companies followed, equipment and servicing reminders, entering results\nEmployee area: accidents, sick leave, consultations, annual visits, teleconsultation, fitness certificates and prevention passport\nSecurity: per-area login, email code two-factor authentication configurable per account type, reCAPTCHA, employee approval before activation\nLog of actions and logins, with sensitive data masked\nDaily automatic reminders: equipment servicing, pending approvals, return-to-work questionnaire after more than 28 days of leave, end of leave, monthly 9-month alert\nContinuous sending of scheduled messages\nLogiCISTE API: token login, API keys, call log; agent management (single or batch creation) with their results, visits, consultations, tests, accidents and sick leave"
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": [
+        "Laravel"
+      ]
     },
     {
       "id": "p3",
