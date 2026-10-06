@@ -52,7 +52,7 @@ const groups = computed(() => {
 });
 
 const META = {
-  dashboard: ['Pilotage', 'Tableau de bord', 'Bonjour Fawoziath', 'Vue d’ensemble de l’audience, des échanges et des contenus à compléter.'],
+  dashboard: ['Pilotage', 'Tableau de bord', 'Bonjour Fawoziath', 'Ce qui demande votre attention : messages à traiter, état des contenus et activité récente.'],
   stats: ['Pilotage', 'Statistiques', 'Statistiques de visite', 'Audience, pages, provenance, localisation, appareils et mots-clés.'],
   messages: ['Échanges', 'Messages', 'Boîte de réception', 'Messages du formulaire de contact et demandes de service.'],
   newsletter: ['Échanges', 'Newsletter', 'Inscrits à la newsletter', 'Adresses collectées par le formulaire du footer.'],
@@ -131,7 +131,7 @@ const doLogout = async () => { await logout(); router.push('/admin'); };
             <div class="page-head">
               <div class="col gap4"><h1>{{ view.h1 }}</h1><p>{{ view.sub }}</p></div>
               <div class="page-actions">
-                <div v-if="['dashboard', 'stats'].includes(state.view)" role="group" aria-label="Période" class="periods">
+                <div v-if="state.view === 'stats'" role="group" aria-label="Période" class="periods">
                   <button v-for="p in [7, 30, 90]" :key="p" type="button" :aria-pressed="state.period === p" :class="{ on: state.period === p }" @click="state.period = p">{{ p }} j</button>
                 </div>
                 <button v-if="col" type="button" class="abtn primary" @click="addItem"><span class="ms">add</span>Ajouter</button>

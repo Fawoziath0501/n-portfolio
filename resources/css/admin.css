@@ -134,6 +134,7 @@ label.abtn { position: relative; }
 .kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
 .kpi { background: var(--sf); border: 1px solid var(--ln); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; transition: transform 200ms, border-color 200ms; }
 .kpi:not(.simple):hover { transform: translateY(-2px); border-color: var(--ac); }
+button.kpi { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .kpi.simple { gap: 6px; }
 .kpi.simple .kpi-val { font-size: 28px; }
 .kpi-top { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--mu); font-weight: 500; }

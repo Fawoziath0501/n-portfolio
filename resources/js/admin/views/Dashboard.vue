@@ -1,29 +1,51 @@
 <script setup>
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { COLS, delta, fmtMD, go, isLocal, missingEn, nf, spark, state, stats, t } from '../store';
+import { COLS, fmtMD, go, isLocal, missingEn, nf, state, stats, t } from '../store';
 import Panel from '../components/Panel.vue';
 import KpiGrid from '../components/KpiGrid.vue';
-import BarList from '../components/BarList.vue';
-import AudienceChart from '../components/AudienceChart.vue';
-import DataBanner from '../components/DataBanner.vue';
 
+/*
+| Tableau de bord : ce qui demande une action (échanges à traiter, état et complétude des contenus, activité).
+| L'analyse d'audience détaillée est dans « Statistiques » ; ici, un seul indicateur sur 30 jours y renvoie.
+*/
 const router = useRouter();
-const st = computed(() => { state.events; return stats(state.period); });
-const kpis = computed(() => {
-  const s = st.value;
-  return [
-    { label: 'Visiteurs', icon: 'group', value: nf(s.V), spark: spark(s.vb), ...delta(s.V, s.V0, true) },
-    { label: 'Pages vues', icon: 'visibility', value: nf(s.PV), spark: spark(s.pb), ...delta(s.PV, s.PV0, true) },
-    { label: 'Messages reçus', icon: 'mail', value: String(s.mC), ...delta(s.mC, s.mC0) },
-    { label: 'Demandes de service', icon: 'design_services', value: String(s.sC), ...delta(s.sC, s.sC0) },
-    { label: 'Inscrits newsletter', icon: 'mark_email_unread', value: String(s.subsTotal), ...delta(s.nC, s.nC0) },
-  ];
-});
+const NEUTRAL = { dBg: 'var(--ln2)', dFg: 'var(--mu)' };
+const WARN = { dBg: '#FEF3E2', dFg: '#B45309' };
+const GOOD = { dBg: '#E7F6EE', dFg: '#1E6B45' };
 
 const msgs = computed(() => (state.data.messages || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))));
 const newCount = computed(() => msgs.value.filter((m) => m.status === 'new').length);
+const toHandle = computed(() => msgs.value.filter((m) => m.status === 'new' || m.status === 'read'));
 const openMsg = (m) => { go(router, 'messages'); state.msgId = m.id; };
+
+const kpis = computed(() => {
+  state.events; // recalcul quand les événements du suivi intégré arrivent
+  const s = stats(30), d = state.data;
+  const svc = toHandle.value.filter((m) => m.type === 'service').length;
+  const pub = (d.projects || []).filter((x) => x.published).length + (d.posts || []).filter((x) => x.published).length;
+  const drafts = (d.projects || []).filter((x) => !x.published).length + (d.posts || []).filter((x) => !x.published).length;
+  return [
+    { label: 'Messages non lus', icon: 'mark_email_unread', value: String(newCount.value), delta: toHandle.value.length + ' en attente de réponse', ...(newCount.value ? WARN : NEUTRAL), onClick: () => go(router, 'messages') },
+    { label: 'Demandes de service', icon: 'design_services', value: String(svc), delta: svc ? 'à traiter' : 'Aucune en attente', ...(svc ? WARN : NEUTRAL), onClick: () => go(router, 'messages') },
+    { label: 'Inscrits newsletter', icon: 'group_add', value: String(s.subsTotal), delta: (s.nC ? '+' + s.nC : 'Aucun nouveau') + ' sur 30 jours', ...(s.nC ? GOOD : NEUTRAL), onClick: () => go(router, 'newsletter') },
+    { label: 'Projets et articles publiés', icon: 'public', value: String(pub), delta: drafts ? drafts + ' brouillon(s)' : 'Aucun brouillon', ...NEUTRAL, onClick: () => go(router, 'projects') },
+    { label: 'Visiteurs · 30 jours', icon: 'query_stats', value: nf(s.V), delta: 'Voir les statistiques →', ...NEUTRAL, onClick: () => go(router, 'stats') },
+  ];
+});
+
+// État des contenus : publiés, brouillons et mis en avant, par type.
+const contentRows = computed(() => ['projects', 'posts', 'services', 'experiences', 'certifications', 'testimonials']
+  .filter((k) => COLS[k] && state.data[k])
+  .map((k) => {
+    const items = state.data[k], hasPub = items.some((x) => 'published' in x);
+    return {
+      key: k, label: COLS[k].label, icon: COLS[k].icon, total: items.length,
+      published: hasPub ? items.filter((x) => x.published).length : items.length,
+      drafts: hasPub ? items.filter((x) => !x.published).length : 0,
+      featured: COLS[k].featured ? items.filter((x) => x.featured).length : null,
+    };
+  }));
 
 const health = computed(() => {
   const d = state.data, pr = d.profile, pub = d.projects.filter((x) => x.published);
@@ -58,38 +80,7 @@ const when = (ts) => { const m = Math.round((Date.now() - ts) / 60000); return m
 </script>
 
 <template>
-  <DataBanner />
   <KpiGrid :kpis="kpis" />
-
-  <div class="grid g420">
-    <Panel title="Audience" :sub="st.rangeLabel">
-      <template #action><button type="button" class="abtn xs" @click="go(router, 'stats')">Détails</button></template>
-      <div class="pad-chart"><AudienceChart :chart="st.chart" /></div>
-    </Panel>
-    <Panel title="Clics de contact" sub="Ce que font les visiteurs intéressés">
-      <div class="conv">
-        <div v-for="cv in st.conv" :key="cv.label" class="conv-item">
-          <span class="conv-l"><span aria-hidden="true" class="ms">{{ cv.icon }}</span>{{ cv.label }}</span>
-          <strong>{{ cv.value }}</strong>
-          <span class="conv-note">{{ cv.note }}</span>
-        </div>
-      </div>
-    </Panel>
-  </div>
-
-  <div class="grid g320">
-    <Panel title="Pages les plus vues" :sub="st.rangeLabel"><BarList :rows="st.topPages5" /></Panel>
-    <Panel title="Provenance" sub="D’où viennent les visiteurs"><BarList :rows="st.sources" /></Panel>
-    <Panel title="Appareils" sub="Répartition des visites">
-      <div class="devices">
-        <div class="dev-bar"><span v-for="dv in st.devices" :key="dv.label" :style="{ width: dv.w, background: dv.color }"></span></div>
-        <div v-for="dv in st.devices" :key="dv.label + 'r'" class="dev-row">
-          <span class="row center gap10"><span class="dev-sw" :style="{ background: dv.color }"></span><span aria-hidden="true" class="ms mu">{{ dv.icon }}</span>{{ dv.label }}</span>
-          <span class="mono13"><strong>{{ dv.pct }}</strong> <span class="mu">· {{ dv.value }}</span></span>
-        </div>
-      </div>
-    </Panel>
-  </div>
 
   <div class="grid g360">
     <Panel title="Messages récents" :sub="newCount ? newCount + ' non lu(s)' : 'Tout est lu'">
@@ -114,6 +105,23 @@ const when = (ts) => { const m = Math.round((Date.now() - ts) / 60000); return m
       </div>
     </Panel>
   </div>
+
+  <Panel title="État des contenus" sub="Ce qui est en ligne, en brouillon et mis en avant">
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th>Contenu</th><th class="r">Publiés</th><th class="r">Brouillons</th><th class="r">Mis en avant</th><th></th></tr></thead>
+        <tbody>
+          <tr v-for="r in contentRows" :key="r.key">
+            <td><span class="row center gap10"><span aria-hidden="true" class="ms mu">{{ r.icon }}</span><span class="fw5">{{ r.label }}</span></span></td>
+            <td class="r mono">{{ r.published }}</td>
+            <td class="r mono" :class="{ mu: !r.drafts }">{{ r.drafts }}</td>
+            <td class="r mono mu">{{ r.featured === null ? '–' : r.featured }}</td>
+            <td class="r"><button type="button" class="abtn xxs" @click="go(router, r.key)">Gérer</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </Panel>
 
   <Panel title="Raccourcis">
     <div class="quick"><button v-for="[icon, label, fn] in quick" :key="label" type="button" class="abtn hov" @click="fn"><span class="ms">{{ icon }}</span>{{ label }}</button></div>
