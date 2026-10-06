@@ -713,12 +713,12 @@
       "repo": "",
       "images": [],
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Donner à l’équipe la main sur tout le contenu du site, sans développeur, avec la possibilité de revenir à une version précédente, tout en centralisant les demandes entrantes.",
+        "en": "Giving the team control over all of the website’s content, without a developer, with the ability to roll back to a previous version, while centralising incoming requests."
       },
       "solution": {
-        "fr": "",
-        "en": ""
+        "fr": "Pages publiques : accueil, à propos, services et réalisations (liste et détail), vidéos et FAQ\nBlog avec articles, catégories et commentaires publiés après modération\nFormulaire de contact et demande de devis dédiée\nNewsletter avec désabonnement par lien sécurisé\nPages légales (mentions légales, CGU, cookies, plan du site) et pages d’erreur personnalisées (403, 404, 500, 503)\nTableau de bord : choix de la période, comparaison avec la période précédente et actions rapides\nGestion complète de chaque contenu : création, modification, suppression, actions groupées, export, duplication, activation et désactivation\nHistorique des versions avec restauration pour les services, réalisations, témoignages, FAQ, partenaires, clients, équipe, vidéos et articles\nPage « À propos » administrable : points forts, méthodologie, jalons, valeurs et histoire\nMenus, page d’accueil et pages légales réglables depuis l’administration\nÉchanges : messages de contact, demandes de devis, modération des commentaires et abonnés à la newsletter\nMédiathèque, utilisateurs et rôles, paramètres du site avec e-mail de test, journal d’activité\nCompte : connexion, mot de passe oublié, vérification de l’e-mail, profil et changement de mot de passe",
+        "en": "Public pages: home, about, services and portfolio (list and detail), videos and FAQ\nBlog with articles, categories and comments published after moderation\nContact form and a dedicated quote request\nNewsletter with secure unsubscribe links\nLegal pages (legal notice, terms, cookies, sitemap) and custom error pages (403, 404, 500, 503)\nDashboard: period selection, comparison with the previous period and quick actions\nFull management of every piece of content: create, edit, delete, bulk actions, export, duplicate, enable and disable\nVersion history with restore for services, portfolio, testimonials, FAQ, partners, clients, team, videos and articles\nEditable About page: strengths, methodology, milestones, values and history\nMenus, home page and legal pages configurable from the admin area\nInbox: contact messages, quote requests, comment moderation and newsletter subscribers\nMedia library, users and roles, site settings with a test email, activity log\nAccount: login, password reset, email verification, profile and password change"
       },
       "results": {
         "fr": "",
@@ -732,24 +732,24 @@
         "en": "MEGATECH website"
       },
       "category": {
-        "fr": "Site web d’entreprise · refonte",
-        "en": "Company website · redesign"
+        "fr": "Site d’entreprise avec administration complète",
+        "en": "Company website with a full admin area"
       },
       "role": {
         "fr": "Développeuse web fullstack",
         "en": "Fullstack web developer"
       },
       "summary": {
-        "fr": "Refonte du site web de MEGATECH, entreprise de services numériques basée à Cotonou.",
-        "en": "Redesign of the website of MEGATECH, a digital services company based in Cotonou."
+        "fr": "Refonte du site de MEGATECH : services, réalisations, blog, demandes de devis et une administration qui gère chaque contenu, avec historique des versions.",
+        "en": "Redesign of the MEGATECH website: services, portfolio, blog, quote requests and an admin area managing every piece of content, with version history."
       },
       "context": {
-        "fr": "Le site présente l’entreprise, ses services et ses réalisations.",
-        "en": "The website presents the company, its services and its work."
+        "fr": "MEGATECH est une entreprise de services numériques basée à Cotonou. Son site présente ses services, ses réalisations, son équipe et sa méthode, publie des articles et des vidéos, et reçoit les demandes de contact et de devis des prospects.",
+        "en": "MEGATECH is a digital services company based in Cotonou. Its website presents its services, work, team and approach, publishes articles and videos, and receives contact and quote requests from prospects."
       },
       "contribution": {
-        "fr": "Refonte du site web",
-        "en": "Website redesign"
+        "fr": "Refonte du site web de MEGATECH\nSite public : services, réalisations, vidéos, FAQ, blog, contact et demande de devis\nEspace d’administration : contenus, échanges, médiathèque, utilisateurs et paramètres\nHistorique des versions avec restauration sur chaque contenu",
+        "en": "Redesign of the MEGATECH website\nPublic website: services, portfolio, videos, FAQ, blog, contact and quote request\nAdmin area: content, inbox, media library, users and settings\nVersion history with restore on every piece of content"
       }
     },
     {
