@@ -381,38 +381,41 @@
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Application web de recrutement",
-        "en": "Recruitment web app"
+        "fr": "Plateforme d’emploi et de recrutement",
+        "en": "Job and recruitment platform"
       },
       "role": {
         "fr": "Développeuse fullstack",
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Analyse et développement d’une application web de recrutement mettant en relation candidats et recruteurs.",
-        "en": "Analysis and development of a recruitment web application connecting candidates and recruiters."
+        "fr": "Plateforme d’emploi et de recrutement : offres, candidatures, CV, suivi des candidats en kanban, abonnements payants et application mobile via API.",
+        "en": "Job and recruitment platform: job offers, applications, CVs, kanban candidate tracking, paid plans and a mobile app through an API."
       },
       "context": {
-        "fr": "Wura est une application web dédiée au recrutement.",
-        "en": "Wura is a web application dedicated to recruitment."
+        "fr": "Wura met en relation candidats et entreprises. Les visiteurs consultent les offres et les annuaires de candidats et d’entreprises, les candidats gèrent leur profil, leurs CV et leurs candidatures, et les recruteurs publient leurs offres et suivent les candidats. La plateforme est construite avec Laravel, sur la base du script Jobpilot.",
+        "en": "Wura connects candidates and companies. Visitors browse job offers and the candidate and company directories, candidates manage their profile, CVs and applications, and recruiters publish offers and track candidates. The platform is built with Laravel, on top of the Jobpilot script."
       },
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Adapter une base existante à un marché précis, avec plusieurs langues, pays et devises, des paiements adaptés et trois espaces (candidat, entreprise, administration) aux besoins très différents.",
+        "en": "Adapting an existing foundation to a specific market, with several languages, countries and currencies, suitable payment methods and three areas (candidate, company, admin) with very different needs."
       },
       "contribution": {
-        "fr": "Analyse du besoin\nDéveloppement de l’application",
-        "en": "Needs analysis\nApplication development"
+        "fr": "Analyse du besoin\nDéveloppement et adaptation de la plateforme à partir du script Jobpilot\nEspaces candidat, entreprise et administration\nPaiements, abonnements et paramétrage de la plateforme",
+        "en": "Needs analysis\nDevelopment and adaptation of the platform on top of the Jobpilot script\nCandidate, company and admin areas\nPayments, subscription plans and platform configuration"
       },
       "solution": {
-        "fr": "",
-        "en": ""
+        "fr": "Recherche d’offres avec autocomplétion, liste filtrée par catégorie et page détail ; offres externes issues de Careerjet et d’Indeed\nAnnuaires des candidats et des entreprises, blog avec commentaires, services et coaching, offres d’abonnement\nSite multilingue, choix du pays et multi-devise, application installable (PWA) avec page hors ligne, SEO, sitemap et newsletter\nCandidat : inscription classique ou via les réseaux sociaux, profil complet avec barre de progression, plusieurs CV, candidatures avec questions de présélection, offres sauvegardées et alertes emploi\nEntreprise : vérification par documents, publication, clonage, expiration ou réactivation des offres, validées par l’administration après modification\nSuivi des candidatures en kanban avec colonnes personnalisables\nRecherche de candidats et consultation des CV selon le plan, favoris classés par catégories\nMessagerie entre candidats et entreprises, notifications d’entretien et notifications RH\nPaiement à l’offre ou par abonnement, mise en avant des offres, factures PDF et historique des transactions\nPasserelles de paiement : FedaPay, PayPal, Stripe, Flutterwave, Paystack, Mollie… et paiement manuel, plans gratuits\nAdministration : utilisateurs, rôles et permissions, validation des entreprises et des offres, import en masse, données de référence importables depuis Excel\nCMS (pages, menus, page d’accueil, FAQ, CGU), SEO par page, paramètres de thème, e-mails, reCAPTCHA, temps réel, Google Analytics, cookies, maintenance et publicités\nTâches automatiques : expiration des offres, mise à jour des taux de change, envoi en file d’attente des alertes d’offres\nAPI REST pour l’application mobile : authentification, offres, candidatures, CV et favoris",
+        "en": "Job search with autocomplete, category-filtered listing and detail page; external offers from Careerjet and Indeed\nCandidate and company directories, blog with comments, services and coaching, subscription plans\nMultilingual website, country selection and multi-currency, installable app (PWA) with an offline page, SEO, sitemap and newsletter\nCandidate: classic or social sign-up, full profile with a progress bar, multiple CVs, applications with screening questions, saved jobs and job alerts\nCompany: verification through documents, publishing, cloning, expiring or reactivating offers, reviewed by admins after edits\nKanban application tracking with customisable columns\nCandidate search and CV access depending on the plan, favourites organised in categories\nMessaging between candidates and companies, interview and HR notifications\nPay-per-job or subscription, featured offers, PDF invoices and transaction history\nPayment gateways: FedaPay, PayPal, Stripe, Flutterwave, Paystack, Mollie… plus manual payment and free plans\nAdmin: users, roles and permissions, company and offer approval, bulk import, reference data importable from Excel\nCMS (pages, menus, home page, FAQ, terms), per-page SEO, theme settings, emails, reCAPTCHA, real time, Google Analytics, cookies, maintenance and ads\nScheduled tasks: offer expiry, exchange rate updates, queued job alert emails\nREST API for the mobile app: authentication, offers, applications, CVs and favourites"
       },
       "results": {
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [
+        "Laravel",
+        "Jobpilot"
+      ]
     },
     {
       "id": "p4",
