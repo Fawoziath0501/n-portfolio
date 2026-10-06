@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Profile;
 use App\Models\Setting;
 use App\Models\UiLabel;
+use App\Support\Backups;
 use App\Support\Menus;
 use App\Support\Portfolio;
 use Illuminate\Http\Request;
@@ -83,5 +84,27 @@ class BackupController extends Controller
         Activity::log('Sauvegarde restaurée');
 
         return response()->noContent();
+    }
+
+    /** Sauvegardes complètes (base + images) conservées sur le serveur. */
+    public function archives()
+    {
+        return response()->json(Backups::list());
+    }
+
+    public function createArchive()
+    {
+        $file = Backups::create();
+        Activity::log('Sauvegarde complète créée ('.basename($file).')');
+
+        return response()->json(Backups::list());
+    }
+
+    public function downloadArchive(string $name)
+    {
+        $path = Backups::path($name);
+        abort_unless($path, 404);
+
+        return response()->download($path);
     }
 }

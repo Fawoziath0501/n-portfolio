@@ -66,6 +66,9 @@ Route::prefix('api')->group(function () {
 
             Route::get('export', [BackupController::class, 'export']);
             Route::post('import', [BackupController::class, 'import']);
+            Route::get('backups', [BackupController::class, 'archives']);
+            Route::post('backups', [BackupController::class, 'createArchive'])->middleware('throttle:6,1,backup');
+            Route::get('backups/{name}', [BackupController::class, 'downloadArchive']);
 
             Route::post('{collection}/reorder', [ContentController::class, 'reorder']);
             Route::post('{collection}', [ContentController::class, 'store']);
