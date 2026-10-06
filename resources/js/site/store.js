@@ -140,7 +140,7 @@ export const vm = computed(() => {
     const kindOfExp = (e) => { const ro = (e.role && (e.role.fr || '')) || ''; return /stag/i.test(ro) ? L.kStage : /cdd/i.test(ro) ? L.kCdd : L.kCdi; };
     let tlSrc = exps.map((e) => ({ kind: kindOfExp(e), title: t(e.role), org: [e.company, t(e.location)].filter(Boolean).join(' · '), period: t(e.start) + ' → ' + t(e.end), desc: richHtml(t(e.description)), duties: lines(t(e.duties)), current: !!e.current }));
     if (r === 'about') tlSrc = tlSrc.concat(d.education.map((x) => ({ kind: L.kEdu, title: t(x.degree), org: x.school, period: x.period, desc: '', duties: [], current: false })));
-    const tlItems = tlSrc.map((x, i) => ({ ...x, col: mobile ? '2' : (i % 2 ? '3' : '1'), on: s.tlh === i }));
+    const tlItems = tlSrc.map((x, i) => ({ ...x, idx: i, col: mobile ? '2' : (i % 2 ? '3' : '1'), on: s.tlh === i }));
     const tl = mobile ? { cols: '20px minmax(0,1fr)', colGap: '16px', dotCol: '1', line: '9px', gap: '36px' } : { cols: 'minmax(0,1fr) 40px minmax(0,1fr)', colGap: '32px', dotCol: '2', line: '50%', gap: '8px' };
     const softList = String(t(pr.softSkills) || '').split('·').map((x) => x.trim()).filter(Boolean);
 
@@ -149,7 +149,7 @@ export const vm = computed(() => {
         const fmtDate = (iso) => { try { return new Date(iso + 'T12:00:00').toLocaleDateString(L.dateLocale || (fr ? 'fr-FR' : 'en-GB'), { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } };
     const allPosts = (d.posts || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
     // Blog : filtre par thème, recherche et tri (récents / plus lus) sur la page Blog ; 3 plus récents sur l'accueil.
-    const viewsLabel = (n) => (n === 1 ? L.viewsOne : fill(L.views, { count: n || 0 }));
+    const viewsLabel = (n) => (!n ? '' : n === 1 ? L.viewsOne : fill(L.views, { count: n }));
     const postCard = (x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read,
         icon: x.icon || 'article', url: x.url, href: x.slug ? href(s.lang, 'post', x.slug) : '', views: viewsLabel(x.views), tags: (x.tags || []).map((v) => t(v)) });
     const blogTags = [...new Set(allPosts.flatMap((x) => (x.tags || []).map((v) => t(v))))];
@@ -213,7 +213,7 @@ export const vm = computed(() => {
         bio: richHtml(t(pr.bio)),
         values: (pr.values || []).map((v, i) => ({ ...[{ bg: '#0B1530', fg: '#FFFFFF', sub: '#8FA3E8' }, { bg: '#2448C8', fg: '#FFFFFF', sub: '#D3DCF8' }, { bg: '#E8EDFB', fg: '#0B1530', sub: '#2448C8' }][i % 3],
             num: pad(i + 1), title: t(v.title), text: t(v.text), icon: v.icon, keys: (v.keys || []).map((k) => t(k)), open: s.flip === i })),
-        cards, filters, projCount: pad(pub.length), svcCount: pad(d.services.length), postCount: pad(allPosts.length), cs, page,
+        cards, filters, projCount: pad(pub.length), tlCount: pad(exps.length), svcCount: pad(d.services.length), postCount: pad(allPosts.length), cs, page,
         skillGroups: d.skillGroups.map((g, gi) => ({ id: g.id, num: pad(gi + 1), label: t(g.label), skills: g.skills.map((k) => ({ name: t(k.name), note: t(k.note), logo: k.logo, icon: k.icon || 'code' })) })),
         allSkills, posts, blog, post, isPost: !!post, aboutChips, heroStats, heroStack, annots, annotPad: mobile ? '0px' : '150px',
         aboutInfo, tlItems, tl, softList, services: svcList,

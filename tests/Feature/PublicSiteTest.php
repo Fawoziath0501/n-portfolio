@@ -43,6 +43,15 @@ class PublicSiteTest extends TestCase
         $this->assertArrayNotHasKey('notifyEmail', $data['settings']);
     }
 
+    public function test_each_site_page_has_its_own_title_and_description(): void
+    {
+        $labels = \App\Models\UiLabel::whereIn('key', ['pAbout.1', 'pAbout.2', 'pContact.1'])->get()->keyBy('key');
+
+        $this->get('/fr/a-propos')->assertSee('<title>'.e($labels['pAbout.1']->fr).' | ', false)
+            ->assertSee('content="'.e($labels['pAbout.2']->fr).'"', false);
+        $this->get('/en/contact')->assertSee('<title>'.e($labels['pContact.1']->en).' | ', false);
+    }
+
     public function test_unknown_api_route_returns_json_404(): void
     {
         $this->getJson('/api/nope')->assertNotFound()->assertJson(['message' => 'Not found']);

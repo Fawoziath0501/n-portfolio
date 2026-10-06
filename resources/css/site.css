@@ -222,10 +222,8 @@ button { font: inherit; }
 .info-list { flex: 1 1 340px; min-width: 0; margin: 0; display: flex; flex-direction: column; border-top: 1px solid var(--ln); }
 .info-list > div { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; padding: 18px 0; border-bottom: 1px solid var(--ln); }
 .info-list dt { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ac); }
-.info-list dt.dt-gap { display: flex; align-items: center; gap: 8px; }
 .info-list dd { margin: 0; font-size: 16px; font-weight: 500; text-align: right; }
 .info-list dd.lg { font-size: 17px; overflow-wrap: anywhere; }
-.info-list dd.reg { font-weight: 400; }
 .ink-link { color: var(--ink); text-underline-offset: 4px; }
 .flip-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px; }
 .flip { display: flex; min-height: 340px; perspective: 1400px; }
@@ -409,7 +407,7 @@ button { font: inherit; }
 .nl-btn:hover { background: #3A5CDB; }
 .nl-msg { margin: 0; font-size: 14px; }
 .ftr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 40px; }
-.ftr-name { display: flex; align-items: baseline; gap: 8px; font-family: var(--f-disp); font-weight: 700; font-size: 26px; letter-spacing: -.015em; color: #FFFFFF; }
+.ftr-name { display: flex; align-items: baseline; gap: 3px; font-family: var(--f-disp); font-weight: 700; font-size: 26px; letter-spacing: -.015em; color: #FFFFFF; }
 .ftr-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ac); }
 .ftr-bio { margin: 0; font-size: 15px; line-height: 1.6; max-width: 340px; }
 .ftr-soc { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid #2A3757; color: #FFFFFF; text-decoration: none; font-size: 20px; transition: background 150ms, border-color 150ms; }
@@ -514,3 +512,29 @@ button { font: inherit; }
 .cert h3 { margin: 0; font-size: 17px; font-weight: 600; }
 .cert span { font-size: 15px; color: var(--mu); }
 .cert a { font-size: 15px; font-weight: 600; color: var(--ac); }
+
+/* Parcours (ordinateur) : deux colonnes de part et d'autre de la ligne, la droite décalée d'une demi-carte */
+.tl2 { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-auto-rows: minmax(60px, auto); gap: 24px 80px; }
+.tl2-line { position: absolute; top: 8px; bottom: 8px; left: 50%; width: 1px; background: var(--ac-b); }
+.tl2-item { position: relative; align-self: start; }
+.tl2-dot { position: absolute; top: 30px; width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--ac); background: #FFFFFF; z-index: 1; transition: transform 250ms ease-out, background 250ms; }
+.tl2-item.left .tl2-dot { right: -48px; }
+.tl2-item.right .tl2-dot { left: -47px; }
+.tl2-dot.fill { background: var(--ac); }
+.tl2-dot.on { transform: scale(1.35); }
+.tl2-item::after { content: ''; position: absolute; top: 37px; width: 33px; height: 1px; background: var(--ac-b); }
+.tl2-item.left::after { right: -33px; }
+.tl2-item.right::after { left: -33px; }
+.info-list dd.avail { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 4px 8px; }
+.info-list dd.avail small { flex-basis: 100%; font-size: 14px; font-weight: 400; color: var(--mu); }
+.avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #1E8A5A; box-shadow: 0 0 0 4px rgba(30, 138, 90, .15); }
+
+/* Mobile : chiffres clés sur une ligne, encart « Stack » dans le cadre du portrait, liens du pied de page deux par ligne */
+@media (max-width: 600px) {
+  .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .hero-stats dd { font-size: 26px; }
+  .hero-stats dt { font-size: 12px; line-height: 1.35; }
+  .stack-card { left: 12px; right: 12px; }
+  .ftr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+  .ftr-grid > :first-child, .ftr-grid > :last-child { grid-column: 1 / -1; }
+}

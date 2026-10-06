@@ -40,8 +40,8 @@ import SocialIcon from '../../shared/SocialIcon.vue';
             <dd class="lg"><a v-if="cr.href" :href="cr.href" class="ink-link">{{ cr.value }}</a><template v-else>{{ cr.value }}</template></dd>
           </div>
           <div>
-            <dt class="dt-gap"><span>§</span>{{ vm.availNum }} · {{ vm.L.availShort }}</dt>
-            <dd class="reg">{{ vm.L.replyTime }}</dd>
+            <dt>§{{ vm.availNum }} · {{ vm.L.aStatus }}</dt>
+            <dd class="lg avail"><span class="avail-dot" aria-hidden="true"></span>{{ vm.L.availShort }}<small>{{ vm.L.replyTime }}</small></dd>
           </div>
         </dl>
         <div class="col gap12">

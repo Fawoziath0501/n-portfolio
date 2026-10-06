@@ -39,9 +39,12 @@ function meta() {
         || (state.route === 'post' && (d.posts || []).find((x) => x.slug === state.slug))
         || (state.route === 'legal' && (d.legalPages || []).find((x) => x.id === state.slug));
     const owner = [d.profile.firstName, d.profile.lastName].join(' ');
-    document.title = item ? tx(item.title, state.lang) + ' | ' + owner : tx(d.seo.siteTitle, state.lang);
+    // Pages du site : titre et introduction de l'en-tête de page (comme le rendu serveur).
+    const pk = { about: 'pAbout', work: 'pWork', services: 'pServices', blog: 'pBlog', contact: 'pContact' }[state.route];
+    const lbl = (i) => (pk && d.labels[pk + '.' + i] && d.labels[pk + '.' + i][state.lang]) || '';
+    document.title = item ? tx(item.title, state.lang) + ' | ' + owner : lbl(1) ? lbl(1) + ' | ' + owner : tx(d.seo.siteTitle, state.lang);
     const m = document.querySelector('meta[name="description"]');
-    const summary = item && tx(item.summary || item.excerpt, state.lang);
+    const summary = item ? tx(item.summary || item.excerpt, state.lang) : lbl(2);
     if (m) m.content = summary || tx(d.seo.metaDescription, state.lang);
 }
 

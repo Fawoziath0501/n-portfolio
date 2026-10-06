@@ -7,8 +7,8 @@ import { pad } from '../../shared/util';
   <section id="services" aria-labelledby="services-title" class="sec">
     <div class="wrap col gap40">
       <div v-if="vm.isHome" data-reveal class="sec-head">
-        <div class="col gap12 mw640">
-          <p class="mono-eyebrow">{{ vm.L.servicesLabel }}</p>
+        <div class="col gap14 mw640">
+          <p class="pill"><span class="ms">design_services</span>{{ vm.L.servicesLabel }}</p>
           <h2 id="services-title" class="h2 nobal">{{ vm.L.servicesTitle }}</h2>
         </div>
         <RouterLink :to="vm.hrefs.services" class="btn btn-outline md">{{ vm.L.allServices }} <span class="mono-12">{{ vm.svcCount }}</span><span class="ms">arrow_forward</span></RouterLink>

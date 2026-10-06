@@ -12,7 +12,7 @@ import { vm } from '../store';
         <p class="article-meta">
           <span><span class="ms" aria-hidden="true">calendar_today</span>{{ vm.post.date }}</span>
           <span><span class="ms" aria-hidden="true">schedule</span>{{ vm.post.read }}</span>
-          <span><span class="ms" aria-hidden="true">visibility</span>{{ vm.post.views }}</span>
+          <span v-if="vm.post.views"><span class="ms" aria-hidden="true">visibility</span>{{ vm.post.views }}</span>
         </p>
         <p v-if="vm.post.excerpt" class="lead">{{ vm.post.excerpt }}</p>
         <div v-if="vm.post.html" class="article-body rich" v-html="vm.post.html"></div>

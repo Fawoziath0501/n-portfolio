@@ -43,7 +43,7 @@ import { state, vm } from '../store';
               <p class="post-excerpt">{{ po.excerpt }}</p>
               <div class="post-foot">
                 <span>{{ po.date }}</span>
-                <span class="mono">{{ po.read }} · {{ po.views }}</span>
+                <span class="mono">{{ po.read }}<template v-if="po.views"> · {{ po.views }}</template></span>
               </div>
             </div>
           </component>

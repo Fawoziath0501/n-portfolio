@@ -6,8 +6,8 @@ import { state, vm } from '../store';
   <section id="work" aria-labelledby="work-title" class="sec alt">
     <div class="wrap col gap36">
       <div v-if="vm.isHome" data-reveal class="sec-head">
-        <div class="col gap12 mw640">
-          <p class="mono-eyebrow">{{ vm.L.workLabel }}</p>
+        <div class="col gap14 mw640">
+          <p class="pill"><span class="ms">grid_view</span>{{ vm.L.workLabel }}</p>
           <h2 id="work-title" class="h2 nobal">{{ vm.L.workTitle }}</h2>
           <p class="muted-17">{{ vm.L.workIntro }}</p>
         </div>

@@ -12,6 +12,12 @@ use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
+    /** Segment d'URL => préfixe des textes d'en-tête de page (eyebrow, titre, introduction). */
+    private const PAGE_LABELS = [
+        'a-propos' => 'pAbout', 'about' => 'pAbout', 'projets' => 'pWork', 'work' => 'pWork',
+        'services' => 'pServices', 'blog' => 'pBlog', 'contact' => 'pContact',
+    ];
+
     /** Page publique (SPA Vue) avec métadonnées SEO rendues côté serveur. */
     public function show(Request $request)
     {
@@ -25,6 +31,14 @@ class SiteController extends Controller
 
         $maintenance = $data['settings']['maintenance'];
         $owner = trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
+
+        // Pages du site : titre et introduction de l'en-tête de page (Textes du site → pAbout.1, pAbout.2…).
+        $pageKey = self::PAGE_LABELS[$segments[1] ?? ''] ?? null;
+        if (! $maintenance && $pageKey && ! isset($segments[2])) {
+            $label = fn ($i) => $data['labels'][$pageKey.'.'.$i][$lang] ?? '';
+            $title = trim($label(1).' | '.$owner, ' |');
+            $description = $label(2) ?: $description;
+        }
 
         if (! $maintenance && in_array($segments[1] ?? '', ['projets', 'work'], true) && isset($segments[2])) {
             $project = Project::published()->where('slug', $segments[2])->first();
