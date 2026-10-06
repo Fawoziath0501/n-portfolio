@@ -189,6 +189,11 @@ return [
         'service' => 'service',
         'siteKey' => 'clé du site',
         'secret' => 'clé secrète',
+        'quote' => 'témoignage',
+        'role' => 'fonction',
+        'company' => 'entreprise',
+        'project_id' => 'projet',
+        'consent' => 'consentement',
     ],
 
 ];

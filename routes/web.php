@@ -15,6 +15,7 @@ use App\Http\Controllers\CertificatePreviewController;
 use App\Http\Controllers\InteractionController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCoverController;
+use App\Http\Controllers\TestimonialSubmitController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,6 +87,12 @@ Route::prefix('api')->group(function () {
 Route::get('sitemap.xml', [SiteController::class, 'sitemap']);
 // Aperçu filigrané d'un certificat (le fichier original n'est jamais exposé).
 Route::match(['get', 'post'], 'newsletter/desinscription/{subscriber}', [NewsletterController::class, 'unsubscribe'])->whereNumber('subscriber')->middleware(['signed:relative', 'throttle:30,1,unsubscribe'])->name('newsletter.unsubscribe');
+// Dépôt de témoignage (lien à envoyer aux clients, non référencé).
+foreach (['fr' => 'fr/temoignage', 'en' => 'en/testimonial'] as $lg => $path) {
+    Route::get($path, [TestimonialSubmitController::class, 'form'])->defaults('lang', $lg)->name('testimonial.form.'.$lg);
+    Route::post($path, [TestimonialSubmitController::class, 'store'])->defaults('lang', $lg)->middleware('throttle:5,10,testimonial')->name('testimonial.store.'.$lg);
+    Route::get($path.'/'.($lg === 'en' ? 'thanks' : 'merci'), [TestimonialSubmitController::class, 'thanks'])->defaults('lang', $lg)->name('testimonial.thanks.'.$lg);
+}
 Route::get('blog/{slug}/couverture-{lang}.png', [PostCoverController::class, 'show'])->where('lang', 'fr|en')->middleware('throttle:60,1,postcover');
 Route::get('certificats/{certification}/apercu.jpg', [CertificatePreviewController::class, 'show'])->whereNumber('certification')->middleware('throttle:60,1,certpreview');
 Route::get('robots.txt', [SiteController::class, 'robots']);

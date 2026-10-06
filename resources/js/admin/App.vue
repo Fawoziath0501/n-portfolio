@@ -18,6 +18,7 @@ import Account from './views/Account.vue';
 import MediaLib from './views/MediaLib.vue';
 import Trash from './views/Trash.vue';
 import Logs from './views/Logs.vue';
+import TestimonialLink from './components/TestimonialLink.vue';
 import Labels from './views/Labels.vue';
 
 const router = useRouter();
@@ -146,6 +147,7 @@ const doLogout = async () => { await logout(); router.push('/'); };
               </div>
             </div>
 
+            <TestimonialLink v-if="state.view === 'testimonials'" />
             <Dashboard v-if="state.view === 'dashboard'" />
             <Stats v-else-if="state.view === 'stats'" />
             <Messages v-else-if="state.view === 'messages'" />

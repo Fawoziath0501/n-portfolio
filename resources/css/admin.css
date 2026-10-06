@@ -529,3 +529,6 @@ button.kpi { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .bk-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--ln2); font-size: 14px; }
 .nl-send { padding: 20px; display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
 .nl-select { flex: 1 1 320px; max-width: 560px; }
+.tl-box { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; margin-bottom: 16px; }
+.tl-box > .ms { font-size: 26px; }
+.tl-url { padding: 6px 10px; border-radius: 6px; background: var(--sf2); border: 1px solid var(--ln2); font-size: 13px; overflow-wrap: anywhere; }
