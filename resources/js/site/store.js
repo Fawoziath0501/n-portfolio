@@ -98,6 +98,8 @@ export const vm = computed(() => {
     const contactRows = [
         pr.email && { icon: 'mail', label: L.email, value: pr.email, href: 'mailto:' + pr.email },
         pr.phone && { icon: 'call', label: L.phone, value: pr.phone, href: 'tel:' + pr.phone.replace(/\s/g, '') },
+        // Numéro WhatsApp (lien « WhatsApp » des réseaux), affiché s'il diffère du téléphone.
+        wa && wa.handle && wa.handle.replace(/\D/g, '') !== String(pr.phone || '').replace(/\D/g, '') && { icon: 'chat', label: 'WhatsApp', value: wa.handle, href: wa.url },
         t(pr.location) && { icon: 'location_on', label: L.location, value: t(pr.location) },
         t(pr.hours) && { icon: 'schedule', label: L.hours, value: t(pr.hours) },
     ].filter(Boolean).map((c, i) => ({ ...c, num: pad(i + 1) }));
