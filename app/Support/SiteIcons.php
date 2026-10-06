@@ -20,7 +20,7 @@ class SiteIcons
         'arrow_back', 'arrow_forward', 'arrow_upward', 'article', 'bolt', 'calendar_today', 'call', 'check', 'check_circle',
         'chevron_right', 'close', 'code', 'design_services', 'download', 'event_note', 'favorite', 'folder_open', 'gavel',
         'grid_view', 'image', 'insights', 'language', 'link', 'location_on', 'mail', 'mark_email_unread', 'open_in_new',
-        'construction', 'person', 'schedule', 'search', 'send', 'south', 'translate', 'verified', 'visibility', 'work', 'zoom_in',
+        'construction', 'person', 'schedule', 'search', 'send', 'south', 'translate', 'verified', 'visibility', 'work', 'zoom_in', 'chat',
     ];
 
     public static function names(): array
