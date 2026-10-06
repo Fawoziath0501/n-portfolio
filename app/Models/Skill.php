@@ -21,6 +21,7 @@ class Skill extends Model
     public const LOGOS = [
         'laravel' => 'laravel', 'php' => 'php', 'vue.js' => 'vuejs', 'javascript' => 'javascript', 'html' => 'html5', 'css' => 'css3',
         'angular' => 'angularjs', 'python' => 'python', 'git' => 'git', 'github' => 'github', 'gitlab' => 'gitlab',
+        'flutter' => 'flutter', 'dart' => 'dart', 'typescript' => 'typescript',
         'google search console' => 'google', 'google analytics' => 'google',
     ];
 

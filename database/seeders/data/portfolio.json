@@ -1061,6 +1061,12 @@
         },
         {
           "name": {
+            "fr": "TypeScript",
+            "en": "TypeScript"
+          }
+        },
+        {
+          "name": {
             "fr": "HTML",
             "en": "HTML"
           }
@@ -1083,6 +1089,29 @@
         }
       ],
       "icon": "web"
+    },
+    {
+      "id": "sg6",
+      "label": {
+        "fr": "Mobile",
+        "en": "Mobile"
+      },
+      "visible": true,
+      "icon": "smartphone",
+      "skills": [
+        {
+          "name": {
+            "fr": "Flutter",
+            "en": "Flutter"
+          }
+        },
+        {
+          "name": {
+            "fr": "Dart",
+            "en": "Dart"
+          }
+        }
+      ]
     },
     {
       "id": "sg3",
