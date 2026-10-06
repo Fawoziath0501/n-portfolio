@@ -36,7 +36,7 @@ class SeoAuditTest extends TestCase
             ->assertSee('href="/fr/projets/presentia"', false)->assertSee('href="/fr/a-propos"', false);
         // Étude de cas : titre, résumé et contenu dans le HTML initial.
         $this->get('/fr/projets/presentia')->assertSee('<h1>'.e($project->title['fr']).'</h1>', false)
-            ->assertSee(e($project->summary['fr']), false)->assertSee('Rôles et permissions dynamiques');
+            ->assertSee(e($project->summary['fr']), false)->assertSee('Rôles et permissions : création de rôles');
         // Page légale : variables remplacées.
         $main = explode('<main', $this->get('/fr/confidentialite')->getContent())[1];
         $this->assertStringContainsString('saloufawoziath236@gmail.com', $main);
