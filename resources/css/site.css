@@ -613,3 +613,6 @@ button { font: inherit; }
 @media (max-width: 380px) {
   .hero-actions .btn:not(.hero-cv) .ms { display: none; }
 }
+
+/* Version simplifiée du contenu : invisible tant que l'application démarre (elle reste lue par Google) */
+.js #app > .pre { visibility: hidden; }

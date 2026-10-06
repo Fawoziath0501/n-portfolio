@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html lang="{{ $lang }}">
 <head>
+    {{-- Version simplifiée (pour Google et sans JavaScript) masquée jusqu’au démarrage de l’application ; réaffichée si le script ne se charge pas. --}}
+    <script>document.documentElement.classList.add('js');setTimeout(function(){if(document.querySelector('#app > .pre'))document.documentElement.classList.remove('js')},6000)</script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
