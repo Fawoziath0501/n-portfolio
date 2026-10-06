@@ -47,7 +47,58 @@ php artisan serve
 Le site est alors sur <http://127.0.0.1:8000> et l'administration sur <http://127.0.0.1:8000/admin>.
 
 Le compte administrateur est créé à partir de `ADMIN_EMAIL` et `ADMIN_PASSWORD` dans `.env`
-(mot de passe `password` si la variable est absente : **changez-le avant toute mise en ligne**).
+(mot de passe `password` en local si la variable est absente ; en production, le seeder exige au moins 12 caractères).
+
+Tests : `php artisan test` (base SQLite en mémoire alimentée par le seeder).
+
+## Mise en production
+
+Sur le serveur (PHP 8.2+ avec `pdo_sqlite` ou `pdo_mysql`, Composer ; Node uniquement pour le build) :
+
+1. Faites pointer la racine web du domaine sur le dossier `public/`.
+2. Créez `.env` à partir de `.env.example` et modifiez au minimum :
+
+   ```dotenv
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_URL=https://votre-domaine.com
+   LOG_LEVEL=warning
+   SESSION_SECURE_COOKIE=true      # cookies de session uniquement en HTTPS
+   ADMIN_PASSWORD=…                # 12 caractères minimum
+   MAIL_MAILER=smtp                # + MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM_ADDRESS
+   ```
+
+3. Première installation :
+
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   php artisan key:generate
+   touch database/database.sqlite      # si SQLite
+   php artisan migrate --seed --force
+   php artisan storage:link
+   npm ci && npm run build             # ou construisez en local et envoyez public/build/
+   php artisan optimize                # cache de la config, des routes et des vues
+   ```
+
+4. Ajoutez la tâche cron (purge de la corbeille) : `* * * * * cd /chemin/du/site && php artisan schedule:run >> /dev/null 2>&1`.
+5. Les dossiers `storage/` et `bootstrap/cache/` doivent être accessibles en écriture par le serveur web,
+   de même que `database/` si vous utilisez SQLite.
+
+Mises à jour suivantes :
+
+```bash
+git pull
+composer install --no-dev --optimize-autoloader
+php artisan migrate --force
+php artisan db:seed --force             # ajoute seulement les nouveaux textes de l'interface
+npm ci && npm run build
+php artisan optimize
+```
+
+En production, sur un site déjà installé, `db:seed` ne touche pas au contenu : il met à jour le compte administrateur
+et ajoute les textes d'interface qui n'existent pas encore. Les contenus, les textes déjà modifiés et les paramètres
+restent tels qu'ils ont été édités dans l'administration. Pensez à télécharger une sauvegarde JSON
+(Administration → Paramètres → Sauvegarde) avant chaque mise à jour.
 
 ## Base de données
 
