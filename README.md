@@ -14,7 +14,7 @@ d'après les maquettes du dossier [`design/`](design/).
 - Logos officiels des réseaux sociaux (déduits de l’adresse du lien)
 - Formulaire de contact et demande de service (enregistrés en base, notification e-mail facultative)
 - Inscription à la newsletter, sélecteur de langue, menu mobile
-- SEO rendu côté serveur (`AppSupportSeoPage`) : titre et description propres à chaque page, adresse canonique,
+- SEO rendu côté serveur (`App\Support\SeoPage`) : titre et description propres à chaque page, adresse canonique,
   `hreflang` vers la page équivalente dans l’autre langue, Open Graph / Twitter, données structurées schema.org
   (WebSite, Person, BlogPosting, CreativeWork, fil d’Ariane), contenu lisible sans JavaScript, vraie 404 pour les
   adresses inconnues, balises de vérification Google / Bing, `sitemap.xml` et `robots.txt` générés
