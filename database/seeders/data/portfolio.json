@@ -483,30 +483,32 @@
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Application web de création de formulaires en ligne, avec collecte des réponses, gestion administrative et paiement intégré.",
-        "en": "Web application for building online forms, with response collection, admin management and built-in payment."
+        "fr": "Application web de création de formulaires en ligne, avec collecte des réponses, gestion administrative et paiement intégré via FedaPay.",
+        "en": "Web application for building online forms, with response collection, admin management and built-in payment through FedaPay."
       },
       "context": {
-        "fr": "Forbmit permet à une organisation de créer ses propres formulaires en ligne (inscriptions, candidatures, demandes, enquêtes), de les partager, puis de suivre et d’exploiter les réponses reçues. Un formulaire peut aussi être payant : le règlement se fait directement au moment de l’envoi.",
-        "en": "Forbmit lets an organisation build its own online forms (registrations, applications, requests, surveys), share them, then track and use the responses received. A form can also be paid: payment happens right when it is submitted."
+        "fr": "Forbmit permet à une organisation de créer ses propres formulaires en ligne (inscriptions, candidatures, demandes, enquêtes), de les partager, puis de suivre et d’exploiter les réponses reçues. Un formulaire peut aussi être payant : le règlement se fait directement au moment de l’envoi, via FedaPay.",
+        "en": "Forbmit lets an organisation build its own online forms (registrations, applications, requests, surveys), share them, then track and use the responses received. A form can also be paid: payment happens right when it is submitted, through FedaPay."
       },
       "problem": {
         "fr": "Offrir un outil assez souple pour s’adapter à des formulaires très différents, simple à prendre en main pour des personnes non techniques, et capable d’encaisser des paiements en ligne.",
         "en": "Providing a tool flexible enough to fit very different forms, easy for non-technical people to use, and able to take online payments."
       },
       "contribution": {
-        "fr": "Développement de l’application web\nGénérateur de formulaires et collecte des réponses\nEspace de gestion administrative\nIntégration du paiement en ligne",
-        "en": "Web application development\nForm builder and response collection\nAdmin management area\nOnline payment integration"
+        "fr": "Développement de l’application web\nGénérateur de formulaires et collecte des réponses\nEspace de gestion administrative\nIntégration du paiement en ligne avec FedaPay",
+        "en": "Web application development\nForm builder and response collection\nAdmin management area\nOnline payment integration with FedaPay"
       },
       "solution": {
-        "fr": "Création de formulaires personnalisés, adaptés à chaque besoin\nPartage du formulaire par un lien, remplissage en ligne sur ordinateur comme sur mobile\nRéception, consultation et suivi des réponses\nGestion administrative des formulaires et des réponses depuis un espace dédié\nFormulaires payants avec paiement intégré au moment de l’envoi",
-        "en": "Custom forms tailored to each need\nSharing a form through a link, filling it in online on desktop or mobile\nReceiving, viewing and tracking responses\nAdmin management of forms and responses from a dedicated area\nPaid forms with built-in payment on submission"
+        "fr": "Création de formulaires personnalisés, adaptés à chaque besoin\nPartage du formulaire par un lien, remplissage en ligne sur ordinateur comme sur mobile\nRéception, consultation et suivi des réponses\nGestion administrative des formulaires et des réponses depuis un espace dédié\nFormulaires payants avec paiement FedaPay intégré au moment de l’envoi",
+        "en": "Custom forms tailored to each need\nSharing a form through a link, filling it in online on desktop or mobile\nReceiving, viewing and tracking responses\nAdmin management of forms and responses from a dedicated area\nPaid forms with built-in FedaPay payment on submission"
       },
       "results": {
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [
+        "FedaPay"
+      ]
     },
     {
       "id": "p6",
