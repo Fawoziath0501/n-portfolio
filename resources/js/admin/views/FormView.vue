@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
-import { FORMS, ask, flash, reload, save, setPath, state, syncDoc } from '../store';
+import { FORMS, ask, flash, flashError, reload, save, setPath, state, syncDoc } from '../store';
 import Fields from '../components/Fields.vue';
 import Panel from '../components/Panel.vue';
 import ProfileRelations from '../components/ProfileRelations.vue';
@@ -35,7 +35,7 @@ function importJson(e) {
     let obj2;
     try { obj2 = JSON.parse(r.result); if (!obj2 || !obj2.profile || !obj2.projects) throw new Error('format'); } catch (er) { flash('Fichier invalide'); return; }
     ask('Remplacer les données actuelles ?', 'Le contenu du fichier « ' + f.name + ' » remplacera tout le contenu actuel.', async () => {
-      try { await api.post('/admin/import', { data: obj2 }); await reload(); flash('Sauvegarde restaurée'); } catch (er) { flash('Import impossible'); }
+      try { await api.post('/admin/import', { data: obj2 }); await reload(); flash('Sauvegarde restaurée'); } catch (er) { flashError('Import impossible : fichier de sauvegarde invalide.'); }
     }, 'Remplacer');
   };
   r.readAsText(f);

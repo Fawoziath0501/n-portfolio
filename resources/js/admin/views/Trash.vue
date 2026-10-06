@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { api } from '../../shared/util';
-import { ask, errorText, flash, reload, state } from '../store';
+import { ask, flash, flashError, reload, state } from '../store';
 
 const items = ref(null);
 const days = ref(30);
@@ -31,13 +31,13 @@ async function restore(x) {
     await api.post(`/admin/trash/${x.type}/${x.id}/restore`);
     await Promise.all([load(), reload()]);
     flash(x.typeLabel + ' restauré');
-  } catch (e) { flash(errorText(e)); }
+  } catch (e) { flashError(e); }
 }
 const destroy = (x) => ask('Supprimer définitivement « ' + x.label + ' » ?', 'Cette action est irréversible' + (x.type === 'media' ? ' : le fichier sera effacé du serveur.' : '.'), async () => {
-  try { await api.delete(`/admin/trash/${x.type}/${x.id}`); await load(); flash('Supprimé définitivement'); } catch (e) { flash(errorText(e)); }
+  try { await api.delete(`/admin/trash/${x.type}/${x.id}`); await load(); flash('Supprimé définitivement'); } catch (e) { flashError(e); }
 });
 const empty = () => ask('Vider la corbeille ?', (items.value || []).length + ' élément(s) seront supprimés définitivement. Cette action est irréversible.', async () => {
-  try { await api.delete('/admin/trash'); await load(); flash('Corbeille vidée'); } catch (e) { flash(errorText(e)); }
+  try { await api.delete('/admin/trash'); await load(); flash('Corbeille vidée'); } catch (e) { flashError(e); }
 }, 'Vider');
 </script>
 

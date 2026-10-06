@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { COLS, boot, go, loadEvents, logout, state } from './store';
+import { COLS, boot, dismiss, go, loadEvents, logout, state } from './store';
 import Login from './components/Login.vue';
 import Drawer from './components/Drawer.vue';
 import MediaPicker from './components/MediaPicker.vue';
@@ -30,8 +30,8 @@ watch(() => [state.view, state.data && state.data.settings && state.data.setting
 const dark = computed(() => state.theme === 'dark');
 const mobile = computed(() => state.w < 1000);
 const th = computed(() => (dark.value
-  ? { bg: '#070E22', sf: '#0F1A36', sf2: '#13203F', ink: '#E9EDF6', mu: '#9AA6C2', ln: '#22305A', ln2: '#1A2750', ac: '#5B7CFF', ac2: '#3A4F96', acs: '#18275C', aci: '#B9C7FF', side: '#050B1C', sideLn: '#16224A' }
-  : { bg: '#F3F5F9', sf: '#FFFFFF', sf2: '#F8F9FC', ink: '#0B1530', mu: '#4B5873', ln: '#D9DFEA', ln2: '#EEF1F6', ac: '#2448C8', ac2: '#8FA3E8', acs: '#E8EDFB', aci: '#1B379E', side: '#0B1530', sideLn: '#1E2A4C' }));
+  ? { bg: '#070E22', sf: '#0F1A36', sf2: '#13203F', ink: '#E9EDF6', mu: '#9AA6C2', ln: '#22305A', ln2: '#1A2750', ac: '#5B7CFF', ac2: '#3A4F96', acs: '#18275C', aci: '#B9C7FF', side: '#050B1C', sideLn: '#16224A', okBg: 'rgba(52, 168, 110, .16)', okFg: '#6FDCA5', badBg: 'rgba(240, 90, 90, .16)', badFg: '#FF9B9B', warnBg: 'rgba(245, 165, 35, .16)', warnFg: '#FBC66A', dev2: '#7F97F0', dev3: '#3A4F96' }
+  : { bg: '#F3F5F9', sf: '#FFFFFF', sf2: '#F8F9FC', ink: '#0B1530', mu: '#4B5873', ln: '#D9DFEA', ln2: '#EEF1F6', ac: '#2448C8', ac2: '#8FA3E8', acs: '#E8EDFB', aci: '#1B379E', side: '#0B1530', sideLn: '#1E2A4C', okBg: '#E7F6EE', okFg: '#1E6B45', badBg: '#FDECEC', badFg: '#B42318', warnBg: '#FEF3E2', warnFg: '#B45309', dev2: '#8FA3E8', dev3: '#C9D3F2' }));
 const cssVars = computed(() => {
   const o = { colorScheme: dark.value ? 'dark' : 'light' };
   Object.entries(th.value).forEach(([k, v]) => { o['--' + k] = v; });
@@ -136,9 +136,6 @@ const doLogout = async () => { await logout(); router.push('/admin'); };
             <div class="page-head">
               <div class="col gap4"><h1>{{ view.h1 }}</h1><p>{{ view.sub }}</p></div>
               <div class="page-actions">
-                <div v-if="state.view === 'stats'" role="group" aria-label="Période" class="periods">
-                  <button v-for="p in [7, 30, 90]" :key="p" type="button" :aria-pressed="state.period === p" :class="{ on: state.period === p }" @click="state.period = p">{{ p }} j</button>
-                </div>
                 <button v-if="col" type="button" class="abtn primary" @click="addItem"><span class="ms">add</span>Ajouter</button>
                 <button v-if="hasExport" type="button" class="abtn" @click="exportCsv"><span class="ms">download</span>Exporter CSV</button>
               </div>
@@ -176,6 +173,13 @@ const doLogout = async () => { await logout(); router.push('/admin'); };
       </div>
     </template>
 
-    <div v-if="state.toast" role="status" class="toast"><span class="ms">check_circle</span>{{ state.toast }}</div>
+    <div class="toasts" aria-live="polite">
+      <TransitionGroup name="toast">
+        <div v-for="tn in state.toasts" :key="tn.id" :role="tn.type === 'error' ? 'alert' : 'status'" class="toast" :class="tn.type">
+          <span class="ms" aria-hidden="true">{{ tn.type === 'error' ? 'error' : 'check_circle' }}</span><span class="f1">{{ tn.msg }}</span>
+          <button type="button" class="toast-x ms" aria-label="Fermer la notification" @click="dismiss(tn.id)">close</button>
+        </div>
+      </TransitionGroup>
+    </div>
   </div>
 </template>

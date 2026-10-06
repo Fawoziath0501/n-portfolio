@@ -5,8 +5,8 @@ export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects'
 
 export const state = reactive({
     data: null, user: null, ready: false,
-    view: 'dashboard', theme: 'light', period: 30, menu: false, w: window.innerWidth,
-    edit: null, mf: 'all', msgId: null, confirm: null, toast: '', q: '', pick: null, mUrl: '',
+    view: 'dashboard', theme: 'light', sf: defaultFilters(), menu: false, w: window.innerWidth,
+    edit: null, mf: 'all', msgId: null, confirm: null, toasts: [], q: '', pick: null, mUrl: '',
     events: null, eventsTotal: 0,
 });
 
@@ -22,15 +22,19 @@ export const fmtMD = (s) => { try { return new Date(s + 'T12:00:00').toLocaleDat
 export const nf = (n) => Number(n).toLocaleString('fr-FR');
 export const spark = (arr) => { const n = arr.length, mx = Math.max(...arr, 1); return arr.map((v, i) => (i ? 'L' : 'M') + (n > 1 ? (i * 100 / (n - 1)).toFixed(1) : 0) + ' ' + (30 - v / mx * 26).toFixed(1)).join(' '); };
 const buckets = (arr, k, nb) => { const size = Math.max(1, Math.ceil(arr.length / nb)), out = []; for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size).reduce((s, x) => s + x[k], 0)); return out; };
+// Évolution par rapport à la période précédente : neutre sans comparaison possible ou sans changement,
+// vert pour une hausse, rouge pour une baisse (couleurs du thème clair / sombre).
+const NEUTRAL_D = { dBg: 'var(--ln2)', dFg: 'var(--mu)' };
+const trend = (up) => (up ? { dBg: 'var(--okBg)', dFg: 'var(--okFg)' } : { dBg: 'var(--badBg)', dFg: 'var(--badFg)' });
 export function delta(cur, prev, isPct) {
     if (isPct) {
-        if (!prev) return { delta: 'Nouveau', dBg: '#E7F6EE', dFg: '#1E6B45' };
+        if (!prev) return { delta: cur ? 'Pas de période précédente' : 'Aucune donnée', ...NEUTRAL_D };
         const p = Math.round((cur - prev) / prev * 100);
-        return { delta: (p >= 0 ? '↑ ' : '↓ ') + Math.abs(p) + ' % vs période préc.', dBg: p >= 0 ? '#E7F6EE' : '#FDECEC', dFg: p >= 0 ? '#1E6B45' : '#B42318' };
+        return p === 0 ? { delta: '= période préc.', ...NEUTRAL_D } : { delta: (p > 0 ? '↑ ' : '↓ ') + Math.abs(p) + ' % vs période préc.', ...trend(p > 0) };
     }
     const dd = cur - prev;
-    if (!cur && !prev) return { delta: 'Aucun sur la période', dBg: 'var(--ln2)', dFg: 'var(--mu)' };
-    return { delta: (dd > 0 ? '+' : '') + dd + ' vs période préc.', dBg: dd >= 0 ? '#E7F6EE' : '#FDECEC', dFg: dd >= 0 ? '#1E6B45' : '#B42318' };
+    if (!cur && !prev) return { delta: 'Aucun sur la période', ...NEUTRAL_D };
+    return dd === 0 ? { delta: '= période préc.', ...NEUTRAL_D } : { delta: (dd > 0 ? '+' : '') + dd + ' vs période préc.', ...trend(dd > 0) };
 }
 export const barList = (rows, total) => { const mx = Math.max(...rows.map((r) => r.n), 1); return rows.map((r) => ({ label: r.label, icon: r.icon || 'circle', value: nf(r.n), pct: total ? Math.round(r.n / total * 100) + ' %' : '', w: Math.max(3, Math.round(r.n / mx * 100)) + '%' })); };
 export const missingEn = (o) => { let n = 0; const walk = (x) => { if (!x || typeof x !== 'object') return; if (Array.isArray(x)) return x.forEach(walk); if ('fr' in x && 'en' in x && typeof x.fr === 'string') { if (x.fr.trim() && !String(x.en || '').trim()) n++; return; } Object.values(x).forEach(walk); }; walk(o); return n; };
@@ -70,12 +74,17 @@ export async function logout() {
 }
 
 /* ---------- Retours visuels ---------- */
-let toastTimer = null;
-export function flash(m) {
-    state.toast = m;
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { state.toast = ''; }, 2200);
+// Notifications en haut à droite : succès (2,5 s) ou erreur (6 s, fermeture manuelle possible).
+let toastId = 0;
+export function dismiss(id) { state.toasts = state.toasts.filter((x) => x.id !== id); }
+export function flash(m, type = 'success') {
+    if (!m) return;
+    const id = ++toastId;
+    state.toasts = [...state.toasts.filter((x) => x.msg !== m), { id, msg: m, type }].slice(-4);
+    setTimeout(() => dismiss(id), type === 'error' ? 6000 : 2500);
 }
+/** Notification d'erreur à partir d'une réponse de l'API (message de validation ou générique). */
+export const flashError = (e) => flash(typeof e === 'string' ? e : errorText(e), 'error');
 export function ask(title, msg, ok, okLabel) { state.confirm = { title, msg, ok, okLabel: okLabel || 'Supprimer' }; }
 function logActivity(msg) { if (msg) state.data.activity = [{ ts: Date.now(), msg }, ...(state.data.activity || [])].slice(0, 30); }
 
@@ -88,7 +97,7 @@ export async function save(mutate, msg, sync) {
         if (sync) await sync();
     } catch (e) {
         if (e.response && e.response.status === 401) { state.user = null; return; }
-        flash(errorText(e));
+        flashError(e);
         await reload();
     }
 }
@@ -141,38 +150,81 @@ export async function createItem(col, item, index, activity) {
 }
 
 /* ---------- Statistiques (uniquement les visites réellement enregistrées par le suivi intégré) ---------- */
-function localDays(n) {
-    const ev = (state.events || []).filter((e) => e.t === 'pv'), now = new Date(), out = [];
-    for (let i = n - 1; i >= 0; i--) {
-        const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i), a0 = dt.getTime(), a1 = a0 + 864e5;
-        const day = ev.filter((e) => e.ts >= a0 && e.ts < a1);
-        out.push({ dt, v: new Set(day.map((e) => e.sid)).size, pv: day.length });
-    }
-    return out;
+export const PRESETS = [['7', '7 jours'], ['30', '30 jours'], ['90', '90 jours'], ['365', '12 mois'], ['custom', 'Dates…']];
+export const SECTIONS = [['home', 'Accueil'], ['about', 'À propos'], ['work', 'Projets'], ['services', 'Services'], ['blog', 'Blog'], ['contact', 'Contact'], ['legal', 'Pages légales']];
+export const DEVICES = [['mobile', 'Mobile'], ['desktop', 'Ordinateur'], ['tablet', 'Tablette']];
+// Déclaration de fonction (et non const) : utilisée dans « state », défini plus haut dans ce fichier.
+export function defaultFilters() { return { preset: '30', from: '', to: '', lang: 'all', device: 'all', source: 'all', section: 'all' }; }
+
+const day0 = (dt) => new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+const addDays = (dt, n) => new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + n);
+const parseDay = (s) => { const [y, m, dd] = String(s).split('-').map(Number); return y ? new Date(y, m - 1, dd) : null; };
+
+/** Intervalle choisi (période prédéfinie ou dates libres) et période précédente de même durée. */
+export function statsRange(f = state.sf) {
+    const today = day0(new Date());
+    let from = parseDay(f.from), to = parseDay(f.to);
+    if (f.preset !== 'custom' || !from || !to) { to = today; from = addDays(today, -((Number(f.preset) || 30) - 1)); }
+    if (to < from) [from, to] = [to, from];
+    if (to > today) to = today;
+    if (from > to) from = to;
+    const len = Math.round((to - from) / 864e5) + 1;
+    return { from, to, len, prevFrom: addDays(from, -len), prevTo: addDays(from, -1) };
 }
-export async function loadEvents() {
-    if (!state.data || !isLocal()) return; // pas encore connecté
+
+/** Rubrique du site d'une adresse (filtre « Rubrique »). */
+export function sectionOf(path, d = state.data) {
+    const seg = String(path || '/').split('/');
+    if (!seg[2]) return 'home';
+    const m = { 'a-propos': 'about', about: 'about', projets: 'work', work: 'work', services: 'services', blog: 'blog', contact: 'contact' };
+    if (m[seg[2]]) return m[seg[2]];
+    return (d.legalPages || []).some((x) => x.slugFr === seg[2] || x.slugEn === seg[2]) ? 'legal' : 'other';
+}
+const srcName = (r) => (!r ? ['Accès direct', 'link'] : /google/.test(r) ? ['Google', 'search'] : /bing/.test(r) ? ['Bing', 'search'] : /linkedin/.test(r) ? ['LinkedIn', 'work'] : /whatsapp|wa\.me/.test(r) ? ['WhatsApp', 'chat'] : /github/.test(r) ? ['GitHub', 'code'] : /instagram/.test(r) ? ['Instagram', 'photo_camera'] : /facebook/.test(r) ? ['Facebook', 'public'] : [r, 'public']);
+
+// Les événements chargés couvrent la période affichée, la précédente et au moins 60 jours (tableau de bord).
+let loadedKey = '';
+export async function loadEvents(force = false) {
+    if (!state.data || !isLocal()) return; // pas encore connecté, ou suivi désactivé
+    const r = statsRange(), today = day0(new Date()), min = addDays(today, -59);
+    const from = iso(r.prevFrom < min ? r.prevFrom : min), to = iso(today);
+    if (!force && loadedKey === from + to) return;
     try {
-        const { data } = await api.get('/admin/events', { params: { days: 180 } });
+        const { data } = await api.get('/admin/events', { params: { from, to } });
         state.events = data.events;
         state.eventsTotal = data.total;
+        loadedKey = from + to;
     } catch (e) { state.events = []; }
 }
 
-export function stats(p) {
-    const d = state.data, tracking = isLocal(), all = localDays(2 * p), cur = all.slice(-p), prev = all.slice(-2 * p, -p);
-    const sum = (a, k) => a.reduce((s, x) => s + x[k], 0);
-    const V = sum(cur, 'v'), PV = sum(cur, 'pv'), V0 = sum(prev, 'v'), PV0 = sum(prev, 'pv');
-    const n = cur.length, maxY = Math.max(4, ...cur.map((x) => x.pv)) * 1.12;
-    const X = (i) => (n > 1 ? i * 640 / (n - 1) : 0), Y = (v) => 205 - v / maxY * 190;
-    const line = (k) => cur.map((x, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(x[k]).toFixed(1)).join(' ');
-    const area = (k) => line(k) + ' L 640 205 L 0 205 Z';
-    const grid = [0.25, 0.5, 0.75, 1].map((f) => { const val = Math.round(maxY * f / 1.12); return { y: Y(val).toFixed(1), ty: (Y(val) - 4).toFixed(1), label: nf(val) }; });
-    const chart = { vLine: line('v'), pvLine: line('pv'), vArea: area('v'), pvArea: area('pv'), grid, xl: [cur[0], cur[Math.floor(n / 2)], cur[n - 1]].map((x) => fmtD(x.dt)), aria: 'Visiteurs et pages vues sur ' + p + ' jours' };
+/** Indicateurs de la période choisie, après filtres (langue, appareil, provenance, rubrique). */
+export function stats(filters = {}) {
+    const f = { ...defaultFilters(), ...filters }, d = state.data, tracking = isLocal(), r = statsRange(f);
+    const a0 = r.from.getTime(), a1 = addDays(r.to, 1).getTime(), b0 = r.prevFrom.getTime();
 
-    // Visites enregistrées sur la période : pages, provenance, appareils, clics de contact.
-    const ev = state.events || [], a0 = cur[0].dt.getTime(), b0 = prev[0] ? prev[0].dt.getTime() : a0;
-    const cE = ev.filter((e) => e.ts >= a0), pE = ev.filter((e) => e.ts >= b0 && e.ts < a0), pvE = cE.filter((e) => e.t === 'pv');
+    // Provenance d'une visite = site d'origine de sa première page vue.
+    const all = state.events || [], sessionSrc = {};
+    all.forEach((e) => { if (e.t === 'pv' && !(e.sid in sessionSrc)) sessionSrc[e.sid] = srcName(e.ref || '')[0]; });
+    const keep = (e) => (f.lang === 'all' || (String(e.path || '').startsWith('/en') ? 'en' : 'fr') === f.lang)
+        && (f.device === 'all' || (e.dev || 'desktop') === f.device)
+        && (f.source === 'all' || sessionSrc[e.sid] === f.source)
+        && (f.section === 'all' || sectionOf(e.path, d) === f.section);
+    const ev = all.filter(keep);
+    const cE = ev.filter((e) => e.ts >= a0 && e.ts < a1), pE = ev.filter((e) => e.ts >= b0 && e.ts < a0), pvE = cE.filter((e) => e.t === 'pv');
+
+    const cur = Array.from({ length: r.len }, (_, i) => {
+        const dt = addDays(r.from, i), x0 = dt.getTime(), x1 = addDays(dt, 1).getTime(), dayE = pvE.filter((e) => e.ts >= x0 && e.ts < x1);
+        return { dt, v: new Set(dayE.map((e) => e.sid)).size, pv: dayE.length };
+    });
+    const pvP = pE.filter((e) => e.t === 'pv');
+    const V = new Set(pvE.map((e) => e.sid)).size, PV = pvE.length, V0 = new Set(pvP.map((e) => e.sid)).size, PV0 = pvP.length;
+    const n = cur.length, maxY = Math.max(4, ...cur.map((x) => x.pv)) * 1.12;
+    const X = (i) => (n > 1 ? i * 640 / (n - 1) : 320), Y = (v) => 205 - v / maxY * 190;
+    const line = (k) => (n > 1 ? cur.map((x, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(x[k]).toFixed(1)).join(' ') : 'M 0 ' + Y(cur[0][k]).toFixed(1) + ' L 640 ' + Y(cur[0][k]).toFixed(1));
+    const area = (k) => line(k) + ' L 640 205 L 0 205 Z';
+    const grid = [0.25, 0.5, 0.75, 1].map((g) => { const val = Math.round(maxY * g / 1.12); return { y: Y(val).toFixed(1), ty: (Y(val) - 4).toFixed(1), label: nf(val) }; });
+    const chart = { vLine: line('v'), pvLine: line('pv'), vArea: area('v'), pvArea: area('pv'), grid, xl: [cur[0], cur[Math.floor(n / 2)], cur[n - 1]].map((x) => fmtD(x.dt)), aria: 'Visiteurs et pages vues du ' + fmtD(r.from) + ' au ' + fmtD(r.to) };
+
     const label = (path) => {
         if (path === '/fr' || path === '/en' || path === '/') return ['Accueil', 'home'];
         const seg = path.split('/'), pj = seg[3] && (seg[2] === 'projets' || seg[2] === 'work') && d.projects.find((x) => x.slug === seg[3]);
@@ -186,10 +238,9 @@ export function stats(p) {
     const grp = (arr, key) => { const o = {}; arr.forEach((e) => { const k = key(e); if (k != null) o[k] = (o[k] || 0) + 1; }); return o; };
     const rowsP = Object.entries(grp(pvE, (e) => e.path || '/')).map(([path, c]) => { const [lb, ic] = label(path); return { label: lb, path, icon: ic, n: c }; }).sort((x, y) => y.n - x.n);
     const firsts = {}; pvE.forEach((e) => { if (!firsts[e.sid]) firsts[e.sid] = e; });
-    const srcName = (r) => (!r ? ['Accès direct', 'link'] : /google/.test(r) ? ['Google', 'search'] : /bing/.test(r) ? ['Bing', 'search'] : /linkedin/.test(r) ? ['LinkedIn', 'work'] : /whatsapp|wa\.me/.test(r) ? ['WhatsApp', 'chat'] : /github/.test(r) ? ['GitHub', 'code'] : /instagram/.test(r) ? ['Instagram', 'photo_camera'] : /facebook/.test(r) ? ['Facebook', 'public'] : [r, 'public']);
     const bySrc = {}; Object.values(firsts).forEach((e) => { const [lb, ic] = srcName(e.ref || ''); bySrc[lb] = bySrc[lb] || { label: lb, icon: ic, n: 0 }; bySrc[lb].n++; });
     const devN = { mobile: 0, desktop: 0, tablet: 0 }; Object.values(firsts).forEach((e) => { devN[e.dev || 'desktop']++; }); const devT = Math.max(1, devN.mobile + devN.desktop + devN.tablet);
-    const devices = [['Mobile', 'smartphone', devN.mobile, '#2448C8'], ['Ordinateur', 'computer', devN.desktop, '#8FA3E8'], ['Tablette', 'tablet', devN.tablet, '#C9D3F2']]
+    const devices = [['Mobile', 'smartphone', devN.mobile, 'var(--ac)'], ['Ordinateur', 'computer', devN.desktop, 'var(--dev2)'], ['Tablette', 'tablet', devN.tablet, 'var(--dev3)']]
         .map(([lb, icon, c, color]) => ({ label: lb, icon, color, w: (c / devT * 100) + '%', pct: Math.round(c / devT * 100) + ' %', value: nf(c) }));
     const clicks = grp(cE.filter((e) => e.t === 'click'), (e) => e.k), convTotal0 = pE.filter((e) => e.t === 'click').length;
     const hasCv = !!d.profile.cv;
@@ -199,17 +250,28 @@ export function stats(p) {
     });
     const convTotal = conv.reduce((s, c) => s + c.n, 0);
 
-    const start = iso(cur[0].dt), start0 = iso(prev[0] ? prev[0].dt : cur[0].dt);
-    const msgs = d.messages || [], inP = (m, a, b) => m.date >= a && (!b || m.date < b);
-    const mC = msgs.filter((m) => m.type !== 'service' && inP(m, start)).length, mC0 = msgs.filter((m) => m.type !== 'service' && inP(m, start0, start)).length;
-    const sC = msgs.filter((m) => m.type === 'service' && inP(m, start)).length, sC0 = msgs.filter((m) => m.type === 'service' && inP(m, start0, start)).length;
-    const subs = d.subscribers || [], nC = subs.filter((m) => inP(m, start)).length, nC0 = subs.filter((m) => inP(m, start0, start)).length;
-    return { tracking, V, PV, V0, PV0, chart,
-        topPages: rowsP.slice(0, 10).map((r) => ({ label: r.label, path: r.path, value: nf(r.n), pct: PV ? Math.round(r.n / PV * 100) + ' %' : '' })),
-        topProjects: barList(rowsP.filter((r) => r.icon === 'folder_open'), PV),
+    // Messages, demandes et inscrits : filtrés seulement par dates.
+    const s = iso(r.from), e = iso(r.to), s0 = iso(r.prevFrom), e0 = iso(r.prevTo);
+    const msgs = d.messages || [], subs = d.subscribers || [];
+    const count = (arr, a, b, fn = () => true) => arr.filter((m) => fn(m) && m.date >= a && m.date <= b).length;
+    const isSvc = (m) => m.type === 'service', isMsg = (m) => m.type !== 'service';
+    const fmtLong = (dt) => dt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+    return { tracking, V, PV, V0, PV0, chart, range: r,
+        sourceOptions: [...new Set(Object.values(sessionSrc))].sort(),
+        filtered: f.lang !== 'all' || f.device !== 'all' || f.source !== 'all' || f.section !== 'all',
+        topPages: rowsP.slice(0, 10).map((x) => ({ label: x.label, path: x.path, value: nf(x.n), pct: PV ? Math.round(x.n / PV * 100) + ' %' : '' })),
+        // Études de cas : versions FR et EN d'un même projet regroupées.
+        topProjects: barList(Object.values(rowsP.filter((x) => x.icon === 'folder_open').reduce((o, x) => {
+            const slug = x.path.split('/')[3];
+            o[slug] = o[slug] ? { ...o[slug], n: o[slug].n + x.n } : { ...x };
+            return o;
+        }, {})).sort((x, y) => y.n - x.n), PV),
         sources: barList(Object.values(bySrc).sort((x, y) => y.n - x.n), V), devices,
-        conv, convTotal, convTotal0, mC, mC0, sC, sC0, nC, nC0, subsTotal: subs.length, vb: buckets(cur, 'v', 14), pb: buckets(cur, 'pv', 14),
-        rangeLabel: p + ' derniers jours · du ' + fmtD(cur[0].dt) + ' au ' + fmtD(cur[n - 1].dt) };
+        conv, convTotal, convTotal0,
+        mC: count(msgs, s, e, isMsg), mC0: count(msgs, s0, e0, isMsg), sC: count(msgs, s, e, isSvc), sC0: count(msgs, s0, e0, isSvc),
+        nC: count(subs, s, e), nC0: count(subs, s0, e0), subsTotal: subs.length,
+        vb: buckets(cur, 'v', 14), pb: buckets(cur, 'pv', 14),
+        rangeLabel: 'Du ' + fmtLong(r.from) + ' au ' + fmtLong(r.to) + ' · ' + r.len + ' jour' + (r.len > 1 ? 's' : '') };
 }
 
 /* ---------- Définition des collections éditables ---------- */
@@ -220,13 +282,13 @@ const pubF = F('published', 'Publication', 'switch', { on: 'Publié', off: 'Brou
 export const COLS = {
     projects: { label: 'Projets', icon: 'grid_view', featured: true, title: (x) => t(x.title), meta: (x) => [t(x.category), x.year, (x.tech || []).join(', ')].filter(Boolean).join(' · '),
         blank: () => ({ published: false, featured: false, slug: 'nouveau-projet-' + Date.now().toString(36), title: T('Nouveau projet', 'New project'), year: '', link: '', repo: '', images: [], category: T('', ''), role: T('', ''), summary: T('', ''), context: T('', ''), problem: T('', ''), contribution: T('', ''), solution: T('', ''), results: T('', ''), tech: [] }),
-        fields: [F('title', 'Titre', 'i18n'), F('category', 'Catégorie', 'i18n'), F('role', 'Rôle', 'i18n'), F('slug', 'Slug (adresse)', 'text'), F('year', 'Année', 'text'), F('link', 'Lien du site', 'url', { ph: 'https://' }), F('summary', 'Résumé', 'i18nArea', { full: true }), F('context', 'Contexte', 'i18nRich', { full: true }), F('problem', 'Enjeu', 'i18nRich', { full: true }), F('contribution', 'Ma contribution', 'i18nArea', { full: true, hint: 'Un point par ligne' }), F('solution', 'Fonctionnalités', 'i18nArea', { full: true, hint: 'Un point par ligne' }), F('results', 'Résultat', 'i18nRich', { full: true, hint: 'Uniquement des résultats réels' }), F('tech', 'Technologies', 'tags', { full: true, hint: 'Séparées par des virgules' }), F('images', 'Captures', 'mediaList', { full: true, hint: 'Ajoutez depuis la médiathèque (adresses séparées par des virgules)' }), F('featured', 'Accueil', 'switch', { on: 'Mis en avant', off: 'Non mis en avant' }), pubF] },
+        fields: [F('title', 'Titre', 'i18n'), F('category', 'Catégorie', 'i18n'), F('role', 'Rôle', 'i18n'), F('slug', 'Slug (adresse)', 'text'), F('year', 'Année', 'text'), F('link', 'Lien du site', 'url', { ph: 'https://' }), F('summary', 'Résumé', 'i18nArea', { full: true }), F('context', 'Contexte', 'i18nRich', { full: true }), F('problem', 'Enjeu', 'i18nRich', { full: true }), F('contribution', 'Ma contribution', 'i18nList', { full: true, addLabel: 'Ajouter une contribution' }), F('solution', 'Fonctionnalités', 'i18nList', { full: true, addLabel: 'Ajouter une fonctionnalité' }), F('results', 'Résultat', 'i18nRich', { full: true, hint: 'Uniquement des résultats réels' }), F('tech', 'Technologies', 'tags', { full: true, hint: 'Séparées par des virgules' }), F('images', 'Captures', 'mediaList', { full: true, hint: 'Ajoutez depuis la médiathèque (adresses séparées par des virgules)' }), F('featured', 'Accueil', 'switch', { on: 'Mis en avant', off: 'Non mis en avant' }), pubF] },
     posts: { label: 'Articles', icon: 'article', title: (x) => t(x.title), meta: (x) => [x.date, (x.tags || []).map((v) => t(v)).join(', '), (x.views || 0) + ' lecture(s)', (x.body && (x.body.fr || x.body.en)) ? '' : 'Contenu à rédiger'].filter(Boolean).join(' · '),
         blank: () => ({ published: false, icon: 'article', slug: '', date: iso(new Date()), readMin: 3, url: '', tags: [], title: T('Nouvel article', 'New article'), excerpt: T('', ''), body: T('', '') }),
         fields: [F('title', 'Titre', 'i18n', { full: true }), F('excerpt', 'Extrait', 'i18nArea', { full: true, hint: 'Affiché sur les cartes et en introduction de l’article' }), F('body', 'Contenu de l’article', 'i18nRich', { full: true }), F('slug', 'Adresse (/fr/blog/…)', 'text', { hint: 'Générée depuis le titre si vide' }), F('tags', 'Étiquettes', 'i18nTags', { full: true, hint: 'Séparées par des virgules, dans le même ordre en FR et EN' }), F('date', 'Date', 'date'), F('readMin', 'Lecture (min)', 'number', { hint: 'Calculée automatiquement depuis le contenu' }), F('icon', 'Icône', 'text', { hint: 'Nom d’icône Material Symbols (ex. shopping_bag, travel_explore, code_blocks)' }), F('url', 'Lien externe (facultatif)', 'url', { full: true, ph: 'https://', hint: 'Ex. version publiée sur LinkedIn ou Medium' }), pubF] },
     experiences: { label: 'Expériences', icon: 'work_history', title: (x) => t(x.role), meta: (x) => [x.company, t(x.start) + ' → ' + t(x.end)].join(' · '),
         blank: () => ({ published: false, current: false, company: '', location: T('', ''), role: T('Nouveau poste', 'New role'), start: T('', ''), end: T('', ''), description: T('', ''), duties: T('', '') }),
-        fields: [F('role', 'Poste', 'i18n'), F('company', 'Entreprise', 'text'), F('location', 'Lieu', 'i18n'), F('start', 'Début', 'i18n'), F('end', 'Fin', 'i18n'), F('description', 'Description', 'i18nRich', { full: true }), F('duties', 'Missions', 'i18nArea', { full: true, hint: 'Une mission par ligne' }), F('current', 'Poste actuel', 'switch', { on: 'Oui', off: 'Non' }), pubF] },
+        fields: [F('role', 'Poste', 'i18n'), F('company', 'Entreprise', 'text'), F('location', 'Lieu', 'i18n'), F('start', 'Début', 'i18n'), F('end', 'Fin', 'i18n'), F('description', 'Description', 'i18nRich', { full: true }), F('duties', 'Missions', 'i18nList', { full: true, addLabel: 'Ajouter une mission' }), F('current', 'Poste actuel', 'switch', { on: 'Oui', off: 'Non' }), pubF] },
     education: { label: 'Formation', icon: 'school', title: (x) => t(x.degree), meta: (x) => [x.school, x.period].filter(Boolean).join(' · '),
         blank: () => ({ published: false, degree: T('Nouvelle formation', 'New programme'), school: '', period: '' }),
         fields: [F('degree', 'Diplôme', 'i18n', { full: true }), F('school', 'Établissement', 'text'), F('period', 'Période', 'text', { ph: '2020 → 2023' }), pubF] },

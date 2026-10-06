@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { barList, delta, go, nf, spark, state, stats, t } from '../store';
+import { DEVICES, PRESETS, SECTIONS, barList, defaultFilters, delta, go, iso, loadEvents, nf, spark, state, stats, t } from '../store';
 import Panel from '../components/Panel.vue';
 import KpiGrid from '../components/KpiGrid.vue';
 import BarList from '../components/BarList.vue';
@@ -9,14 +9,27 @@ import AudienceChart from '../components/AudienceChart.vue';
 import DataBanner from '../components/DataBanner.vue';
 
 const router = useRouter();
-const st = computed(() => { state.events; return stats(state.period); });
+const f = state.sf;
+const st = computed(() => { state.events; return stats(f); });
+const today = iso(new Date());
+// Nouvelle période : on charge les visites correspondantes (la période précédente sert à la comparaison).
+watch(() => [f.preset, f.from, f.to], () => loadEvents());
+const setPreset = (p) => {
+  if (p === 'custom' && !f.from) Object.assign(f, { from: iso(st.value.range.from), to: iso(st.value.range.to) });
+  f.preset = p;
+};
+const reset = () => Object.assign(f, { lang: 'all', device: 'all', source: 'all', section: 'all' });
+const filtered = computed(() => JSON.stringify({ ...f, preset: 0, from: 0, to: 0 }) !== JSON.stringify({ ...defaultFilters(), preset: 0, from: 0, to: 0 }));
+
 const topPosts = computed(() => {
   const rows = (state.data.posts || []).filter((x) => x.published).map((x) => ({ label: t(x.title), icon: 'article', n: x.views || 0 })).sort((a, b) => b.n - a.n).slice(0, 6);
   return barList(rows, rows.reduce((s, r) => s + r.n, 0));
 });
 const kpis = computed(() => {
   const s = st.value, ppv = s.V ? s.PV / s.V : 0, ppv0 = s.V0 ? s.PV0 / s.V0 : 0;
-  const cr = s.V ? (s.convTotal + s.mC + s.sC) / s.V * 100 : 0, cr0 = s.V0 ? (s.convTotal0 + s.mC0 + s.sC0) / s.V0 * 100 : 0;
+  // Avec un filtre (langue, appareil…), seuls les clics sont attribuables : les messages reçus ne le sont pas.
+  const msg = s.filtered ? 0 : s.mC + s.sC, msg0 = s.filtered ? 0 : s.mC0 + s.sC0;
+  const cr = s.V ? (s.convTotal + msg) / s.V * 100 : 0, cr0 = s.V0 ? (s.convTotal0 + msg0) / s.V0 * 100 : 0;
   return [
     { label: 'Visiteurs', icon: 'group', value: nf(s.V), spark: spark(s.vb), ...delta(s.V, s.V0, true) },
     { label: 'Pages vues', icon: 'visibility', value: nf(s.PV), spark: spark(s.pb), ...delta(s.PV, s.PV0, true) },
@@ -38,9 +51,34 @@ const kpis = computed(() => {
   </div>
 
   <template v-else>
+    <!-- Filtres : période (prédéfinie ou dates libres), langue, appareil, provenance, rubrique -->
+    <div class="panel filters-bar">
+      <div class="filters-row">
+        <div role="group" aria-label="Période" class="periods">
+          <button v-for="[v, lb] in PRESETS" :key="v" type="button" :aria-pressed="f.preset === v" :class="{ on: f.preset === v }" @click="setPreset(v)">{{ lb }}</button>
+        </div>
+        <div v-if="f.preset === 'custom'" class="date-range">
+          <label>Du <input v-model="f.from" type="date" class="ain" :max="f.to || today" aria-label="Date de début"></label>
+          <label>au <input v-model="f.to" type="date" class="ain" :min="f.from" :max="today" aria-label="Date de fin"></label>
+        </div>
+        <span class="range-label"><span class="ms" aria-hidden="true">calendar_month</span>{{ st.rangeLabel }}</span>
+      </div>
+      <div class="filters-row">
+        <label class="flt"><span>Langue</span>
+          <select v-model="f.lang" class="ain"><option value="all">Toutes</option><option value="fr">Français</option><option value="en">Anglais</option></select></label>
+        <label class="flt"><span>Appareil</span>
+          <select v-model="f.device" class="ain"><option value="all">Tous</option><option v-for="[v, lb] in DEVICES" :key="v" :value="v">{{ lb }}</option></select></label>
+        <label class="flt"><span>Provenance</span>
+          <select v-model="f.source" class="ain"><option value="all">Toutes</option><option v-for="s in st.sourceOptions" :key="s" :value="s">{{ s }}</option></select></label>
+        <label class="flt"><span>Rubrique</span>
+          <select v-model="f.section" class="ain"><option value="all">Tout le site</option><option v-for="[v, lb] in SECTIONS" :key="v" :value="v">{{ lb }}</option></select></label>
+        <button v-if="filtered" type="button" class="abtn sm" @click="reset"><span class="ms">filter_alt_off</span>Réinitialiser les filtres</button>
+      </div>
+    </div>
+
     <KpiGrid :kpis="kpis" />
 
-    <Panel title="Évolution de l’audience" :sub="st.rangeLabel"><div class="pad-chart"><AudienceChart :chart="st.chart" /></div></Panel>
+    <Panel title="Évolution de l’audience" :sub="st.rangeLabel + (filtered ? ' · filtres actifs' : '')"><div class="pad-chart"><AudienceChart :chart="st.chart" /></div></Panel>
 
     <div class="grid g420">
       <Panel title="Pages les plus vues" sub="Pages vues sur la période">
@@ -52,8 +90,10 @@ const kpis = computed(() => {
           </tbody>
         </table>
       </Panel>
+      <div class="col gap16">
       <Panel title="Projets les plus consultés" sub="Pages d’étude de cas"><BarList :rows="st.topProjects" /></Panel>
       <Panel title="Articles les plus lus" sub="Lectures de la page de chaque article, depuis sa publication"><BarList :rows="topPosts" /></Panel>
+      </div>
     </div>
 
     <div class="grid g320">

@@ -2,7 +2,7 @@
 // Compte administrateur : nom, e-mail, mot de passe. Toute modification demande le mot de passe actuel.
 import { reactive, ref } from 'vue';
 import { api } from '../../shared/util';
-import { flash, state } from '../store';
+import { flash, flashError, state } from '../store';
 import Panel from '../components/Panel.vue';
 
 const f = reactive({ name: (state.user && state.user.name) || '', email: (state.user && state.user.email) || '', current_password: '', password: '', password_confirmation: '' });
@@ -20,7 +20,10 @@ async function submit() {
   } catch (e) {
     const r = e.response;
     if (r && r.status === 401) state.user = null;
-    else errors.value = (r && r.data && r.data.errors) || { form: ['Enregistrement impossible, réessayez.'] };
+    else {
+      errors.value = (r && r.data && r.data.errors) || { form: ['Enregistrement impossible, réessayez.'] };
+      flashError(Object.values(errors.value)[0][0]);
+    }
   } finally {
     busy.value = false;
   }

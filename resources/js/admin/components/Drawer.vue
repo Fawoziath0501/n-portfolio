@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { COLS, ask, createItem, errorText, finalize, flash, save, state, syncItem } from '../store';
+import { COLS, ask, createItem, finalize, flash, flashError, save, state, syncItem } from '../store';
 import Fields from './Fields.vue';
 
 const ec = computed(() => COLS[state.edit.col]);
@@ -30,7 +30,7 @@ async function submit() {
     state.edit = null;
   } catch (er) {
     if (er.response && er.response.status === 401) state.user = null;
-    else flash(errorText(er));
+    else flashError(er);
   } finally {
     saving.value = false;
   }

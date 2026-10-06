@@ -47,7 +47,7 @@ const edit = (x) => { state.edit = { col: v, isNew: false, draft: JSON.parse(JSO
         </span>
         <span class="crow-meta">{{ col.meta(x) }}</span>
       </span>
-      <span class="st-tag lg" :style="{ background: x.published ? '#E7F6EE' : 'var(--ln2)', color: x.published ? '#1E6B45' : 'var(--mu)' }">{{ x.published ? 'Publié' : 'Brouillon' }}</span>
+      <span class="st-tag lg" :style="{ background: x.published ? 'var(--okBg)' : 'var(--ln2)', color: x.published ? 'var(--okFg)' : 'var(--mu)' }">{{ x.published ? 'Publié' : 'Brouillon' }}</span>
       <span class="row gap6 wrap">
         <button type="button" class="ibtn" aria-label="Monter" title="Monter" @click="move(i, -1)"><span class="ms">arrow_upward</span></button>
         <button type="button" class="ibtn" aria-label="Descendre" title="Descendre" @click="move(i, 1)"><span class="ms">arrow_downward</span></button>

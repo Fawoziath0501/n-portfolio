@@ -11,7 +11,7 @@ const DEFS = [
   ['contact', 'Contact', (m) => m.type !== 'service' && m.status !== 'archived'],
   ['archived', 'Archivés', (m) => m.status === 'archived'],
 ];
-const ST = { new: ['Nouveau', '#2448C8', '#FFFFFF'], read: ['Lu', 'var(--ln2)', 'var(--mu)'], replied: ['Répondu', '#E7F6EE', '#1E6B45'], archived: ['Archivé', 'var(--ln2)', 'var(--mu)'] };
+const ST = { new: ['Nouveau', 'var(--ac)', '#FFFFFF'], read: ['Lu', 'var(--ln2)', 'var(--mu)'], replied: ['Répondu', 'var(--okBg)', 'var(--okFg)'], archived: ['Archivé', 'var(--ln2)', 'var(--mu)'] };
 
 const msgs = computed(() => (state.data.messages || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)) || b.id - a.id));
 const filters = computed(() => DEFS.map(([k, label, fn]) => ({ k, label, count: msgs.value.filter(fn).length })));

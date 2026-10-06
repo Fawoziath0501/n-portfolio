@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
-import { TRASH_HINT, ask, errorText, flash, save, state, syncDoc, trash } from '../store';
+import { TRASH_HINT, ask, flash, flashError, save, state, syncDoc, trash } from '../store';
 
 const media = computed(() => state.data.media || []);
 const used = (m) => JSON.stringify({ p: state.data.profile, pr: state.data.projects, s: state.data.seo }).includes(m.src);
@@ -21,7 +21,7 @@ async function upload(e) {
     const { data } = await api.post('/admin/media', fd);
     state.data.media = [...data, ...media.value];
     flash(data.length + ' fichier(s) importé(s)');
-  } catch (er) { flash(errorText(er)); }
+  } catch (er) { flashError(er); }
 }
 async function addUrl() {
   const u = state.mUrl.trim();
@@ -31,7 +31,7 @@ async function addUrl() {
     state.data.media = [data, ...media.value];
     state.mUrl = '';
     flash('Fichier ajouté');
-  } catch (er) { flash(errorText(er)); }
+  } catch (er) { flashError(er); }
 }
 const copy = (m) => { try { navigator.clipboard.writeText(m.src); flash('Adresse copiée'); } catch (er) { flash(m.src); } };
 const setProfile = (k, m, msg) => save((d) => { d.profile[k] = m.src; }, msg, () => syncDoc('profile', msg));

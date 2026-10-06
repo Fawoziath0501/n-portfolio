@@ -11,8 +11,8 @@ import KpiGrid from '../components/KpiGrid.vue';
 */
 const router = useRouter();
 const NEUTRAL = { dBg: 'var(--ln2)', dFg: 'var(--mu)' };
-const WARN = { dBg: '#FEF3E2', dFg: '#B45309' };
-const GOOD = { dBg: '#E7F6EE', dFg: '#1E6B45' };
+const WARN = { dBg: 'var(--warnBg)', dFg: 'var(--warnFg)' };
+const GOOD = { dBg: 'var(--okBg)', dFg: 'var(--okFg)' };
 
 const msgs = computed(() => (state.data.messages || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))));
 const newCount = computed(() => msgs.value.filter((m) => m.status === 'new').length);
@@ -21,7 +21,7 @@ const openMsg = (m) => { go(router, 'messages'); state.msgId = m.id; };
 
 const kpis = computed(() => {
   state.events; // recalcul quand les événements du suivi intégré arrivent
-  const s = stats(30), d = state.data;
+  const s = stats({ preset: '30' }), d = state.data;
   const svc = toHandle.value.filter((m) => m.type === 'service').length;
   const pub = (d.projects || []).filter((x) => x.published).length + (d.posts || []).filter((x) => x.published).length;
   const drafts = (d.projects || []).filter((x) => !x.published).length + (d.posts || []).filter((x) => !x.published).length;
@@ -101,7 +101,7 @@ const when = (ts) => { const m = Math.round((Date.now() - ts) / 60000); return m
       <div class="health-track"><div :style="{ width: health.w }"></div></div>
       <div class="list-pad">
         <div v-for="hi in health.items" :key="hi.label" class="health-row">
-          <span aria-hidden="true" class="ms" :style="{ color: hi.done ? '#1E8A5A' : '#D97706' }">{{ hi.done ? 'check_circle' : 'error' }}</span>
+          <span aria-hidden="true" class="ms" :style="{ color: hi.done ? 'var(--okFg)' : 'var(--warnFg)' }">{{ hi.done ? 'check_circle' : 'error' }}</span>
           <span class="health-txt"><span :class="{ done: hi.done }">{{ hi.label }}</span><span v-if="hi.detail" class="sm-mu">{{ hi.detail }}</span></span>
           <button v-if="!hi.done" type="button" class="abtn xxs" @click="go(router, hi.go)">Compléter</button>
         </div>

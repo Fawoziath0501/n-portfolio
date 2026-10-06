@@ -2,7 +2,7 @@
 // Textes de l'interface publique (table ui_labels), regroupés par page, avec enregistrement automatique.
 import { computed, ref } from 'vue';
 import { api } from '../../shared/util';
-import { errorText, flash, state } from '../store';
+import { flash, flashError, state } from '../store';
 import Panel from '../components/Panel.vue';
 
 const group = ref('all');
@@ -42,7 +42,7 @@ async function flush() {
   if (!items.length) return;
   try {
     await api.put('/admin/labels', { items, activity: items.length === 1 ? 'Texte modifié : ' + items[0].fr.slice(0, 40) : items.length + ' textes modifiés' });
-  } catch (e) { flash(errorText(e)); }
+  } catch (e) { flashError(e); }
 }
 const hasVars = (s) => /\{\w+\}/.test(s || '');
 const multiline = (s) => (s || '').length > 70;

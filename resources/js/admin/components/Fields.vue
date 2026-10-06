@@ -2,6 +2,7 @@
 // Rendu générique des champs d'un formulaire (profil, SEO, paramètres, tiroir d'édition).
 import { getPath, state } from '../store';
 import RichEditor from './RichEditor.vue';
+import ListEditor from './ListEditor.vue';
 
 const props = defineProps({ defs: Array, obj: Object });
 const emit = defineEmits(['set']);
@@ -11,7 +12,7 @@ const val = (f) => getPath(props.obj, f.k);
 const listText = (f) => { const raw = props.obj[f.k + '__raw']; return raw != null ? raw : (val(f) || []).join(', '); };
 const i18nTag = (f, lang) => { const raw = props.obj[f.k + (lang === 'fr' ? '__rawFr' : '__rawEn')]; return raw != null ? raw : (val(f) || []).map((x) => (x && x[lang]) || '').join(', '); };
 const missing = (f) => {
-  if (['i18n', 'i18nArea', 'i18nRich'].includes(f.type)) { const v = val(f) || {}; return !!v.fr && !v.en; }
+  if (['i18n', 'i18nArea', 'i18nRich', 'i18nList'].includes(f.type)) { const v = val(f) || {}; return !!v.fr && !v.en; }
   if (f.type === 'i18nTags') return !!i18nTag(f, 'fr') && !i18nTag(f, 'en');
   return false;
 };
@@ -57,6 +58,8 @@ const pick = (f) => {
         <label class="col gap4"><span class="lang-tag">FR</span><textarea rows="4" class="ain area" :aria-label="f.label + ' (FR)'" :value="(val(f) || {}).fr || ''" @input="setI18n(f, 'fr', $event.target.value)"></textarea></label>
         <label class="col gap4"><span class="lang-tag">EN</span><textarea rows="4" class="ain area" :aria-label="f.label + ' (EN)'" :value="(val(f) || {}).en || ''" @input="setI18n(f, 'en', $event.target.value)"></textarea></label>
       </div>
+
+      <ListEditor v-else-if="f.type === 'i18nList'" :model-value="val(f) || { fr: '', en: '' }" :label="f.label" :add-label="f.addLabel" @update:model-value="set(f.k, $event)" />
 
       <div v-else-if="f.type === 'i18nRich'" class="rich-pair">
         <div class="col gap4"><span class="lang-tag">FR</span><RichEditor :model-value="(val(f) || {}).fr || ''" :label="f.label + ' (FR)'" @update:model-value="setI18n(f, 'fr', $event)" /></div>
