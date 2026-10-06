@@ -18,7 +18,8 @@ class AuthController extends Controller
     {
         $credentials = $request->validate(['email' => 'required|email', 'password' => 'required|string']);
 
-        if (! Auth::attempt($credentials, true)) {
+        // « Rester connecté » : cookie de connexion durable seulement si la case est cochée.
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages(['email' => 'Identifiants incorrects.']);
         }
         $request->session()->regenerate();

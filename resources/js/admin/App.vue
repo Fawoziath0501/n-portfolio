@@ -14,6 +14,7 @@ import Skills from './views/Skills.vue';
 import HomeSections from './views/HomeSections.vue';
 import FormView from './views/FormView.vue';
 import Menus from './views/Menus.vue';
+import Account from './views/Account.vue';
 import MediaLib from './views/MediaLib.vue';
 import Trash from './views/Trash.vue';
 import Labels from './views/Labels.vue';
@@ -48,13 +49,13 @@ const groups = computed(() => {
     { label: 'Pilotage', items: [it('dashboard', 'Tableau de bord', 'space_dashboard'), it('stats', 'Statistiques', 'monitoring')] },
     { label: 'Échanges', items: [it('messages', 'Messages', 'mail', newCount), it('newsletter', 'Newsletter', 'mark_email_unread', (d.subscribers || []).length)] },
     { label: 'Contenu', items: [it('projects', 'Projets', 'grid_view'), it('posts', 'Blog', 'article'), it('experiences', 'Expériences', 'work_history'), it('education', 'Formation', 'school'), it('skills', 'Compétences', 'bolt'), it('services', 'Services', 'design_services'), it('certifications', 'Certifications', 'verified'), it('testimonials', 'Témoignages', 'format_quote')] },
-    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('menus', 'Menus', 'menu'), it('legalPages', 'Pages légales', 'gavel'), it('labels', 'Textes du site', 'translate'), it('settings', 'Paramètres', 'settings'), it('trash', 'Corbeille', 'delete', d.trashCount)] },
+    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('menus', 'Menus', 'menu'), it('legalPages', 'Pages légales', 'gavel'), it('labels', 'Textes du site', 'translate'), it('settings', 'Paramètres', 'settings'), it('account', 'Mon compte', 'manage_accounts'), it('trash', 'Corbeille', 'delete', d.trashCount)] },
   ];
 });
 
 const META = {
   dashboard: ['Pilotage', 'Tableau de bord', 'Bonjour Fawoziath', 'Ce qui demande votre attention : messages à traiter, état des contenus et activité récente.'],
-  stats: ['Pilotage', 'Statistiques', 'Statistiques de visite', 'Audience, pages, provenance, localisation, appareils et mots-clés.'],
+  stats: ['Pilotage', 'Statistiques', 'Statistiques de visite', 'Visites réellement enregistrées par le site : audience, pages, provenance, appareils et clics de contact.'],
   messages: ['Échanges', 'Messages', 'Boîte de réception', 'Messages du formulaire de contact et demandes de service.'],
   newsletter: ['Échanges', 'Newsletter', 'Inscrits à la newsletter', 'Adresses collectées par le formulaire du footer.'],
   media: ['Site', 'Médiathèque', 'Médiathèque', 'Portrait, CV, captures de projets et images de partage.'],
@@ -62,6 +63,7 @@ const META = {
   profile: ['Site', 'Mon profil', 'Mon profil', 'Identité, présentation, coordonnées et liens.'],
   home: ['Site', 'Page d’accueil', 'Page d’accueil', 'Activez ou masquez les sections de l’accueil.'],
   seo: ['Site', 'SEO & partage', 'SEO & partage', 'Titres, descriptions et image de partage, en FR et en EN.'],
+  account: ['Site', 'Mon compte', 'Mon compte', 'Nom, e-mail de connexion et mot de passe de l’administration.'],
   menus: ['Site', 'Menus', 'Menus du site', 'Liens de la barre du haut, bouton d’action et colonnes du pied de page, en FR et en EN.'],
   legalPages: ['Site', 'Pages légales', 'Pages légales', 'Mentions légales, confidentialité, CGU, cookies… Liées en bas de chaque page du site. Variables : {name}, {email}, {site}.'],
   settings: ['Site', 'Paramètres', 'Paramètres', 'Source des statistiques, notifications et réglages du site.'],
@@ -114,7 +116,7 @@ const doLogout = async () => { await logout(); router.push('/admin'); };
           </nav>
           <div class="side-user">
             <span class="side-av">FS</span>
-            <span class="side-who"><strong>{{ state.user.name }}</strong><span>Administratrice</span></span>
+            <button type="button" class="side-who" title="Mon compte" @click="go(router, 'account')"><strong>{{ state.user.name }}</strong><span>Mon compte</span></button>
             <button type="button" class="side-out ms" aria-label="Se déconnecter" title="Se déconnecter" @click="doLogout">logout</button>
           </div>
         </aside>
@@ -153,6 +155,7 @@ const doLogout = async () => { await logout(); router.push('/admin'); };
             <Trash v-else-if="state.view === 'trash'" />
             <Labels v-else-if="state.view === 'labels'" />
             <Menus v-else-if="state.view === 'menus'" />
+            <Account v-else-if="state.view === 'account'" />
             <FormView v-else :key="state.view" :doc="state.view" />
           </main>
         </div>

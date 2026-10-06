@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\ContentController;
@@ -27,8 +28,10 @@ Route::prefix('api')->group(function () {
         Route::get('me', [AuthController::class, 'me']);
         Route::post('login', [AuthController::class, 'login'])->middleware('throttle:10,1');
 
-        Route::middleware('auth')->group(function () {
+        // auth.session : un changement de mot de passe ferme les autres sessions ouvertes.
+        Route::middleware(['auth', 'auth.session'])->group(function () {
             Route::post('logout', [AuthController::class, 'logout']);
+            Route::put('account', [AccountController::class, 'update'])->middleware('throttle:10,1');
             Route::get('data', [ContentController::class, 'index']);
             Route::put('documents/{key}', [ContentController::class, 'document']);
             Route::put('labels', [LabelController::class, 'update']);

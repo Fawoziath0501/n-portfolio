@@ -1227,10 +1227,7 @@
     "notifyOnMessage": true,
     "maintenance": false,
     "analytics": {
-      "provider": "local",
-      "siteId": "",
-      "gscProperty": "",
-      "gscConnected": false
+      "provider": "local"
     }
   },
   "seo": {

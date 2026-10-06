@@ -101,7 +101,7 @@ const moveColumn = (i, dir) => { const f = m.value.footer, j = i + dir; if (j >=
     </div>
   </Panel>
 
-  <div class="row gap8">
+  <div class="row-wrap gap8">
     <button v-if="m.footer.length < 4" type="button" class="abtn" @click="addColumn"><span class="ms">view_column</span>Ajouter une colonne au pied de page</button>
     <span class="sm-mu self-center">Les pages légales (mentions légales, CGU…) sont ajoutées automatiquement en bas du pied de page.</span>
   </div>

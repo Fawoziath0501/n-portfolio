@@ -30,7 +30,7 @@ const kpis = computed(() => {
     { label: 'Demandes de service', icon: 'design_services', value: String(svc), delta: svc ? 'à traiter' : 'Aucune en attente', ...(svc ? WARN : NEUTRAL), onClick: () => go(router, 'messages') },
     { label: 'Inscrits newsletter', icon: 'group_add', value: String(s.subsTotal), delta: (s.nC ? '+' + s.nC : 'Aucun nouveau') + ' sur 30 jours', ...(s.nC ? GOOD : NEUTRAL), onClick: () => go(router, 'newsletter') },
     { label: 'Projets et articles publiés', icon: 'public', value: String(pub), delta: drafts ? drafts + ' brouillon(s)' : 'Aucun brouillon', ...NEUTRAL, onClick: () => go(router, 'projects') },
-    { label: 'Visiteurs · 30 jours', icon: 'query_stats', value: nf(s.V), delta: 'Voir les statistiques →', ...NEUTRAL, onClick: () => go(router, 'stats') },
+    { label: 'Visiteurs · 30 jours', icon: 'query_stats', value: s.tracking ? nf(s.V) : '—', delta: s.tracking ? 'Voir les statistiques →' : 'Suivi désactivé', ...NEUTRAL, onClick: () => go(router, 'stats') },
   ];
 });
 
@@ -52,7 +52,7 @@ const health = computed(() => {
   const noImg = pub.filter((x) => !(x.images || []).length).length, noYear = pub.filter((x) => !x.year).length, noTech = pub.filter((x) => !(x.tech || []).length).length;
   const postsNoUrl = (d.posts || []).filter((x) => x.published && !(x.body && (x.body.fr || x.body.en)) && !x.url).length;
   const miss = (d.labels || []).filter((l) => l.fr && !l.en).length + missingEn({ profile: d.profile, projects: d.projects, experiences: d.experiences, services: d.services, education: d.education, posts: d.posts, legalPages: d.legalPages, seo: d.seo });
-  const noSource = !isLocal() && !(d.settings.analytics && d.settings.analytics.siteId);
+  const noSource = !isLocal();
   const lg = (d.legalPages || []).find((x) => x.key === 'legal');
   const legalOk = !!lg && lg.published && !/\[(À compléter|To be completed)/.test(JSON.stringify(lg.body || {}));
   const items = [
@@ -64,7 +64,7 @@ const health = computed(() => {
     { label: 'Texte complet des articles', done: !postsNoUrl, detail: postsNoUrl ? postsNoUrl + ' article(s) sans contenu ni lien' : '', go: 'posts' },
     { label: 'Traductions anglaises', done: !miss, detail: miss ? miss + ' champ(s) sans traduction EN' : '', go: 'projects' },
     { label: 'Image de partage (réseaux sociaux)', done: !!(d.seo && d.seo.ogImage), go: 'seo' },
-    { label: 'Source de statistiques connectée', done: !noSource, detail: noSource ? 'Recommandé : suivi intégré ou Umami + Search Console' : '', go: 'settings' },
+    { label: 'Suivi des visites activé', done: !noSource, detail: noSource ? 'Statistiques de visite indisponibles tant que le suivi intégré est désactivé' : '', go: 'settings' },
     { label: 'Témoignages réels', done: (d.testimonials || []).some((x) => x.published), go: 'testimonials' },
     { label: 'Mentions légales publiées et complètes', done: legalOk, detail: legalOk ? '' : 'Coordonnées de l’hébergeur à compléter, puis publier la page', go: 'legalPages' },
   ];

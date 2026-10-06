@@ -35,27 +35,27 @@ const pick = (f) => {
 
       <div v-if="['text', 'url', 'number', 'date', 'email', 'media', 'mediaList', 'tags'].includes(f.type)" class="row center gap8">
         <span v-if="['media', 'mediaList'].includes(f.type) && (f.accept || 'image') === 'image' && thumb(f)" class="thumb" :style="{ backgroundImage: 'url(&quot;' + thumb(f) + '&quot;)' }"></span>
-        <input v-if="['tags', 'mediaList'].includes(f.type)" type="text" class="ain" :value="listText(f)" :placeholder="f.ph || ''" @input="set(f.k + '__raw', $event.target.value)">
-        <input v-else :type="f.type === 'media' ? 'text' : f.type" class="ain" :value="val(f) == null ? '' : val(f)" :placeholder="f.type === 'media' ? 'Choisissez un fichier ou collez une adresse' : (f.ph || '')"
+        <input v-if="['tags', 'mediaList'].includes(f.type)" type="text" class="ain" :aria-label="f.label" :value="listText(f)" :placeholder="f.ph || ''" @input="set(f.k + '__raw', $event.target.value)">
+        <input v-else :aria-label="f.label" :type="f.type === 'media' ? 'text' : f.type" class="ain" :value="val(f) == null ? '' : val(f)" :placeholder="f.type === 'media' ? 'Choisissez un fichier ou collez une adresse' : (f.ph || '')"
           @input="set(f.k, f.type === 'number' ? (Number($event.target.value) || 0) : $event.target.value)">
         <button v-if="['media', 'mediaList'].includes(f.type)" type="button" class="abtn pick" @click="pick(f)"><span class="ms">perm_media</span>Médiathèque</button>
       </div>
 
-      <textarea v-else-if="f.type === 'area'" rows="4" class="ain area" :value="val(f) || ''" @input="set(f.k, $event.target.value)"></textarea>
+      <textarea v-else-if="f.type === 'area'" rows="4" class="ain area" :aria-label="f.label" :value="val(f) || ''" @input="set(f.k, $event.target.value)"></textarea>
 
       <div v-else-if="f.type === 'i18n'" class="col gap6">
-        <label class="lang-in"><span>FR</span><input class="ain" :value="(val(f) || {}).fr || ''" @input="setI18n(f, 'fr', $event.target.value)"></label>
-        <label class="lang-in"><span>EN</span><input class="ain" :value="(val(f) || {}).en || ''" @input="setI18n(f, 'en', $event.target.value)"></label>
+        <label class="lang-in"><span>FR</span><input class="ain" :aria-label="f.label + ' (FR)'" :value="(val(f) || {}).fr || ''" @input="setI18n(f, 'fr', $event.target.value)"></label>
+        <label class="lang-in"><span>EN</span><input class="ain" :aria-label="f.label + ' (EN)'" :value="(val(f) || {}).en || ''" @input="setI18n(f, 'en', $event.target.value)"></label>
       </div>
 
       <div v-else-if="f.type === 'i18nTags'" class="col gap6">
-        <label class="lang-in"><span>FR</span><input class="ain" :value="i18nTag(f, 'fr')" @input="set(f.k + '__rawFr', $event.target.value)"></label>
-        <label class="lang-in"><span>EN</span><input class="ain" :value="i18nTag(f, 'en')" @input="set(f.k + '__rawEn', $event.target.value)"></label>
+        <label class="lang-in"><span>FR</span><input class="ain" :aria-label="f.label + ' (FR)'" :value="i18nTag(f, 'fr')" @input="set(f.k + '__rawFr', $event.target.value)"></label>
+        <label class="lang-in"><span>EN</span><input class="ain" :aria-label="f.label + ' (EN)'" :value="i18nTag(f, 'en')" @input="set(f.k + '__rawEn', $event.target.value)"></label>
       </div>
 
       <div v-else-if="f.type === 'i18nArea'" class="area-pair">
-        <label class="col gap4"><span class="lang-tag">FR</span><textarea rows="4" class="ain area" :value="(val(f) || {}).fr || ''" @input="setI18n(f, 'fr', $event.target.value)"></textarea></label>
-        <label class="col gap4"><span class="lang-tag">EN</span><textarea rows="4" class="ain area" :value="(val(f) || {}).en || ''" @input="setI18n(f, 'en', $event.target.value)"></textarea></label>
+        <label class="col gap4"><span class="lang-tag">FR</span><textarea rows="4" class="ain area" :aria-label="f.label + ' (FR)'" :value="(val(f) || {}).fr || ''" @input="setI18n(f, 'fr', $event.target.value)"></textarea></label>
+        <label class="col gap4"><span class="lang-tag">EN</span><textarea rows="4" class="ain area" :aria-label="f.label + ' (EN)'" :value="(val(f) || {}).en || ''" @input="setI18n(f, 'en', $event.target.value)"></textarea></label>
       </div>
 
       <div v-else-if="f.type === 'i18nRich'" class="rich-pair">
@@ -67,7 +67,7 @@ const pick = (f) => {
         <span class="switch" :class="{ on: !!val(f) }"><span></span></span>{{ val(f) ? (f.on || 'Activé') : (f.off || 'Désactivé') }}
       </button>
 
-      <select v-else-if="f.type === 'select'" class="ain" :value="val(f) || ''" @change="set(f.k, $event.target.value)">
+      <select v-else-if="f.type === 'select'" class="ain" :aria-label="f.label" :value="val(f) || ''" @change="set(f.k, $event.target.value)">
         <option v-for="op in f.options" :key="op.v" :value="op.v">{{ op.label }}</option>
       </select>
 

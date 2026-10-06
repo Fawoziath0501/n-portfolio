@@ -22,8 +22,10 @@ d'après les maquettes du dossier [`design/`](design/).
 - Suivi d'audience intégré, sans cookie (pages vues, provenance, appareils, clics WhatsApp / e-mail / LinkedIn / CV)
 
 **Administration** (`/admin`)
-- Connexion par session Laravel
-- Tableau de bord et statistiques (graphique d'audience, pages, provenance, appareils, taux de contact)
+- Connexion par session Laravel (« Rester connecté » facultatif), écran « Mon compte » : nom, e-mail, mot de passe
+  (mot de passe actuel exigé, 12 caractères minimum ; les autres sessions sont fermées)
+- Tableau de bord et statistiques issues uniquement du suivi intégré (audience, pages, provenance, appareils,
+  clics de contact, articles les plus lus) ; aucune donnée simulée
 - Boîte de réception (lu, répondu, archivé, réponse e-mail / WhatsApp), inscrits newsletter avec export CSV
 - Gestion des projets, articles, expériences, formations, services, certifications, témoignages : ajout, modification,
   publication, mise en avant, duplication, réordonnancement, suppression
