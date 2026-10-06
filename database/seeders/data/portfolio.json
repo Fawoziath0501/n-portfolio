@@ -475,32 +475,32 @@
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Générateur de formulaires",
-        "en": "Form builder"
+        "fr": "Générateur de formulaires en ligne",
+        "en": "Online form builder"
       },
       "role": {
         "fr": "Développeuse fullstack",
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Développement d’une application web permettant de créer et de générer des formulaires en ligne.",
-        "en": "Development of a web application for building and generating online forms."
+        "fr": "Application web de création de formulaires en ligne, avec collecte des réponses, gestion administrative et paiement intégré.",
+        "en": "Web application for building online forms, with response collection, admin management and built-in payment."
       },
       "context": {
-        "fr": "Forbmit permet de créer et générer des formulaires en ligne.",
-        "en": "Forbmit lets users create and generate online forms."
+        "fr": "Forbmit permet à une organisation de créer ses propres formulaires en ligne (inscriptions, candidatures, demandes, enquêtes), de les partager, puis de suivre et d’exploiter les réponses reçues. Un formulaire peut aussi être payant : le règlement se fait directement au moment de l’envoi.",
+        "en": "Forbmit lets an organisation build its own online forms (registrations, applications, requests, surveys), share them, then track and use the responses received. A form can also be paid: payment happens right when it is submitted."
       },
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Offrir un outil assez souple pour s’adapter à des formulaires très différents, simple à prendre en main pour des personnes non techniques, et capable d’encaisser des paiements en ligne.",
+        "en": "Providing a tool flexible enough to fit very different forms, easy for non-technical people to use, and able to take online payments."
       },
       "contribution": {
-        "fr": "Développement de l’application",
-        "en": "Application development"
+        "fr": "Développement de l’application web\nGénérateur de formulaires et collecte des réponses\nEspace de gestion administrative\nIntégration du paiement en ligne",
+        "en": "Web application development\nForm builder and response collection\nAdmin management area\nOnline payment integration"
       },
       "solution": {
-        "fr": "",
-        "en": ""
+        "fr": "Création de formulaires personnalisés, adaptés à chaque besoin\nPartage du formulaire par un lien, remplissage en ligne sur ordinateur comme sur mobile\nRéception, consultation et suivi des réponses\nGestion administrative des formulaires et des réponses depuis un espace dédié\nFormulaires payants avec paiement intégré au moment de l’envoi",
+        "en": "Custom forms tailored to each need\nSharing a form through a link, filling it in online on desktop or mobile\nReceiving, viewing and tracking responses\nAdmin management of forms and responses from a dedicated area\nPaid forms with built-in payment on submission"
       },
       "results": {
         "fr": "",
@@ -561,46 +561,49 @@
       "featured": false,
       "slug": "wisafrica",
       "title": {
-        "fr": "WisAfrica",
-        "en": "WisAfrica"
+        "fr": "WIS AFRICA",
+        "en": "WIS AFRICA"
       },
       "year": "",
       "link": "https://formation.megatech-web.com",
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Plateforme de formation",
-        "en": "Training platform"
+        "fr": "Plateforme de formation en ligne",
+        "en": "Online training platform"
       },
       "role": {
         "fr": "Développeuse fullstack",
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Analyse et conception d’une plateforme de formations en ligne aux métiers du numérique.",
-        "en": "Analysis and design of an online training platform for digital careers."
+        "fr": "Plateforme de formations aux métiers du numérique : catalogue, inscription en ligne avec paiement FedaPay, blog et administration complète.",
+        "en": "Training platform for digital careers: course catalogue, online enrolment with FedaPay payment, blog and a full admin area."
       },
       "context": {
-        "fr": "WisAfrica propose des formations aux métiers du numérique.",
-        "en": "WisAfrica offers training for careers in digital."
+        "fr": "WIS AFRICA propose des formations aux métiers du numérique, pour les débutants comme pour les professionnels : formations métier organisées en périodes, formations continues découpées en modules et formations ponctuelles. La plateforme présente l’offre, prend les inscriptions et les paiements en ligne, et se gère entièrement depuis une administration.",
+        "en": "WIS AFRICA offers training for digital careers, for beginners and professionals alike: career programmes organised in periods, continuing education split into modules, and one-off courses. The platform presents the offer, takes enrolments and payments online, and is fully managed from an admin area."
       },
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Remplacer l’ancien site par une plateforme moderne, administrable sans développeur, capable d’encaisser les inscriptions en ligne, sans perdre les données existantes ni le référencement acquis.",
+        "en": "Replacing the old website with a modern platform, manageable without a developer and able to take enrolment payments online, without losing existing data or search rankings."
       },
       "contribution": {
-        "fr": "Analyse du besoin\nConception de la plateforme",
-        "en": "Needs analysis\nPlatform design"
+        "fr": "Analyse du besoin et conception de la plateforme\nSite public : accueil, catalogues de formations, fiches, inscription et paiement en ligne\nAdministration : formations, inscriptions, blog, page d’accueil, menus, pages légales, rôles et paramètres\nPaiement FedaPay en XOF, de la transaction à la confirmation\nReprise des données et des images de l’ancien site, redirections des anciennes adresses pour le SEO",
+        "en": "Needs analysis and platform design\nPublic website: home page, course catalogues, course pages, online enrolment and payment\nAdmin area: courses, enrolments, blog, home page, menus, legal pages, roles and settings\nFedaPay payment in XOF, from transaction to confirmation\nMigration of the old website’s data and images, redirects from old URLs to preserve SEO"
       },
       "solution": {
-        "fr": "",
-        "en": ""
+        "fr": "Accueil entièrement géré depuis l’administration : hero, deux parcours (débutants et professionnels), « Qui sommes-nous », « Pourquoi WIS AFRICA », pôles et thèmes de formation, chiffres clés, témoignages, galerie photo, FAQ, bouton WhatsApp et appel à l’action avec compte à rebours\nTrois types de formation : métier (avec périodes), continue (avec modules) et ponctuelle, avec un catalogue complet et des catalogues dédiés\nFiche formation : présentation, objectifs, programme par période, déroulement et prérequis\nInscription en ligne : choix d’une période ou de plusieurs modules, avec les places disponibles\nPaiement FedaPay en XOF : création de la transaction, redirection vers le paiement et confirmation au retour, avec e-mail de notification à chaque inscription\nBlog : catégories, recherche et commentaires publiés après validation\nContact avec cartes de contact et carte Google Maps optionnelle, FAQ, page « À propos », pages légales dynamiques et newsletter\nMenus de navigation et de pied de page configurables\nAdministration : tableau de bord, formations avec périodes, modules et statistiques, inscriptions, messages, modération des commentaires, abonnés newsletter avec export\nAccès : administrateurs gérés par le superadmin, droits par module pour chaque rôle\nParamètres en cinq onglets (général, contact, réseaux sociaux, SEO, page d’accueil), clés FedaPay test et production\nSuppression douce sur 19 tables : aucune donnée n’est perdue définitivement\nCommandes de migration de l’ancien site (rôles, administrateurs, utilisateurs, formations, inscriptions, blog et images), redirections des anciennes adresses\nDonnées de départ réelles utilisables en production, données de test réservées au poste de développement",
+        "en": "Home page fully managed from the admin area: hero, two tracks (beginners and professionals), “About us”, “Why WIS AFRICA”, training areas and topics, key figures, testimonials, photo gallery, FAQ, WhatsApp button and a call to action with a countdown\nThree course types: career (with periods), continuing (with modules) and one-off, with a full catalogue and dedicated catalogues\nCourse page: overview, learning outcomes, programme by period, format and prerequisites\nOnline enrolment: choose a period or several modules, with available seats\nFedaPay payment in XOF: transaction creation, redirect to payment and confirmation on return, with a notification email for every enrolment\nBlog: categories, search and comments published after approval\nContact page with contact cards and an optional Google Map, FAQ, About page, dynamic legal pages and newsletter\nConfigurable navigation and footer menus\nAdmin area: dashboard, courses with periods, modules and statistics, enrolments, messages, comment moderation, newsletter subscribers with export\nAccess: admins managed by the superadmin, per-module permissions for each role\nSettings in five tabs (general, contact, social networks, SEO, home page), FedaPay test and live keys\nSoft deletes on 19 tables: no data is ever permanently lost\nMigration commands from the old website (roles, admins, users, courses, enrolments, blog and images), redirects from old URLs\nReal seed data usable in production, test data kept for the development machine"
       },
       "results": {
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [
+        "Laravel",
+        "FedaPay"
+      ]
     },
     {
       "id": "p7",
