@@ -80,7 +80,8 @@ class SiteController extends Controller
     public function robots()
     {
         $body = $this->indexable()
-            ? "User-agent: *\nDisallow: /admin\nDisallow: /api/\n\nSitemap: ".$this->baseUrl()."/sitemap.xml\n"
+            // L'adresse de l'administration n'est pas citée (elle serait révélée) : elle porte déjà un « noindex ».
+            ? "User-agent: *\nDisallow: /api/\n\nSitemap: ".$this->baseUrl()."/sitemap.xml\n"
             : "User-agent: *\nDisallow: /\n";
 
         return response($body, 200, ['Content-Type' => 'text/plain; charset=UTF-8']);

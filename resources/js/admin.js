@@ -6,10 +6,11 @@ import { VIEWS, state } from './admin/store';
 const Empty = { render: () => null };
 
 const router = createRouter({
-    history: createWebHistory(),
+    // Adresse de l'administration fournie par le serveur (ADMIN_PATH).
+    history: createWebHistory(window.__ADMIN_BASE__ || '/admin'),
     routes: [
-        { path: '/admin/:view?', component: Empty },
-        { path: '/:rest(.*)*', redirect: '/admin' },
+        { path: '/:view?', component: Empty },
+        { path: '/:rest(.*)*', redirect: '/' },
     ],
 });
 

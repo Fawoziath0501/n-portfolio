@@ -89,7 +89,7 @@ const exportCsv = () => {
 };
 const autosave = computed(() => !mobile.value && ['profile', 'seo', 'settings', 'skills', 'home', 'labels', 'menus'].includes(state.view));
 const confirmYes = () => { const ok = state.confirm && state.confirm.ok; state.confirm = null; if (ok) ok(); };
-const doLogout = async () => { await logout(); router.push('/admin'); };
+const doLogout = async () => { await logout(); router.push('/'); };
 </script>
 
 <template>

@@ -11,5 +11,6 @@
 </head>
 <body>
     <div id="app"></div>
+    <script>window.__ADMIN_BASE__ = @json($base ?? '/admin');</script>
 </body>
 </html>

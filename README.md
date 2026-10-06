@@ -22,6 +22,8 @@ d'après les maquettes du dossier [`design/`](design/).
 - Suivi d'audience intégré, sans cookie (pages vues, provenance, appareils, clics WhatsApp / e-mail / LinkedIn / CV)
 
 **Administration** (`/admin`)
+- Adresse de l’administration configurable (`ADMIN_PATH`), verrouillage après 5 essais ratés (15 min), essais
+  échoués et connexions inscrits dans l’activité
 - Connexion par session Laravel (« Rester connecté » facultatif), écran « Mon compte » : nom, e-mail, mot de passe
   (mot de passe actuel exigé, 12 caractères minimum ; les autres sessions sont fermées)
 - Tableau de bord et statistiques issues uniquement du suivi intégré (audience, pages, provenance, appareils,
@@ -81,6 +83,7 @@ Sur le serveur (PHP 8.2+ avec `pdo_sqlite` ou `pdo_mysql`, Composer ; Node uniqu
    LOG_LEVEL=warning
    SESSION_SECURE_COOKIE=true      # cookies de session uniquement en HTTPS
    ADMIN_PASSWORD=…                # 12 caractères minimum
+   ADMIN_PATH=gestion-xxxx         # adresse secrète de l’administration (au lieu de /admin)
    MAIL_MAILER=smtp                # + MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM_ADDRESS
    ```
 

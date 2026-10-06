@@ -24,7 +24,7 @@ class SitemapTest extends TestCase
 
     public function test_robots_points_to_sitemap(): void
     {
-        $this->get('/robots.txt')->assertOk()->assertSee('Disallow: /admin')->assertSee('Sitemap: http://localhost/sitemap.xml');
+        $this->get('/robots.txt')->assertOk()->assertDontSee('admin')->assertSee('Disallow: /api/')->assertSee('Sitemap: http://localhost/sitemap.xml');
     }
 
     public function test_nothing_is_indexed_when_indexing_is_disabled(): void

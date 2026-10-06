@@ -69,5 +69,9 @@ Route::get('sitemap.xml', [SiteController::class, 'sitemap']);
 Route::get('robots.txt', [SiteController::class, 'robots']);
 
 // Applications Vue (routage côté client en mode « history »).
-Route::get('/admin/{any?}', fn () => view('admin', ['owner' => \App\Models\Profile::query()->first(['first_name', 'last_name'])]))->where('any', '.*');
+// Administration, à l'adresse ADMIN_PATH (config/portfolio.php).
+Route::get('/'.config('portfolio.admin.path').'/{any?}', fn () => view('admin', [
+    'owner' => \App\Models\Profile::query()->first(['first_name', 'last_name']),
+    'base' => '/'.config('portfolio.admin.path'),
+]))->where('any', '.*');
 Route::get('/{any?}', [SiteController::class, 'show'])->where('any', '^(?!storage/).*$');

@@ -343,7 +343,7 @@ export function finalize(dr) {
 }
 
 export function go(router, v) {
-    router.push('/admin/' + (v === 'dashboard' ? '' : v));
+    router.push('/' + (v === 'dashboard' ? '' : v));
     state.menu = false;
     state.q = '';
     state.edit = null;
