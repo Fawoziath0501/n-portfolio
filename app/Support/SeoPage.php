@@ -37,6 +37,9 @@ class SeoPage
     /** Données structurées propres à la page (article, étude de cas). */
     public ?array $item = null;
 
+    /** Image propre à la page (couverture d'article), prioritaire pour les aperçus de partage. */
+    public ?string $image = null;
+
     private array $d;
 
     public function __construct(private array $segments, public string $lang, array $public, public string $base)
@@ -151,6 +154,7 @@ class SeoPage
     {
         $this->found = true;
         $this->type = 'post';
+        $this->image = $this->absolute($p['cover'] ?? '');
         $this->alternates = ['fr' => '/fr/blog/'.$p['slug'], 'en' => '/en/blog/'.$p['slug']];
         $this->content['h1'] = $this->tx($p['title']);
         $this->content['intro'] = $this->tx($p['excerpt'] ?? '');
@@ -164,6 +168,7 @@ class SeoPage
             'author' => ['@id' => $this->base.'/#person'], 'publisher' => ['@id' => $this->base.'/#person'],
             'keywords' => implode(', ', array_map(fn ($t) => $this->tx($t), $p['tags'] ?? [])),
             'wordCount' => str_word_count(self::plain($this->content['html'])) ?: null,
+            'image' => $this->image,
         ]);
     }
 

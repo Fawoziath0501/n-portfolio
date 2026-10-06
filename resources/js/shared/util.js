@@ -27,7 +27,7 @@ export const reducedMotion = () => !!(window.matchMedia && window.matchMedia('(p
 
 export const escHtml = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export const isHtml = (s) => /<(p|br|ul|ol|h[1-6]|blockquote|strong|em|a)\b[^>]*>/i.test(String(s || ''));
+export const isHtml = (s) => /<(p|br|ul|ol|h[1-6]|blockquote|strong|em|a|img)\b[^>]*>/i.test(String(s || ''));
 
 /**
  * Texte enrichi saisi dans l'administration (HTML déjà nettoyé par le serveur), prêt pour v-html.

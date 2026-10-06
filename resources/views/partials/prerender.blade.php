@@ -19,6 +19,7 @@
             </nav>
         @endif
         <h1>{{ $page->content['h1'] }}</h1>
+        @if($page->image)<img src="{{ $page->image }}" alt="{{ $page->content['h1'] }}" style="max-width:100%;height:auto;border-radius:10px">@endif
         @if($page->content['intro'])
             <p class="pre-intro">{{ $page->content['intro'] }}</p>
         @endif

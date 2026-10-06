@@ -45,7 +45,7 @@ export const state = reactive({
     cf: { name: '', email: '', subject: '', message: '' }, errs: {}, fs: 'idle',
     nl: '', nls: '', flip: null, tlh: null,
     svc: null, svcErr: {}, svcFs: 'idle',
-    blogTag: 'all', blogQ: '', blogSort: 'recent',
+    blogTag: 'all', blogQ: '', blogSort: 'recent', certView: null,
 });
 
 const t = (v) => tx(v, state.lang);
@@ -151,7 +151,7 @@ export const vm = computed(() => {
     // Blog : filtre par thème, recherche et tri (récents / plus lus) sur la page Blog ; 3 plus récents sur l'accueil.
     const viewsLabel = (n) => (!n ? '' : n === 1 ? L.viewsOne : fill(L.views, { count: n }));
     const postCard = (x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read,
-        icon: x.icon || 'article', url: x.url, href: x.slug ? href(s.lang, 'post', x.slug) : '', views: viewsLabel(x.views), tags: (x.tags || []).map((v) => t(v)) });
+        icon: x.icon || 'article', cover: x.cover || '', url: x.url, href: x.slug ? href(s.lang, 'post', x.slug) : '', views: viewsLabel(x.views), tags: (x.tags || []).map((v) => t(v)) });
     const blogTags = [...new Set(allPosts.flatMap((x) => (x.tags || []).map((v) => t(v))))];
     const q = s.blogQ.trim().toLowerCase();
     let blogList = allPosts.filter((x) => (s.blogTag === 'all' || (x.tags || []).some((v) => t(v) === s.blogTag))
@@ -225,7 +225,7 @@ export const vm = computed(() => {
                 || (/natif|maternel|native|mother|bilingu|courant|fluent/.test(lv) ? 5 : /avanc|advanced/.test(lv) ? 4 : /interm/.test(lv) ? 3 : /notion|basic|débutant|beginner/.test(lv) ? 1 : 2);
             return { name: t(l.name), level: t(l.level), cefr, score, aria: fill(L.langLevelAria, { n: score }) };
         }),
-        certs: (d.certifications || []).map((c) => ({ id: c.id, name: t(c.name), issuer: c.issuer, date: c.date, verify: c.verify })),
+        certs: (d.certifications || []).map((c) => ({ id: c.id, name: t(c.name), issuer: c.issuer, date: c.date, verify: c.verify, preview: c.preview || '' })),
         availNum: pad(contactRows.length + 1), year: new Date().getFullYear(),
     };
 });

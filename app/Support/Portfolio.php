@@ -74,7 +74,8 @@ class Portfolio
             }
             $q = $model::query()->ordered();
             $q = $key === 'skillGroups' ? $q->where('visible', true) : $q->published();
-            $data[$key] = $q->get()->map->toFront()->values()->all();
+            // toPublic() quand il existe : pas de fichier original (photo de certificat) côté public.
+            $data[$key] = $q->get()->map(fn ($m) => method_exists($m, 'toPublic') ? $m->toPublic() : $m->toFront())->values()->all();
         }
         $data['profile'] = self::profile(publicOnly: true);
         $data['home'] = self::home();

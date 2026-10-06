@@ -11,7 +11,7 @@ use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
  */
 class RichText
 {
-    private const TAGS = ['p', 'br', 'strong', 'em', 'u', 's', 'h2', 'h3', 'ul', 'ol', 'li', 'blockquote', 'a'];
+    private const TAGS = ['p', 'br', 'strong', 'em', 'u', 's', 'h2', 'h3', 'ul', 'ol', 'li', 'blockquote', 'a', 'img'];
 
     public static function clean(?string $html): string
     {
@@ -20,12 +20,14 @@ class RichText
             return '';
         }
 
-        return trim(self::sanitizer()->sanitize(self::isHtml($html) ? $html : self::fromPlain($html)));
+        $clean = self::sanitizer()->sanitize(self::isHtml($html) ? $html : self::fromPlain($html));
+
+        return trim(preg_replace('#<img(?![^>]*\bsrc=)[^>]*>#', '', $clean)); // image dont l'adresse a été refusée
     }
 
     public static function isHtml(string $text): bool
     {
-        return (bool) preg_match('#<(p|br|ul|ol|h[1-6]|blockquote|strong|em|a)\b[^>]*>#i', $text);
+        return (bool) preg_match('#<(p|br|ul|ol|h[1-6]|blockquote|strong|em|a|img)\b[^>]*>#i', $text);
     }
 
     /** Texte brut (contenu d'origine, ancien format) → un paragraphe par ligne. */
@@ -55,7 +57,7 @@ class RichText
 
         $config = new HtmlSanitizerConfig;
         foreach (self::TAGS as $tag) {
-            $config = $config->allowElement($tag, $tag === 'a' ? ['href'] : []);
+            $config = $config->allowElement($tag, match ($tag) { 'a' => ['href'], 'img' => ['src', 'alt'], default => [] });
         }
         // Balises de mise en forme d'autres éditeurs : retirées, mais leur texte est gardé.
         foreach (['b', 'i', 'span', 'div', 'font', 'h1', 'h4', 'h5', 'h6'] as $tag) {
@@ -64,6 +66,8 @@ class RichText
         $config = $config
             ->allowLinkSchemes(['https', 'http', 'mailto', 'tel'])
             ->allowRelativeLinks()
+            ->allowMediaSchemes(['https', 'http'])
+            ->allowRelativeMedias()
             ->forceAttribute('a', 'rel', 'noopener noreferrer');
 
         return $sanitizer = new HtmlSanitizer($config);

@@ -6,6 +6,7 @@ use App\Models\Concerns\ContentModel;
 use App\Models\Concerns\Trashable;
 use App\Support\Portfolio;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
@@ -19,7 +20,7 @@ class Post extends Model
     // « views » n'est pas modifiable depuis l'administration : il est incrémenté à chaque lecture.
     protected $fillable = ['slug', 'title', 'excerpt', 'body', 'icon', 'date', 'read_min', 'url', 'published', 'position'];
 
-    protected $with = ['tags'];
+    protected $with = ['tags', 'cover'];
 
     protected function casts(): array
     {
@@ -57,13 +58,25 @@ class Post extends Model
         return $this->belongsToMany(Tag::class)->withPivot('position')->orderByPivot('position');
     }
 
+    /** Image de couverture (médiathèque). */
+    public function cover(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'cover_id');
+    }
+
+    protected function frontHidden(): array
+    {
+        return ['created_at', 'updated_at', 'deleted_at', 'position', 'cover_id'];
+    }
+
     protected function frontRelations(): array
     {
-        return ['tags' => $this->tags->pluck('name')->all()];
+        return ['tags' => $this->tags->pluck('name')->all(), 'cover' => $this->cover?->url ?? ''];
     }
 
     protected function syncFrontRelations(array $data): void
     {
+        $this->linkMedia('cover', 'cover', $data);
         if (isset($data['tags'])) {
             $ids = Tag::idsFor($data['tags']);
             $this->tags()->sync(collect($ids)->mapWithKeys(fn ($id, $i) => [$id => ['position' => $i]])->all());

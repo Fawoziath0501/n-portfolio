@@ -14,6 +14,7 @@ import { vm } from '../store';
           <span><span class="ms" aria-hidden="true">schedule</span>{{ vm.post.read }}</span>
           <span v-if="vm.post.views"><span class="ms" aria-hidden="true">visibility</span>{{ vm.post.views }}</span>
         </p>
+        <img v-if="vm.post.cover" :src="vm.post.cover" :alt="vm.post.title" class="article-cover">
         <p v-if="vm.post.excerpt" class="lead">{{ vm.post.excerpt }}</p>
         <div v-if="vm.post.html" class="article-body rich" v-html="vm.post.html"></div>
         <a v-if="vm.post.url" :href="vm.post.url" target="_blank" rel="noopener" class="btn btn-outline md self-start">{{ vm.L.readOriginal.replace('{host}', vm.post.host) }}<span class="ms">open_in_new</span></a>

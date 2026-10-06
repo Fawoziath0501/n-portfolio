@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LabelController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\StatsController;
 use App\Http\Controllers\Admin\TrashController;
+use App\Http\Controllers\CertificatePreviewController;
 use App\Http\Controllers\InteractionController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,8 @@ Route::prefix('api')->group(function () {
 });
 
 Route::get('sitemap.xml', [SiteController::class, 'sitemap']);
+// Aperçu filigrané d'un certificat (le fichier original n'est jamais exposé).
+Route::get('certificats/{certification}/apercu.jpg', [CertificatePreviewController::class, 'show'])->whereNumber('certification')->middleware('throttle:60,1');
 Route::get('robots.txt', [SiteController::class, 'robots']);
 
 // Applications Vue (routage côté client en mode « history »).

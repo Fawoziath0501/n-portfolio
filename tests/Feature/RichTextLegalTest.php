@@ -22,7 +22,7 @@ class RichTextLegalTest extends TestCase
 
         $context = $project->fresh()->context;
         $this->assertSame('<h2>Titre</h2><p>Texte <strong>gras</strong> <a rel="noopener noreferrer">piège</a> <a href="https://ok.dev" rel="noopener noreferrer">lien</a></p>', $context['fr']);
-        $this->assertSame('<p>Text</p>', $context['en']);
+        $this->assertSame('<p>Text</p><img src="x" />', $context['en'], 'image gardée, attribut onerror retiré');
     }
 
     public function test_plain_text_becomes_paragraphs_and_plain_fields_stay_plain(): void

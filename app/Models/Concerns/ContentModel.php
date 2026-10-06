@@ -102,6 +102,23 @@ trait ContentModel
     }
 
     /**
+     * Fichier de la médiathèque lié par une relation belongsTo (couverture, photo…), à partir de son adresse.
+     * Un fichier en corbeille, invisible dans l'administration, garde son lien jusqu'à sa restauration.
+     */
+    protected function linkMedia(string $relation, string $key, array $data): void
+    {
+        if (! array_key_exists($key, $data)) {
+            return;
+        }
+        $fk = $this->{$relation}()->getForeignKeyName();
+        $trashed = $this->{$fk} ? \App\Models\Media::onlyTrashed()->find($this->{$fk}) : null;
+        $this->{$relation}()->associate(\App\Models\Media::fromUrl($data[$key]) ?? $trashed);
+        if ($this->isDirty($fk)) {
+            $this->save();
+        }
+    }
+
+    /**
      * Texte traduisible « un point par ligne » → lignes appariées FR / EN, ligne à ligne.
      * Une ligne vide dans une langue garde l'alignement (traduction manquante) ; aucune ligne n'est perdue.
      */

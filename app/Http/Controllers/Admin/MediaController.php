@@ -26,7 +26,8 @@ class MediaController extends Controller
             $created[] = Media::create([
                 'name' => $file->getClientOriginalName(),
                 'path' => $path,
-                'url' => Storage::disk('public')->url($path),
+                // Adresse relative : indépendante du domaine (APP_URL, local, production).
+                'url' => '/storage/'.$path,
                 'kind' => $isDoc ? 'doc' : 'image',
                 'width' => $w,
                 'height' => $h,

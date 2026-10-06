@@ -324,6 +324,12 @@
   "en": "Verify"
  },
  {
+  "key": "viewCert",
+  "group": "À propos",
+  "fr": "Voir le certificat",
+  "en": "View certificate"
+ },
+ {
   "key": "pAbout.0",
   "group": "À propos",
   "fr": "Mon parcours",

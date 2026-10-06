@@ -33,9 +33,10 @@ import { state, vm } from '../store';
       <ul class="posts">
         <li v-for="po in vm.posts" :key="po.id" data-reveal>
           <component :is="po.href ? 'RouterLink' : po.url ? 'a' : 'article'" :to="po.href || undefined" :href="!po.href && po.url ? po.url : undefined" :target="!po.href && po.url ? '_blank' : null" :rel="!po.href && po.url ? 'noopener' : null" class="post">
-            <div aria-hidden="true" class="post-cover">
-              <span class="ms">{{ po.icon }}</span>
-              <span class="mono-12 blue">{{ po.num }}</span>
+            <div class="post-cover" :class="{ img: po.cover }">
+              <img v-if="po.cover" :src="po.cover" alt="" loading="lazy">
+              <span v-else class="ms" aria-hidden="true">{{ po.icon }}</span>
+              <span class="mono-12 blue" aria-hidden="true">{{ po.num }}</span>
             </div>
             <div class="post-body">
               <ul class="post-tags"><li v-for="tg in po.tags" :key="tg">{{ tg }}</li></ul>

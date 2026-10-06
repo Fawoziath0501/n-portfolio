@@ -22,6 +22,7 @@ import SkillMarquee from './components/SkillMarquee.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import LegalPage from './components/LegalPage.vue';
 import PostPage from './components/PostPage.vue';
+import CertViewer from './components/CertViewer.vue';
 
 const onScroll = () => {
     const mh = document.documentElement.scrollHeight - window.innerHeight;
@@ -92,6 +93,7 @@ onBeforeUnmount(() => {
   <div v-else class="site">
     <SiteHeader />
     <ServiceModal v-if="state.svc" />
+    <CertViewer v-if="state.certView" />
 
     <main id="main" class="main">
       <HomeHero v-if="vm.isHome" />

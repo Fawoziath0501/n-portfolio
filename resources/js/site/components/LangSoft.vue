@@ -1,6 +1,6 @@
 <script setup>
 import { pad } from '../../shared/util';
-import { vm } from '../store';
+import { state, vm } from '../store';
 </script>
 
 <template>
@@ -42,6 +42,7 @@ import { vm } from '../store';
         <p class="pill"><span class="ms">verified</span>{{ vm.L.certLabel }}</p>
         <div class="ls-certs">
           <div v-for="ct in vm.certs" :key="ct.id" class="ls-card cert">
+            <button v-if="ct.preview" type="button" class="cert-thumb" :style="{ backgroundImage: 'url(' + ct.preview + ')' }" :aria-label="vm.L.viewCert + ' : ' + ct.name" @click="state.certView = { src: ct.preview, title: ct.name }" @contextmenu.prevent><span class="cert-zoom"><span class="ms" aria-hidden="true">zoom_in</span>{{ vm.L.viewCert }}</span></button>
             <h3>{{ ct.name }}</h3>
             <span>{{ [ct.issuer, ct.date].filter(Boolean).join(' · ') }}</span>
             <a v-if="ct.verify" :href="ct.verify" target="_blank" rel="noopener">{{ vm.L.verify }} ↗</a>

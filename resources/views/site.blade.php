@@ -1,6 +1,6 @@
 @php
     $canonical = $page->base;
-    $ogImage = ($seo['ogImage'] ?? '') ?: ($data['profile']['photo'] ?? '');
+    $ogImage = $page->image ?: (($seo['ogImage'] ?? '') ?: ($data['profile']['photo'] ?? ''));
     if ($ogImage && ! str_starts_with($ogImage, 'http')) {
         $ogImage = $canonical.'/'.ltrim($ogImage, '/');
     }

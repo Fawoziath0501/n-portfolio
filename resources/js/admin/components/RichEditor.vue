@@ -4,7 +4,9 @@
 import { onBeforeUnmount, watch } from 'vue';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
+import Image from '@tiptap/extension-image';
 import { richHtml } from '../../shared/util';
+import { state } from '../store';
 
 const props = defineProps({ modelValue: { type: String, default: '' }, label: String });
 const emit = defineEmits(['update:modelValue']);
@@ -17,7 +19,7 @@ const editor = useEditor({
     heading: { levels: [2, 3] },
     code: false, codeBlock: false, horizontalRule: false,
     link: { openOnClick: false, autolink: true, defaultProtocol: 'https' },
-  })],
+  }), Image.configure({ allowBase64: false })],
   editorProps: { attributes: { class: 'rte-content', 'aria-label': props.label || 'Texte', 'aria-multiline': 'true', role: 'textbox' } },
   onUpdate: ({ editor: ed }) => emit('update:modelValue', html(ed)),
 });
@@ -32,6 +34,10 @@ onBeforeUnmount(() => editor.value && editor.value.destroy());
 
 const run = (fn) => { const ch = editor.value.chain().focus(); fn(ch).run(); };
 const active = (name, attrs) => !!editor.value && editor.value.isActive(name, attrs);
+// Image : choisie dans la médiathèque (le texte alternatif reprend le nom du fichier, modifiable ensuite).
+function insertImage() {
+  state.pick = { accept: 'image', onPick: (m) => run((c) => c.setImage({ src: m.src, alt: (m.name || '').replace(/[.][a-z0-9]+$/i, '') })) };
+}
 function setLink() {
   const prev = editor.value.getAttributes('link').href || '';
   const url = window.prompt('Adresse du lien (https://…, mailto:…) — laisser vide pour retirer le lien', prev);
@@ -62,6 +68,7 @@ const tools = [
         <button v-else type="button" class="rte-btn" :class="{ on: tl[3]() }" :aria-pressed="tl[3]()" :title="tl[1]" :aria-label="tl[1]" @click="run(tl[2])"><span class="ms">{{ tl[0] }}</span></button>
       </template>
       <button type="button" class="rte-btn" :class="{ on: active('link') }" title="Lien" aria-label="Lien" @click="setLink"><span class="ms">link</span></button>
+      <button type="button" class="rte-btn" title="Image (médiathèque)" aria-label="Insérer une image" @click="insertImage"><span class="ms">image</span></button>
       <span class="rte-sep" aria-hidden="true"></span>
       <button type="button" class="rte-btn" title="Annuler" aria-label="Annuler" :disabled="!editor.can().undo()" @click="run((c) => c.undo())"><span class="ms">undo</span></button>
       <button type="button" class="rte-btn" title="Rétablir" aria-label="Rétablir" :disabled="!editor.can().redo()" @click="run((c) => c.redo())"><span class="ms">redo</span></button>
