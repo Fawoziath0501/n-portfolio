@@ -80,6 +80,13 @@ label.abtn { position: relative; }
 .side-name span { color: #8FA3E8; }
 .side-x { width: 36px; height: 36px; border: 1px solid #2A3757; border-radius: 8px; background: none; color: #FFFFFF; cursor: pointer; font-size: 20px; }
 .side-nav { flex: 1; overflow: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 18px; }
+/* Barre de défilement de la barre latérale : fine, visible seulement au survol. */
+@supports (-moz-appearance: none) { .side-nav { scrollbar-width: thin; scrollbar-color: transparent transparent; } .side:hover .side-nav { scrollbar-color: #3A4A72 transparent; } }
+.side-nav::-webkit-scrollbar { width: 5px; }
+.side-nav::-webkit-scrollbar-track { background: transparent; }
+.side-nav::-webkit-scrollbar-thumb { background: transparent; border-radius: 4px; }
+.side:hover .side-nav::-webkit-scrollbar-thumb { background: #3A4A72; }
+.side-nav::-webkit-scrollbar-thumb:hover { background: #5A6788; }
 .side-group { display: flex; flex-direction: column; gap: 2px; }
 .side-group p { margin: 0 0 6px; padding: 0 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #7A859C; }
 .side-item { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 10px; border: none; border-radius: 8px; background: transparent; color: #C3CBE0; font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; transition: background 150ms, color 150ms; }
