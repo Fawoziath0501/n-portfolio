@@ -358,7 +358,7 @@ export const FORMS = {
     ],
     settings: [
         { title: 'Statistiques', sub: 'Le suivi intégré compte les visites, pages vues, provenances et clics de contact dans la base du site, sans cookie ni adresse IP. Les mots-clés Google se consultent dans Google Search Console.', fields: [F('analytics.provider', 'Suivi des visites', 'select', { options: [{ v: 'local', label: 'Suivi intégré (activé)' }, { v: 'none', label: 'Désactivé' }] })] },
-        { title: 'Notifications', fields: [F('notifyEmail', 'E-mail de notification', 'email'), F('notifyOnMessage', 'Alerte à chaque message', 'switch', { on: 'Activée', off: 'Désactivée' })] },
+        { title: 'Notifications', fields: [F('notifyEmail', 'E-mail de notification', 'email'), F('notifyOnMessage', 'Alerte à chaque message', 'switch', { on: 'Activée', off: 'Désactivée' }), F('autoReply', 'Accusé de réception aux visiteurs', 'switch', { on: 'Envoyé', off: 'Désactivé', hint: 'E-mail de confirmation après un message ou une demande, dans la langue du visiteur' }), F('welcomeSubscriber', 'Confirmation d’inscription à la newsletter', 'switch', { on: 'Envoyée', off: 'Désactivée' })] },
         { title: 'Site', fields: [F('siteName', 'Nom du site', 'text'), F('maintenance', 'Mode maintenance', 'switch', { on: 'Site en maintenance', off: 'Site en ligne' })] },
     ],
 };

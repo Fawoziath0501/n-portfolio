@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Support\Captcha;
+use App\Mail\AckMail;
 use App\Mail\NewMessageMail;
+use App\Mail\WelcomeSubscriberMail;
 use App\Models\Event;
 use App\Models\Message;
 use App\Models\Post;
@@ -12,6 +14,7 @@ use App\Models\Setting;
 use App\Models\Subscriber;
 use App\Support\MailSettings;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -63,13 +66,13 @@ class InteractionController extends Controller
         ]);
 
         $settings = Setting::get('settings');
+        MailSettings::apply(); // serveur SMTP réglé dans l'administration
         if (($settings['notifyOnMessage'] ?? false) && ! empty($settings['notifyEmail'])) {
-            try {
-                MailSettings::apply(); // serveur SMTP réglé dans l'administration
-                Mail::to($settings['notifyEmail'])->send(new NewMessageMail($message));
-            } catch (\Throwable $e) {
-                Log::warning('Notification e-mail non envoyée : '.$e->getMessage());
-            }
+            $this->sendQuietly($settings['notifyEmail'], new NewMessageMail($message), 'Notification');
+        }
+        // Accusé de réception au visiteur (activé par défaut).
+        if ($settings['autoReply'] ?? true) {
+            $this->sendQuietly($message->email, new AckMail($message), 'Accusé de réception');
         }
 
         return response()->json(['ok' => true], 201);
@@ -95,7 +98,23 @@ class InteractionController extends Controller
             Subscriber::create(['email' => $email, 'lang' => $v['lang'] ?? 'fr']);
         }
 
+        // Confirmation d'inscription (activée par défaut).
+        if (Setting::get('settings')['welcomeSubscriber'] ?? true) {
+            MailSettings::apply();
+            $this->sendQuietly($email, new WelcomeSubscriberMail($v['lang'] ?? 'fr'), 'Confirmation d’inscription');
+        }
+
         return response()->json(['ok' => true], 201);
+    }
+
+    /** Envoi d'un e-mail sans jamais faire échouer le formulaire (l'erreur est notée dans les journaux). */
+    private function sendQuietly(string $to, Mailable $mail, string $what): void
+    {
+        try {
+            Mail::to($to)->send($mail);
+        } catch (\Throwable $e) {
+            Log::warning($what.' non envoyé(e) à '.$to.' : '.$e->getMessage());
+        }
     }
 
     /** Lecture d'un article (une fois par visite, dédoublonnée côté navigateur). */

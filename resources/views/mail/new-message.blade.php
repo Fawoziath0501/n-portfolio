@@ -9,4 +9,4 @@ E-mail : {!! $msg->email !!}
 
 {!! $msg->body !!}
 
-Répondre depuis l'administration : {{ url('/admin/messages') }}
+Répondre depuis l'administration : {{ url('/'.config('portfolio.admin.path').'/messages') }}

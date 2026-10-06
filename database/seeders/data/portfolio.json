@@ -1405,7 +1405,9 @@
     "maintenance": false,
     "analytics": {
       "provider": "local"
-    }
+    },
+    "autoReply": true,
+    "welcomeSubscriber": true
   },
   "seo": {
     "canonical": "",

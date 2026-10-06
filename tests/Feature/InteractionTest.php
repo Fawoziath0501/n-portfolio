@@ -68,7 +68,7 @@ class InteractionTest extends TestCase
 
         $this->postJson('/api/messages', ['name' => 'Ada', 'email' => 'ada@example.com', 'phone' => '0197363297', 'message' => 'Un message assez long.'])->assertCreated();
 
-        Mail::assertNothingSent();
+        Mail::assertNotSent(NewMessageMail::class); // l'accusé de réception au visiteur part quand même
     }
 
     public function test_subscribe_rejects_duplicates_and_restores_trashed(): void
