@@ -16,10 +16,10 @@ import { vm } from '../store';
           <p class="hero-role">{{ vm.p.title }} <span>/ {{ vm.p.stack }}</span></p>
         </div>
         <p class="hero-tagline">{{ vm.p.tagline }}</p>
-        <div class="row-wrap gap12">
+        <div class="row-wrap gap12 hero-actions">
           <RouterLink :to="vm.hrefs.work" class="btn btn-primary lg"><span class="ms">grid_view</span>{{ vm.home.cta1 }}</RouterLink>
           <RouterLink :to="vm.hrefs.contact" class="btn btn-outline lg"><span class="ms">mail</span>{{ vm.home.cta2 }}</RouterLink>
-          <a v-if="vm.p.cv" :href="vm.p.cv" target="_blank" rel="noopener" class="btn btn-ghost lg"><span class="ms">download</span>{{ vm.L.cv }}</a>
+          <a v-if="vm.p.cv" :href="vm.p.cv" target="_blank" rel="noopener" class="btn btn-ghost lg hero-cv" :aria-label="vm.L.cv" :title="vm.L.cv"><span class="ms" aria-hidden="true">download</span><span class="hero-cv-lbl">{{ vm.L.cv }}</span></a>
         </div>
         <dl class="hero-stats">
           <div v-for="st in vm.heroStats" :key="st.label">

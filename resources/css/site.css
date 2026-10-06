@@ -601,3 +601,15 @@ button { font: inherit; }
 .case-cover.has-shot img { width: 100%; height: auto; display: block; }
 .gallery img { aspect-ratio: auto; height: auto; object-fit: initial; border: 1px solid var(--ln); }
 @media (prefers-reduced-motion: reduce) { .card-cover.has-shot img { transition: none; } }
+
+/* Accueil mobile : les deux boutons principaux côte à côte, le CV réduit à une icône */
+@media (max-width: 600px) {
+  .hero-actions { flex-wrap: nowrap; gap: 8px; }
+  .hero-actions .btn { flex: 1 1 0; min-width: 0; justify-content: center; padding: 0 12px; gap: 6px; font-size: 15px; }
+  .hero-actions .btn .ms { font-size: 18px; }
+  .hero-actions .hero-cv { flex: 0 0 50px; width: 50px; padding: 0; }
+  .hero-cv-lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+@media (max-width: 380px) {
+  .hero-actions .btn:not(.hero-cv) .ms { display: none; }
+}
