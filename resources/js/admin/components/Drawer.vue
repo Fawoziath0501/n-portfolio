@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue';
-import { COLS, ask, createItem, finalize, save, state, syncItem } from '../store';
+import { computed, ref } from 'vue';
+import { COLS, ask, createItem, errorText, finalize, flash, save, state, syncItem } from '../store';
 import Fields from './Fields.vue';
 
 const ec = computed(() => COLS[state.edit.col]);
@@ -13,16 +13,26 @@ const close = () => {
 };
 const backdrop = (e) => { if (e.target === e.currentTarget) close(); };
 
+// Le tiroir ne se ferme qu'une fois l'enregistrement accepté : en cas d'erreur (slug pris…), le brouillon reste ouvert.
+const saving = ref(false);
 async function submit() {
+  if (saving.value) return;
   const e = state.edit, item = finalize(e.draft), msg = e.isNew ? 'Élément ajouté' : 'Modifications enregistrées';
-  state.edit = null;
-  if (e.isNew) {
-    await save(() => {}, msg, async () => {
+  saving.value = true;
+  try {
+    if (e.isNew) {
       const created = await createItem(e.col, item, 0, msg);
-      state.data[e.col].unshift(created);
-    });
-  } else {
-    await save((d) => { const i = d[e.col].findIndex((x) => x.id === item.id); if (i >= 0) d[e.col][i] = item; }, msg, () => syncItem(e.col, item, msg));
+      await save((d) => { d[e.col].unshift(created); }, msg);
+    } else {
+      await syncItem(e.col, item, msg);
+      await save((d) => { const i = d[e.col].findIndex((x) => x.id === item.id); if (i >= 0) d[e.col][i] = item; }, msg);
+    }
+    state.edit = null;
+  } catch (er) {
+    if (er.response && er.response.status === 401) state.user = null;
+    else flash(errorText(er));
+  } finally {
+    saving.value = false;
   }
 }
 </script>
@@ -39,7 +49,7 @@ async function submit() {
       </div>
       <div class="drawer-foot">
         <button type="button" class="abtn" @click="close">Annuler</button>
-        <button type="button" class="abtn primary" @click="submit"><span class="ms">check</span>Enregistrer</button>
+        <button type="button" class="abtn primary" :disabled="saving" @click="submit"><span class="ms">check</span>Enregistrer</button>
       </div>
     </div>
   </div>

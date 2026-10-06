@@ -58,10 +58,17 @@ class Portfolio
     /** Réglages techniques stockés en clé / valeur. */
     public const SETTINGS = ['seo', 'settings'];
 
+    /** En maintenance, seuls le profil (nom, e-mail) et les textes de l'interface sont envoyés : aucun contenu publié. */
     public static function public(): array
     {
+        $maintenance = self::maintenance();
         $data = [];
         foreach (self::COLLECTIONS as $key => $model) {
+            if ($maintenance) {
+                $data[$key] = [];
+
+                continue;
+            }
             $q = $model::query()->ordered();
             $q = $key === 'skillGroups' ? $q->where('visible', true) : $q->published();
             $data[$key] = $q->get()->map->toFront()->values()->all();
@@ -73,7 +80,7 @@ class Portfolio
         $settings = Setting::get('settings');
         $data['settings'] = [
             'siteName' => $settings['siteName'] ?? '',
-            'maintenance' => (bool) ($settings['maintenance'] ?? false),
+            'maintenance' => $maintenance,
             'tracking' => ($settings['analytics']['provider'] ?? '') === 'local',
         ];
 
@@ -135,6 +142,11 @@ class Portfolio
                 HomeSection::updateOrCreate(['type' => $s['type']], ['enabled' => (bool) $s['enabled'], 'position' => $i]);
             }
         });
+    }
+
+    public static function maintenance(): bool
+    {
+        return (bool) (Setting::get('settings')['maintenance'] ?? false);
     }
 
     public static function trashCount(): int

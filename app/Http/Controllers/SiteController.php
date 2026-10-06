@@ -20,7 +20,9 @@ class SiteController extends Controller
         $title = Portfolio::tx($seo['siteTitle'] ?? '', $lang);
         $description = Portfolio::tx($seo['metaDescription'] ?? '', $lang);
 
-        if (in_array($segments[1] ?? '', ['projets', 'work'], true) && isset($segments[2])) {
+        $maintenance = $data['settings']['maintenance'];
+
+        if (! $maintenance && in_array($segments[1] ?? '', ['projets', 'work'], true) && isset($segments[2])) {
             $project = Project::published()->where('slug', $segments[2])->first();
             if ($project) {
                 $title = Portfolio::tx($project->title, $lang).' | '.trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
@@ -28,14 +30,15 @@ class SiteController extends Controller
             }
         }
 
-        return view('site', [
+        return response()->view('site', [
             'lang' => $lang,
             'title' => $title,
             'description' => $description,
             'seo' => $seo,
             'profile' => $data['profile'],
             'data' => $data,
-        ]);
+            'maintenance' => $maintenance,
+        ], $maintenance ? 503 : 200, $maintenance ? ['Retry-After' => 3600] : []);
     }
 
     public function data()

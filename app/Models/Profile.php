@@ -71,13 +71,19 @@ class Profile extends Model
         ];
     }
 
+    /** Fichier lié mais en corbeille : invisible dans l'administration, son lien est conservé jusqu'à sa restauration. */
+    private function trashedMedia(string $column): ?Media
+    {
+        return $this->{$column} ? Media::onlyTrashed()->find($this->{$column}) : null;
+    }
+
     protected function syncFrontRelations(array $data): void
     {
         if (array_key_exists('photo', $data)) {
-            $this->photo()->associate(Media::fromUrl($data['photo']));
+            $this->photo()->associate(Media::fromUrl($data['photo']) ?? $this->trashedMedia('photo_id'));
         }
         if (array_key_exists('cv', $data)) {
-            $this->cv()->associate(Media::fromUrl($data['cv']));
+            $this->cv()->associate(Media::fromUrl($data['cv']) ?? $this->trashedMedia('cv_id'));
         }
         $this->save();
 

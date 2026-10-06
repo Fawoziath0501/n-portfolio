@@ -41,7 +41,7 @@ const del = (m) => ask('Placer « ' + m.name + ' » dans la corbeille ?', (used(
 
 <template>
   <div class="row-wrap center gap10">
-    <label class="abtn primary rel"><span class="ms">upload</span>Importer des fichiers<input type="file" multiple accept="image/*,application/pdf" class="file-cover" @change="upload"></label>
+    <label class="abtn primary rel"><span class="ms">upload</span>Importer des fichiers<input type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" class="file-cover" @change="upload"></label>
     <form class="url-form" @submit.prevent="addUrl">
       <input v-model="state.mUrl" name="murl" placeholder="…ou coller l’adresse d’une image (https://)" aria-label="Adresse d’une image" class="ain">
       <button type="submit" class="abtn h44">Ajouter</button>

@@ -51,8 +51,9 @@ class BackupController extends Controller
                 foreach (array_values($data[$key]) as $i => $item) {
                     unset($item['id']);
                     if ($key === 'projects') {
-                        // Libère le slug s'il appartient à un projet déjà en corbeille.
-                        $model::onlyTrashed()->where('slug', $item['slug'] ?? '')->get()->each->forceDelete();
+                        // Libère le slug d'un projet en corbeille en le renommant : il reste restaurable.
+                        $model::onlyTrashed()->where('slug', $item['slug'] ?? '')->get()
+                            ->each(fn ($p) => $p->forceFill(['slug' => $p->slug.'-'.$p->id.'-ancien'])->saveQuietly());
                     }
                     (new $model)->saveFromFront($item + ['position' => $i]);
                 }

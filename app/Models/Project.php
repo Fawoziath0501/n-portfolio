@@ -54,7 +54,9 @@ class Project extends Model
             $this->technologies()->sync(collect($ids)->mapWithKeys(fn ($id, $i) => [$id => ['position' => $i]])->all());
         }
         if (isset($data['images'])) {
-            $ids = collect($data['images'])->map(fn ($u) => Media::fromUrl($u)?->id)->filter()->unique()->values();
+            // Les captures en corbeille, invisibles dans l'administration, restent liées jusqu'à leur restauration.
+            $trashed = $this->images()->onlyTrashed()->pluck('media.id');
+            $ids = collect($data['images'])->map(fn ($u) => Media::fromUrl($u)?->id)->filter()->concat($trashed)->unique()->values();
             $this->images()->sync($ids->mapWithKeys(fn ($id, $i) => [$id => ['position' => $i]])->all());
         }
     }

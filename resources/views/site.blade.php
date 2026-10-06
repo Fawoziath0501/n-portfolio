@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}">
-    @if(($seo['indexable'] ?? true) === false)
+    @if(($seo['indexable'] ?? true) === false || $maintenance)
         <meta name="robots" content="noindex, nofollow">
     @endif
     <link rel="canonical" href="{{ $canonical.(request()->path() === '/' ? '/' : '/'.request()->path()) }}">

@@ -101,7 +101,7 @@ class ContentController extends Controller
     /** Le slug d'un projet reste unique, corbeille comprise (sinon la restauration échouerait). */
     private function checkSlug(string $collection, array $data, ?int $ignoreId = null): void
     {
-        if ($collection !== 'projects' || ! isset($data['slug'])) {
+        if ($collection !== 'projects' || ! array_key_exists('slug', $data)) {
             return;
         }
         $slug = trim((string) $data['slug']);

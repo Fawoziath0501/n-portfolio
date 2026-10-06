@@ -4,6 +4,7 @@ namespace App\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 /**
@@ -36,12 +37,28 @@ trait ContentModel
         $attrs = [];
         foreach ($data as $k => $v) {
             $col = Str::snake($k);
-            if (in_array($col, $this->getFillable(), true) && ! is_null($v)) {
-                $attrs[$col] = $v;
+            if (in_array($col, $this->getFillable(), true)) {
+                $attrs[$col] = $v ?? $this->emptyValue($col);
             }
         }
 
         return $this->fill($attrs);
+    }
+
+    /**
+     * Valeur d'un champ vidé dans l'administration (Laravel transforme « » en null) :
+     * null si la colonne l'accepte, sinon [] pour un champ JSON et « » pour un texte.
+     */
+    private function emptyValue(string $col): mixed
+    {
+        static $nullable = [];
+        $nullable[$this->getTable()] ??= collect(Schema::getColumns($this->getTable()))->pluck('nullable', 'name')->all();
+
+        if ($nullable[$this->getTable()][$col] ?? true) {
+            return null;
+        }
+
+        return $this->hasCast($col, ['array', 'json']) ? [] : '';
     }
 
     /** Enregistre l'élément et ses relations en une seule transaction. */
@@ -82,22 +99,26 @@ trait ContentModel
         return $children;
     }
 
-    /** Texte traduisible « un point par ligne » → lignes appariées FR / EN. */
+    /**
+     * Texte traduisible « un point par ligne » → lignes appariées FR / EN, ligne à ligne.
+     * Une ligne vide dans une langue garde l'alignement (traduction manquante) ; aucune ligne n'est perdue.
+     */
     protected static function pairLines(?array $value): array
     {
-        $split = fn ($s) => array_values(array_filter(array_map('trim', explode("\n", (string) $s)), 'strlen'));
+        $split = fn ($s) => array_map('trim', explode("\n", trim((string) $s)));
         $fr = $split($value['fr'] ?? '');
         $en = $split($value['en'] ?? '');
+        $rows = array_map(fn ($i) => ['fr' => $fr[$i] ?? '', 'en' => $en[$i] ?? ''], range(0, max(count($fr), count($en)) - 1));
 
-        return array_map(fn ($i) => ['fr' => $fr[$i] ?? '', 'en' => $en[$i] ?? ''], array_keys($fr ?: $en));
+        return array_values(array_filter($rows, fn ($r) => $r['fr'] !== '' || $r['en'] !== ''));
     }
 
-    /** Inverse de pairLines(). */
+    /** Inverse de pairLines() : les lignes vides restent à leur place pour conserver l'alignement. */
     protected static function joinLines($rows): array
     {
         return [
-            'fr' => collect($rows)->pluck('fr')->filter()->implode("\n"),
-            'en' => collect($rows)->pluck('en')->filter()->implode("\n"),
+            'fr' => rtrim(collect($rows)->pluck('fr')->implode("\n")),
+            'en' => rtrim(collect($rows)->pluck('en')->implode("\n")),
         ];
     }
 

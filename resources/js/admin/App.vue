@@ -75,7 +75,9 @@ const addItem = () => { state.edit = { col: state.view, isNew: true, draft: col.
 const exportCsv = () => {
   const rows = [['email', 'langue', 'date']].concat(state.data.subscribers.map((x) => [x.email, x.lang, x.date]));
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([rows.map((r) => r.join(';')).join('\n')], { type: 'text/csv' }));
+  // Champs entre guillemets ; une valeur commençant par = + - @ est neutralisée pour qu'Excel ne l'exécute pas comme formule.
+  const cell = (v) => { let s = String(v ?? ''); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
+  a.href = URL.createObjectURL(new Blob([rows.map((r) => r.map(cell).join(';')).join('\n')], { type: 'text/csv' }));
   a.download = 'newsletter-inscrits.csv';
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);

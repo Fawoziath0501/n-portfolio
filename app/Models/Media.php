@@ -30,20 +30,22 @@ class Media extends Model
         return $this->belongsToMany(Project::class, 'project_media');
     }
 
-    /** Retrouve (ou référence) un fichier à partir de son adresse. */
+    /**
+     * Retrouve (ou référence) un fichier à partir de son adresse.
+     * Un fichier en corbeille est renvoyé tel quel : le lien est conservé, sans le restaurer.
+     * Une adresse incomplète (saisie en cours) ne crée rien.
+     */
     public static function fromUrl(?string $url): ?self
     {
         $url = trim((string) $url);
         if ($url === '') {
             return null;
         }
-        if ($found = static::where('url', $url)->first()) {
+        if ($found = static::withTrashed()->where('url', $url)->orderBy('deleted_at')->first()) {
             return $found;
         }
-        if ($trashed = static::onlyTrashed()->where('url', $url)->first()) {
-            $trashed->restore();
-
-            return $trashed;
+        if (! filter_var($url, FILTER_VALIDATE_URL) && ! preg_match('#^/[^/]#', $url)) {
+            return null;
         }
 
         return static::create([
