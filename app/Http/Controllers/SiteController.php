@@ -7,68 +7,32 @@ use App\Models\Post;
 use App\Models\Project;
 use App\Models\Setting;
 use App\Support\Portfolio;
+use App\Support\SeoPage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
-    /** Segment d'URL => préfixe des textes d'en-tête de page (eyebrow, titre, introduction). */
-    private const PAGE_LABELS = [
-        'a-propos' => 'pAbout', 'about' => 'pAbout', 'projets' => 'pWork', 'work' => 'pWork',
-        'services' => 'pServices', 'blog' => 'pBlog', 'contact' => 'pContact',
-    ];
-
-    /** Page publique (SPA Vue) avec métadonnées SEO rendues côté serveur. */
+    /** Page publique (SPA Vue) avec référencement rendu côté serveur (voir App\Support\SeoPage). */
     public function show(Request $request)
     {
         $segments = $request->segments();
         $lang = ($segments[0] ?? 'fr') === 'en' ? 'en' : 'fr';
         $seo = Setting::get('seo');
         $data = Portfolio::public();
-
-        $title = Portfolio::tx($seo['siteTitle'] ?? '', $lang);
-        $description = Portfolio::tx($seo['metaDescription'] ?? '', $lang);
-
         $maintenance = $data['settings']['maintenance'];
-        $owner = trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
-
-        // Pages du site : titre et introduction de l'en-tête de page (Textes du site → pAbout.1, pAbout.2…).
-        $pageKey = self::PAGE_LABELS[$segments[1] ?? ''] ?? null;
-        if (! $maintenance && $pageKey && ! isset($segments[2])) {
-            $label = fn ($i) => $data['labels'][$pageKey.'.'.$i][$lang] ?? '';
-            $title = trim($label(1).' | '.$owner, ' |');
-            $description = $label(2) ?: $description;
-        }
-
-        if (! $maintenance && in_array($segments[1] ?? '', ['projets', 'work'], true) && isset($segments[2])) {
-            $project = Project::published()->where('slug', $segments[2])->first();
-            if ($project) {
-                $title = Portfolio::tx($project->title, $lang).' | '.$owner;
-                $description = Portfolio::tx($project->summary, $lang);
-            }
-        }
-        if (! $maintenance && ($segments[1] ?? '') === 'blog' && isset($segments[2])) {
-            $post = Post::published()->where('slug', $segments[2])->first();
-            if ($post) {
-                $title = Portfolio::tx($post->title, $lang).' | '.$owner;
-                $description = Portfolio::tx($post->excerpt, $lang) ?: Str::limit(strip_tags(Portfolio::tx($post->body, $lang)), 155);
-            }
-        }
-        // Page légale (mentions légales, confidentialité, CGU, cookies…) : /fr/{slug_fr}, /en/{slug_en}.
-        if (! $maintenance && isset($segments[1]) && ! isset($segments[2]) && ($legal = LegalPage::findBySlug($segments[1]))) {
-            $title = Portfolio::tx($legal->title, $lang).' | '.$owner;
-            $description = Str::limit(strip_tags(Portfolio::placeholders(Portfolio::tx($legal->body, $lang), $data)), 155);
-        }
+        $page = new SeoPage($segments, $lang, $data, $this->baseUrl());
+        $status = $maintenance ? 503 : ($page->found ? 200 : 404);
 
         return response()->view('site', [
             'lang' => $lang,
-            'title' => $title,
-            'description' => $description,
+            'page' => $page,
+            'title' => $maintenance ? Portfolio::tx($seo['siteTitle'] ?? '', $lang) : $page->title,
+            'description' => $maintenance ? Portfolio::tx($seo['metaDescription'] ?? '', $lang) : $page->description,
             'seo' => $seo,
-            'profile' => $data['profile'],
             'data' => $data,
             'maintenance' => $maintenance,
-        ], $maintenance ? 503 : 200, $maintenance ? ['Retry-After' => 3600] : []);
+            'notFound' => $status === 404,
+        ], $status, $maintenance ? ['Retry-After' => 3600] : []);
     }
 
     public function data()

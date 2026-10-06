@@ -23,11 +23,11 @@ class PublicSiteTest extends TestCase
             ->assertSee('content="'.e($project->summary['fr']).'"', false);
     }
 
-    public function test_unpublished_project_falls_back_to_site_title(): void
+    public function test_unpublished_project_is_not_found(): void
     {
         Project::where('slug', 'presentia')->update(['published' => false]);
 
-        $this->get('/fr/projets/presentia')->assertOk()->assertDontSee('<title>Présentia', false);
+        $this->get('/fr/projets/presentia')->assertNotFound()->assertDontSee('<title>Présentia', false);
     }
 
     public function test_site_api_exposes_published_content_and_labels(): void

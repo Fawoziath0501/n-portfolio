@@ -14,8 +14,11 @@ d'après les maquettes du dossier [`design/`](design/).
 - Logos officiels des réseaux sociaux (déduits de l’adresse du lien)
 - Formulaire de contact et demande de service (enregistrés en base, notification e-mail facultative)
 - Inscription à la newsletter, sélecteur de langue, menu mobile
-- SEO côté serveur : titre / description par page, canonique, `hreflang`, Open Graph, données structurées `Person`,
-  `sitemap.xml` et `robots.txt` générés (désactivés si le site est non indexable ou en maintenance)
+- SEO rendu côté serveur (`AppSupportSeoPage`) : titre et description propres à chaque page, adresse canonique,
+  `hreflang` vers la page équivalente dans l’autre langue, Open Graph / Twitter, données structurées schema.org
+  (WebSite, Person, BlogPosting, CreativeWork, fil d’Ariane), contenu lisible sans JavaScript, vraie 404 pour les
+  adresses inconnues, balises de vérification Google / Bing, `sitemap.xml` et `robots.txt` générés
+- Police d’icônes réduite aux icônes utilisées (quelques Ko au lieu de ~3 Mo)
 - Suivi d'audience intégré, sans cookie (pages vues, provenance, appareils, clics WhatsApp / e-mail / LinkedIn / CV)
 
 **Administration** (`/admin`)

@@ -148,15 +148,6 @@ class Portfolio
         });
     }
 
-    /** Variables des pages légales : {name} (nom complet), {email}, {site} (nom du site). */
-    public static function placeholders(string $text, array $public): string
-    {
-        $p = $public['profile'] ?? [];
-        $name = trim(implode(' ', array_filter([$p['firstName'] ?? '', $p['middleName'] ?? '', $p['lastName'] ?? ''])));
-
-        return str_replace(['{name}', '{email}', '{site}'], [$name, $p['email'] ?? '', $public['settings']['siteName'] ?? ''], $text);
-    }
-
     public static function maintenance(): bool
     {
         return (bool) (Setting::get('settings')['maintenance'] ?? false);

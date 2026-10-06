@@ -11,7 +11,7 @@ import { vm } from '../store';
           <p class="hero-hello">{{ vm.L.hello }}</p>
           <h1 id="hero-title" class="hero-name">
             <span class="hero-first">{{ vm.p.first }} {{ vm.p.middle }}</span>
-            <span class="hero-last">{{ vm.p.lastUp }}<span class="dot">.</span></span>
+            <span class="hero-last">{{ vm.p.lastUp }}</span>
           </h1>
           <p class="hero-role">{{ vm.p.title }} <span>/ {{ vm.p.stack }}</span></p>
         </div>

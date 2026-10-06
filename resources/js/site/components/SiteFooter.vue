@@ -30,7 +30,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
 
       <div class="ftr-grid">
         <div class="col gap18">
-          <span class="ftr-name">{{ vm.brand.short }}<span class="ftr-dot"></span></span>
+          <span class="ftr-name">{{ vm.brand.short }}</span>
           <p class="ftr-bio">{{ vm.p.title }} · {{ vm.p.stack }}. {{ vm.L.footBio }}</p>
           <div class="row gap8">
             <a v-for="so in vm.socials" :key="so.label" :href="so.url" target="_blank" rel="noopener" :aria-label="so.label" :title="so.label" class="ftr-soc"><SocialIcon :url="so.url" :label="so.label" :size="18" /></a>
