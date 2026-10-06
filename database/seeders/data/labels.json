@@ -306,6 +306,18 @@
   "en": "Strengths"
  },
  {
+  "key": "langSoftTitle",
+  "group": "À propos",
+  "fr": "Langues & qualités",
+  "en": "Languages & strengths"
+ },
+ {
+  "key": "langLevelAria",
+  "group": "À propos",
+  "fr": "Niveau {n} sur 5",
+  "en": "Level {n} out of 5"
+ },
+ {
   "key": "verify",
   "group": "À propos",
   "fr": "Vérifier",

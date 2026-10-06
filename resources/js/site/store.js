@@ -217,7 +217,14 @@ export const vm = computed(() => {
         skillGroups: d.skillGroups.map((g, gi) => ({ id: g.id, num: pad(gi + 1), label: t(g.label), skills: g.skills.map((k) => ({ name: t(k.name), note: t(k.note), logo: k.logo, icon: k.icon || 'code' })) })),
         allSkills, posts, blog, post, isPost: !!post, aboutChips, heroStats, heroStack, annots, annotPad: mobile ? '0px' : '150px',
         aboutInfo, tlItems, tl, softList, services: svcList,
-        languages: (pr.languages || []).map((l) => ({ name: t(l.name), level: t(l.level) })),
+        languages: (pr.languages || []).map((l) => {
+            // Jauge sur 5 : d'après le niveau CECRL s'il est renseigné, sinon d'après le libellé (natif, courant, notions…).
+            const lv = ((l.level && (l.level.fr + ' ' + l.level.en)) || '').toLowerCase();
+            const cefr = String(l.cefr || (lv.match(/\b([abc][12])\b/i) || [])[1] || '').toUpperCase();
+            const score = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 5 }[cefr]
+                || (/natif|maternel|native|mother|bilingu|courant|fluent/.test(lv) ? 5 : /avanc|advanced/.test(lv) ? 4 : /interm/.test(lv) ? 3 : /notion|basic|débutant|beginner/.test(lv) ? 1 : 2);
+            return { name: t(l.name), level: t(l.level), cefr, score, aria: fill(L.langLevelAria, { n: score }) };
+        }),
         certs: (d.certifications || []).map((c) => ({ id: c.id, name: t(c.name), issuer: c.issuer, date: c.date, verify: c.verify })),
         availNum: pad(contactRows.length + 1), year: new Date().getFullYear(),
     };
