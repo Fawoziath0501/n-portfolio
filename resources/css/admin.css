@@ -524,3 +524,4 @@ button.kpi { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .log-det pre { width: 100%; max-height: 420px; overflow: auto; margin: 0; padding: 12px 14px; border-radius: 8px; background: var(--sf2); border: 1px solid var(--ln2); font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
 .log-more { padding: 0 20px 16px; }
 @media (max-width: 700px) { .log-head { flex-wrap: wrap; gap: 6px 10px; } .log-at { width: auto; } .log-msg { flex-basis: 100%; } }
+.rte-content code { padding: 1px 5px; border-radius: 4px; background: var(--acs); font-family: 'JetBrains Mono', monospace; font-size: .9em; }

@@ -590,3 +590,4 @@ button { font: inherit; }
 .hp-field { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; opacity: 0; }
 .captcha-box { min-height: 65px; }
 .nl-cap { margin-top: 12px; }
+.rich code { padding: 1px 6px; border-radius: 5px; background: var(--ac-xs); color: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: .88em; overflow-wrap: anywhere; }

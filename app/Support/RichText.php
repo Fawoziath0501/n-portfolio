@@ -11,7 +11,7 @@ use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
  */
 class RichText
 {
-    private const TAGS = ['p', 'br', 'strong', 'em', 'u', 's', 'h2', 'h3', 'ul', 'ol', 'li', 'blockquote', 'a', 'img'];
+    private const TAGS = ['p', 'br', 'strong', 'em', 'u', 's', 'h2', 'h3', 'ul', 'ol', 'li', 'blockquote', 'a', 'img', 'code'];
 
     public static function clean(?string $html): string
     {

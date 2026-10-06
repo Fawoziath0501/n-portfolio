@@ -16,12 +16,12 @@ class RichTextLegalTest extends TestCase
         $project = Project::first();
 
         $this->admin()->putJson("/api/admin/projects/{$project->id}", ['item' => ['context' => [
-            'fr' => '<h2 style="color:red">Titre</h2><p onclick="x()">Texte <strong>gras</strong> <a href="javascript:alert(1)">piège</a> <a href="https://ok.dev">lien</a></p><script>alert(1)</script>',
+            'fr' => '<h2 style="color:red">Titre</h2><p onclick="x()">Texte <strong>gras</strong> <code class="x">sitemap.xml</code> <a href="javascript:alert(1)">piège</a> <a href="https://ok.dev">lien</a></p><script>alert(1)</script>',
             'en' => '<p>Text</p><img src=x onerror=alert(1)>',
         ]]])->assertOk();
 
         $context = $project->fresh()->context;
-        $this->assertSame('<h2>Titre</h2><p>Texte <strong>gras</strong> <a rel="noopener noreferrer">piège</a> <a href="https://ok.dev" rel="noopener noreferrer">lien</a></p>', $context['fr']);
+        $this->assertSame('<h2>Titre</h2><p>Texte <strong>gras</strong> <code>sitemap.xml</code> <a rel="noopener noreferrer">piège</a> <a href="https://ok.dev" rel="noopener noreferrer">lien</a></p>', $context['fr']);
         $this->assertSame('<p>Text</p><img src="x" />', $context['en'], 'image gardée, attribut onerror retiré');
     }
 
