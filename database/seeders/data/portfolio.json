@@ -621,32 +621,32 @@
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Gestion de stock multi-rôles",
-        "en": "Multi-role stock management"
+        "fr": "Gestion de stock et de ventes multi-rôles",
+        "en": "Multi-role stock and sales management"
       },
       "role": {
         "fr": "Développeuse fullstack",
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Conception d’une application web multi-rôles de gestion de stock de compléments alimentaires.",
-        "en": "Design of a multi-role stock management web application for dietary supplements."
+        "fr": "Application de gestion de stock de compléments alimentaires, du magasin central aux boutiques et pharmacies : dépôts, ventes, inventaires, rapports et accès par rôle.",
+        "en": "Stock management application for dietary supplements, from the central warehouse to shops and pharmacies: transfers, sales, stocktakes, reports and role-based access."
       },
       "context": {
-        "fr": "GStock gère le stock de compléments alimentaires avec plusieurs profils d’utilisateurs.",
-        "en": "GStock manages food supplement stock across several user roles."
+        "fr": "GStock suit des compléments alimentaires qui partent d’un magasin central vers un réseau de boutiques et de pharmacies. Chaque produit a deux prix : le prix gros, appliqué aux boutiques et pharmacies, et le prix normal, payé par le client final. Administrateurs, magasiniers et équipes opérationnelles y travaillent chacun avec leur propre vue.",
+        "en": "GStock tracks dietary supplements that move from a central warehouse to a network of shops and pharmacies. Each product has two prices: the wholesale price charged to shops and pharmacies, and the retail price paid by end customers. Admins, warehouse staff and operational teams each work in it with their own view."
       },
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Garder un stock juste à chaque étape, entre le magasin, les boutiques et les pharmacies, tout en limitant chaque utilisateur à ses propres données et en empêchant les erreurs de saisie (prix modifiés, ventes au-delà du stock disponible).",
+        "en": "Keeping stock accurate at every step between the warehouse, shops and pharmacies, while limiting each user to their own data and preventing input errors (edited prices, sales beyond available stock)."
       },
       "contribution": {
-        "fr": "",
-        "en": ""
+        "fr": "Analyse du besoin et conception de l’application\nCircuit du stock : magasin central, bons de dépôt et de retour, stock par entité et inventaires\nModule de ventes avec contrôle du stock, prix imposés et réductions\nTableaux de bord par rôle, rapports et alertes\nRôles et permissions, cloisonnement des données par entité, journal d’activité",
+        "en": "Needs analysis and application design\nStock flow: central warehouse, transfer and return slips, stock per entity and stocktakes\nSales module with stock checks, fixed prices and discounts\nRole-based dashboards, reports and alerts\nRoles and permissions, per-entity data isolation, activity log"
       },
       "solution": {
-        "fr": "Gestion de stock\nGestion multi-rôles",
-        "en": "Stock management\nMulti-role access"
+        "fr": "Tableau de bord adapté au rôle (admin, magasinier, opérationnel) : chiffre d’affaires, ventes, stock central, stock vendu et restant, CA restant au prix gros et au prix normal\nFiltres par date, boutique, pharmacie et canal ; graphiques de l’évolution sur 6 mois et des produits les plus vendus\nAlertes : produits sous le seuil ou en rupture, rappels produit, dépôts en attente de validation\nProduits et familles avec référence générée automatiquement (PRD-0001), prix gros et prix normal, boîtes par carton, seuil d’alerte et rappels datés\nMagasin central : entrées en cartons et en boîtes, valeur du stock, ruptures, entrées, retours, sorties et historique des mouvements\nBons de dépôt et de retour : stock transféré seulement à l’acceptation, annulation possible tant que le bon est en attente, stock disponible affiché en direct pendant la saisie\nVentes en boutique, en pharmacie ou au magasin (client grossiste) : stock vérifié ligne par ligne, prix toujours repris du produit, réductions automatiques ou manuelles\nRelevés de pharmacie saisis après coup avec pièce jointe, ventes filtrables et tableau des ventes par client\nZones, boutiques et pharmacies avec leurs indicateurs, stock par entité consultable à une date donnée, sessions d’inventaire\nClients (création rapide pendant une vente) et médecins rattachés aux pharmacies\nRéductions par produit, par famille ou globales\nRapports : produits les plus vendus, ventes par famille, meilleurs clients\nRôles et permissions sur mesure, superadmin protégé, chaque boutique et pharmacie limitée à ses propres données\nJournal d’activité automatique, notifications dans l’application, mot de passe oublié par e-mail et réglage du serveur d’envoi (SMTP) avec e-mail de test",
+        "en": "Role-based dashboard (admin, warehouse, operations): revenue, sales, central stock, sold and remaining stock, remaining revenue at wholesale and retail prices\nFilters by date, shop, pharmacy and channel; charts for the 6-month trend and best-selling products\nAlerts: products below threshold or out of stock, product reminders, transfers awaiting approval\nProducts and families with auto-generated references (PRD-0001), wholesale and retail prices, boxes per carton, alert threshold and dated reminders\nCentral warehouse: stock intake in cartons and boxes, stock value, stock-outs, intakes, returns, outflows and movement history\nTransfer and return slips: stock moves only once accepted, cancellation allowed while pending, live available stock while filling in\nSales in shops, pharmacies or at the warehouse (wholesale customers): stock checked line by line, price always taken from the product, automatic or manual discounts\nPharmacy statements entered afterwards with an attachment, filterable sales and a sales-by-customer table\nZones, shops and pharmacies with their indicators, stock per entity viewable at any past date, stocktake sessions\nCustomers (quick creation during a sale) and doctors linked to pharmacies\nDiscounts per product, per family or global\nReports: best-selling products, sales by family, top customers\nCustom roles and permissions, protected superadmin, each shop and pharmacy limited to its own data\nAutomatic activity log, in-app notifications, password reset by email and email server (SMTP) settings with a test email"
       },
       "results": {
         "fr": "",
