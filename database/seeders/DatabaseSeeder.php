@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\LegalPage;
+use App\Models\Media;
 use App\Models\Profile;
 use App\Models\Setting;
 use App\Models\UiLabel;
@@ -10,6 +11,7 @@ use App\Models\User;
 use App\Support\Portfolio;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 
 class DatabaseSeeder extends Seeder
@@ -48,6 +50,9 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
+        // Photo et CV livrés avec le projet (database/seeders/assets), ajoutés à la médiathèque.
+        $data['profile']['photo'] = $this->seedFile('portrait-fawoziath-salou.jpg', 'image');
+        $data['profile']['cv'] = $this->seedFile('CV-Fawoziath-SALOU.pdf', 'doc');
         (Profile::query()->first() ?? new Profile)->saveFromFront($data['profile']);
         Portfolio::saveHome($data['home']);
 
@@ -72,6 +77,23 @@ class DatabaseSeeder extends Seeder
                 $record->saveFromFront($item + ['position' => $i]);
             }
         }
+    }
+
+    /** Copie un fichier de database/seeders/assets sur le disque public et l'enregistre dans la médiathèque ; renvoie son adresse. */
+    private function seedFile(string $name, string $kind): string
+    {
+        $source = __DIR__.'/assets/'.$name;
+        if (! is_file($source)) {
+            return '';
+        }
+        $path = 'media/'.$name;
+        Storage::disk('public')->put($path, file_get_contents($source));
+        [$w, $h] = $kind === 'image' ? (@getimagesize($source) ?: [0, 0]) : [0, 0];
+
+        return Media::updateOrCreate(
+            ['path' => $path],
+            ['name' => $name, 'url' => '/storage/'.$path, 'kind' => $kind, 'width' => $w, 'height' => $h, 'size' => filesize($source)]
+        )->url;
     }
 
     /** Compte administrateur (config/portfolio.php) ; mot de passe obligatoire et non trivial en production. */

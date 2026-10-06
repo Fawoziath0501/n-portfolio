@@ -35,7 +35,7 @@ class ImagesTest extends TestCase
     {
         Storage::fake('public');
         $media = $this->png('media/couverture.png', 1200, 630);
-        $post = Post::published()->first();
+        $post = tap(Post::query()->first())->update(['published' => true]); // articles d'exemple livrés en brouillon
 
         $this->admin()->putJson("/api/admin/posts/{$post->id}", ['item' => ['cover' => $media->url, 'body' => ['fr' => '<p>Texte</p><img src="'.$media->url.'" alt="Schéma">', 'en' => '']]])
             ->assertOk()->assertJsonPath('cover', $media->url);

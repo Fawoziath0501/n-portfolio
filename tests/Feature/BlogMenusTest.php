@@ -18,7 +18,7 @@ class BlogMenusTest extends TestCase
 
     public function test_posts_have_slugs_and_detail_pages(): void
     {
-        $post = Post::published()->first();
+        $post = tap(Post::query()->first())->update(['published' => true]); // articles d'exemple livrés en brouillon
         $this->assertNotEmpty($post->slug);
 
         $this->get("/fr/blog/{$post->slug}")->assertOk()->assertSee('<title>'.e($post->title['fr']).' | ', false);
@@ -28,7 +28,7 @@ class BlogMenusTest extends TestCase
 
     public function test_post_views_are_counted_without_touching_updated_at(): void
     {
-        $post = Post::published()->first();
+        $post = tap(Post::query()->first())->update(['published' => true]); // articles d'exemple livrés en brouillon
         $updated = $post->updated_at;
         $this->travel(1)->hour();
 

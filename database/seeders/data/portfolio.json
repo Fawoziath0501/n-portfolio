@@ -8,27 +8,27 @@
       "en": "Fullstack developer"
     },
     "stack": {
-      "fr": "Laravel · Vue.js · Applications web",
-      "en": "Laravel · Vue.js · Web applications"
+      "fr": "Laravel · PHP · Vue.js",
+      "en": "Laravel · PHP · Vue.js"
     },
     "tagline": {
-      "fr": "Je transforme des besoins métier en applications web concrètes, de la compréhension du besoin jusqu’au produit en ligne.",
-      "en": "I build web applications made to work in the real world, from understanding the need to shipping the product."
+      "fr": "Je conçois des solutions web innovantes et orientées utilisateur, principalement avec Laravel et Vue.js.",
+      "en": "I design innovative, user-focused web solutions, mainly with Laravel and Vue.js."
     },
     "location": {
-      "fr": "Abomey-Calavi, Bénin",
-      "en": "Abomey-Calavi, Benin"
+      "fr": "Cotonou, Bénin",
+      "en": "Cotonou, Benin"
     },
     "email": "saloufawoziath236@gmail.com",
-    "phone": "+229 01 59 97 08 90",
+    "phone": "+229 01 97 36 32 97",
     "hours": {
       "fr": "Lun – Ven, 8h – 18h",
       "en": "Mon – Fri, 8am – 6pm"
     },
     "since": "2023",
     "bio": {
-      "fr": "Je conçois et développe des applications web complètes avec Laravel et Vue.js : outils métier, plateformes, sites connectés à une application. J’interviens de l’analyse du besoin jusqu’à la mise en ligne, avec une attention particulière à la qualité du code, à l’expérience utilisateur et au référencement.\nDepuis octobre 2024, je travaille chez Megatech SARL à Cotonou, où je participe à l’analyse et au développement d’applications comme Wura, Forbmit, CISTE ou Présentia.",
-      "en": "I design and build complete web applications with Laravel and Vue.js: business tools, platforms, websites connected to an app. I work from understanding the need through to launch, with close attention to code quality, user experience and search visibility.\nSince October 2024 I have been working at Megatech SARL in Cotonou, contributing to the analysis and development of applications such as Wura, Forbmit, CISTE and Présentia."
+      "fr": "Développeuse fullstack passionnée, je me spécialise dans la conception de solutions web innovantes et orientées utilisateur, principalement avec Laravel et Vue.js. Forte d’une solide expertise technique, je conçois des applications robustes et performantes, avec un soin particulier pour la qualité du code, l’expérience utilisateur et le référencement naturel (SEO).\nAutonome et collaborative, je m’engage à respecter les délais et à dépasser les attentes, en équipe comme en freelance, tout en restant en veille constante pour adopter les meilleures pratiques du secteur.",
+      "en": "A passionate fullstack developer, I specialise in designing innovative, user-focused web solutions, mainly with Laravel and Vue.js. With solid technical expertise, I build robust, high-performing applications, paying close attention to code quality, user experience and search engine optimisation (SEO).\nIndependent and collaborative, I am committed to meeting deadlines and exceeding expectations, both in a team and as a freelancer, while keeping up with the industry’s best practices."
     },
     "availability": {
       "fr": "Disponible pour missions freelance et opportunités",
@@ -158,8 +158,8 @@
       }
     ],
     "softSkills": {
-      "fr": "Esprit d’équipe · Rigueur · Organisation",
-      "en": "Team player · Rigour · Organisation"
+      "fr": "Esprit d’équipe · Rigoureuse · Organisée",
+      "en": "Team player · Rigorous · Organised"
     },
     "socials": [
       {
@@ -291,8 +291,8 @@
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Application interne de gestion des ressources humaines et de suivi de présence.",
-        "en": "Internal application for HR management and attendance tracking."
+        "fr": "Modules de l’application interne de gestion RH et de présence de MEGATECH : rôles, documents, tableaux de bord.",
+        "en": "Modules of MEGATECH’s internal HR and attendance application: roles, documents, dashboards."
       },
       "context": {
         "fr": "Présentia centralise la gestion RH et la présence des équipes au sein d’une même application interne.",
@@ -314,7 +314,11 @@
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [
+        "Laravel",
+        "Bootstrap 5",
+        "MySQL"
+      ]
     },
     {
       "id": "p2",
@@ -338,8 +342,8 @@
         "en": "Fullstack developer · SEO"
       },
       "summary": {
-        "fr": "Site web intégrant une application de suivi de santé au travail.",
-        "en": "Website with a built-in occupational health tracking application."
+        "fr": "Site web avec application intégrée de suivi de la santé au travail, et stratégie SEO complète.",
+        "en": "Website with a built-in occupational health tracking application and a full SEO strategy."
       },
       "context": {
         "fr": "CISTE dispose d’un site web public et d’une application intégrée dédiée au suivi de la santé au travail.",
@@ -350,8 +354,8 @@
         "en": ""
       },
       "contribution": {
-        "fr": "Développement du site et de l’application intégrée\nMise en œuvre de la stratégie SEO",
-        "en": "Development of the website and integrated application\nImplementation of the SEO strategy"
+        "fr": "Analyse et conception\nDéveloppement du site et de l’application intégrée\nMise en œuvre complète de la stratégie de référencement naturel (SEO)",
+        "en": "Analysis and design\nDevelopment of the website and built-in application\nFull search engine optimisation (SEO) strategy"
       },
       "solution": {
         "fr": "",
@@ -385,8 +389,8 @@
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Application web de recrutement.",
-        "en": "Recruitment web application."
+        "fr": "Analyse et développement d’une application web de recrutement mettant en relation candidats et recruteurs.",
+        "en": "Analysis and development of a recruitment web application connecting candidates and recruiters."
       },
       "context": {
         "fr": "Wura est une application web dédiée au recrutement.",
@@ -397,8 +401,8 @@
         "en": ""
       },
       "contribution": {
-        "fr": "",
-        "en": ""
+        "fr": "Analyse du besoin\nDéveloppement de l’application",
+        "en": "Needs analysis\nApplication development"
       },
       "solution": {
         "fr": "",
@@ -419,33 +423,33 @@
         "fr": "Doubovo",
         "en": "Doubovo"
       },
-      "year": "",
+      "year": "2026",
       "link": "https://doubovo.tech",
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Plateforme de services de repas",
-        "en": "Meal service platform"
+        "fr": "Plateforme de services · web & mobile",
+        "en": "Services platform · web & mobile"
       },
       "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
+        "fr": "Développeuse web & mobile fullstack (freelance)",
+        "en": "Fullstack web & mobile developer (freelance)"
       },
       "summary": {
-        "fr": "Plateforme web de gestion de services de repas : vitrine, client, livreur, administration.",
-        "en": "Web platform for meal services: website, customer app, courier features, admin."
+        "fr": "Site vitrine avec espace client, applications mobiles livreur et client, et refonte de l’administration.",
+        "en": "Showcase website with a customer area, courier and customer mobile apps, and a redesigned back office."
       },
       "context": {
-        "fr": "Doubovo est une plateforme de gestion de services de repas.",
-        "en": "Doubovo is a platform for managing meal services."
+        "fr": "Doubovo est une plateforme de services : les clients commandent, les livreurs livrent et l’équipe pilote les opérations depuis l’administration.",
+        "en": "Doubovo is a services platform: customers order, couriers deliver and the team runs operations from the back office."
       },
       "problem": {
         "fr": "",
         "en": ""
       },
       "contribution": {
-        "fr": "",
-        "en": ""
+        "fr": "Site vitrine doubovo.tech et espace client de gestion des commandes\nApplications mobiles livreur et client\nRefonte de l’espace d’administration : clients, commandes, livreurs, services et opérations",
+        "en": "doubovo.tech showcase website and customer order area\nCourier and customer mobile apps\nBack office redesign: customers, orders, couriers, services and operations"
       },
       "solution": {
         "fr": "Site vitrine\nApplication client\nFonctionnalités livreur\nAdministration",
@@ -479,8 +483,8 @@
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Application web de génération de formulaires.",
-        "en": "Web application for building forms."
+        "fr": "Développement d’une application web permettant de créer et de générer des formulaires en ligne.",
+        "en": "Development of a web application for building and generating online forms."
       },
       "context": {
         "fr": "Forbmit permet de créer et générer des formulaires en ligne.",
@@ -491,8 +495,8 @@
         "en": ""
       },
       "contribution": {
-        "fr": "",
-        "en": ""
+        "fr": "Développement de l’application",
+        "en": "Application development"
       },
       "solution": {
         "fr": "",
@@ -538,8 +542,8 @@
         "en": ""
       },
       "contribution": {
-        "fr": "Refonte fonctionnelle\nRefonte applicative",
-        "en": "Functional overhaul\nApplication overhaul"
+        "fr": "Refonte fonctionnelle\nRefonte applicative\nGénération de badges",
+        "en": "Functional overhaul\nTechnical overhaul\nBadge generation"
       },
       "solution": {
         "fr": "",
@@ -552,45 +556,92 @@
       "tech": []
     },
     {
-      "id": "p9",
+      "id": "p8",
       "published": true,
       "featured": false,
-      "slug": "lecommercial",
+      "slug": "wisafrica",
       "title": {
-        "fr": "Le Commercial",
-        "en": "Le Commercial"
+        "fr": "WisAfrica",
+        "en": "WisAfrica"
       },
       "year": "",
-      "link": "https://lecommercial.xyz",
+      "link": "https://formation.megatech-web.com",
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Campagnes WhatsApp Business",
-        "en": "WhatsApp Business campaigns"
+        "fr": "Plateforme de formation",
+        "en": "Training platform"
       },
       "role": {
         "fr": "Développeuse fullstack",
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Application de gestion de communications et de campagnes digitales via WhatsApp Business.",
-        "en": "App for managing communications and digital campaigns through WhatsApp Business."
+        "fr": "Analyse et conception d’une plateforme de formations en ligne aux métiers du numérique.",
+        "en": "Analysis and design of an online training platform for digital careers."
       },
       "context": {
-        "fr": "Le Commercial centralise la gestion des communications et des campagnes digitales menées via WhatsApp Business.",
-        "en": "Le Commercial centralises communications and digital campaigns run through WhatsApp Business."
+        "fr": "WisAfrica propose des formations aux métiers du numérique.",
+        "en": "WisAfrica offers training for careers in digital."
       },
       "problem": {
         "fr": "",
         "en": ""
       },
       "contribution": {
-        "fr": "Développement de l’application",
-        "en": "Application development"
+        "fr": "Analyse du besoin\nConception de la plateforme",
+        "en": "Needs analysis\nPlatform design"
       },
       "solution": {
         "fr": "",
         "en": ""
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
+    },
+    {
+      "id": "p7",
+      "published": true,
+      "featured": false,
+      "slug": "gstock",
+      "title": {
+        "fr": "GStock",
+        "en": "GStock"
+      },
+      "year": "",
+      "link": "",
+      "repo": "",
+      "images": [],
+      "category": {
+        "fr": "Gestion de stock multi-rôles",
+        "en": "Multi-role stock management"
+      },
+      "role": {
+        "fr": "Développeuse fullstack",
+        "en": "Fullstack developer"
+      },
+      "summary": {
+        "fr": "Conception d’une application web multi-rôles de gestion de stock de compléments alimentaires.",
+        "en": "Design of a multi-role stock management web application for dietary supplements."
+      },
+      "context": {
+        "fr": "GStock gère le stock de compléments alimentaires avec plusieurs profils d’utilisateurs.",
+        "en": "GStock manages food supplement stock across several user roles."
+      },
+      "problem": {
+        "fr": "",
+        "en": ""
+      },
+      "contribution": {
+        "fr": "",
+        "en": ""
+      },
+      "solution": {
+        "fr": "Gestion de stock\nGestion multi-rôles",
+        "en": "Stock management\nMulti-role access"
       },
       "results": {
         "fr": "",
@@ -607,7 +658,7 @@
         "fr": "BEC SARL",
         "en": "BEC SARL"
       },
-      "year": "",
+      "year": "2024",
       "link": "https://becsarl.com",
       "repo": "",
       "images": [],
@@ -650,86 +701,60 @@
       ]
     },
     {
-      "id": "p7",
       "published": true,
       "featured": false,
-      "slug": "gstock",
-      "title": {
-        "fr": "GStock",
-        "en": "GStock"
-      },
       "year": "",
-      "link": "",
+      "link": "https://megatech-web.com",
       "repo": "",
       "images": [],
-      "category": {
-        "fr": "Gestion de stock multi-rôles",
-        "en": "Multi-role stock management"
-      },
-      "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
-      },
-      "summary": {
-        "fr": "Application de gestion de stock de compléments alimentaires, avec gestion multi-rôles.",
-        "en": "Stock management app for food supplements, with multi-role access."
-      },
-      "context": {
-        "fr": "GStock gère le stock de compléments alimentaires avec plusieurs profils d’utilisateurs.",
-        "en": "GStock manages food supplement stock across several user roles."
-      },
       "problem": {
         "fr": "",
         "en": ""
       },
-      "contribution": {
+      "solution": {
         "fr": "",
         "en": ""
-      },
-      "solution": {
-        "fr": "Gestion de stock\nGestion multi-rôles",
-        "en": "Stock management\nMulti-role access"
       },
       "results": {
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [],
+      "id": "p11",
+      "slug": "megatech",
+      "title": {
+        "fr": "Site MEGATECH",
+        "en": "MEGATECH website"
+      },
+      "category": {
+        "fr": "Site web d’entreprise · refonte",
+        "en": "Company website · redesign"
+      },
+      "role": {
+        "fr": "Développeuse web fullstack",
+        "en": "Fullstack web developer"
+      },
+      "summary": {
+        "fr": "Refonte du site web de MEGATECH, entreprise de services numériques basée à Cotonou.",
+        "en": "Redesign of the website of MEGATECH, a digital services company based in Cotonou."
+      },
+      "context": {
+        "fr": "Le site présente l’entreprise, ses services et ses réalisations.",
+        "en": "The website presents the company, its services and its work."
+      },
+      "contribution": {
+        "fr": "Refonte du site web",
+        "en": "Website redesign"
+      }
     },
     {
-      "id": "p8",
       "published": true,
       "featured": false,
-      "slug": "wisafrica",
-      "title": {
-        "fr": "WisAfrica",
-        "en": "WisAfrica"
-      },
-      "year": "",
+      "year": "2024",
       "link": "",
       "repo": "",
       "images": [],
-      "category": {
-        "fr": "Plateforme de formation",
-        "en": "Training platform"
-      },
-      "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
-      },
-      "summary": {
-        "fr": "Plateforme de formation aux métiers du numérique.",
-        "en": "Training platform for digital careers."
-      },
-      "context": {
-        "fr": "WisAfrica propose des formations aux métiers du numérique.",
-        "en": "WisAfrica offers training for careers in digital."
-      },
       "problem": {
-        "fr": "",
-        "en": ""
-      },
-      "contribution": {
         "fr": "",
         "en": ""
       },
@@ -741,15 +766,71 @@
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [],
+      "id": "p12",
+      "slug": "gestion-cabinets-avocats",
+      "title": {
+        "fr": "Gestion de cabinets d’avocats",
+        "en": "Law firm management"
+      },
+      "category": {
+        "fr": "Application web métier",
+        "en": "Business web application"
+      },
+      "role": {
+        "fr": "Stagiaire développeuse fullstack",
+        "en": "Fullstack developer intern"
+      },
+      "summary": {
+        "fr": "Analyse et développement d’une application web de gestion de cabinets d’avocats, réalisée chez Waouh Monde.",
+        "en": "Analysis and development of a law-firm management web application, built at Waouh Monde."
+      },
+      "context": {
+        "fr": "Application de gestion destinée aux cabinets d’avocats, réalisée pendant le stage chez Waouh Monde.",
+        "en": "Management application for law firms, built during the internship at Waouh Monde."
+      },
+      "contribution": {
+        "fr": "Analyse du besoin\nDéveloppement de l’application",
+        "en": "Needs analysis\nApplication development"
+      }
     }
   ],
   "experiences": [
     {
+      "id": "e0",
+      "published": true,
+      "current": true,
+      "company": "DOUBOVO",
+      "location": {
+        "fr": "Cotonou, Bénin",
+        "en": "Cotonou, Benin"
+      },
+      "role": {
+        "fr": "Développeuse web & mobile fullstack (freelance)",
+        "en": "Fullstack web & mobile developer (freelance)"
+      },
+      "start": {
+        "fr": "Juin 2026",
+        "en": "Jun 2026"
+      },
+      "end": {
+        "fr": "aujourd’hui",
+        "en": "present"
+      },
+      "description": {
+        "fr": "Plateforme de services : site vitrine, espace client, applications mobiles et administration.",
+        "en": "Services platform: showcase website, customer area, mobile apps and back office."
+      },
+      "duties": {
+        "fr": "Développement du site vitrine doubovo.tech pour présenter les services et l’offre de la plateforme, avec un espace client permettant aux utilisateurs de gérer leurs commandes\nDéveloppement des applications mobiles dédiées aux livreurs et aux clients\nRefonte et amélioration de l’espace d’administration pour faciliter la gestion des clients, commandes, livreurs, services et opérations de la plateforme",
+        "en": "Built the doubovo.tech showcase website presenting the platform’s services, with a customer area where users manage their orders\nBuilt the dedicated courier and customer mobile apps\nRedesigned and improved the back office to make managing customers, orders, couriers, services and operations easier"
+      }
+    },
+    {
       "id": "e1",
       "published": true,
       "current": true,
-      "company": "Megatech SARL",
+      "company": "MEGATECH SARL",
       "location": {
         "fr": "Cotonou, Bénin",
         "en": "Cotonou, Benin"
@@ -771,8 +852,8 @@
         "en": "Analysis, design and development of web applications and business tools."
       },
       "duties": {
-        "fr": "Analyse et développement d’une application web de recrutement (wura.africa)\nApplication de gestion de communications et campagnes digitales via WhatsApp Business (lecommercial.xyz)\nApplication web de génération de formulaires (forbmit.com)\nApplication de suivi de la santé au travail pour CISTE (ciste.org), avec stratégie SEO complète\nPrésentia : rôles et permissions, gestion documentaire, tableaux de bord, tests et revues de sécurité",
-        "en": "Analysis and development of a recruitment web app (wura.africa)\nCommunications and digital campaign management app via WhatsApp Business (lecommercial.xyz)\nForm-builder web application (forbmit.com)\nOccupational health tracking app for CISTE (ciste.org), with a full SEO strategy\nPrésentia: roles and permissions, document management, dashboards, tests and security reviews"
+        "fr": "Analyse et développement d’une application web de recrutement (wura.africa)\nDéveloppement d’une application web de génération de formulaires (forbmit.com)\nAnalyse, conception et développement d’un site web avec une application intégrée de suivi de santé au travail pour CISTE (ciste.org), incluant la mise en œuvre complète d’une stratégie de référencement naturel (SEO)\nRefonte fonctionnelle et applicative d’Eventreet, application web de gestion d’événements et de génération de badges\nConception de GSTOCK, application web multi-rôles de gestion de stock de compléments alimentaires\nAnalyse et conception de WISAFRICA, plateforme de formations aux métiers du numérique (formation.megatech-web.com)\nRefonte du site web de MEGATECH (megatech-web.com)\nConception et développement de plusieurs modules de Présentia, l’application interne de gestion RH et de présence (Laravel, Bootstrap 5, MySQL) : tâches et projets, rôles et permissions dynamiques, gestion documentaire, digitalisation de la convention de stage, tableaux de bord et indicateurs clés, avec tests automatisés et revues de sécurité systématiques",
+        "en": "Analysis and development of a recruitment web application (wura.africa)\nDevelopment of a form-builder web application (forbmit.com)\nAnalysis, design and development of a website with a built-in occupational health tracking application for CISTE (ciste.org), including a full search engine optimisation (SEO) strategy\nFunctional and technical overhaul of Eventreet, an event management and badge generation web application\nDesign of GSTOCK, a multi-role stock management web application for dietary supplements\nAnalysis and design of WISAFRICA, a training platform for digital careers (formation.megatech-web.com)\nRedesign of the MEGATECH website (megatech-web.com)\nDesign and development of several modules of Présentia, the company’s internal HR and attendance application (Laravel, Bootstrap 5, MySQL): tasks and projects, dynamic roles and permissions, document management, digital internship agreements, dashboards and key indicators, backed by automated tests and systematic security reviews"
       }
     },
     {
@@ -801,22 +882,22 @@
         "en": ""
       },
       "duties": {
-        "fr": "Application web de gestion de cabinets d’avocats\nSite de présentation d’un cabinet d’expertise comptable",
-        "en": "Law-firm management web application\nWebsite for an accounting firm"
+        "fr": "Analyse et développement d’une application web de gestion de cabinets d’avocats\nDéveloppement du site web de présentation d’un cabinet d’expertise comptable (becsarl.com)",
+        "en": "Analysis and development of a law-firm management web application\nDevelopment of the website of an accounting firm (becsarl.com)"
       }
     },
     {
       "id": "e3",
       "published": true,
       "current": false,
-      "company": "Formatplus",
+      "company": "FormatPlus",
       "location": {
-        "fr": "",
-        "en": ""
+        "fr": "Abomey-Calavi, Bénin",
+        "en": "Abomey-Calavi, Benin"
       },
       "role": {
         "fr": "Développeuse web fullstack (CDD)",
-        "en": "Fullstack web developer (fixed-term)"
+        "en": "Fullstack web developer (fixed-term contract)"
       },
       "start": {
         "fr": "Oct. 2023",
@@ -831,18 +912,18 @@
         "en": ""
       },
       "duties": {
-        "fr": "Sites e-commerce\nPlateformes e-learning\nTests, débogage et documentation",
-        "en": "E-commerce websites\nE-learning platforms\nTesting, debugging and documentation"
+        "fr": "Développement et maintenance de sites web selon les spécifications fournies\nRédaction de la documentation technique des sites web\nParticipation aux réunions de suivi de projet et reporting régulier de l’avancement des travaux\nFormation des apprenants de l’entreprise en programmation informatique, niveau débutant",
+        "en": "Development and maintenance of websites according to the specifications provided\nWriting the websites’ technical documentation\nTaking part in project follow-up meetings and reporting regularly on progress\nTeaching beginner programming to the company’s trainees"
       }
     },
     {
       "id": "e4",
       "published": true,
       "current": false,
-      "company": "Formatplus",
+      "company": "FormatPlus",
       "location": {
-        "fr": "",
-        "en": ""
+        "fr": "Abomey-Calavi, Bénin",
+        "en": "Abomey-Calavi, Benin"
       },
       "role": {
         "fr": "Stagiaire en développement web fullstack",
@@ -861,8 +942,8 @@
         "en": ""
       },
       "duties": {
-        "fr": "",
-        "en": ""
+        "fr": "Développement de sites web e-commerce et e-learning\nTests et débogage de sites web existants\nDocumentation sur l’utilisation des sites développés",
+        "en": "Development of e-commerce and e-learning websites\nTesting and debugging of existing websites\nUser documentation for the websites developed"
       }
     }
   ],
@@ -1126,23 +1207,13 @@
         "en": "Bachelor’s in Computer Science, Networks & Telecommunications, Software Architecture"
       },
       "school": "ESGIS Bénin · Cotonou",
-      "period": "2020 → 2023"
-    },
-    {
-      "id": "ed2",
-      "published": true,
-      "degree": {
-        "fr": "Baccalauréat scientifique, série D",
-        "en": "Scientific baccalaureate (Series D)"
-      },
-      "school": "Complexe Scolaire Évangélique BERAKA · Abomey-Calavi",
-      "period": "2019 → 2020"
+      "period": "Sept. 2020 → Juin 2023"
     }
   ],
   "posts": [
     {
       "id": "b1",
-      "published": true,
+      "published": false,
       "date": "2026-04-03",
       "readMin": 1,
       "url": "",
@@ -1168,7 +1239,7 @@
     },
     {
       "id": "b2",
-      "published": true,
+      "published": false,
       "date": "2026-04-03",
       "readMin": 1,
       "url": "",
@@ -1194,7 +1265,7 @@
     },
     {
       "id": "b3",
-      "published": true,
+      "published": false,
       "date": "2026-04-03",
       "readMin": 1,
       "url": "",

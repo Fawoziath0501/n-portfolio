@@ -23,7 +23,7 @@ class SeoAuditTest extends TestCase
         $legal = LegalPage::where('key', 'terms')->first();
         $this->get('/en/'.$legal->slug_en)->assertSee('hreflang="fr" href="http://localhost/fr/'.$legal->slug_fr.'"', false);
 
-        $post = Post::published()->first();
+        $post = tap(Post::query()->first())->update(['published' => true]); // articles d'exemple livrés en brouillon
         $this->get('/fr/blog/'.$post->slug)->assertSee('hreflang="en" href="http://localhost/en/blog/'.$post->slug.'"', false);
     }
 
@@ -45,7 +45,7 @@ class SeoAuditTest extends TestCase
 
     public function test_structured_data_and_share_tags(): void
     {
-        $post = Post::published()->first();
+        $post = tap(Post::query()->first())->update(['published' => true]); // articles d'exemple livrés en brouillon
         $html = $this->get('/fr/blog/'.$post->slug)->getContent();
 
         preg_match('#<script type="application/ld\+json">(.*?)</script>#s', $html, $m);
