@@ -480,38 +480,46 @@
       "repo": "",
       "images": [],
       "category": {
-        "fr": "Plateforme de services · web & mobile",
-        "en": "Services platform · web & mobile"
+        "fr": "Livraison de repas par abonnement · web & mobile",
+        "en": "Meal subscription & delivery · web & mobile"
       },
       "role": {
         "fr": "Développeuse web & mobile fullstack (freelance)",
         "en": "Fullstack web & mobile developer (freelance)"
       },
       "summary": {
-        "fr": "Site vitrine avec espace client, applications mobiles livreur et client, et refonte de l’administration.",
-        "en": "Showcase website with a customer area, courier and customer mobile apps, and a redesigned back office."
+        "fr": "Plateforme d’abonnement et de livraison de repas à domicile au Bénin : site web installable, application client, application livreur et back-office.",
+        "en": "Home meal subscription and delivery platform in Benin: installable website, customer app, courier app and back office."
       },
       "context": {
-        "fr": "Doubovo est une plateforme de services : les clients commandent, les livreurs livrent et l’équipe pilote les opérations depuis l’administration.",
-        "en": "Doubovo is a services platform: customers order, couriers deliver and the team runs operations from the back office."
+        "fr": "Doubovo livre des repas à domicile à Cotonou et Abomey-Calavi, à l’unité ou par forfait. Les clients commandent depuis le site ou l’application, paient par Mobile Money, suivent leur livraison en direct et la réceptionnent avec un code à 4 chiffres. Les livreurs suivent leurs tournées depuis leur propre application, et l’équipe pilote l’ensemble depuis le back-office. Site, applications et back-office partagent le même serveur.",
+        "en": "Doubovo delivers home meals in Cotonou and Abomey-Calavi, one-off or through meal plans. Customers order from the website or the app, pay with Mobile Money, track their delivery live and receive it with a 4-digit code. Couriers follow their rounds in their own app, and the team runs everything from the back office. Website, apps and back office share the same server."
       },
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Offrir la même expérience sur le web et sur mobile, garantir des paiements sans double débit, livrer à l’heure et permettre aux livreurs de travailler même sans réseau.",
+        "en": "Delivering the same experience on web and mobile, guaranteeing payments without double charges, delivering on time and letting couriers work even without a network."
       },
       "contribution": {
-        "fr": "Site vitrine doubovo.tech et espace client de gestion des commandes\nApplications mobiles livreur et client\nRefonte de l’espace d’administration : clients, commandes, livreurs, services et opérations",
-        "en": "doubovo.tech showcase website and customer order area\nCourier and customer mobile apps\nBack office redesign: customers, orders, couriers, services and operations"
+        "fr": "Site vitrine doubovo.tech et espace client de gestion des commandes\nApplication mobile client : commande, paiement, forfaits, planning et suivi\nApplication mobile livreur : tournées, remise par code et mode hors ligne\nRefonte et amélioration du back-office : clients, commandes, livreurs, services et opérations\nAudit complet de l’application client avant publication et préparation de la mise en ligne sur Google Play",
+        "en": "doubovo.tech showcase website and customer order area\nCustomer mobile app: ordering, payment, meal plans, schedule and tracking\nCourier mobile app: rounds, code-based handover and offline mode\nBack office redesign and improvements: customers, orders, couriers, services and operations\nFull audit of the customer app before release and Google Play launch preparation"
       },
       "solution": {
-        "fr": "Site vitrine\nApplication client\nFonctionnalités livreur\nAdministration",
-        "en": "Public website\nCustomer application\nCourier features\nAdministration"
+        "fr": "Site web : menu du jour et de la semaine, fiches plats, formules, panier multi-plats avec quantités (« Garba × 3 »), commande par créneau, espace client et suivi de livraison\nSite installable comme une application (PWA) avec invitation à l’installation, guide pour iPhone et page hors ligne ; pages légales et page de suppression de compte\nApplication client : découverte sans compte, connexion par code WhatsApp, commande de plusieurs plats par créneau, choix de l’adresse\nPaiement Mobile Money via KkiaPay, par le solde du compte ou par les repas du forfait, avec protection contre le double débit\nForfaits : achat avec démarrage immédiat ou programmé, repas restants, changement et programmation du forfait suivant\nPlanning de la semaine : choisir, remplacer ou annuler un repas, confirmation la veille\nSuivi de livraison en direct, code de remise, partage du lien de suivi ; historique, reçus, notation des repas et « Recommander »\nProfil : adresses, préférences alimentaires, parrainage, aide et suppression du compte ; notifications à chaque étape de la commande\nApplication livreur : activation du compte par lien, tournées du jour dans l’ordre, chargement des colis, navigation vers chaque client\nRemise validée par le code du client, déclaration d’incident, livraisons groupées en une seule visite, heure d’arrivée estimée et ponctualité\nFonctionnement sans réseau : arrivées, incidents et validations enregistrés hors ligne puis envoyés au retour du réseau ; gains et historique des tournées\nBack-office : commandes regroupées par client et par créneau, fiches livreurs, validation des dossiers et liens d’activation, préparation et suivi des tournées\nMessages WhatsApp professionnels à chaque étape (confirmation, départ, livraison, incident, échéance du forfait, parrainage) et pilotage du numéro depuis le back-office\nStatistiques : chiffre d’affaires, commandes, livreurs, stock, fidélisation, audience du site et installations de l’application web",
+        "en": "Website: daily and weekly menu, dish pages, meal plans, multi-dish cart with quantities (“Garba × 3”), ordering by time slot, customer area and delivery tracking\nInstallable website (PWA) with an install prompt, an iPhone guide and an offline page; legal pages and an account deletion page\nCustomer app: browsing without an account, WhatsApp code login, several dishes per time slot, address selection\nMobile Money payment through KkiaPay, account balance or meal plan credits, with double-charge protection\nMeal plans: purchase with immediate or scheduled start, remaining meals, plan changes and scheduling the next plan\nWeekly schedule: choose, replace or cancel a meal, confirmation the day before\nLive delivery tracking, handover code, shareable tracking link; history, receipts, meal ratings and “Order again”\nProfile: addresses, dietary preferences, referrals, help and account deletion; notifications at every order step\nCourier app: account activation by link, ordered daily rounds, parcel loading, navigation to each customer\nHandover validated by the customer’s code, incident reports, grouped deliveries as a single visit, estimated arrival time and punctuality\nOffline mode: arrivals, incidents and validations saved offline then sent when the network returns; earnings and round history\nBack office: orders grouped by customer and time slot, courier profiles, application approval and activation links, round preparation and live tracking\nProfessional WhatsApp messages at every step (confirmation, departure, delivery, incident, plan expiry, referral) and number management from the back office\nStatistics: revenue, orders, couriers, stock, retention, website audience and web app installs"
       },
       "results": {
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [
+        "Angular",
+        "Flutter",
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "Firebase",
+        "KkiaPay"
+      ]
     },
     {
       "id": "p5",
@@ -875,8 +883,8 @@
         "en": "present"
       },
       "description": {
-        "fr": "Plateforme de services : site vitrine, espace client, applications mobiles et administration.",
-        "en": "Services platform: showcase website, customer area, mobile apps and back office."
+        "fr": "Plateforme d’abonnement et de livraison de repas à domicile : site web, applications mobiles client et livreur, back-office.",
+        "en": "Home meal subscription and delivery platform: website, customer and courier mobile apps, back office."
       },
       "duties": {
         "fr": "Développement du site vitrine doubovo.tech pour présenter les services et l’offre de la plateforme, avec un espace client permettant aux utilisateurs de gérer leurs commandes\nDéveloppement des applications mobiles dédiées aux livreurs et aux clients\nRefonte et amélioration de l’espace d’administration pour faciliter la gestion des clients, commandes, livreurs, services et opérations de la plateforme",
