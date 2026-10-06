@@ -17,6 +17,7 @@ import Menus from './views/Menus.vue';
 import Account from './views/Account.vue';
 import MediaLib from './views/MediaLib.vue';
 import Trash from './views/Trash.vue';
+import Logs from './views/Logs.vue';
 import Labels from './views/Labels.vue';
 
 const router = useRouter();
@@ -42,6 +43,8 @@ const toggleTheme = () => {
   try { localStorage.setItem('fz.admin.theme', state.theme); } catch (e) { /* ignore */ }
 };
 
+// Erreurs du serveur depuis 24 h (badge du menu « Journaux »).
+const logErrors = computed(() => (state.data && state.data.logErrors) || 0);
 const groups = computed(() => {
   const d = state.data, newCount = (d.messages || []).filter((m) => m.status === 'new').length;
   const it = (id, label, icon, badge) => ({ id, label, icon, badge });
@@ -49,7 +52,7 @@ const groups = computed(() => {
     { label: 'Pilotage', items: [it('dashboard', 'Tableau de bord', 'space_dashboard'), it('stats', 'Statistiques', 'monitoring')] },
     { label: 'Échanges', items: [it('messages', 'Messages', 'mail', newCount), it('newsletter', 'Newsletter', 'mark_email_unread', (d.subscribers || []).length)] },
     { label: 'Contenu', items: [it('projects', 'Projets', 'grid_view'), it('posts', 'Blog', 'article'), it('experiences', 'Expériences', 'work_history'), it('education', 'Formation', 'school'), it('skills', 'Compétences', 'bolt'), it('services', 'Services', 'design_services'), it('certifications', 'Certifications', 'verified'), it('testimonials', 'Témoignages', 'format_quote')] },
-    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('menus', 'Menus', 'menu'), it('legalPages', 'Pages légales', 'gavel'), it('labels', 'Textes du site', 'translate'), it('settings', 'Paramètres', 'settings'), it('account', 'Mon compte', 'manage_accounts'), it('trash', 'Corbeille', 'delete', d.trashCount)] },
+    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('menus', 'Menus', 'menu'), it('legalPages', 'Pages légales', 'gavel'), it('labels', 'Textes du site', 'translate'), it('settings', 'Paramètres', 'settings'), it('logs', 'Journaux', 'receipt_long', logErrors.value), it('account', 'Mon compte', 'manage_accounts'), it('trash', 'Corbeille', 'delete', d.trashCount)] },
   ];
 });
 
@@ -68,6 +71,7 @@ const META = {
   legalPages: ['Site', 'Pages légales', 'Pages légales', 'Mentions légales, confidentialité, CGU, cookies… Liées en bas de chaque page du site. Variables : {name}, {email}, {site}.'],
   settings: ['Site', 'Paramètres', 'Paramètres', 'Source des statistiques, notifications et réglages du site.'],
   labels: ['Site', 'Textes du site', 'Textes du site', 'Titres de sections, formulaires et messages du site public, en FR et en EN (les menus ont leur propre écran).'],
+  logs: ['Site', 'Journaux', 'Journaux du serveur', 'Erreurs et événements enregistrés par le serveur : diagnostiquez un problème sans accéder au code.'],
   trash: ['Site', 'Corbeille', 'Corbeille', 'Éléments supprimés : restaurez-les ou supprimez-les définitivement.'],
 };
 const col = computed(() => COLS[state.view]);
@@ -151,6 +155,7 @@ const doLogout = async () => { await logout(); router.push('/'); };
             <HomeSections v-else-if="state.view === 'home'" />
             <MediaLib v-else-if="state.view === 'media'" />
             <Trash v-else-if="state.view === 'trash'" />
+            <Logs v-else-if="state.view === 'logs'" />
             <Labels v-else-if="state.view === 'labels'" />
             <Menus v-else-if="state.view === 'menus'" />
             <Account v-else-if="state.view === 'account'" />

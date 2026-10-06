@@ -7,6 +7,7 @@ import Panel from '../components/Panel.vue';
 import ProfileRelations from '../components/ProfileRelations.vue';
 import SocialIcon from '../../shared/SocialIcon.vue';
 import MailSettingsPanel from '../components/MailSettingsPanel.vue';
+import CaptchaPanel from '../components/CaptchaPanel.vue';
 
 const props = defineProps({ doc: String });
 const cards = computed(() => FORMS[props.doc] || []);
@@ -49,6 +50,7 @@ function importJson(e) {
   </Panel>
 
   <MailSettingsPanel v-if="doc === 'settings'" />
+  <CaptchaPanel v-if="doc === 'settings'" />
 
   <div v-if="doc === 'settings'" class="panel backup">
     <div class="col gap2"><h2 class="ph2">Sauvegarde des données</h2><span class="sm-mu fs13">Exportez tout le contenu (JSON) avant une mise en ligne, ou restaurez une sauvegarde.</span></div>

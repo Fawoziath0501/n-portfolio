@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Support\Captcha;
 use App\Http\Controllers\Controller;
 use App\Mail\ReplyMail;
 use App\Models\Activity;
@@ -35,6 +36,25 @@ class MailController extends Controller
         Activity::log('Réglages d’envoi des e-mails modifiés');
 
         return response()->json(MailSettings::forAdmin());
+    }
+
+    /** Anti-spam des formulaires (captcha). */
+    public function captcha(Request $request)
+    {
+        $v = $request->validate([
+            'provider' => 'required|in:none,turnstile,recaptcha,hcaptcha',
+            'siteKey' => 'nullable|string|max:190',
+            'secret' => 'nullable|string|max:190',
+            'forms' => 'array',
+            'forms.*' => 'boolean',
+        ]);
+        if ($v['provider'] !== 'none' && (empty($v['siteKey']) || (empty($v['secret']) && ! Captcha::forAdmin()['hasSecret']))) {
+            throw ValidationException::withMessages(['siteKey' => 'Renseignez la clé du site et la clé secrète fournies par le service choisi.']);
+        }
+        Captcha::save($v);
+        Activity::log('Protection anti-spam (captcha) modifiée');
+
+        return response()->json(Captcha::forAdmin());
     }
 
     public function test(Request $request)

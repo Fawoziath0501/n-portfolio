@@ -990,6 +990,12 @@
   "en": "Your message needs at least 10 characters."
  },
  {
+  "key": "eCaptcha",
+  "group": "Contact & formulaires",
+  "fr": "Merci de confirmer que vous n’êtes pas un robot.",
+  "en": "Please confirm you are not a robot."
+ },
+ {
   "key": "pContact.0",
   "group": "Contact & formulaires",
   "fr": "Contact",

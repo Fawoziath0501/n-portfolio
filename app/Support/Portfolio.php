@@ -90,6 +90,7 @@ class Portfolio
             'maintenancePreview' => ! $maintenance && self::maintenance(),
             'tracking' => ($settings['analytics']['provider'] ?? '') === 'local',
         ];
+        $data['captcha'] = Captcha::forPublic();
 
         return $data;
     }
@@ -107,6 +108,8 @@ class Portfolio
         }
         $data['messages'] = Message::with('replies')->latest()->get()->map->toFront()->all();
         $data['mail'] = MailSettings::forAdmin();
+        $data['captcha'] = Captcha::forAdmin();
+        $data['logErrors'] = \App\Http\Controllers\Admin\LogController::recentErrors();
         $data['subscribers'] = Subscriber::latest()->get()->map->toFront()->all();
         $data['media'] = Media::latest()->get()->map->toFront()->all();
         $data['activity'] = Activity::latest('id')->limit(30)->get()

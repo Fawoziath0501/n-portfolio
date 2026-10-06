@@ -1,5 +1,6 @@
 <script setup>
-import { setField, state, submitContact, vm } from '../store';
+import { capOn, setField, state, submitContact, vm } from '../store';
+import CaptchaBox from '../../shared/CaptchaBox.vue';
 import SocialIcon from '../../shared/SocialIcon.vue';
 </script>
 
@@ -25,6 +26,11 @@ import SocialIcon from '../../shared/SocialIcon.vue';
           <textarea name="message" rows="7" :value="state.cf.message" :placeholder="vm.L.messagePh" :aria-invalid="!!state.errs.message" :class="{ bad: state.errs.message }" @input="setField('message', $event.target.value)"></textarea>
           <span v-if="state.errs.message" role="alert" class="fld-err">{{ state.errs.message }}</span>
         </label>
+        <input v-model="state.hp" type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div v-if="capOn('contact')" class="fld">
+          <CaptchaBox :key="state.capN.contact" v-model="state.cap.contact" :config="state.data.captcha" :lang="state.lang" @update:model-value="state.errs = { ...state.errs, captcha: null }" />
+          <span v-if="state.errs.captcha" role="alert" class="fld-err">{{ state.errs.captcha }}</span>
+        </div>
         <div class="row-wrap center gap16">
           <button type="submit" class="btn btn-primary xl" :disabled="state.fs === 'sending'"><span class="ms">send</span>{{ state.fs === 'sending' ? vm.L.sending : vm.L.send }}</button>
           <p v-if="state.fs === 'sent'" role="status" class="sent"><span class="ms">check_circle</span>{{ vm.L.sent }}</p>

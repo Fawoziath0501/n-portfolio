@@ -585,3 +585,8 @@ button { font: inherit; }
 .cv-img { flex: 1; min-height: 50vh; background: var(--alt) center / contain no-repeat; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 .maint-preview { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 16px; background: #B45309; color: #FFFFFF; font-size: 14px; font-weight: 500; text-align: center; }
 .maint-preview .ms { font-size: 18px; }
+
+/* Anti-spam : champ piège hors écran (rempli seulement par les robots) et widget du captcha */
+.hp-field { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; opacity: 0; }
+.captcha-box { min-height: 65px; }
+.nl-cap { margin-top: 12px; }

@@ -45,6 +45,8 @@ export const state = reactive({
     cf: { name: '', email: '', subject: '', message: '' }, errs: {}, fs: 'idle',
     nl: '', nls: '', flip: null, tlh: null,
     svc: null, svcErr: {}, svcFs: 'idle',
+    // Anti-spam : jetons du captcha par formulaire, compteur pour en recréer un après envoi, champ piège invisible.
+    cap: { contact: '', service: '', newsletter: '' }, capN: { contact: 0, service: 0, newsletter: 0 }, hp: '',
     blogTag: 'all', blogQ: '', blogSort: 'recent', certView: null,
 });
 
@@ -243,21 +245,29 @@ export function setField(k, v) {
     if (state.fs === 'sent') state.fs = 'idle';
 }
 
+/** Captcha actif sur ce formulaire (réglé dans l'administration). */
+export const capOn = (form) => !!(state.data.captcha && state.data.captcha.forms.includes(form));
+const capErr = (e) => e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.captcha && e.response.data.errors.captcha[0];
+const capReset = (form) => { state.cap[form] = ''; state.capN[form]++; };
+const capMissing = (form) => capOn(form) && !state.cap[form];
+
 export async function submitContact() {
     const L = labels(state.data.labels, state.lang), c = state.cf, errs = {};
     if (!c.name.trim()) errs.name = L.eName;
     if (!isEmail(c.email)) errs.email = L.eEmail;
     if (c.message.trim().length < 10) errs.message = L.eMsg;
+    if (capMissing('contact')) errs.captcha = L.eCaptcha;
     if (Object.keys(errs).length) { state.errs = errs; state.fs = 'error'; return; }
     state.fs = 'sending';
     try {
-        await api.post('/messages', { type: 'contact', name: c.name, email: c.email, subject: c.subject, message: c.message, lang: state.lang });
+        await api.post('/messages', { type: 'contact', name: c.name, email: c.email, subject: c.subject, message: c.message, lang: state.lang, website: state.hp, captcha: state.cap.contact });
         state.fs = 'sent';
         state.cf = { name: '', email: '', subject: '', message: '' };
         state.errs = {};
     } catch (e) {
-        state.fs = 'failed';
+        if (capErr(e)) { state.errs = { captcha: capErr(e) }; state.fs = 'error'; } else state.fs = 'failed';
     }
+    if (capOn('contact')) capReset('contact');
 }
 
 let svcPrev = null;
@@ -282,27 +292,31 @@ export async function submitSvc() {
     if (!c.name.trim()) errs.name = L.eName;
     if (!isEmail(c.email)) errs.email = L.eEmail;
     if (c.message.trim().length < 10) errs.message = L.eMsg;
+    if (capMissing('service')) errs.captcha = L.eCaptcha;
     if (Object.keys(errs).length) { state.svcErr = errs; return; }
     state.svcFs = 'sending';
     try {
-        await api.post('/messages', { type: 'service', service: c.service, name: c.name, email: c.email, phone: c.phone, when: c.when === L.choose ? '' : c.when, message: c.message, lang: state.lang });
+        await api.post('/messages', { type: 'service', service: c.service, name: c.name, email: c.email, phone: c.phone, when: c.when === L.choose ? '' : c.when, message: c.message, lang: state.lang, website: state.hp, captcha: state.cap.service });
         state.svcFs = 'sent';
     } catch (e) {
         state.svcFs = 'idle';
-        state.svcErr = { message: L.errSend };
+        state.svcErr = capErr(e) ? { captcha: capErr(e) } : { message: L.errSend };
     }
+    if (capOn('service')) capReset('service');
 }
 
 export async function subscribe() {
     const v = state.nl.trim();
     if (!isEmail(v)) { state.nls = 'err'; return; }
+    if (capMissing('newsletter')) { state.nls = 'cap'; return; }
     try {
-        await api.post('/subscribers', { email: v, lang: state.lang });
+        await api.post('/subscribers', { email: v, lang: state.lang, website: state.hp, captcha: state.cap.newsletter });
         state.nl = '';
         state.nls = 'ok';
     } catch (e) {
-        state.nls = e.response && e.response.status === 409 ? 'dup' : 'err';
+        state.nls = capErr(e) ? 'cap' : e.response && e.response.status === 409 ? 'dup' : 'err';
     }
+    if (capOn('newsletter')) capReset('newsletter');
 }
 
 /* ---------- Suivi d'audience intégré (si activé dans l'administration) ---------- */

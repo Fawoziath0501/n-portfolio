@@ -1,11 +1,12 @@
 <script setup>
-import { state, subscribe, vm } from '../store';
+import { capOn, state, subscribe, vm } from '../store';
+import CaptchaBox from '../../shared/CaptchaBox.vue';
 import { reducedMotion } from '../../shared/util';
 import SocialIcon from '../../shared/SocialIcon.vue';
 import MenuLink from './MenuLink.vue';
 
 const toTop = () => window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
-const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' ? vm.value.L.nlDup : vm.value.L.nlErr);
+const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' ? vm.value.L.nlDup : state.nls === 'cap' ? vm.value.L.eCaptcha : vm.value.L.nlErr);
 </script>
 
 <template>
@@ -23,6 +24,8 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
             </label>
             <button type="submit" class="nl-btn">{{ vm.L.nlCta }}</button>
           </div>
+          <input v-model="state.hp" type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <CaptchaBox v-if="capOn('newsletter') && (state.nl || state.cap.newsletter || state.nls === 'cap')" :key="state.capN.newsletter" v-model="state.cap.newsletter" class="nl-cap" :config="state.data.captcha" :lang="state.lang" theme="dark" />
           <p v-if="state.nls" role="status" class="nl-msg" :style="{ color: state.nls === 'ok' ? '#8FA3E8' : '#F0A39C' }">{{ nlMsg() }}</p>
           <p class="nl-note">{{ vm.L.nlPrivacy }} <RouterLink v-if="vm.privacyHref" :to="vm.privacyHref">{{ vm.L.privacyLink }}</RouterLink></p>
         </form>

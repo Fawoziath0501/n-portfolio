@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 import { api, plainText, tx } from '../shared/util';
 
-export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects', 'posts', 'experiences', 'education', 'skills', 'services', 'certifications', 'testimonials', 'profile', 'home', 'media', 'seo', 'menus', 'legalPages', 'labels', 'settings', 'account', 'trash'];
+export const VIEWS = ['dashboard', 'stats', 'messages', 'newsletter', 'projects', 'posts', 'experiences', 'education', 'skills', 'services', 'certifications', 'testimonials', 'profile', 'home', 'media', 'seo', 'menus', 'legalPages', 'labels', 'settings', 'logs', 'account', 'trash'];
 
 export const state = reactive({
     data: null, user: null, ready: false,
@@ -60,9 +60,9 @@ export async function reload() {
     state.data = data;
 }
 
-export async function login(email, password, remember = false) {
+export async function login(email, password, remember = false, extra = {}) {
     await api.get('/admin/me'); // initialise le cookie CSRF
-    const { data } = await api.post('/admin/login', { email, password, remember });
+    const { data } = await api.post('/admin/login', { email, password, remember, ...extra });
     await reload();
     state.user = data.user;
 }

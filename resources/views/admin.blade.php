@@ -11,6 +11,6 @@
 </head>
 <body>
     <div id="app"></div>
-    <script>window.__ADMIN_BASE__ = @json($base ?? '/admin');</script>
+    <script>window.__ADMIN_BASE__ = @json($base ?? '/admin'); window.__LOGIN_CAPTCHA__ = @json(\App\Support\Captcha::protects('login') ? \App\Support\Captcha::forPublic() : null);</script>
 </body>
 </html>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\LabelController;
+use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\StatsController;
@@ -44,6 +45,7 @@ Route::prefix('api')->group(function () {
             Route::post('messages/{message}/reply', [MailController::class, 'reply'])->middleware('throttle:20,1');
             Route::post('messages/{message}/whatsapp', [MailController::class, 'whatsapp']);
             Route::put('mail', [MailController::class, 'settings']);
+            Route::put('captcha', [MailController::class, 'captcha']);
             Route::post('mail/test', [MailController::class, 'test'])->middleware('throttle:5,1');
 
             Route::post('media', [MediaController::class, 'upload']);
@@ -53,6 +55,10 @@ Route::prefix('api')->group(function () {
             Route::get('events', [StatsController::class, 'events']);
             Route::delete('events', [StatsController::class, 'clear']);
 
+            Route::get('logs', [LogController::class, 'index']);
+            Route::get('logs/{file}', [LogController::class, 'show']);
+            Route::get('logs/{file}/download', [LogController::class, 'download']);
+            Route::delete('logs/{file}', [LogController::class, 'clear']);
             Route::get('trash', [TrashController::class, 'index']);
             Route::delete('trash', [TrashController::class, 'empty']);
             Route::post('trash/{type}/{id}/restore', [TrashController::class, 'restore'])->whereNumber('id');

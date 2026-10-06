@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Support\Captcha;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use Illuminate\Http\Request;
@@ -25,6 +26,9 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate(['email' => 'required|email', 'password' => 'required|string']);
+        if (! Captcha::check($request, 'login')) {
+            throw ValidationException::withMessages(['email' => 'Identifiants incorrects.']);
+        }
         $accountKey = 'login:'.Str::lower($credentials['email']).'|'.$request->ip();
         $ipKey = 'login-ip:'.$request->ip();
 

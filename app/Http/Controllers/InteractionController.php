@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\Captcha;
 use App\Mail\NewMessageMail;
 use App\Models\Event;
 use App\Models\Message;
@@ -32,6 +33,9 @@ class InteractionController extends Controller
         ]);
 
         $isService = ($v['type'] ?? 'contact') === 'service';
+        if (! Captcha::check($request, $isService ? 'service' : 'contact')) {
+            return response()->json(['ok' => true], 201); // robot pris au piège : réponse normale, rien d'enregistré
+        }
         $body = trim($v['message']);
         if ($isService) {
             $body = implode("\n\n", array_filter([
@@ -71,6 +75,9 @@ class InteractionController extends Controller
     public function subscribe(Request $request)
     {
         $v = $request->validate(['email' => 'required|email|max:180', 'lang' => 'nullable|in:fr,en']);
+        if (! Captcha::check($request, 'newsletter')) {
+            return response()->json(['ok' => true], 201);
+        }
         $email = strtolower(trim($v['email']));
 
         $existing = Subscriber::withTrashed()->where('email', $email)->first();

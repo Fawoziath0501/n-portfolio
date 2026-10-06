@@ -502,3 +502,25 @@ button.kpi { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .dash-period { justify-content: flex-end; }
 .sub-row { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-bottom: 1px solid var(--ln2); font-size: 14px; }
 .sub-row .ms { font-size: 18px; color: var(--ac); }
+.cap-chk { font-size: 14px; cursor: pointer; }
+
+/* Journaux du serveur */
+.log-levels { flex-wrap: wrap; align-self: flex-start; }
+.log-levels .mono13 { opacity: .7; margin-left: 4px; }
+.log-list { list-style: none; margin: 0; padding: 0 0 8px; }
+.log-row { border-top: 1px solid var(--ln2); }
+.log-head { width: 100%; display: flex; align-items: flex-start; gap: 12px; padding: 10px 20px; border: 0; background: none; font: inherit; color: var(--ink); text-align: left; cursor: pointer; }
+.log-head:disabled { cursor: default; }
+.log-head:not(:disabled):hover { background: var(--sf2); }
+.log-lv { flex: none; min-width: 92px; padding: 2px 8px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; text-align: center; }
+.log-lv.bad { background: var(--badBg); color: var(--badFg); }
+.log-lv.warn { background: var(--warnBg); color: var(--warnFg); }
+.log-lv.ok { background: var(--okBg); color: var(--okFg); }
+.log-lv.mute { background: var(--ln2); color: var(--mu); }
+.log-at { flex: none; width: 150px; color: var(--mu); padding-top: 1px; }
+.log-msg { flex: 1; min-width: 0; font-size: 14px; overflow-wrap: anywhere; }
+.log-chev { flex: none; color: var(--mu); font-size: 20px; }
+.log-det { padding: 0 20px 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.log-det pre { width: 100%; max-height: 420px; overflow: auto; margin: 0; padding: 12px 14px; border-radius: 8px; background: var(--sf2); border: 1px solid var(--ln2); font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.log-more { padding: 0 20px 16px; }
+@media (max-width: 700px) { .log-head { flex-wrap: wrap; gap: 6px 10px; } .log-at { width: auto; } .log-msg { flex-basis: 100%; } }

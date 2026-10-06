@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
-import { closeSvc, state, submitSvc, vm } from '../store';
+import { capOn, closeSvc, state, submitSvc, vm } from '../store';
+import CaptchaBox from '../../shared/CaptchaBox.vue';
 
 const L = computed(() => vm.value.L);
 const sv = computed(() => state.svc);
@@ -62,6 +63,11 @@ const backdrop = (e) => { if (e.target === e.currentTarget) closeSvc(); };
           <textarea name="svc-message" rows="5" :value="sv.message" :placeholder="L.svcNeedPh" :aria-invalid="!!err.message" :class="{ bad: err.message }" @input="set('message', $event.target.value)"></textarea>
           <span v-if="err.message" role="alert" class="fld-err">{{ err.message }}</span>
         </label>
+        <input v-model="state.hp" type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div v-if="capOn('service')" class="fld">
+          <CaptchaBox :key="state.capN.service" v-model="state.cap.service" :config="state.data.captcha" :lang="state.lang" />
+          <span v-if="err.captcha" role="alert" class="fld-err">{{ err.captcha }}</span>
+        </div>
         <p class="form-note">{{ L.formPrivacy }} <RouterLink v-if="vm.privacyHref" :to="vm.privacyHref" @click="closeSvc">{{ L.privacyLink }}</RouterLink></p>
         <div class="svc-actions">
           <button type="button" class="btn btn-ghost" @click="closeSvc">{{ L.cancel }}</button>
