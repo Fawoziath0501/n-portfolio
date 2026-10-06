@@ -4,6 +4,7 @@
 import { computed } from 'vue';
 import { save, state, syncDoc } from '../store';
 import Panel from '../components/Panel.vue';
+import MenuRow from '../components/MenuRow.vue';
 
 const PAGES = [
   ['home', 'Accueil', 'Home'], ['about', 'À propos', 'About'], ['work', 'Projets', 'Work'], ['services', 'Services', 'Services'],
@@ -35,74 +36,42 @@ const moveColumn = (i, dir) => { const f = m.value.footer, j = i + dir; if (j >=
 </script>
 
 <template>
-  <Panel title="Barre du haut" sub="Liens affichés en haut de chaque page (et dans le menu mobile), dans cet ordre.">
-    <div class="menu-list">
-      <div v-for="(it, i) in m.header.items" :key="it.id" class="menu-row" :class="{ off: !it.visible }">
-        <div class="menu-move">
-          <button type="button" class="ibtn" aria-label="Monter" :disabled="i === 0" @click="move(m.header.items, i, -1)"><span class="ms">arrow_upward</span></button>
-          <button type="button" class="ibtn" aria-label="Descendre" :disabled="i === m.header.items.length - 1" @click="move(m.header.items, i, 1)"><span class="ms">arrow_downward</span></button>
-        </div>
-        <select class="ain" aria-label="Page" :value="it.page" @change="setPage(it, $event.target.value)">
-          <option v-for="p in PAGES" :key="p[0]" :value="p[0]">{{ p[1] }}</option>
-        </select>
-        <input v-if="it.page === 'url'" class="ain" placeholder="https://… ou /fr/…" aria-label="Adresse" :value="it.url" @input="set(it, 'url', $event.target.value)">
-        <label class="lang-in"><span>FR</span><input class="ain" :value="(it.label || {}).fr" @input="setText(it, 'label', 'fr', $event.target.value)"></label>
-        <label class="lang-in"><span>EN</span><input class="ain" :value="(it.label || {}).en" @input="setText(it, 'label', 'en', $event.target.value)"></label>
-        <button type="button" class="ibtn" :aria-label="it.visible ? 'Masquer' : 'Afficher'" :title="it.visible ? 'Masquer' : 'Afficher'" @click="set(it, 'visible', !it.visible)"><span class="ms">{{ it.visible ? 'visibility' : 'visibility_off' }}</span></button>
-        <button type="button" class="ibtn" aria-label="Retirer" title="Retirer" @click="remove(m.header.items, i)"><span class="ms">delete</span></button>
-      </div>
-      <button type="button" class="abtn self-start" @click="add(m.header.items)"><span class="ms">add</span>Ajouter un lien</button>
+  <Panel title="Barre du haut" sub="Liens affichés en haut de chaque page et dans le menu mobile, dans cet ordre.">
+    <div class="mtable">
+      <div class="mhead" aria-hidden="true"><span></span><span>Page</span><span>Libellé FR</span><span>Libellé EN</span><span></span></div>
+      <MenuRow v-for="(it, i) in m.header.items" :key="it.id" :it="it" :pages="PAGES" :first="i === 0" :last="i === m.header.items.length - 1"
+        @page="setPage(it, $event)" @set="(k, v) => set(it, k, v)" @text="(l, v) => setText(it, 'label', l, v)" @move="move(m.header.items, i, $event)" @remove="remove(m.header.items, i)" />
+      <button type="button" class="abtn sm madd" @click="add(m.header.items)"><span class="ms">add</span>Ajouter un lien</button>
+    </div>
+    <div class="mcta">
+      <span class="mcta-title"><span class="ms" aria-hidden="true">ads_click</span>Bouton d’action <small>à droite de la barre (ex. « Me contacter »)</small></span>
+      <MenuRow :it="m.header.cta" :pages="PAGES" cta @page="set(m.header.cta, 'page', $event)" @set="(k, v) => set(m.header.cta, k, v)" @text="(l, v) => setText(m.header.cta, 'label', l, v)" />
     </div>
   </Panel>
 
-  <Panel title="Bouton d’action" sub="Bouton mis en avant à droite de la barre du haut (ex. « Me contacter »).">
-    <div class="menu-row">
-      <button type="button" role="switch" :aria-checked="!!m.header.cta.visible" class="switch-btn" @click="set(m.header.cta, 'visible', !m.header.cta.visible)">
-        <span class="switch" :class="{ on: !!m.header.cta.visible }"><span></span></span>{{ m.header.cta.visible ? 'Affiché' : 'Masqué' }}
-      </button>
-      <select class="ain" aria-label="Page" :value="m.header.cta.page" @change="set(m.header.cta, 'page', $event.target.value)">
-        <option v-for="p in PAGES" :key="p[0]" :value="p[0]">{{ p[1] }}</option>
-      </select>
-      <input v-if="m.header.cta.page === 'url'" class="ain" placeholder="https://… ou /fr/…" aria-label="Adresse" :value="m.header.cta.url" @input="set(m.header.cta, 'url', $event.target.value)">
-      <label class="lang-in"><span>FR</span><input class="ain" :value="(m.header.cta.label || {}).fr" @input="setText(m.header.cta, 'label', 'fr', $event.target.value)"></label>
-      <label class="lang-in"><span>EN</span><input class="ain" :value="(m.header.cta.label || {}).en" @input="setText(m.header.cta, 'label', 'en', $event.target.value)"></label>
-    </div>
-  </Panel>
-
-  <Panel v-for="(c, ci) in m.footer" :key="c.id" :title="'Pied de page · colonne ' + (ci + 1)" sub="Titre et liens de la colonne. Une colonne sans lien visible n’est pas affichée.">
+  <Panel v-for="(c, ci) in m.footer" :key="c.id" :title="'Pied de page · colonne ' + (ci + 1)" sub="Une colonne sans lien affiché n’apparaît pas sur le site.">
     <template #action>
       <div class="row gap4">
-        <button type="button" class="ibtn" aria-label="Déplacer à gauche" :disabled="ci === 0" @click="moveColumn(ci, -1)"><span class="ms">arrow_back</span></button>
-        <button type="button" class="ibtn" aria-label="Déplacer à droite" :disabled="ci === m.footer.length - 1" @click="moveColumn(ci, 1)"><span class="ms">arrow_forward</span></button>
-        <button type="button" class="ibtn" aria-label="Supprimer la colonne" title="Supprimer la colonne" @click="removeColumn(ci)"><span class="ms">delete</span></button>
+        <button type="button" class="gbtn" aria-label="Déplacer la colonne à gauche" title="Déplacer à gauche" :disabled="ci === 0" @click="moveColumn(ci, -1)"><span class="ms">arrow_back</span></button>
+        <button type="button" class="gbtn" aria-label="Déplacer la colonne à droite" title="Déplacer à droite" :disabled="ci === m.footer.length - 1" @click="moveColumn(ci, 1)"><span class="ms">arrow_forward</span></button>
+        <button type="button" class="gbtn danger" aria-label="Supprimer la colonne" title="Supprimer la colonne" @click="removeColumn(ci)"><span class="ms">delete</span></button>
       </div>
     </template>
-    <div class="menu-list">
-      <div class="menu-title">
-        <span class="fw6 fs13">Titre</span>
-        <label class="lang-in"><span>FR</span><input class="ain" :value="(c.title || {}).fr" @input="setText(c, 'title', 'fr', $event.target.value)"></label>
-        <label class="lang-in"><span>EN</span><input class="ain" :value="(c.title || {}).en" @input="setText(c, 'title', 'en', $event.target.value)"></label>
+    <div class="mtable">
+      <div class="mtitle">
+        <span>Titre de la colonne</span>
+        <input class="ain" aria-label="Titre FR" placeholder="Titre FR" :value="(c.title || {}).fr" @input="setText(c, 'title', 'fr', $event.target.value)">
+        <input class="ain" aria-label="Titre EN" placeholder="Titre EN" :value="(c.title || {}).en" @input="setText(c, 'title', 'en', $event.target.value)">
       </div>
-      <div v-for="(it, i) in c.items" :key="it.id" class="menu-row" :class="{ off: !it.visible }">
-        <div class="menu-move">
-          <button type="button" class="ibtn" aria-label="Monter" :disabled="i === 0" @click="move(c.items, i, -1)"><span class="ms">arrow_upward</span></button>
-          <button type="button" class="ibtn" aria-label="Descendre" :disabled="i === c.items.length - 1" @click="move(c.items, i, 1)"><span class="ms">arrow_downward</span></button>
-        </div>
-        <select class="ain" aria-label="Page" :value="it.page" @change="setPage(it, $event.target.value)">
-          <option v-for="p in PAGES" :key="p[0]" :value="p[0]">{{ p[1] }}</option>
-        </select>
-        <input v-if="it.page === 'url'" class="ain" placeholder="https://… ou /fr/…" aria-label="Adresse" :value="it.url" @input="set(it, 'url', $event.target.value)">
-        <label class="lang-in"><span>FR</span><input class="ain" :value="(it.label || {}).fr" @input="setText(it, 'label', 'fr', $event.target.value)"></label>
-        <label class="lang-in"><span>EN</span><input class="ain" :value="(it.label || {}).en" @input="setText(it, 'label', 'en', $event.target.value)"></label>
-        <button type="button" class="ibtn" :aria-label="it.visible ? 'Masquer' : 'Afficher'" :title="it.visible ? 'Masquer' : 'Afficher'" @click="set(it, 'visible', !it.visible)"><span class="ms">{{ it.visible ? 'visibility' : 'visibility_off' }}</span></button>
-        <button type="button" class="ibtn" aria-label="Retirer" title="Retirer" @click="remove(c.items, i)"><span class="ms">delete</span></button>
-      </div>
-      <button type="button" class="abtn self-start" @click="add(c.items)"><span class="ms">add</span>Ajouter un lien</button>
+      <div class="mhead" aria-hidden="true"><span></span><span>Page</span><span>Libellé FR</span><span>Libellé EN</span><span></span></div>
+      <MenuRow v-for="(it, i) in c.items" :key="it.id" :it="it" :pages="PAGES" :first="i === 0" :last="i === c.items.length - 1"
+        @page="setPage(it, $event)" @set="(k, v) => set(it, k, v)" @text="(l, v) => setText(it, 'label', l, v)" @move="move(c.items, i, $event)" @remove="remove(c.items, i)" />
+      <button type="button" class="abtn sm madd" @click="add(c.items)"><span class="ms">add</span>Ajouter un lien</button>
     </div>
   </Panel>
 
-  <div class="row-wrap gap8">
+  <div class="row-wrap center gap10">
     <button v-if="m.footer.length < 4" type="button" class="abtn" @click="addColumn"><span class="ms">view_column</span>Ajouter une colonne au pied de page</button>
-    <span class="sm-mu self-center">Les pages légales (mentions légales, CGU…) sont ajoutées automatiquement en bas du pied de page.</span>
+    <span class="sm-mu">Les pages légales (mentions légales, CGU…) s’ajoutent automatiquement en bas du pied de page.</span>
   </div>
 </template>
