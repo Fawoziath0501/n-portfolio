@@ -291,20 +291,20 @@
         "en": "Fullstack developer"
       },
       "summary": {
-        "fr": "Modules de l’application interne de gestion RH et de présence de MEGATECH : rôles, documents, tableaux de bord.",
-        "en": "Modules of MEGATECH’s internal HR and attendance application: roles, documents, dashboards."
+        "fr": "Application interne de gestion RH et de présence de MEGATECH : utilisateurs et rôles, présence, congés, stagiaires, statistiques.",
+        "en": "MEGATECH’s internal HR and attendance application: users and roles, attendance, leave, interns, statistics."
       },
       "context": {
-        "fr": "Présentia centralise la gestion RH et la présence des équipes au sein d’une même application interne.",
-        "en": "Présentia brings HR management and team attendance together in a single internal application."
+        "fr": "Présentia centralise la gestion des ressources humaines de MEGATECH : comptes et droits d’accès, départements, registre de présence, congés, suivi des stagiaires et de leurs conventions, documents d’accueil et indicateurs.",
+        "en": "Présentia brings MEGATECH’s HR management together: accounts and access rights, departments, attendance register, leave, intern follow-up and agreements, onboarding documents and indicators."
       },
       "problem": {
         "fr": "",
         "en": ""
       },
       "contribution": {
-        "fr": "Tâches et projets\nRôles et permissions dynamiques\nGestion documentaire\nDigitalisation des conventions de stage\nTableaux de bord et indicateurs clés\nTests automatisés\nRevues de sécurité",
-        "en": "Tasks and projects\nDynamic roles and permissions\nDocument management\nDigital internship agreements\nDashboards and key indicators\nAutomated tests\nSecurity reviews"
+        "fr": "Utilisateurs : création, modification, suppression, activation et désactivation, renvoi de l’invitation ou du lien d’activation, envoi d’un e-mail à un utilisateur, permissions individuelles\nRôles et permissions : création de rôles, activation et désactivation, attribution des permissions par rôle, liste des permissions\nDépartements : création, modification, suppression et gestion des membres\nRegistre de présence : consultation, saisie manuelle, export (Excel, Word et autres formats)\nCongés : liste, détail, validation ou refus, suppression, saisie d’un congé pour un employé\nStagiaires : liste, fiche, modification, renouvellement du stage, PDF de la convention, ajout et téléchargement des documents liés au stage\nModèle de convention de stage : en-tête et articles modifiables, avec aperçu\nRappel automatique : chaque jour à 8 h, une notification signale les stages qui se terminent bientôt\nStatistiques : tableau de bord, export Excel ou Word\nJournal d’activité : historique des actions effectuées dans l’application\nDocuments d’accueil : gestion des textes que les nouveaux employés doivent accepter\nParamètres : réglages généraux, logo, test d’envoi d’e-mail",
+        "en": "Users: create, edit, delete, activate and deactivate, resend the invitation or activation link, email a user, individual permissions\nRoles and permissions: create roles, activate and deactivate them, assign permissions per role, list of permissions\nDepartments: create, edit, delete and manage members\nAttendance register: view, manual entry, export (Excel, Word and other formats)\nLeave: list, details, approve or reject, delete, record leave for an employee\nInterns: list, profile, edit, renew the internship, agreement PDF, upload and download internship documents\nInternship agreement template: editable header and clauses, with preview\nAutomatic reminder: every day at 8 am, a notification flags internships ending soon\nStatistics: dashboard, Excel or Word export\nActivity log: history of actions performed in the application\nOnboarding documents: manage the texts new employees must accept\nSettings: general settings, logo, email sending test"
       },
       "solution": {
         "fr": "",
