@@ -154,7 +154,8 @@ class SeoPage
     {
         $this->found = true;
         $this->type = 'post';
-        $this->image = $this->absolute($p['cover'] ?? '');
+        // Couverture choisie, sinon image de partage générée aux couleurs du site.
+        $this->image = $this->absolute($p['cover'] ?? '') ?: $this->base.'/blog/'.$p['slug'].'/couverture-'.$this->lang.'.png';
         $this->alternates = ['fr' => '/fr/blog/'.$p['slug'], 'en' => '/en/blog/'.$p['slug']];
         $this->content['h1'] = $this->tx($p['title']);
         $this->content['intro'] = $this->tx($p['excerpt'] ?? '');

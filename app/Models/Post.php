@@ -24,7 +24,7 @@ class Post extends Model
 
     protected function casts(): array
     {
-        return ['title' => 'array', 'excerpt' => 'array', 'body' => 'array', 'date' => 'date:Y-m-d', 'read_min' => 'integer', 'views' => 'integer', 'published' => 'boolean'];
+        return ['title' => 'array', 'excerpt' => 'array', 'body' => 'array', 'date' => 'date:Y-m-d', 'read_min' => 'integer', 'views' => 'integer', 'published' => 'boolean', 'newsletter_sent_at' => 'datetime'];
     }
 
     protected static function booted(): void
@@ -56,6 +56,18 @@ class Post extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class)->withPivot('position')->orderByPivot('position');
+    }
+
+    /** Image de partage : la couverture choisie, sinon l’image générée aux couleurs du site (adresse absolue). */
+    public function shareImageUrl(string $lang = 'fr'): string
+    {
+        $base = rtrim((string) config('app.url'), '/');
+        $cover = $this->cover?->url;
+        if ($cover) {
+            return str_starts_with($cover, 'http') ? $cover : $base.'/'.ltrim($cover, '/');
+        }
+
+        return $base.'/blog/'.$this->slug.'/couverture-'.($lang === 'en' ? 'en' : 'fr').'.png';
     }
 
     /** Image de couverture (médiathèque). */

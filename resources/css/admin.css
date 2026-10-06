@@ -527,3 +527,5 @@ button.kpi { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .rte-content code { padding: 1px 5px; border-radius: 4px; background: var(--acs); font-family: 'JetBrains Mono', monospace; font-size: .9em; }
 .bk-list { list-style: none; margin: 0; padding: 0 20px 12px; }
 .bk-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--ln2); font-size: 14px; }
+.nl-send { padding: 20px; display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+.nl-select { flex: 1 1 320px; max-width: 560px; }

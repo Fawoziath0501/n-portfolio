@@ -94,14 +94,15 @@ class InteractionController extends Controller
             // Inscrit retiré qui revient : on restaure plutôt que de dupliquer.
             $existing->restore();
             $existing->update(['lang' => $v['lang'] ?? $existing->lang]);
+            $subscriber = $existing;
         } else {
-            Subscriber::create(['email' => $email, 'lang' => $v['lang'] ?? 'fr']);
+            $subscriber = Subscriber::create(['email' => $email, 'lang' => $v['lang'] ?? 'fr']);
         }
 
         // Confirmation d'inscription (activée par défaut).
         if (Setting::get('settings')['welcomeSubscriber'] ?? true) {
             MailSettings::apply();
-            $this->sendQuietly($email, new WelcomeSubscriberMail($v['lang'] ?? 'fr'), 'Confirmation d’inscription');
+            $this->sendQuietly($email, new WelcomeSubscriberMail($subscriber->lang, $subscriber), 'Confirmation d’inscription');
         }
 
         return response()->json(['ok' => true], 201);

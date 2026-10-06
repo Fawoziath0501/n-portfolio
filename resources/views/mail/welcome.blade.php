@@ -19,10 +19,11 @@
   </td></tr>
 </table>
 <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#55607A;">
-  {{ $en ? 'You can unsubscribe at any time: simply reply to this email.' : 'Vous pouvez vous désinscrire à tout moment : il suffit de répondre à cet e-mail.' }}
+  @if($unsubscribe){{ $en ? 'You can unsubscribe at any time in one click, using the link at the bottom of each email.' : 'Vous pouvez vous désinscrire à tout moment, en un clic, grâce au lien en bas de chaque e-mail.' }}@else{{ $en ? 'You can unsubscribe at any time: simply reply to this email.' : 'Vous pouvez vous désinscrire à tout moment : il suffit de répondre à cet e-mail.' }}@endif
 </p>
 @endsection
 
 @section('footer')
 {{ $en ? 'You receive this email because this address was subscribed to the newsletter on '.$me['host'].'. If it was not you, simply reply and it will be removed.' : 'Vous recevez cet e-mail car cette adresse a été inscrite à la newsletter sur '.$me['host'].'. Si ce n’est pas vous, répondez simplement et elle sera retirée.' }}
+@if($unsubscribe)<br><a href="{{ $unsubscribe }}" style="color:#7A859C;">{{ $en ? 'Unsubscribe in one click' : 'Se désabonner en un clic' }}</a>@endif
 @endsection

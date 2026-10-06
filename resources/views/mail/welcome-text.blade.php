@@ -23,3 +23,7 @@ Bien cordialement,
 {{ $me['name'] }}
 {{ $me['title'] }}{{ $me['location'] ? ' · '.$me['location'] : '' }}
 {{ $me['site'] }}
+@if($unsubscribe)
+
+{{ $en ? 'Unsubscribe in one click' : 'Se désabonner en un clic' }} : {{ $unsubscribe }}
+@endif

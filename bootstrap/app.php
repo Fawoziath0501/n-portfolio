@@ -13,6 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn () => '/'.config('portfolio.admin.path'));
         $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+        // Désinscription en un clic depuis Gmail / Outlook (POST sans jeton CSRF, protégée par la signature du lien).
+        $middleware->validateCsrfTokens(except: ['newsletter/desinscription/*']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

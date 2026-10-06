@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\StatsController;
 use App\Http\Controllers\Admin\TrashController;
 use App\Http\Controllers\CertificatePreviewController;
 use App\Http\Controllers\InteractionController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PostCoverController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,6 +68,7 @@ Route::prefix('api')->group(function () {
 
             Route::get('export', [BackupController::class, 'export']);
             Route::post('import', [BackupController::class, 'import']);
+            Route::post('newsletter/{post}', [NewsletterController::class, 'send'])->middleware('throttle:5,1,newsletter');
             Route::get('backups', [BackupController::class, 'archives']);
             Route::post('backups', [BackupController::class, 'createArchive'])->middleware('throttle:6,1,backup');
             Route::get('backups/{name}', [BackupController::class, 'downloadArchive']);
@@ -82,6 +85,8 @@ Route::prefix('api')->group(function () {
 
 Route::get('sitemap.xml', [SiteController::class, 'sitemap']);
 // Aperçu filigrané d'un certificat (le fichier original n'est jamais exposé).
+Route::match(['get', 'post'], 'newsletter/desinscription/{subscriber}', [NewsletterController::class, 'unsubscribe'])->whereNumber('subscriber')->middleware(['signed:relative', 'throttle:30,1,unsubscribe'])->name('newsletter.unsubscribe');
+Route::get('blog/{slug}/couverture-{lang}.png', [PostCoverController::class, 'show'])->where('lang', 'fr|en')->middleware('throttle:60,1,postcover');
 Route::get('certificats/{certification}/apercu.jpg', [CertificatePreviewController::class, 'show'])->whereNumber('certification')->middleware('throttle:60,1,certpreview');
 Route::get('robots.txt', [SiteController::class, 'robots']);
 
