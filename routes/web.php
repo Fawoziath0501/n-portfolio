@@ -21,6 +21,7 @@ Route::prefix('api')->group(function () {
     Route::post('messages', [InteractionController::class, 'message'])->middleware('throttle:6,1');
     Route::post('subscribers', [InteractionController::class, 'subscribe'])->middleware('throttle:6,1');
     Route::post('track', [InteractionController::class, 'track'])->middleware('throttle:120,1');
+    Route::post('posts/{slug}/view', [InteractionController::class, 'postView'])->middleware('throttle:30,1');
 
     Route::prefix('admin')->group(function () {
         Route::get('me', [AuthController::class, 'me']);

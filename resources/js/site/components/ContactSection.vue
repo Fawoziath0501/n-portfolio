@@ -30,7 +30,7 @@ import SocialIcon from '../../shared/SocialIcon.vue';
           <p v-if="state.fs === 'sent'" role="status" class="sent"><span class="ms">check_circle</span>{{ vm.L.sent }}</p>
           <p v-if="state.fs === 'failed'" role="alert" class="fld-err">{{ vm.L.errSend }}</p>
         </div>
-        <p class="form-note">{{ vm.L.formPrivacy }} <RouterLink :to="vm.hrefs.privacy">{{ vm.L.privacyLink }}</RouterLink></p>
+        <p class="form-note">{{ vm.L.formPrivacy }} <RouterLink v-if="vm.privacyHref" :to="vm.privacyHref">{{ vm.L.privacyLink }}</RouterLink></p>
       </form>
 
       <aside class="contact-aside">

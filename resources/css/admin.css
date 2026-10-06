@@ -371,3 +371,15 @@ button.kpi { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .rte-content a { color: var(--ac); text-decoration: underline; }
 .rte-content p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: var(--mu); float: left; height: 0; pointer-events: none; }
 .rich-pair { display: flex; flex-direction: column; gap: 10px; }
+
+/* Menus */
+.menu-list { display: flex; flex-direction: column; gap: 10px; padding: 4px 0; }
+.menu-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--ln); border-radius: 10px; background: var(--sf); }
+.menu-row.off { opacity: .55; }
+.menu-row > select.ain { width: 210px; flex: 0 0 auto; }
+.menu-row > input.ain { flex: 1 1 200px; width: auto; }
+.menu-row .lang-in { flex: 1 1 170px; display: flex; align-items: center; gap: 6px; }
+.menu-move { display: flex; gap: 2px; }
+.menu-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.menu-title .lang-in { flex: 1 1 200px; display: flex; align-items: center; gap: 6px; }
+.self-center { align-self: center; }

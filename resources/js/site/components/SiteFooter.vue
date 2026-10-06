@@ -2,6 +2,7 @@
 import { state, subscribe, vm } from '../store';
 import { reducedMotion } from '../../shared/util';
 import SocialIcon from '../../shared/SocialIcon.vue';
+import MenuLink from './MenuLink.vue';
 
 const toTop = () => window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
 const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' ? vm.value.L.nlDup : vm.value.L.nlErr);
@@ -23,7 +24,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
             <button type="submit" class="nl-btn">{{ vm.L.nlCta }}</button>
           </div>
           <p v-if="state.nls" role="status" class="nl-msg" :style="{ color: state.nls === 'ok' ? '#8FA3E8' : '#F0A39C' }">{{ nlMsg() }}</p>
-          <p class="nl-note">{{ vm.L.nlPrivacy }} <RouterLink :to="vm.hrefs.privacy">{{ vm.L.privacyLink }}</RouterLink></p>
+          <p class="nl-note">{{ vm.L.nlPrivacy }} <RouterLink v-if="vm.privacyHref" :to="vm.privacyHref">{{ vm.L.privacyLink }}</RouterLink></p>
         </form>
       </div>
 
@@ -35,13 +36,9 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
             <a v-for="so in vm.socials" :key="so.label" :href="so.url" target="_blank" rel="noopener" :aria-label="so.label" :title="so.label" class="ftr-soc"><SocialIcon :url="so.url" :label="so.label" :size="18" /></a>
           </div>
         </div>
-        <nav :aria-label="vm.L.footNav" class="ftr-col">
-          <h2>{{ vm.L.footNavTitle }}</h2>
-          <RouterLink v-for="n in vm.navItems" :key="n.key" :to="n.href"><span>›</span>{{ n.label }}</RouterLink>
-        </nav>
-        <nav :aria-label="vm.L.resources" class="ftr-col">
-          <h2>{{ vm.L.resources }}</h2>
-          <RouterLink v-for="n in vm.resItems" :key="n.label" :to="n.href"><span>›</span>{{ n.label }}</RouterLink>
+        <nav v-for="fc in vm.footerCols" :key="fc.id" :aria-label="fc.title || vm.L.footNav" class="ftr-col">
+          <h2 v-if="fc.title">{{ fc.title }}</h2>
+          <MenuLink v-for="n in fc.items" :key="n.key" :item="n"><span>›</span>{{ n.label }}</MenuLink>
         </nav>
         <div class="ftr-col">
           <h2>{{ vm.L.footContactTitle }}</h2>
@@ -56,7 +53,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
       <div class="ftr-bottom">
         <span>© {{ vm.year }} {{ vm.brand.full }} · {{ vm.L.rights }}</span>
         <div class="row center gap16">
-          <RouterLink :to="vm.hrefs.privacy" class="ftr-link">{{ vm.L.privacyLink }}</RouterLink>
+          <nav :aria-label="vm.L.legalNav" class="ftr-legal"><RouterLink v-for="lg in vm.legalLinks" :key="lg.id" :to="lg.href" class="ftr-link">{{ lg.label }}</RouterLink></nav>
           <button type="button" class="ftr-top ms" :aria-label="vm.L.toTop" @click="toTop">arrow_upward</button>
         </div>
       </div>

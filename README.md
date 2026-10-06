@@ -1,4 +1,4 @@
-# Portfolio · Fawoziath Modjissola Salou
+# Portfolio · Fawoziath Modjissola SALOU
 
 Portfolio bilingue (FR / EN) et son espace d'administration, réalisés avec **Laravel 12** et **Vue 3**,
 d'après les maquettes du dossier [`design/`](design/).
@@ -6,8 +6,11 @@ d'après les maquettes du dossier [`design/`](design/).
 ## Fonctionnalités
 
 **Site public** (`/fr`, `/en`)
-- Accueil, À propos (méthode, parcours, langues, compétences), Projets avec filtres et études de cas, Services, Blog, Contact,
-  Politique de confidentialité (`/fr/confidentialite`, `/en/privacy`), liée depuis le pied de page et les formulaires
+- Accueil, À propos (méthode, parcours, langues, compétences), Projets avec filtres et études de cas, Services, Contact
+- Blog : filtres par thème, recherche, tri (récents / plus lus), page de détail par article (`/fr/blog/{slug}`)
+  avec temps de lecture et compteur de lectures
+- Pages légales (mentions légales, confidentialité, CGU, cookies…) liées en bas de chaque page et sous les formulaires
+- Menus de la barre du haut et du pied de page définis dans l’administration
 - Logos officiels des réseaux sociaux (déduits de l’adresse du lien)
 - Formulaire de contact et demande de service (enregistrés en base, notification e-mail facultative)
 - Inscription à la newsletter, sélecteur de langue, menu mobile
@@ -22,8 +25,10 @@ d'après les maquettes du dossier [`design/`](design/).
 - Gestion des projets, articles, expériences, formations, services, certifications, témoignages : ajout, modification,
   publication, mise en avant, duplication, réordonnancement, suppression
 - Compétences, sections de l'accueil, profil et réseaux, SEO & partage, paramètres (maintenance, notifications)
+- Menus (liens de la barre du haut, bouton d’action, colonnes du pied de page) et pages légales (adresse FR / EN,
+  contenu, publication), avec les variables {name}, {email}, {site}
 - Éditeur de texte enrichi (Tiptap) pour les textes longs : biographie, contexte / enjeu / résultat des projets,
-  descriptions des expériences et services, politique de confidentialité. Le HTML est nettoyé côté serveur
+  descriptions des expériences et services, contenu des articles, pages légales. Le HTML est nettoyé côté serveur
   (`App\Support\RichText`, symfony/html-sanitizer) avant l’enregistrement
 - Médiathèque (import d'images / PDF), sauvegarde et restauration JSON, thème clair / sombre
 
@@ -132,9 +137,9 @@ erDiagram
     users ||--o{ activities : "journal admin"
 ```
 
-Autres tables : `education`, `certifications`, `home_sections` (ordre et affichage des sections de l'accueil),
+Autres tables : `education`, `certifications`, `legal_pages` (pages légales), `home_sections` (ordre et affichage des sections de l'accueil),
 `subscribers`, `events` (suivi d'audience sans cookie), `ui_labels` (textes de l'interface, FR / EN),
-`settings` (nom du site, SEO, statistiques, notifications, maintenance).
+`settings` (nom du site, SEO, menus, statistiques, notifications, maintenance).
 Les champs traduisibles sont stockés en JSON `{ "fr": "…", "en": "…" }`.
 
 ## Corbeille (soft delete)

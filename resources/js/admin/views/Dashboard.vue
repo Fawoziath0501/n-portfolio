@@ -35,7 +35,7 @@ const kpis = computed(() => {
 });
 
 // État des contenus : publiés, brouillons et mis en avant, par type.
-const contentRows = computed(() => ['projects', 'posts', 'services', 'experiences', 'certifications', 'testimonials']
+const contentRows = computed(() => ['projects', 'posts', 'services', 'experiences', 'certifications', 'testimonials', 'legalPages']
   .filter((k) => COLS[k] && state.data[k])
   .map((k) => {
     const items = state.data[k], hasPub = items.some((x) => 'published' in x);
@@ -50,20 +50,23 @@ const contentRows = computed(() => ['projects', 'posts', 'services', 'experience
 const health = computed(() => {
   const d = state.data, pr = d.profile, pub = d.projects.filter((x) => x.published);
   const noImg = pub.filter((x) => !(x.images || []).length).length, noYear = pub.filter((x) => !x.year).length, noTech = pub.filter((x) => !(x.tech || []).length).length;
-  const postsNoUrl = (d.posts || []).filter((x) => x.published && !x.url).length;
-  const miss = (d.labels || []).filter((l) => l.fr && !l.en).length + missingEn({ profile: d.profile, projects: d.projects, experiences: d.experiences, services: d.services, education: d.education, posts: d.posts, seo: d.seo });
+  const postsNoUrl = (d.posts || []).filter((x) => x.published && !(x.body && (x.body.fr || x.body.en)) && !x.url).length;
+  const miss = (d.labels || []).filter((l) => l.fr && !l.en).length + missingEn({ profile: d.profile, projects: d.projects, experiences: d.experiences, services: d.services, education: d.education, posts: d.posts, legalPages: d.legalPages, seo: d.seo });
   const noSource = !isLocal() && !(d.settings.analytics && d.settings.analytics.siteId);
+  const lg = (d.legalPages || []).find((x) => x.key === 'legal');
+  const legalOk = !!lg && lg.published && !/\[(À compléter|To be completed)/.test(JSON.stringify(lg.body || {}));
   const items = [
     { label: 'Portrait professionnel', done: !!pr.photo, go: 'profile' },
     { label: 'CV en PDF', done: !!pr.cv, go: 'profile' },
     { label: 'Captures des projets', done: !noImg, detail: noImg ? noImg + ' projet(s) sans capture' : '', go: 'projects' },
     { label: 'Années des projets', done: !noYear, detail: noYear ? noYear + ' projet(s) sans année' : '', go: 'projects' },
     { label: 'Technologies des projets', done: !noTech, detail: noTech ? noTech + ' projet(s) sans stack' : '', go: 'projects' },
-    { label: 'Texte complet des articles', done: !postsNoUrl, detail: postsNoUrl ? postsNoUrl + ' article(s) sans lien' : '', go: 'posts' },
+    { label: 'Texte complet des articles', done: !postsNoUrl, detail: postsNoUrl ? postsNoUrl + ' article(s) sans contenu ni lien' : '', go: 'posts' },
     { label: 'Traductions anglaises', done: !miss, detail: miss ? miss + ' champ(s) sans traduction EN' : '', go: 'projects' },
     { label: 'Image de partage (réseaux sociaux)', done: !!(d.seo && d.seo.ogImage), go: 'seo' },
     { label: 'Source de statistiques connectée', done: !noSource, detail: noSource ? 'Recommandé : suivi intégré ou Umami + Search Console' : '', go: 'settings' },
     { label: 'Témoignages réels', done: (d.testimonials || []).some((x) => x.published), go: 'testimonials' },
+    { label: 'Mentions légales publiées et complètes', done: legalOk, detail: legalOk ? '' : 'Coordonnées de l’hébergeur à compléter, puis publier la page', go: 'legalPages' },
   ];
   const doneN = items.filter((x) => x.done).length;
   return { w: Math.round(doneN / items.length * 100) + '%', label: doneN + ' sur ' + items.length + ' éléments complétés', items: items.sort((a, b) => (a.done ? 1 : 0) - (b.done ? 1 : 0)) };

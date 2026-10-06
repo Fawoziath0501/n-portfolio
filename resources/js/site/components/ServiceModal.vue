@@ -62,7 +62,7 @@ const backdrop = (e) => { if (e.target === e.currentTarget) closeSvc(); };
           <textarea name="svc-message" rows="5" :value="sv.message" :placeholder="L.svcNeedPh" :aria-invalid="!!err.message" :class="{ bad: err.message }" @input="set('message', $event.target.value)"></textarea>
           <span v-if="err.message" role="alert" class="fld-err">{{ err.message }}</span>
         </label>
-        <p class="form-note">{{ L.formPrivacy }} <RouterLink :to="vm.hrefs.privacy" @click="closeSvc">{{ L.privacyLink }}</RouterLink></p>
+        <p class="form-note">{{ L.formPrivacy }} <RouterLink v-if="vm.privacyHref" :to="vm.privacyHref" @click="closeSvc">{{ L.privacyLink }}</RouterLink></p>
         <div class="svc-actions">
           <button type="button" class="btn btn-ghost" @click="closeSvc">{{ L.cancel }}</button>
           <button type="submit" class="btn btn-primary" :disabled="state.svcFs === 'sending'"><span class="ms">send</span>{{ state.svcFs === 'sending' ? L.svcSending : L.svcSend }}</button>

@@ -1,23 +1,21 @@
 <?php
 
-use App\Models\Setting;
+use App\Models\Profile;
 use App\Models\UiLabel;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Politique de confidentialité (réglage « privacy », éditable dans l'administration)
- * et textes d'interface associés, ajoutés aux sites déjà installés sans toucher au contenu existant.
- * Le lien « Admin » du pied de page public est retiré.
+ * Textes d'interface des pages légales (lien du pied de page, mentions sous les formulaires),
+ * ajoutés aux sites déjà installés. Le lien « Admin » du pied de page public est retiré.
+ * Les pages elles-mêmes sont dans la table legal_pages (migration suivante).
  */
 return new class extends Migration
 {
     public function up(): void
     {
-        $data = json_decode(file_get_contents(database_path('seeders/data/portfolio.json')), true);
-        if (! Setting::find('privacy')) {
-            Setting::put('privacy', $data['privacy']);
+        if (! Profile::query()->exists()) {
+            return; // installation neuve : le seeder crée les textes
         }
-
         foreach (json_decode(file_get_contents(database_path('seeders/data/labels.json')), true) as $i => $label) {
             UiLabel::firstOrCreate(['key' => $label['key']], $label + ['position' => $i]);
         }
@@ -26,7 +24,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Setting::whereKey('privacy')->delete();
         UiLabel::whereIn('key', ['privacyLink', 'privacyUpdated', 'formPrivacy', 'nlPrivacy'])->delete();
     }
 };

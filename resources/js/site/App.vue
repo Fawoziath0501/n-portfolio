@@ -20,7 +20,8 @@ import ContactSection from './components/ContactSection.vue';
 import CtaBand from './components/CtaBand.vue';
 import SkillMarquee from './components/SkillMarquee.vue';
 import SiteFooter from './components/SiteFooter.vue';
-import PrivacyPage from './components/PrivacyPage.vue';
+import LegalPage from './components/LegalPage.vue';
+import PostPage from './components/PostPage.vue';
 
 const onScroll = () => {
     const mh = document.documentElement.scrollHeight - window.innerHeight;
@@ -33,12 +34,15 @@ const onResize = () => { state.w = window.innerWidth; };
 function meta() {
     const d = state.data;
     document.documentElement.lang = state.lang;
-    const p = state.route === 'project' && d.projects.find((x) => x.slug === state.slug);
+    // Projet, article ou page légale : son propre titre ; sinon le titre du site.
+    const item = (state.route === 'project' && d.projects.find((x) => x.slug === state.slug))
+        || (state.route === 'post' && (d.posts || []).find((x) => x.slug === state.slug))
+        || (state.route === 'legal' && (d.legalPages || []).find((x) => x.id === state.slug));
     const owner = [d.profile.firstName, d.profile.lastName].join(' ');
-    const pol = state.route === 'privacy' && d.privacy;
-    document.title = p ? tx(p.title, state.lang) + ' | ' + owner : pol ? tx(pol.title, state.lang) + ' | ' + owner : tx(d.seo.siteTitle, state.lang);
+    document.title = item ? tx(item.title, state.lang) + ' | ' + owner : tx(d.seo.siteTitle, state.lang);
     const m = document.querySelector('meta[name="description"]');
-    if (m) m.content = p ? tx(p.summary, state.lang) : tx(d.seo.metaDescription, state.lang);
+    const summary = item && tx(item.summary || item.excerpt, state.lang);
+    if (m) m.content = summary || tx(d.seo.metaDescription, state.lang);
 }
 
 // Apparition douce des blocs [data-reveal] au défilement.
@@ -100,7 +104,8 @@ onBeforeUnmount(() => {
       <Testimonials v-if="vm.showTesti" />
       <CaseStudy v-if="vm.isProject" />
       <ContactSection v-if="vm.isContact" />
-      <PrivacyPage v-if="vm.isPrivacy" />
+      <LegalPage v-if="vm.isLegal" />
+      <PostPage v-if="vm.isPost" />
       <CtaBand v-if="vm.showCta" />
       <SkillMarquee />
     </main>

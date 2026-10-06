@@ -13,6 +13,7 @@ import Collection from './views/Collection.vue';
 import Skills from './views/Skills.vue';
 import HomeSections from './views/HomeSections.vue';
 import FormView from './views/FormView.vue';
+import Menus from './views/Menus.vue';
 import MediaLib from './views/MediaLib.vue';
 import Trash from './views/Trash.vue';
 import Labels from './views/Labels.vue';
@@ -47,7 +48,7 @@ const groups = computed(() => {
     { label: 'Pilotage', items: [it('dashboard', 'Tableau de bord', 'space_dashboard'), it('stats', 'Statistiques', 'monitoring')] },
     { label: 'Échanges', items: [it('messages', 'Messages', 'mail', newCount), it('newsletter', 'Newsletter', 'mark_email_unread', (d.subscribers || []).length)] },
     { label: 'Contenu', items: [it('projects', 'Projets', 'grid_view'), it('posts', 'Blog', 'article'), it('experiences', 'Expériences', 'work_history'), it('education', 'Formation', 'school'), it('skills', 'Compétences', 'bolt'), it('services', 'Services', 'design_services'), it('certifications', 'Certifications', 'verified'), it('testimonials', 'Témoignages', 'format_quote')] },
-    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('privacy', 'Confidentialité', 'shield_person'), it('labels', 'Textes du site', 'translate'), it('settings', 'Paramètres', 'settings'), it('trash', 'Corbeille', 'delete', d.trashCount)] },
+    { label: 'Site', items: [it('profile', 'Mon profil', 'person'), it('media', 'Médiathèque', 'perm_media'), it('home', 'Page d’accueil', 'home'), it('seo', 'SEO & partage', 'travel_explore'), it('menus', 'Menus', 'menu'), it('legalPages', 'Pages légales', 'gavel'), it('labels', 'Textes du site', 'translate'), it('settings', 'Paramètres', 'settings'), it('trash', 'Corbeille', 'delete', d.trashCount)] },
   ];
 });
 
@@ -61,9 +62,10 @@ const META = {
   profile: ['Site', 'Mon profil', 'Mon profil', 'Identité, présentation, coordonnées et liens.'],
   home: ['Site', 'Page d’accueil', 'Page d’accueil', 'Activez ou masquez les sections de l’accueil.'],
   seo: ['Site', 'SEO & partage', 'SEO & partage', 'Titres, descriptions et image de partage, en FR et en EN.'],
-  privacy: ['Site', 'Confidentialité', 'Politique de confidentialité', 'Texte affiché sur la page publique, en FR et en EN.'],
+  menus: ['Site', 'Menus', 'Menus du site', 'Liens de la barre du haut, bouton d’action et colonnes du pied de page, en FR et en EN.'],
+  legalPages: ['Site', 'Pages légales', 'Pages légales', 'Mentions légales, confidentialité, CGU, cookies… Liées en bas de chaque page du site. Variables : {name}, {email}, {site}.'],
   settings: ['Site', 'Paramètres', 'Paramètres', 'Source des statistiques, notifications et réglages du site.'],
-  labels: ['Site', 'Textes du site', 'Textes du site', 'Menus, titres de sections, formulaires et messages du site public, en FR et en EN.'],
+  labels: ['Site', 'Textes du site', 'Textes du site', 'Titres de sections, formulaires et messages du site public, en FR et en EN (les menus ont leur propre écran).'],
   trash: ['Site', 'Corbeille', 'Corbeille', 'Éléments supprimés : restaurez-les ou supprimez-les définitivement.'],
 };
 const col = computed(() => COLS[state.view]);
@@ -83,7 +85,7 @@ const exportCsv = () => {
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 };
-const autosave = computed(() => !mobile.value && ['profile', 'seo', 'privacy', 'settings', 'skills', 'home', 'labels'].includes(state.view));
+const autosave = computed(() => !mobile.value && ['profile', 'seo', 'settings', 'skills', 'home', 'labels', 'menus'].includes(state.view));
 const confirmYes = () => { const ok = state.confirm && state.confirm.ok; state.confirm = null; if (ok) ok(); };
 const doLogout = async () => { await logout(); router.push('/admin'); };
 </script>
@@ -150,6 +152,7 @@ const doLogout = async () => { await logout(); router.push('/admin'); };
             <MediaLib v-else-if="state.view === 'media'" />
             <Trash v-else-if="state.view === 'trash'" />
             <Labels v-else-if="state.view === 'labels'" />
+            <Menus v-else-if="state.view === 'menus'" />
             <FormView v-else :key="state.view" :doc="state.view" />
           </main>
         </div>

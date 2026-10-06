@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\LegalPage;
 use App\Models\Profile;
 use App\Models\Setting;
 use App\Models\UiLabel;
@@ -37,6 +38,11 @@ class DatabaseSeeder extends Seeder
                     Setting::put($key, $data[$key]);
                 }
             }
+            if (! LegalPage::withTrashed()->exists()) {
+                foreach ($data['legalPages'] as $i => $page) {
+                    (new LegalPage)->forceFill(['key' => $page['key']])->saveFromFront($page + ['position' => $i]);
+                }
+            }
             $this->command?->info('Site déjà installé : contenu conservé, nouveaux textes et réglages ajoutés.');
 
             return;
@@ -61,7 +67,9 @@ class DatabaseSeeder extends Seeder
                     $item['code'] = $item['id'];
                 }
                 unset($item['id']);
-                (new $model)->saveFromFront($item + ['position' => $i]);
+                // Pages légales : « key » (page système) n'est pas modifiable depuis l'administration, donc hors $fillable.
+                $record = $key === 'legalPages' ? (new $model)->forceFill(['key' => $item['key'] ?? null]) : new $model;
+                $record->saveFromFront($item + ['position' => $i]);
             }
         }
     }

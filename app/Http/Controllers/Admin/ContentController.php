@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Profile;
-use App\Models\Project;
 use App\Models\Setting;
+use App\Support\Menus;
 use App\Support\Portfolio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -79,7 +80,8 @@ class ContentController extends Controller
         match ($key) {
             'profile' => $this->saveProfile($value),
             'home' => Portfolio::saveHome($value),
-            'seo', 'settings', 'privacy' => Portfolio::saveSetting($key, $value),
+            'seo', 'settings' => Setting::put($key, $value),
+            'menus' => Setting::put('menus', Menus::clean($value)),
             default => abort(404),
         };
         Activity::log($request->input('activity'));
@@ -99,20 +101,37 @@ class ContentController extends Controller
     }
 
     /** Le slug d'un projet reste unique, corbeille comprise (sinon la restauration échouerait). */
+    /** Champs d'adresse (slug) par collection, uniques entre eux et réservés aux pages du site. */
+    private const SLUG_FIELDS = ['projects' => ['slug'], 'posts' => ['slug'], 'legalPages' => ['slugFr', 'slugEn']];
+
+    /** Segments déjà utilisés par le site : une page légale ne peut pas les prendre. */
+    private const RESERVED = ['a-propos', 'about', 'projets', 'work', 'services', 'contact', 'blog', 'admin', 'api', 'storage'];
+
     private function checkSlug(string $collection, array $data, ?int $ignoreId = null): void
     {
-        if ($collection !== 'projects' || ! array_key_exists('slug', $data)) {
-            return;
-        }
-        $slug = trim((string) $data['slug']);
-        if (! preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)) {
-            throw ValidationException::withMessages(['slug' => 'Le slug ne doit contenir que des minuscules, chiffres et tirets.']);
-        }
-        $taken = Project::withTrashed()->where('slug', $slug)->when($ignoreId, fn ($q) => $q->whereKeyNot($ignoreId))->first();
-        if ($taken) {
-            throw ValidationException::withMessages(['slug' => $taken->trashed()
-                ? 'Ce slug est utilisé par un projet dans la corbeille. Restaurez-le ou supprimez-le définitivement.'
-                : 'Ce slug est déjà utilisé par un autre projet.']);
+        $model = Portfolio::COLLECTIONS[$collection];
+        foreach (self::SLUG_FIELDS[$collection] ?? [] as $field) {
+            if (! array_key_exists($field, $data)) {
+                continue;
+            }
+            $slug = trim((string) $data[$field]);
+            if ($slug === '' && $collection === 'posts') {
+                continue; // article : adresse générée depuis le titre
+            }
+            if (! preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)) {
+                throw ValidationException::withMessages([$field => 'L’adresse ne doit contenir que des minuscules, chiffres et tirets.']);
+            }
+            if ($collection === 'legalPages' && in_array($slug, self::RESERVED, true)) {
+                throw ValidationException::withMessages([$field => 'Cette adresse est déjà utilisée par une page du site.']);
+            }
+            $columns = array_map(fn ($f) => Str::snake($f), self::SLUG_FIELDS[$collection]);
+            $taken = $model::withTrashed()->where(fn ($q) => array_map(fn ($c) => $q->orWhere($c, $slug), $columns))
+                ->when($ignoreId, fn ($q) => $q->whereKeyNot($ignoreId))->first();
+            if ($taken) {
+                throw ValidationException::withMessages([$field => $taken->trashed()
+                    ? 'Cette adresse est utilisée par un élément dans la corbeille. Restaurez-le ou supprimez-le définitivement.'
+                    : 'Cette adresse est déjà utilisée par un autre élément.']);
+            }
         }
     }
 

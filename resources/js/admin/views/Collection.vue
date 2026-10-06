@@ -11,7 +11,7 @@ const rows = computed(() => {
   return arr.value.map((x, i) => ({ x, i })).filter(({ x }) => !q || (col.title(x) + ' ' + col.meta(x)).toLowerCase().includes(q));
 });
 const count = computed(() => arr.value.length + ' élément(s) · ' + arr.value.filter((x) => x.published).length + ' publié(s)');
-const preview = (x) => '/fr/' + (v === 'projects' ? 'projets/' + x.slug : v === 'posts' ? 'blog' : 'services');
+const preview = (x) => '/fr/' + (v === 'projects' ? 'projets/' + x.slug : v === 'posts' ? 'blog/' + x.slug : v === 'legalPages' ? x.slugFr : 'services');
 
 const move = (i, dir) => {
   const j = i + dir;
@@ -22,7 +22,7 @@ const update = (x, patch, msg) => save(() => { Object.assign(x, patch); }, msg, 
 const dup = (x, i) => {
   const c = JSON.parse(JSON.stringify(x));
   c.published = false;
-  if (c.slug) c.slug += '-copie';
+  ['slug', 'slugFr', 'slugEn'].forEach((k) => { if (c[k]) c[k] += '-copie'; });
   save(() => {}, 'Élément dupliqué', async () => { const created = await createItem(v, c, i + 1, 'Élément dupliqué'); state.data[v].splice(i + 1, 0, created); });
 };
 const del = (x) => ask('Placer « ' + (col.title(x) || 'cet élément') + ' » dans la corbeille ?', TRASH_HINT, () =>
@@ -55,7 +55,7 @@ const edit = (x) => { state.edit = { col: v, isNew: false, draft: JSON.parse(JSO
         <button type="button" class="ibtn" :aria-label="x.published ? 'Dépublier' : 'Publier'" :title="x.published ? 'Dépublier' : 'Publier'" @click="update(x, { published: !x.published }, x.published ? 'Passé en brouillon' : 'Publié')"><span class="ms">{{ x.published ? 'visibility' : 'visibility_off' }}</span></button>
         <button type="button" class="ibtn" aria-label="Dupliquer" title="Dupliquer" @click="dup(x, i)"><span class="ms">content_copy</span></button>
         <button type="button" class="ibtn red" aria-label="Mettre à la corbeille" title="Mettre à la corbeille" @click="del(x)"><span class="ms">delete</span></button>
-        <a v-if="['projects', 'posts', 'services'].includes(v) && x.published" :href="preview(x)" target="_blank" rel="noopener" class="ibtn" aria-label="Voir sur le site" title="Voir sur le site"><span class="ms">open_in_new</span></a>
+        <a v-if="['projects', 'posts', 'services', 'legalPages'].includes(v) && x.published" :href="preview(x)" target="_blank" rel="noopener" class="ibtn" aria-label="Voir sur le site" title="Voir sur le site"><span class="ms">open_in_new</span></a>
         <button type="button" class="abtn xs" @click="edit(x)"><span class="ms">edit</span>Modifier</button>
       </span>
     </div>

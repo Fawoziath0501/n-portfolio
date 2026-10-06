@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Profile;
 use App\Models\Setting;
 use App\Models\UiLabel;
+use App\Support\Menus;
 use App\Support\Portfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\DB;
 /** Export / import JSON de tout le contenu éditorial (relations comprises). */
 class BackupController extends Controller
 {
+    /** Colonnes uniques par collection (clé front => colonne), corbeille comprise. */
+    private const UNIQUE = [
+        'projects' => ['slug' => 'slug'],
+        'posts' => ['slug' => 'slug'],
+        'legalPages' => ['slugFr' => 'slug_fr', 'slugEn' => 'slug_en', 'key' => 'key'],
+    ];
+
     public function export()
     {
         $data = Portfolio::admin();
@@ -40,7 +48,7 @@ class BackupController extends Controller
             }
             foreach (Portfolio::SETTINGS as $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
-                    Portfolio::saveSetting($key, $data[$key]);
+                    Setting::put($key, $key === 'menus' ? Menus::clean($data[$key]) : $data[$key]);
                 }
             }
             foreach (Portfolio::COLLECTIONS as $key => $model) {
@@ -50,12 +58,25 @@ class BackupController extends Controller
                 $model::query()->get()->each->delete();
                 foreach (array_values($data[$key]) as $i => $item) {
                     unset($item['id']);
-                    if ($key === 'projects') {
-                        // Libère le slug d'un projet en corbeille en le renommant : il reste restaurable.
-                        $model::onlyTrashed()->where('slug', $item['slug'] ?? '')->get()
-                            ->each(fn ($p) => $p->forceFill(['slug' => $p->slug.'-'.$p->id.'-ancien'])->saveQuietly());
+                    // Libère les adresses (et la clé de page système) des éléments en corbeille en les renommant :
+                    // ils restent restaurables.
+                    foreach (self::UNIQUE[$key] ?? [] as $field => $column) {
+                        $value = $item[$field] ?? null;
+                        if ($value === null || $value === '') {
+                            continue;
+                        }
+                        $model::onlyTrashed()->where($column, $value)->get()->each(fn ($old) => $old->forceFill([
+                            $column => $column === 'key' ? null : $old->{$column}.'-'.$old->id.'-ancien',
+                        ])->saveQuietly());
                     }
-                    (new $model)->saveFromFront($item + ['position' => $i]);
+                    $record = new $model;
+                    if ($key === 'legalPages') {
+                        $record->forceFill(['key' => $item['key'] ?? null]);
+                    }
+                    if ($key === 'posts') {
+                        $record->forceFill(['views' => max(0, (int) ($item['views'] ?? 0))]);
+                    }
+                    $record->saveFromFront($item + ['position' => $i]);
                 }
             }
         });

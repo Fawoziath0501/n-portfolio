@@ -41,7 +41,7 @@ class AdminContentTest extends TestCase
         $this->postJson('/api/admin/projects', ['item' => $this->project(['slug' => 'Pas Bon'])])
             ->assertUnprocessable()->assertJsonValidationErrors('slug');
         $this->postJson('/api/admin/projects', ['item' => $this->project(['slug' => 'presentia'])])
-            ->assertUnprocessable()->assertJsonPath('errors.slug.0', 'Ce slug est déjà utilisé par un autre projet.');
+            ->assertUnprocessable()->assertJsonPath('errors.slug.0', 'Cette adresse est déjà utilisée par un autre élément.');
 
         Project::where('slug', 'presentia')->first()->delete();
         $this->postJson('/api/admin/projects', ['item' => $this->project(['slug' => 'presentia'])])

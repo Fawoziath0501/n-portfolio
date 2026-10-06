@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { delta, nf, spark, state, stats } from '../store';
+import { barList, delta, nf, spark, state, stats, t } from '../store';
 import Panel from '../components/Panel.vue';
 import KpiGrid from '../components/KpiGrid.vue';
 import BarList from '../components/BarList.vue';
@@ -8,6 +8,10 @@ import AudienceChart from '../components/AudienceChart.vue';
 import DataBanner from '../components/DataBanner.vue';
 
 const st = computed(() => { state.events; return stats(state.period); });
+const topPosts = computed(() => {
+  const rows = (state.data.posts || []).filter((x) => x.published).map((x) => ({ label: t(x.title), icon: 'article', n: x.views || 0 })).sort((a, b) => b.n - a.n).slice(0, 6);
+  return barList(rows, rows.reduce((s, r) => s + r.n, 0));
+});
 const kpis = computed(() => {
   const s = st.value, ppv = s.V ? s.PV / s.V : 0, ppv0 = s.V0 ? s.PV0 / s.V0 : 0;
   const cr = s.V ? (s.convTotal + s.mC + s.sC) / s.V * 100 : 0, cr0 = s.V0 ? (s.convTotal0 + s.mC0 + s.sC0) / s.V0 * 100 : 0;
@@ -36,6 +40,7 @@ const kpis = computed(() => {
       </table>
     </Panel>
     <Panel title="Projets les plus consultés" sub="Pages d’étude de cas"><BarList :rows="st.topProjects" /></Panel>
+    <Panel title="Articles les plus lus" sub="Lectures de la page de chaque article, depuis sa publication"><BarList :rows="topPosts" /></Panel>
   </div>
 
   <div class="grid g320">

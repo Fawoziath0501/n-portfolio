@@ -11,7 +11,7 @@ import { state, vm } from '../store';
           <h2 id="work-title" class="h2 nobal">{{ vm.L.workTitle }}</h2>
           <p class="muted-17">{{ vm.L.workIntro }}</p>
         </div>
-        <RouterLink :to="vm.hrefs.work" class="btn btn-outline md">{{ vm.L.allWork }} <span class="mono-12">{{ vm.projCount }}</span></RouterLink>
+        <RouterLink :to="vm.hrefs.work" class="btn btn-outline md">{{ vm.L.allWork }} <span class="mono-12">{{ vm.projCount }}</span><span class="ms">arrow_forward</span></RouterLink>
       </div>
 
       <div v-if="vm.isWork" role="group" :aria-label="vm.L.filterAria" class="row-wrap gap8">

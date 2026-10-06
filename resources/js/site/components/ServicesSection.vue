@@ -11,7 +11,7 @@ import { pad } from '../../shared/util';
           <p class="mono-eyebrow">{{ vm.L.servicesLabel }}</p>
           <h2 id="services-title" class="h2 nobal">{{ vm.L.servicesTitle }}</h2>
         </div>
-        <RouterLink :to="vm.hrefs.services" class="btn btn-outline md">{{ vm.L.allServices }}</RouterLink>
+        <RouterLink :to="vm.hrefs.services" class="btn btn-outline md">{{ vm.L.allServices }} <span class="mono-12">{{ vm.svcCount }}</span><span class="ms">arrow_forward</span></RouterLink>
       </div>
       <ol class="svc-grid">
         <li v-for="(sv, i) in vm.services" :key="sv.id" data-reveal>

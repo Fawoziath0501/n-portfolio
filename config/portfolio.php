@@ -7,7 +7,7 @@ return [
     | En production, un mot de passe faible ou absent bloque le seeder.
     */
     'admin' => [
-        'name' => env('ADMIN_NAME', 'Fawoziath Salou'),
+        'name' => env('ADMIN_NAME', 'Fawoziath SALOU'),
         'email' => env('ADMIN_EMAIL', 'saloufawoziath236@gmail.com'),
         'password' => env('ADMIN_PASSWORD'),
     ],

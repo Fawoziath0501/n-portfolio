@@ -3,12 +3,21 @@ import { fill, labels } from './labels';
 import { api, escHtml, host, isEmail, lines, pad, reducedMotion, richHtml, tx } from '../shared/util';
 
 // Segments d'URL par route : [fr, en].
-export const SLUGS = { blog: ['blog', 'blog'], about: ['a-propos', 'about'], work: ['projets', 'work'], services: ['services', 'services'], contact: ['contact', 'contact'], privacy: ['confidentialite', 'privacy'] };
+export const SLUGS = { blog: ['blog', 'blog'], about: ['a-propos', 'about'], work: ['projets', 'work'], services: ['services', 'services'], contact: ['contact', 'contact'] };
 
+/** Page légale publiée correspondant à un segment d'URL (slug FR ou EN). */
+export const findLegal = (seg) => ((state.data && state.data.legalPages) || []).find((p) => p.slugFr === seg || p.slugEn === seg) || null;
+
+/** Adresse d'une route ; « slug » est le slug d'un projet ou d'un article, ou l'id d'une page légale. */
 export function href(lang, route, slug) {
     const k = lang === 'en' ? 1 : 0;
     if (route === 'home') return '/' + lang;
     if (route === 'project') return '/' + lang + '/' + SLUGS.work[k] + '/' + slug;
+    if (route === 'post') return '/' + lang + '/blog/' + slug;
+    if (route === 'legal') {
+        const p = ((state.data && state.data.legalPages) || []).find((x) => x.id === slug);
+        return p ? '/' + lang + '/' + (lang === 'en' ? p.slugEn : p.slugFr) : '/' + lang;
+    }
     return '/' + lang + '/' + SLUGS[route][k];
 }
 
@@ -16,7 +25,13 @@ export function parseRoute(r) {
     const lang = r.params.lang === 'en' ? 'en' : 'fr';
     let route = 'home', slug = null;
     if (r.name === 'project') { route = 'project'; slug = r.params.slug; }
-    else if (r.name === 'page') Object.keys(SLUGS).forEach((k) => { if (SLUGS[k].includes(r.params.page)) route = k; });
+    else if (r.name === 'post') { route = 'post'; slug = r.params.slug; }
+    else if (r.name === 'page') {
+        const k = Object.keys(SLUGS).find((x) => SLUGS[x].includes(r.params.page));
+        const legal = !k && findLegal(r.params.page);
+        if (k) route = k;
+        else if (legal) { route = 'legal'; slug = legal.id; }
+    }
     return { lang, route, slug };
 }
 
@@ -30,6 +45,7 @@ export const state = reactive({
     cf: { name: '', email: '', subject: '', message: '' }, errs: {}, fs: 'idle',
     nl: '', nls: '', flip: null, tlh: null,
     svc: null, svcErr: {}, svcFs: 'idle',
+    blogTag: 'all', blogQ: '', blogSort: 'recent',
 });
 
 const t = (v) => tx(v, state.lang);
@@ -46,9 +62,22 @@ export const vm = computed(() => {
         gFormatsV: t(pr.formats), gZoneV: t(pr.zone) };
     const mobile = s.w < 960, isHome = r === 'home', siteName = (d.settings && d.settings.siteName) || '';
     const H = (route) => href(s.lang, route);
-    const hrefs = { home: H('home'), about: H('about'), work: H('work'), services: H('services'), contact: H('contact'), blog: H('blog'), privacy: H('privacy') };
-    const activeNav = r === 'project' ? 'work' : r;
-    const navItems = ['home', 'about', 'work', 'services', 'contact'].map((k, i) => ({ key: k, label: L.nav[i], num: pad(i + 1), href: hrefs[k], current: activeNav === k }));
+    const hrefs = { home: H('home'), about: H('about'), work: H('work'), services: H('services'), contact: H('contact'), blog: H('blog') };
+    const activeNav = r === 'project' ? 'work' : r === 'post' ? 'blog' : r;
+
+    // Menus (administration → Menus) : chaque lien vise une page du site, une section de « À propos » ou une adresse libre.
+    const PAGE_ROUTE = { home: ['home'], about: ['about'], work: ['work'], services: ['services'], blog: ['blog'], contact: ['contact'],
+        approach: ['about', 'approach'], experience: ['about', 'experience'], languages: ['about', 'languages'], skills: ['about', 'skills'] };
+    const menuLink = (it, i) => {
+        const pg = PAGE_ROUTE[it.page];
+        const url = pg ? hrefs[pg[0]] + (pg[1] ? '#' + pg[1] : '') : (it.url || hrefs.home);
+        return { key: it.id || String(i), label: t(it.label), href: url, external: !pg && /^(https?:|mailto:|tel:)/i.test(url), num: pad(i + 1), current: !!pg && !pg[1] && activeNav === pg[0] };
+    };
+    const visibleLinks = (list) => (list || []).filter((x) => x.visible && t(x.label)).map(menuLink);
+    const menus = d.menus || {}, mh = menus.header || {};
+    const navItems = visibleLinks(mh.items);
+    const headerCta = mh.cta && mh.cta.visible && t(mh.cta.label) ? menuLink(mh.cta, 0) : null;
+    const footerCols = (menus.footer || []).map((c) => ({ id: c.id, title: t(c.title), items: visibleLinks(c.items) })).filter((c) => c.items.length);
 
     const en = {}; d.home.sections.forEach((x) => { en[x.type] = x.enabled; });
     const show = {
@@ -119,7 +148,26 @@ export const vm = computed(() => {
     const heroStack = d.skillGroups.flatMap((g) => g.skills).filter((k) => k.heroPosition).sort((a, b) => a.heroPosition - b.heroPosition).map((k) => t(k.name));
         const fmtDate = (iso) => { try { return new Date(iso + 'T12:00:00').toLocaleDateString(L.dateLocale || (fr ? 'fr-FR' : 'en-GB'), { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } };
     const allPosts = (d.posts || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
-    const posts = (isHome ? allPosts.slice(0, 3) : allPosts).map((x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read, icon: x.icon || 'article', url: x.url, tags: (x.tags || []).map((v) => t(v)) }));
+    // Blog : filtre par thème, recherche et tri (récents / plus lus) sur la page Blog ; 3 plus récents sur l'accueil.
+    const viewsLabel = (n) => (n === 1 ? L.viewsOne : fill(L.views, { count: n || 0 }));
+    const postCard = (x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read,
+        icon: x.icon || 'article', url: x.url, href: x.slug ? href(s.lang, 'post', x.slug) : '', views: viewsLabel(x.views), tags: (x.tags || []).map((v) => t(v)) });
+    const blogTags = [...new Set(allPosts.flatMap((x) => (x.tags || []).map((v) => t(v))))];
+    const q = s.blogQ.trim().toLowerCase();
+    let blogList = allPosts.filter((x) => (s.blogTag === 'all' || (x.tags || []).some((v) => t(v) === s.blogTag))
+        && (!q || [t(x.title), t(x.excerpt), ...(x.tags || []).map((v) => t(v))].join(' ').toLowerCase().includes(q)));
+    if (s.blogSort === 'popular') blogList = blogList.slice().sort((a, b) => (b.views || 0) - (a.views || 0));
+    const posts = (isHome ? allPosts.slice(0, 3) : blogList).map(postCard);
+    const blog = { tags: [{ v: 'all', label: L.fAll }, ...blogTags.map((tg) => ({ v: tg, label: tg }))].map((x) => ({ ...x, on: s.blogTag === x.v })), sort: s.blogSort, q: s.blogQ, empty: !isHome && !posts.length };
+
+    // Page de détail d'un article : contenu enrichi, ou l'extrait si le contenu n'est pas encore rédigé.
+    const cpo = r === 'post' && allPosts.find((x) => x.slug === s.slug);
+    let post = null;
+    if (cpo) {
+        const i = allPosts.indexOf(cpo), pv = allPosts[i + 1], nx = allPosts[i - 1];
+        post = { ...postCard(cpo, i), html: richHtml(t(cpo.body)), host: host(cpo.url),
+            prev: pv ? { title: t(pv.title), href: href(s.lang, 'post', pv.slug) } : null, next: nx ? { title: t(nx.title), href: href(s.lang, 'post', nx.slug) } : null };
+    }
     if (isHome && !posts.length) show.blog = false;
     const aboutChips = [{ icon: 'location_on', text: t(pr.location) }, cur && { icon: 'work', text: fill(L.sinceChip, { company: cur.company, start: t(cur.start) }) }, featuredLangs.length && { icon: 'translate', text: featuredLangs.map((l) => t(l.name) + (l.cefr ? ' ' + l.cefr : '')).join(' · ') }].filter(Boolean);
 
@@ -143,31 +191,34 @@ export const vm = computed(() => {
     const testis = (d.testimonials || []).filter((x) => t(x.quote)).map((x) => ({ id: x.id, quote: t(x.quote), name: x.name, initial: (x.name || '?')[0], role: [t(x.role), x.company].filter(Boolean).join(', ') }));
     const svcList = d.services.map((x) => ({ id: x.id, icon: x.icon || 'code', title: t(x.title), desc: richHtml(t(x.description)) }));
 
-    // Politique de confidentialité : {name} et {email} remplacés par les valeurs du profil (échappées).
-    const pol = d.privacy || {}, fullName = [pr.firstName, pr.middleName, pr.lastName].filter(Boolean).join(' ');
+    // Pages légales : {name}, {email} et {site} remplacés par les valeurs du profil (échappées).
+    const legalPages = d.legalPages || [], fullName = [pr.firstName, pr.middleName, pr.lastName].filter(Boolean).join(' ');
     const mailLink = pr.email ? '<a href="mailto:' + escHtml(pr.email) + '">' + escHtml(pr.email) + '</a>' : '';
-    const privacy = {
-        title: t(pol.title), updated: pol.updatedAt ? fill(L.privacyUpdated, { date: fmtDate(pol.updatedAt) }) : '',
-        html: richHtml(t(pol.body)).replace(/\{name\}/g, escHtml(fullName)).replace(/\{email\}/g, mailLink),
-    };
+    const lp = r === 'legal' && legalPages.find((x) => x.id === s.slug);
+    const legal = lp ? {
+        title: t(lp.title), updated: lp.updatedAt ? fill(L.privacyUpdated, { date: fmtDate(lp.updatedAt) }) : '',
+        html: richHtml(t(lp.body)).replace(/\{name\}/g, escHtml(fullName)).replace(/\{email\}/g, mailLink).replace(/\{site\}/g, escHtml(siteName)),
+    } : null;
+    const legalLinks = legalPages.map((x) => ({ id: x.id, label: t(x.title), href: href(s.lang, 'legal', x.id) }));
+    const privacyPage = legalPages.find((x) => x.key === 'privacy');
+    const privacyHref = privacyPage ? href(s.lang, 'legal', privacyPage.id) : '';
 
     return {
-        L, fr, mobile, isHome, r, hrefs, navItems,
+        L, fr, mobile, isHome, r, hrefs, navItems, headerCta, footerCols,
         brand: { mark: '[ ' + ((pr.firstName || '')[0] || '') + ((pr.lastName || '')[0] || '') + ' ]', name: siteName.replace(/\.[^.]*$/, ''), tld: (siteName.match(/\.[^.]*$/) || [''])[0],
             short: [pr.firstName, pr.lastName].filter(Boolean).join(' '), full: [pr.firstName, pr.middleName, pr.lastName].filter(Boolean).join(' ') }, show, p, socials, contactRows, wa: wa ? wa.url : '',
-        isWork: r === 'work', isContact: r === 'contact', isProject: !!cp, hasPageHead: r !== 'home' && r !== 'privacy', showCta: r !== 'contact' && r !== 'privacy', isPrivacy: r === 'privacy', privacy, ctaTitle: cp ? L.ctaCase : L.ctaHome,
+        isWork: r === 'work', isContact: r === 'contact', isProject: !!cp, hasPageHead: !['home', 'legal', 'post'].includes(r), showCta: !['contact', 'legal'].includes(r), isLegal: !!legal, legal, legalLinks, privacyHref, ctaTitle: cp ? L.ctaCase : L.ctaHome,
         showTesti: isHome && en.testimonials && testis.length > 0, testis,
         home: { cta1: t(d.home.ctaPrimary), cta2: t(d.home.ctaSecondary) },
         bio: richHtml(t(pr.bio)),
         values: (pr.values || []).map((v, i) => ({ ...[{ bg: '#0B1530', fg: '#FFFFFF', sub: '#8FA3E8' }, { bg: '#2448C8', fg: '#FFFFFF', sub: '#D3DCF8' }, { bg: '#E8EDFB', fg: '#0B1530', sub: '#2448C8' }][i % 3],
             num: pad(i + 1), title: t(v.title), text: t(v.text), icon: v.icon, keys: (v.keys || []).map((k) => t(k)), open: s.flip === i })),
-        cards, filters, projCount: pad(pub.length), cs, page,
+        cards, filters, projCount: pad(pub.length), svcCount: pad(d.services.length), postCount: pad(allPosts.length), cs, page,
         skillGroups: d.skillGroups.map((g, gi) => ({ id: g.id, num: pad(gi + 1), label: t(g.label), skills: g.skills.map((k) => ({ name: t(k.name), note: t(k.note), logo: k.logo, icon: k.icon || 'code' })) })),
-        allSkills, posts, aboutChips, heroStats, heroStack, annots, annotPad: mobile ? '0px' : '150px',
+        allSkills, posts, blog, post, isPost: !!post, aboutChips, heroStats, heroStack, annots, annotPad: mobile ? '0px' : '150px',
         aboutInfo, tlItems, tl, softList, services: svcList,
         languages: (pr.languages || []).map((l) => ({ name: t(l.name), level: t(l.level) })),
         certs: (d.certifications || []).map((c) => ({ id: c.id, name: t(c.name), issuer: c.issuer, date: c.date, verify: c.verify })),
-        resItems: [{ label: L.skillsLabel, href: hrefs.about }, { label: L.eduLabel, href: hrefs.about }, { label: L.nav2, href: hrefs.work }, { label: L.blogNav, href: hrefs.blog }],
         availNum: pad(contactRows.length + 1), year: new Date().getFullYear(),
     };
 });
@@ -272,4 +323,14 @@ export function trackClicks(e) {
     const h = a.getAttribute('href') || '', cv = state.data && state.data.profile.cv;
     const k = /wa\.me|whatsapp/i.test(h) ? 'whatsapp' : h.startsWith('mailto:') ? 'email' : /linkedin\.com/i.test(h) ? 'linkedin' : cv && h === cv ? 'cv' : null;
     if (k) track('click', { k });
+}
+
+/** Compte une lecture d'article (une seule fois par visite et par article). */
+export function countPostView(slug) {
+    const key = 'fz.read.' + slug;
+    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) { /* stockage indisponible : on compte quand même */ }
+    api.post('/posts/' + encodeURIComponent(slug) + '/view').then(({ data }) => {
+        const p = (state.data.posts || []).find((x) => x.slug === slug);
+        if (p) p.views = data.views;
+    }).catch(() => {});
 }

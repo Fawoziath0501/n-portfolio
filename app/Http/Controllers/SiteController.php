@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LegalPage;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\Setting;
 use App\Support\Portfolio;
@@ -22,18 +24,26 @@ class SiteController extends Controller
         $description = Portfolio::tx($seo['metaDescription'] ?? '', $lang);
 
         $maintenance = $data['settings']['maintenance'];
+        $owner = trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
 
         if (! $maintenance && in_array($segments[1] ?? '', ['projets', 'work'], true) && isset($segments[2])) {
             $project = Project::published()->where('slug', $segments[2])->first();
             if ($project) {
-                $title = Portfolio::tx($project->title, $lang).' | '.trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
+                $title = Portfolio::tx($project->title, $lang).' | '.$owner;
                 $description = Portfolio::tx($project->summary, $lang);
             }
         }
-        if (in_array($segments[1] ?? '', ['confidentialite', 'privacy'], true)) {
-            $fullName = trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
-            $title = Portfolio::tx($data['privacy']['title'] ?? '', $lang).' | '.$fullName;
-            $description = Str::limit(strip_tags(str_replace(['{name}', '{email}'], [$fullName, $data['profile']['email'] ?? ''], Portfolio::tx($data['privacy']['body'] ?? '', $lang))), 155);
+        if (! $maintenance && ($segments[1] ?? '') === 'blog' && isset($segments[2])) {
+            $post = Post::published()->where('slug', $segments[2])->first();
+            if ($post) {
+                $title = Portfolio::tx($post->title, $lang).' | '.$owner;
+                $description = Portfolio::tx($post->excerpt, $lang) ?: Str::limit(strip_tags(Portfolio::tx($post->body, $lang)), 155);
+            }
+        }
+        // Page légale (mentions légales, confidentialité, CGU, cookies…) : /fr/{slug_fr}, /en/{slug_en}.
+        if (! $maintenance && isset($segments[1]) && ! isset($segments[2]) && ($legal = LegalPage::findBySlug($segments[1]))) {
+            $title = Portfolio::tx($legal->title, $lang).' | '.$owner;
+            $description = Str::limit(strip_tags(Portfolio::placeholders(Portfolio::tx($legal->body, $lang), $data)), 155);
         }
 
         return response()->view('site', [
@@ -59,11 +69,17 @@ class SiteController extends Controller
 
         $base = $this->baseUrl();
         $pages = [['', '']];
-        foreach (['a-propos' => 'about', 'projets' => 'work', 'services' => 'services', 'blog' => 'blog', 'contact' => 'contact', 'confidentialite' => 'privacy'] as $fr => $en) {
+        foreach (['a-propos' => 'about', 'projets' => 'work', 'services' => 'services', 'blog' => 'blog', 'contact' => 'contact'] as $fr => $en) {
             $pages[] = ['/'.$fr, '/'.$en];
         }
         foreach (Project::published()->ordered()->get(['slug', 'updated_at']) as $p) {
             $pages[] = ['/projets/'.$p->slug, '/work/'.$p->slug, $p->updated_at];
+        }
+        foreach (Post::published()->whereNotNull('slug')->orderByDesc('date')->get(['id', 'slug', 'updated_at']) as $p) {
+            $pages[] = ['/blog/'.$p->slug, '/blog/'.$p->slug, $p->updated_at];
+        }
+        foreach (LegalPage::published()->ordered()->get(['slug_fr', 'slug_en', 'updated_at']) as $p) {
+            $pages[] = ['/'.$p->slug_fr, '/'.$p->slug_en, $p->updated_at];
         }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n"

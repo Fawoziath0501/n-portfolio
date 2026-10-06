@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\NewMessageMail;
 use App\Models\Event;
 use App\Models\Message;
+use App\Models\Post;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Subscriber;
@@ -83,6 +84,16 @@ class InteractionController extends Controller
         }
 
         return response()->json(['ok' => true], 201);
+    }
+
+    /** Lecture d'un article (une fois par visite, dédoublonnée côté navigateur). */
+    public function postView(string $slug)
+    {
+        $query = Post::published()->where('slug', $slug);
+        abort_unless($query->exists(), 404);
+        $query->toBase()->increment('views'); // sans toucher à updated_at
+
+        return response()->json(['views' => (int) $query->value('views')]);
     }
 
     public function track(Request $request)

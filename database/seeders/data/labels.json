@@ -30,46 +30,10 @@
   "en": "Close"
  },
  {
-  "key": "nav.0",
-  "group": "Navigation & en-tête",
-  "fr": "Accueil",
-  "en": "Home"
- },
- {
-  "key": "nav.1",
-  "group": "Navigation & en-tête",
-  "fr": "À propos",
-  "en": "About"
- },
- {
-  "key": "nav.2",
-  "group": "Navigation & en-tête",
-  "fr": "Projets",
-  "en": "Work"
- },
- {
-  "key": "nav.3",
-  "group": "Navigation & en-tête",
-  "fr": "Services",
-  "en": "Services"
- },
- {
-  "key": "nav.4",
-  "group": "Navigation & en-tête",
-  "fr": "Contact",
-  "en": "Contact"
- },
- {
   "key": "nav0",
   "group": "Navigation & en-tête",
   "fr": "Accueil",
   "en": "Home"
- },
- {
-  "key": "nav2",
-  "group": "Navigation & en-tête",
-  "fr": "Projets",
-  "en": "Work"
  },
  {
   "key": "ctaContact",
@@ -816,6 +780,78 @@
   "en": "en-GB"
  },
  {
+  "key": "blogFilterAria",
+  "group": "Blog",
+  "fr": "Filtrer les articles",
+  "en": "Filter articles"
+ },
+ {
+  "key": "searchPosts",
+  "group": "Blog",
+  "fr": "Rechercher un article",
+  "en": "Search articles"
+ },
+ {
+  "key": "sortRecent",
+  "group": "Blog",
+  "fr": "Plus récents",
+  "en": "Most recent"
+ },
+ {
+  "key": "sortPopular",
+  "group": "Blog",
+  "fr": "Plus lus",
+  "en": "Most read"
+ },
+ {
+  "key": "views",
+  "group": "Blog",
+  "fr": "{count} lectures",
+  "en": "{count} views"
+ },
+ {
+  "key": "viewsOne",
+  "group": "Blog",
+  "fr": "1 lecture",
+  "en": "1 view"
+ },
+ {
+  "key": "readMore",
+  "group": "Blog",
+  "fr": "Lire l’article",
+  "en": "Read the article"
+ },
+ {
+  "key": "backToBlog",
+  "group": "Blog",
+  "fr": "Retour au blog",
+  "en": "Back to the blog"
+ },
+ {
+  "key": "readOriginal",
+  "group": "Blog",
+  "fr": "Lire aussi sur {host}",
+  "en": "Also on {host}"
+ },
+ {
+  "key": "noPosts",
+  "group": "Blog",
+  "fr": "Aucun article ne correspond à votre recherche.",
+  "en": "No article matches your search."
+ },
+ {
+  "key": "postPrev",
+  "group": "Blog",
+  "fr": "Article précédent",
+  "en": "Previous article"
+ },
+ {
+  "key": "postNext",
+  "group": "Blog",
+  "fr": "Article suivant",
+  "en": "Next article"
+ },
+ {
   "key": "contactLabel",
   "group": "Contact & formulaires",
   "fr": "Contact",
@@ -972,6 +1008,12 @@
   "en": "Sending failed. Please try again in a moment."
  },
  {
+  "key": "formPrivacy",
+  "group": "Contact & formulaires",
+  "fr": "Vos informations servent uniquement à vous répondre.",
+  "en": "Your information is only used to reply to you."
+ },
+ {
   "key": "ctaHome",
   "group": "Appel à l’action",
   "fr": "Un projet en tête ?",
@@ -1000,12 +1042,6 @@
   "group": "Pied de page & newsletter",
   "fr": "Navigation",
   "en": "Navigation"
- },
- {
-  "key": "resources",
-  "group": "Pied de page & newsletter",
-  "fr": "Ressources",
-  "en": "Resources"
  },
  {
   "key": "toTop",
@@ -1062,28 +1098,10 @@
   "en": "Newsletter"
  },
  {
-  "key": "footNavTitle",
-  "group": "Pied de page & newsletter",
-  "fr": "Navigation",
-  "en": "Navigation"
- },
- {
   "key": "footContactTitle",
   "group": "Pied de page & newsletter",
   "fr": "Contact",
   "en": "Contact"
- },
- {
-  "key": "maintTitle",
-  "group": "Maintenance",
-  "fr": "Site en maintenance",
-  "en": "Under maintenance"
- },
- {
-  "key": "maintText",
-  "group": "Maintenance",
-  "fr": "Le portfolio revient très vite. Vous pouvez me joindre par e-mail en attendant.",
-  "en": "The portfolio will be back shortly. Feel free to reach me by email in the meantime."
  },
  {
   "key": "privacyLink",
@@ -1098,15 +1116,27 @@
   "en": "Last updated: {date}"
  },
  {
-  "key": "formPrivacy",
-  "group": "Contact & formulaires",
-  "fr": "Vos informations servent uniquement à vous répondre.",
-  "en": "Your information is only used to reply to you."
- },
- {
   "key": "nlPrivacy",
   "group": "Pied de page & newsletter",
   "fr": "Désinscription possible à tout moment.",
   "en": "You can unsubscribe at any time."
+ },
+ {
+  "key": "legalNav",
+  "group": "Pied de page & newsletter",
+  "fr": "Informations légales",
+  "en": "Legal information"
+ },
+ {
+  "key": "maintTitle",
+  "group": "Maintenance",
+  "fr": "Site en maintenance",
+  "en": "Under maintenance"
+ },
+ {
+  "key": "maintText",
+  "group": "Maintenance",
+  "fr": "Le portfolio revient très vite. Vous pouvez me joindre par e-mail en attendant.",
+  "en": "The portfolio will be back shortly. Feel free to reach me by email in the meantime."
  }
 ]

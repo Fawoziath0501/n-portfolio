@@ -7,6 +7,7 @@ use App\Models\Certification;
 use App\Models\Education;
 use App\Models\Experience;
 use App\Models\HomeSection;
+use App\Models\LegalPage;
 use App\Models\Media;
 use App\Models\Message;
 use App\Models\Post;
@@ -35,6 +36,7 @@ class Portfolio
         'certifications' => Certification::class,
         'testimonials' => Testimonial::class,
         'skillGroups' => SkillGroup::class,
+        'legalPages' => LegalPage::class,
     ];
 
     /** Éléments pouvant passer par la corbeille (clé => [modèle, libellé]). */
@@ -49,6 +51,7 @@ class Portfolio
         'skillGroups' => [SkillGroup::class, 'Groupe de compétences'],
         'messages' => [Message::class, 'Message'],
         'subscribers' => [Subscriber::class, 'Inscrit newsletter'],
+        'legalPages' => [LegalPage::class, 'Page légale'],
         'media' => [Media::class, 'Fichier'],
     ];
 
@@ -56,7 +59,7 @@ class Portfolio
     public const TRASH_DAYS = 30;
 
     /** Réglages techniques stockés en clé / valeur. */
-    public const SETTINGS = ['seo', 'settings', 'privacy'];
+    public const SETTINGS = ['seo', 'settings', 'menus'];
 
     /** En maintenance, seuls le profil (nom, e-mail) et les textes de l'interface sont envoyés : aucun contenu publié. */
     public static function public(): array
@@ -77,7 +80,7 @@ class Portfolio
         $data['home'] = self::home();
         $data['labels'] = UiLabel::dictionary();
         $data['seo'] = Setting::get('seo');
-        $data['privacy'] = Setting::get('privacy');
+        $data['menus'] = Setting::get('menus');
         $settings = Setting::get('settings');
         $data['settings'] = [
             'siteName' => $settings['siteName'] ?? '',
@@ -145,22 +148,13 @@ class Portfolio
         });
     }
 
-    /** Politique de confidentialité : texte enrichi nettoyé, date de mise à jour renseignée automatiquement. */
-    public static function savePrivacy(array $value): void
+    /** Variables des pages légales : {name} (nom complet), {email}, {site} (nom du site). */
+    public static function placeholders(string $text, array $public): string
     {
-        $old = Setting::get('privacy');
-        $body = RichText::cleanI18n($value['body'] ?? []);
-        Setting::put('privacy', [
-            'title' => $value['title'] ?? ($old['title'] ?? []),
-            'body' => $body,
-            'updatedAt' => $body !== ($old['body'] ?? null) ? now()->toDateString() : ($value['updatedAt'] ?? $old['updatedAt'] ?? now()->toDateString()),
-        ]);
-    }
+        $p = $public['profile'] ?? [];
+        $name = trim(implode(' ', array_filter([$p['firstName'] ?? '', $p['middleName'] ?? '', $p['lastName'] ?? ''])));
 
-    /** Enregistre un document de réglages (SEO, paramètres, politique de confidentialité). */
-    public static function saveSetting(string $key, array $value): void
-    {
-        $key === 'privacy' ? self::savePrivacy($value) : Setting::put($key, $value);
+        return str_replace(['{name}', '{email}', '{site}'], [$name, $p['email'] ?? '', $public['settings']['siteName'] ?? ''], $text);
     }
 
     public static function maintenance(): bool
