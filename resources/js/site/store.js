@@ -239,6 +239,13 @@ export const vm = computed(() => {
 
 /* ---------- Actions ---------- */
 
+/** Versions allégées d’une image (srcset) : 480 et 960 px en WebP, plus l’original. */
+export function srcset(url) {
+    const th = url && state.data.thumbs && state.data.thumbs[url];
+    if (!th) return undefined;
+    return Object.entries(th.v).map(([w, u]) => u + ' ' + w + 'w').concat(th.w ? [url + ' ' + th.w + 'w'] : []).join(', ');
+}
+
 export function scrollToId(id) {
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: reducedMotion() ? 'auto' : 'smooth' });

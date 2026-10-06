@@ -1,12 +1,12 @@
 <script setup>
-import { vm } from '../store';
+import { srcset, vm } from '../store';
 </script>
 
 <template>
   <article aria-labelledby="page-title">
     <div class="wrap case-top">
       <figure v-if="vm.cs.gallery.length" class="case-cover has-shot">
-        <img :src="vm.cs.gallery[0].src" :alt="vm.L.shotOf + ' ' + vm.cs.title" fetchpriority="high">
+        <img :src="vm.cs.gallery[0].src" :srcset="srcset(vm.cs.gallery[0].src)" sizes="(max-width: 900px) calc(100vw - 40px), 760px" :alt="vm.L.shotOf + ' ' + vm.cs.title" fetchpriority="high">
       </figure>
       <div v-else class="case-cover" :style="{ background: vm.cs.bg }">
         <span class="mono-12" :style="{ color: vm.cs.sub }">{{ vm.L.caseLabel }} {{ vm.cs.num }}</span>
@@ -42,7 +42,7 @@ import { vm } from '../store';
         </div>
       </section>
       <section v-if="vm.cs.gallery.length" class="gallery">
-        <img v-for="im in vm.cs.gallery" :key="im.src" :src="im.src" :alt="im.alt" loading="lazy">
+        <img v-for="im in vm.cs.gallery" :key="im.src" :src="im.src" :srcset="srcset(im.src)" sizes="(max-width: 900px) calc(100vw - 40px), 600px" :alt="im.alt" loading="lazy" decoding="async">
       </section>
     </div>
 

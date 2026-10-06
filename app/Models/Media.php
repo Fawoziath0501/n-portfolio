@@ -20,9 +20,14 @@ class Media extends Model
         // Le fichier n'est effacé du disque qu'à la suppression définitive.
         static::forceDeleted(function (Media $media) {
             if ($media->path) {
-                Storage::disk('public')->delete($media->path);
+                Storage::disk('public')->delete([$media->path, ...\App\Support\Thumbs::paths($media)]);
             }
         });
+    }
+
+    protected function casts(): array
+    {
+        return ['variants' => 'array'];
     }
 
     public function projects(): BelongsToMany

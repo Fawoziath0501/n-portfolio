@@ -19,10 +19,13 @@ class SeedAssets
         Storage::disk('public')->put($path, file_get_contents($source));
         [$w, $h] = $kind === 'image' ? (@getimagesize($source) ?: [0, 0]) : [0, 0];
 
-        return Media::updateOrCreate(
+        $media = Media::updateOrCreate(
             ['path' => $path],
             ['name' => basename($name), 'url' => '/storage/'.$path, 'kind' => $kind, 'width' => $w, 'height' => $h, 'size' => filesize($source)]
-        )->url;
+        );
+        Thumbs::make($media);
+
+        return $media->url;
     }
 
     /** Captures d'un projet : assets/projects/{slug}-1.jpg, {slug}-2.jpg… dans l'ordre. */

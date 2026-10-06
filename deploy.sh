@@ -78,6 +78,7 @@ echo "Code : \$(git log --oneline -1)"
 rm -rf public/build && tar -xzf build.tgz -C public && rm -f build.tgz
 composer install --no-dev --optimize-autoloader --no-interaction -q
 php artisan migrate --force
+php artisan portfolio:thumbs -q   # versions allégées des images qui n'en ont pas encore
 if [ -n "\$SYNC" ]; then php artisan portfolio:sync-projects \$SYNC; fi
 php artisan optimize:clear -q
 php artisan config:cache -q

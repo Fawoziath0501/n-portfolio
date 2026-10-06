@@ -1,5 +1,11 @@
 <script setup>
-import { vm } from '../store';
+import { vm, state } from '../store';
+// Portrait : version allégée (WebP 480 px, 960 px sur écran haute définition), sinon l’original.
+const portraitBg = (url) => {
+  const th = state.data.thumbs && state.data.thumbs[url];
+  const q = (u) => 'url("' + u + '")';
+  return th && th.v[480] ? 'image-set(' + q(th.v[480]) + ' 1x, ' + q(th.v[960] || url) + ' 2x)' : q(url);
+};
 </script>
 
 <template>
@@ -31,7 +37,7 @@ import { vm } from '../store';
 
       <div class="hero-visual" :style="{ paddingRight: vm.annotPad }">
         <div class="portrait">
-          <div v-if="vm.p.photo" role="img" :aria-label="vm.p.photoAlt" class="portrait-img" :style="{ backgroundImage: 'url(&quot;' + vm.p.photo + '&quot;)' }"></div>
+          <div v-if="vm.p.photo" role="img" :aria-label="vm.p.photoAlt" class="portrait-img" :style="{ backgroundImage: portraitBg(vm.p.photo) }"></div>
           <div v-else class="portrait-empty" role="img" :aria-label="vm.p.photoAlt"><span class="ms">image</span><span>{{ vm.p.photoPlaceholder }}</span></div>
           <span aria-hidden="true" class="corner tl"></span>
           <span aria-hidden="true" class="corner br"></span>

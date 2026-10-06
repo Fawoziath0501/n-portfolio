@@ -1,5 +1,5 @@
 <script setup>
-import { state, vm } from '../store';
+import { state, vm, srcset } from '../store';
 </script>
 
 <template>
@@ -24,7 +24,7 @@ import { state, vm } from '../store';
         <li v-for="pj in vm.cards" :key="pj.id" data-reveal>
           <article class="card">
             <RouterLink v-if="pj.shot" :to="pj.href" class="card-cover has-shot" :aria-label="pj.title">
-              <img :src="pj.shot" :alt="vm.L.shotOf + ' ' + pj.title" loading="lazy" decoding="async">
+              <img :src="pj.shot" :srcset="srcset(pj.shot)" sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1100px) 50vw, 400px" :alt="vm.L.shotOf + ' ' + pj.title" loading="lazy" decoding="async">
               <span class="card-cover-top"><span>{{ pj.num }}</span><span>{{ pj.kind }}</span></span>
             </RouterLink>
             <RouterLink v-else :to="pj.href" class="card-cover" :style="{ background: pj.bg }">

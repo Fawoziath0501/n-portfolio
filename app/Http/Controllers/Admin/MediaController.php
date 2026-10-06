@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Media;
 use App\Support\Portfolio;
+use App\Support\Thumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,7 @@ class MediaController extends Controller
             $isDoc = strtolower($file->getClientOriginalExtension()) === 'pdf';
             $path = $file->store('media', 'public');
             [$w, $h] = $isDoc ? [0, 0] : (@getimagesize($file->getRealPath()) ?: [0, 0]);
-            $created[] = Media::create([
+            $media = Media::create([
                 'name' => $file->getClientOriginalName(),
                 'path' => $path,
                 // Adresse relative : indépendante du domaine (APP_URL, local, production).
@@ -32,7 +33,9 @@ class MediaController extends Controller
                 'width' => $w,
                 'height' => $h,
                 'size' => $file->getSize(),
-            ])->toFront();
+            ]);
+            Thumbs::make($media); // versions allégées pour le site (WebP 480 et 960 px)
+            $created[] = $media->toFront();
         }
         Activity::log(count($created).' fichier(s) importé(s)');
 

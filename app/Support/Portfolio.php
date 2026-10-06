@@ -91,6 +91,7 @@ class Portfolio
             'tracking' => ($settings['analytics']['provider'] ?? '') === 'local',
         ];
         $data['captcha'] = Captcha::forPublic();
+        $data['thumbs'] = $maintenance ? [] : Thumbs::map();
 
         return $data;
     }
