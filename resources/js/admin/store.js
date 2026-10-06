@@ -42,9 +42,10 @@ export const isLocal = () => providerOf() === 'local';
 /* ---------- Session et chargement ---------- */
 export async function boot() {
     try {
+        // Les données sont chargées avant d'afficher l'interface : ses vues lisent state.data dès leur montage.
         const { data } = await api.get('/admin/me');
+        if (data.user) await reload();
         state.user = data.user;
-        if (state.user) await reload();
     } finally {
         state.ready = true;
     }
@@ -58,8 +59,8 @@ export async function reload() {
 export async function login(email, password) {
     await api.get('/admin/me'); // initialise le cookie CSRF
     const { data } = await api.post('/admin/login', { email, password });
-    state.user = data.user;
     await reload();
+    state.user = data.user;
 }
 
 export async function logout() {
@@ -164,7 +165,7 @@ function localDays(n) {
     return out;
 }
 export async function loadEvents() {
-    if (!isLocal()) return;
+    if (!state.data || !isLocal()) return; // pas encore connecté
     try {
         const { data } = await api.get('/admin/events', { params: { days: 180 } });
         state.events = data.events;
