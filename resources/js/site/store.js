@@ -112,7 +112,8 @@ export const vm = computed(() => {
     let list = isHome ? pub.filter((x) => x.featured).slice(0, 6) : pub;
     if (r === 'work' && s.filter !== 'all') list = list.filter((x) => kindOf(x) === s.filter);
     const cards = list.map((x, i) => ({ ...TONES[i % 3], id: x.id, num: num(x), title: t(x.title), cat: t(x.category), summary: t(x.summary), kind: kindOf(x) === 'site' ? L.kSite : L.kApp,
-        href: href(s.lang, 'project', x.slug), link: x.link, host: host(x.link), tags: x.tech || [] }));
+        href: href(s.lang, 'project', x.slug), link: x.link, host: host(x.link), tags: x.tech || [],
+        shot: (Array.isArray(x.images) && x.images[0] && (typeof x.images[0] === 'string' ? x.images[0] : x.images[0].src)) || '' }));
     const filters = [['all', L.fAll], ['app', L.kApp], ['site', L.kSite]].map(([k, label]) => ({ key: k, label, count: pub.filter((x) => k === 'all' || kindOf(x) === k).length, on: s.filter === k }));
 
     let cs = null;

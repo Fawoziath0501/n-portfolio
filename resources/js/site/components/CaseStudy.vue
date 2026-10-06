@@ -5,7 +5,10 @@ import { vm } from '../store';
 <template>
   <article aria-labelledby="page-title">
     <div class="wrap case-top">
-      <div class="case-cover" :style="{ background: vm.cs.bg }">
+      <figure v-if="vm.cs.gallery.length" class="case-cover has-shot">
+        <img :src="vm.cs.gallery[0].src" :alt="vm.L.shotOf + ' ' + vm.cs.title" fetchpriority="high">
+      </figure>
+      <div v-else class="case-cover" :style="{ background: vm.cs.bg }">
         <span class="mono-12" :style="{ color: vm.cs.sub }">{{ vm.L.caseLabel }} {{ vm.cs.num }}</span>
         <span class="case-cover-title" :style="{ color: vm.cs.fg }">{{ vm.cs.title }}</span>
         <span class="mono-12" :style="{ color: vm.cs.sub }">{{ vm.cs.gallery.length ? '' : vm.L.noShots }}</span>

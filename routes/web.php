@@ -22,19 +22,19 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('api')->group(function () {
     Route::get('site', [SiteController::class, 'data']);
-    Route::post('messages', [InteractionController::class, 'message'])->middleware('throttle:6,1');
-    Route::post('subscribers', [InteractionController::class, 'subscribe'])->middleware('throttle:6,1');
-    Route::post('track', [InteractionController::class, 'track'])->middleware('throttle:120,1');
-    Route::post('posts/{slug}/view', [InteractionController::class, 'postView'])->middleware('throttle:30,1');
+    Route::post('messages', [InteractionController::class, 'message'])->middleware('throttle:6,1,messages');
+    Route::post('subscribers', [InteractionController::class, 'subscribe'])->middleware('throttle:6,1,subscribers');
+    Route::post('track', [InteractionController::class, 'track'])->middleware('throttle:120,1,track');
+    Route::post('posts/{slug}/view', [InteractionController::class, 'postView'])->middleware('throttle:30,1,postview');
 
     Route::prefix('admin')->group(function () {
         Route::get('me', [AuthController::class, 'me']);
-        Route::post('login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+        Route::post('login', [AuthController::class, 'login'])->middleware('throttle:10,1,login');
 
         // auth.session : un changement de mot de passe ferme les autres sessions ouvertes.
         Route::middleware(['auth', 'auth.session'])->group(function () {
             Route::post('logout', [AuthController::class, 'logout']);
-            Route::put('account', [AccountController::class, 'update'])->middleware('throttle:10,1');
+            Route::put('account', [AccountController::class, 'update'])->middleware('throttle:10,1,account');
             Route::get('data', [ContentController::class, 'index']);
             Route::put('documents/{key}', [ContentController::class, 'document']);
             Route::put('labels', [LabelController::class, 'update']);
@@ -42,11 +42,11 @@ Route::prefix('api')->group(function () {
             Route::patch('messages/{message}', [InboxController::class, 'updateMessage']);
             Route::delete('messages/{message}', [InboxController::class, 'destroyMessage']);
             Route::delete('subscribers/{subscriber}', [InboxController::class, 'destroySubscriber']);
-            Route::post('messages/{message}/reply', [MailController::class, 'reply'])->middleware('throttle:20,1');
+            Route::post('messages/{message}/reply', [MailController::class, 'reply'])->middleware('throttle:20,1,reply');
             Route::post('messages/{message}/whatsapp', [MailController::class, 'whatsapp']);
             Route::put('mail', [MailController::class, 'settings']);
             Route::put('captcha', [MailController::class, 'captcha']);
-            Route::post('mail/test', [MailController::class, 'test'])->middleware('throttle:5,1');
+            Route::post('mail/test', [MailController::class, 'test'])->middleware('throttle:5,1,mailtest');
 
             Route::post('media', [MediaController::class, 'upload']);
             Route::post('media/url', [MediaController::class, 'addUrl']);
@@ -79,7 +79,7 @@ Route::prefix('api')->group(function () {
 
 Route::get('sitemap.xml', [SiteController::class, 'sitemap']);
 // Aperçu filigrané d'un certificat (le fichier original n'est jamais exposé).
-Route::get('certificats/{certification}/apercu.jpg', [CertificatePreviewController::class, 'show'])->whereNumber('certification')->middleware('throttle:60,1');
+Route::get('certificats/{certification}/apercu.jpg', [CertificatePreviewController::class, 'show'])->whereNumber('certification')->middleware('throttle:60,1,certpreview');
 Route::get('robots.txt', [SiteController::class, 'robots']);
 
 // Applications Vue (routage côté client en mode « history »).

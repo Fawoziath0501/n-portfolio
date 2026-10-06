@@ -71,6 +71,12 @@ class DatabaseSeeder extends Seeder
                 if ($key === 'skillGroups') {
                     $item['code'] = $item['id'];
                 }
+                // Captures livrées dans database/seeders/assets/projects/{slug}-1.jpg, {slug}-2.jpg…
+                if ($key === 'projects') {
+                    $shots = glob(__DIR__.'/assets/projects/'.$item['slug'].'-*.jpg') ?: [];
+                    natsort($shots);
+                    $item['images'] = array_values(array_filter(array_map(fn ($f) => $this->seedFile('projects/'.basename($f), 'image'), $shots))) ?: ($item['images'] ?? []);
+                }
                 unset($item['id']);
                 // Pages légales : « key » (page système) n'est pas modifiable depuis l'administration, donc hors $fillable.
                 $record = $key === 'legalPages' ? (new $model)->forceFill(['key' => $item['key'] ?? null]) : new $model;
@@ -92,7 +98,7 @@ class DatabaseSeeder extends Seeder
 
         return Media::updateOrCreate(
             ['path' => $path],
-            ['name' => $name, 'url' => '/storage/'.$path, 'kind' => $kind, 'width' => $w, 'height' => $h, 'size' => filesize($source)]
+            ['name' => basename($name), 'url' => '/storage/'.$path, 'kind' => $kind, 'width' => $w, 'height' => $h, 'size' => filesize($source)]
         )->url;
     }
 

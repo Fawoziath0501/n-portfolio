@@ -498,6 +498,12 @@
   "en": "Screenshots coming soon"
  },
  {
+  "key": "shotOf",
+  "group": "Projets & études de cas",
+  "fr": "Capture d’écran de",
+  "en": "Screenshot of"
+ },
+ {
   "key": "mType",
   "group": "Projets & études de cas",
   "fr": "Catégorie",

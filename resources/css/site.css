@@ -591,3 +591,13 @@ button { font: inherit; }
 .captcha-box { min-height: 65px; }
 .nl-cap { margin-top: 12px; }
 .rich code { padding: 1px 6px; border-radius: 5px; background: var(--ac-xs); color: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: .88em; overflow-wrap: anywhere; }
+
+/* Captures des projets : couverture des cartes et des fiches, galerie sans recadrage */
+.card-cover.has-shot { position: relative; padding: 0; overflow: hidden; background: var(--ac-s); border-bottom: 1px solid var(--ln); }
+.card-cover.has-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform 400ms ease; }
+.card:hover .card-cover.has-shot img { transform: scale(1.03); }
+.card-cover.has-shot .card-cover-top { position: relative; z-index: 1; padding: 14px 16px; color: #FFFFFF; background: linear-gradient(rgba(10, 18, 40, .55), transparent); }
+.case-cover.has-shot { margin: 0; padding: 0; overflow: hidden; aspect-ratio: auto; align-self: flex-start; background: var(--ac-s); border: 1px solid var(--ln); }
+.case-cover.has-shot img { width: 100%; height: auto; display: block; }
+.gallery img { aspect-ratio: auto; height: auto; object-fit: initial; border: 1px solid var(--ln); }
+@media (prefers-reduced-motion: reduce) { .card-cover.has-shot img { transition: none; } }

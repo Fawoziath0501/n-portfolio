@@ -23,7 +23,11 @@ import { state, vm } from '../store';
       <ul class="cards">
         <li v-for="pj in vm.cards" :key="pj.id" data-reveal>
           <article class="card">
-            <RouterLink :to="pj.href" class="card-cover" :style="{ background: pj.bg }">
+            <RouterLink v-if="pj.shot" :to="pj.href" class="card-cover has-shot" :aria-label="pj.title">
+              <img :src="pj.shot" :alt="vm.L.shotOf + ' ' + pj.title" loading="lazy" decoding="async">
+              <span class="card-cover-top"><span>{{ pj.num }}</span><span>{{ pj.kind }}</span></span>
+            </RouterLink>
+            <RouterLink v-else :to="pj.href" class="card-cover" :style="{ background: pj.bg }">
               <span class="card-cover-top" :style="{ color: pj.sub }"><span>{{ pj.num }}</span><span>{{ pj.kind }}</span></span>
               <span class="card-cover-title" :style="{ color: pj.fg }">{{ pj.title }}</span>
             </RouterLink>
