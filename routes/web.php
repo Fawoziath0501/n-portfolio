@@ -61,6 +61,9 @@ Route::prefix('api')->group(function () {
     Route::any('{any}', fn () => response()->json(['message' => 'Not found'], 404))->where('any', '.*');
 });
 
+Route::get('sitemap.xml', [SiteController::class, 'sitemap']);
+Route::get('robots.txt', [SiteController::class, 'robots']);
+
 // Applications Vue (routage côté client en mode « history »).
 Route::get('/admin/{any?}', fn () => view('admin', ['owner' => \App\Models\Profile::query()->first(['first_name', 'last_name'])]))->where('any', '.*');
 Route::get('/{any?}', [SiteController::class, 'show'])->where('any', '^(?!storage/).*$');

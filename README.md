@@ -9,7 +9,8 @@ d'après les maquettes du dossier [`design/`](design/).
 - Accueil, À propos (méthode, parcours, langues, compétences), Projets avec filtres et études de cas, Services, Blog, Contact
 - Formulaire de contact et demande de service (enregistrés en base, notification e-mail facultative)
 - Inscription à la newsletter, sélecteur de langue, menu mobile
-- SEO côté serveur : titre / description par page, canonique, `hreflang`, Open Graph, données structurées `Person`
+- SEO côté serveur : titre / description par page, canonique, `hreflang`, Open Graph, données structurées `Person`,
+  `sitemap.xml` et `robots.txt` générés (désactivés si le site est non indexable ou en maintenance)
 - Suivi d'audience intégré, sans cookie (pages vues, provenance, appareils, clics WhatsApp / e-mail / LinkedIn / CV)
 
 **Administration** (`/admin`)
