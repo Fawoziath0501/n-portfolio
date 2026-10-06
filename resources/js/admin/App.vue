@@ -176,8 +176,8 @@ const doLogout = async () => { await logout(); router.push('/'); };
 
     <div class="toasts" aria-live="polite">
       <TransitionGroup name="toast">
-        <div v-for="tn in state.toasts" :key="tn.id" :role="tn.type === 'error' ? 'alert' : 'status'" class="toast" :class="tn.type">
-          <span class="ms" aria-hidden="true">{{ tn.type === 'error' ? 'error' : 'check_circle' }}</span><span class="f1">{{ tn.msg }}</span>
+        <div v-for="tn in state.toasts" :key="tn.id" :role="tn.type === 'success' ? 'status' : 'alert'" class="toast" :class="tn.type">
+          <span class="ms" aria-hidden="true">{{ tn.type === 'error' ? 'error' : tn.type === 'warning' ? 'warning' : 'check_circle' }}</span><span class="f1">{{ tn.msg }}</span>
           <button type="button" class="toast-x ms" aria-label="Fermer la notification" @click="dismiss(tn.id)">close</button>
         </div>
       </TransitionGroup>

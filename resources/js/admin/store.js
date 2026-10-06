@@ -81,7 +81,7 @@ export function flash(m, type = 'success') {
     if (!m) return;
     const id = ++toastId;
     state.toasts = [...state.toasts.filter((x) => x.msg !== m), { id, msg: m, type }].slice(-4);
-    setTimeout(() => dismiss(id), type === 'error' ? 6000 : 2500);
+    setTimeout(() => dismiss(id), type === 'success' ? 2500 : 6000);
 }
 /** Notification d'erreur à partir d'une réponse de l'API (message de validation ou générique). */
 export const flashError = (e) => flash(typeof e === 'string' ? e : errorText(e), 'error');

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { COLS, PRESETS, ask, fmtMD, go, inboxStats, isLocal, loadEvents, missingEn, nf, save, state, stats, statsRange, syncDoc, t } from '../store';
+import { COLS, PRESETS, ask, flash, fmtMD, go, inboxStats, isLocal, loadEvents, missingEn, nf, save, state, stats, statsRange, syncDoc, t } from '../store';
 import AudienceChart from '../components/AudienceChart.vue';
 import BarList from '../components/BarList.vue';
 import Panel from '../components/Panel.vue';
@@ -15,7 +15,7 @@ const router = useRouter();
 
 // Disponibilité du site : maintenance activable en un clic (confirmation demandée pour la couper aux visiteurs).
 const maint = computed(() => !!(state.data.settings || {}).maintenance);
-const setMaint = (v) => { const msg = v ? 'Site mis en maintenance' : 'Site remis en ligne'; save((d) => { d.settings = { ...(d.settings || {}), maintenance: v }; }, msg, () => syncDoc('settings', msg)); };
+const setMaint = (v) => { const msg = v ? 'Site mis en maintenance' : 'Site remis en ligne'; save((d) => { d.settings = { ...(d.settings || {}), maintenance: v }; }, null, () => syncDoc('settings', msg)); flash(msg, v ? 'warning' : 'success'); };
 const toggleMaint = () => (maint.value ? setMaint(false) : ask('Mettre le site en maintenance ?', 'Les visiteurs verront une page « site en maintenance » et le contenu ne sera plus indexé. Vous continuerez à voir le site tant que vous êtes connectée.', () => setMaint(true), 'Mettre en maintenance'));
 const NEUTRAL = { dBg: 'var(--ln2)', dFg: 'var(--mu)' };
 const WARN = { dBg: 'var(--warnBg)', dFg: 'var(--warnFg)' };

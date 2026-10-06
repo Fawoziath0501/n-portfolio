@@ -25,7 +25,7 @@ async function saveMail() {
     const { data } = await api.put('/admin/mail', f);
     state.data.mail = data;
     f.password = '';
-    flash(data.enabled ? 'Serveur d’envoi enregistré' : 'Envoi par SMTP désactivé');
+    if (data.enabled) flash('Serveur d’envoi enregistré'); else flash('Envoi par SMTP désactivé : les e-mails ne partiront pas réellement', 'warning');
   } catch (e) { flashError(e); } finally { busy.value = ''; }
 }
 async function test() {
