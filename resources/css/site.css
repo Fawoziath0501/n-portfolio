@@ -432,7 +432,9 @@ button { font: inherit; }
 .rich h2 { font-size: 1.35em; }
 .rich h3 { font-size: 1.15em; }
 .rich a { color: var(--ac); text-decoration: underline; text-underline-offset: 3px; }
-.rich blockquote { margin: 0 0 .85em; padding: 4px 0 4px 18px; border-left: 3px solid var(--ac); color: var(--ink2); font-style: italic; }
+.rich blockquote { position: relative; margin: 0 0 .85em; padding: 16px 20px 16px 52px; border-radius: 10px; background: var(--ac-xs); color: var(--ink2); font-style: italic; }
+.rich blockquote::before { content: "\201C"; position: absolute; left: 16px; top: 4px; font-family: var(--f-disp); font-size: 48px; font-style: normal; line-height: 1; color: var(--ac); }
+.rich blockquote p:last-child { margin-bottom: 0; }
 .rich strong { color: var(--ink); font-weight: 600; }
 
 /* Politique de confidentialité */
