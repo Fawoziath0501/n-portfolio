@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\Trashable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Message extends Model
 {
@@ -15,6 +16,12 @@ class Message extends Model
     public function serviceItem(): BelongsTo
     {
         return $this->belongsTo(Service::class, 'service_id')->withTrashed();
+    }
+
+    /** Réponses envoyées depuis l'administration, de la plus ancienne à la plus récente. */
+    public function replies(): HasMany
+    {
+        return $this->hasMany(MessageReply::class)->orderBy('id');
     }
 
     public function trashLabel(): string
@@ -42,6 +49,8 @@ class Message extends Model
             'body' => $this->body,
             'lang' => $this->lang,
             'date' => $this->created_at?->format('Y-m-d'),
+            'at' => $this->created_at?->toIso8601String(),
+            'replies' => $this->replies->map->toFront()->all(),
         ];
     }
 }

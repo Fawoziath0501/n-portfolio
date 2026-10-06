@@ -6,6 +6,7 @@ import Fields from '../components/Fields.vue';
 import Panel from '../components/Panel.vue';
 import ProfileRelations from '../components/ProfileRelations.vue';
 import SocialIcon from '../../shared/SocialIcon.vue';
+import MailSettingsPanel from '../components/MailSettingsPanel.vue';
 
 const props = defineProps({ doc: String });
 const cards = computed(() => FORMS[props.doc] || []);
@@ -46,6 +47,8 @@ function importJson(e) {
   <Panel v-for="c in cards" :key="c.title" :title="c.title" :sub="c.sub">
     <div class="pad-form"><Fields :defs="c.fields" :obj="obj" @set="set" /></div>
   </Panel>
+
+  <MailSettingsPanel v-if="doc === 'settings'" />
 
   <div v-if="doc === 'settings'" class="panel backup">
     <div class="col gap2"><h2 class="ph2">Sauvegarde des données</h2><span class="sm-mu fs13">Exportez tout le contenu (JSON) avant une mise en ligne, ou restaurez une sauvegarde.</span></div>

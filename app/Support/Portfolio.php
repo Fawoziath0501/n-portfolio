@@ -64,7 +64,8 @@ class Portfolio
     /** En maintenance, seuls le profil (nom, e-mail) et les textes de l'interface sont envoyés : aucun contenu publié. */
     public static function public(): array
     {
-        $maintenance = self::maintenance();
+        // L'administratrice connectée voit le site malgré la maintenance (avec un bandeau) ; les visiteurs, non.
+        $maintenance = self::maintenance() && ! auth()->check();
         $data = [];
         foreach (self::COLLECTIONS as $key => $model) {
             if ($maintenance) {
@@ -86,6 +87,7 @@ class Portfolio
         $data['settings'] = [
             'siteName' => $settings['siteName'] ?? '',
             'maintenance' => $maintenance,
+            'maintenancePreview' => ! $maintenance && self::maintenance(),
             'tracking' => ($settings['analytics']['provider'] ?? '') === 'local',
         ];
 
@@ -103,7 +105,8 @@ class Portfolio
         foreach (self::SETTINGS as $key) {
             $data[$key] = Setting::get($key);
         }
-        $data['messages'] = Message::latest()->get()->map->toFront()->all();
+        $data['messages'] = Message::with('replies')->latest()->get()->map->toFront()->all();
+        $data['mail'] = MailSettings::forAdmin();
         $data['subscribers'] = Subscriber::latest()->get()->map->toFront()->all();
         $data['media'] = Media::latest()->get()->map->toFront()->all();
         $data['activity'] = Activity::latest('id')->limit(30)->get()

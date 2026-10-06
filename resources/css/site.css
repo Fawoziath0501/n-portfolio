@@ -581,3 +581,5 @@ button { font: inherit; }
 .cv-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--ln); }
 .cv-close { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--ln); border-radius: 8px; background: #FFFFFF; cursor: pointer; }
 .cv-img { flex: 1; min-height: 50vh; background: var(--alt) center / contain no-repeat; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.maint-preview { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 16px; background: #B45309; color: #FFFFFF; font-size: 14px; font-weight: 500; text-align: center; }
+.maint-preview .ms { font-size: 18px; }

@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Subscriber;
+use App\Support\MailSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -57,6 +58,7 @@ class InteractionController extends Controller
         $settings = Setting::get('settings');
         if (($settings['notifyOnMessage'] ?? false) && ! empty($settings['notifyEmail'])) {
             try {
+                MailSettings::apply(); // serveur SMTP réglé dans l'administration
                 Mail::to($settings['notifyEmail'])->send(new NewMessageMail($message));
             } catch (\Throwable $e) {
                 Log::warning('Notification e-mail non envoyée : '.$e->getMessage());

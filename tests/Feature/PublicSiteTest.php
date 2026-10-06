@@ -52,6 +52,17 @@ class PublicSiteTest extends TestCase
         $this->get('/en/contact')->assertSee('<title>'.e($labels['pContact.1']->en).' | ', false);
     }
 
+    public function test_logged_in_admin_still_sees_the_site_during_maintenance(): void
+    {
+        \App\Models\Setting::put('settings', ['maintenance' => true] + \App\Models\Setting::get('settings'));
+
+        $this->get('/fr')->assertStatus(503);
+        $this->admin()->get('/fr')->assertOk();
+        $site = $this->getJson('/api/site')->json('settings');
+        $this->assertFalse($site['maintenance']);
+        $this->assertTrue($site['maintenancePreview']);
+    }
+
     public function test_unknown_api_route_returns_json_404(): void
     {
         $this->getJson('/api/nope')->assertNotFound()->assertJson(['message' => 'Not found']);

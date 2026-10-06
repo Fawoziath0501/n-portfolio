@@ -91,6 +91,7 @@ onBeforeUnmount(() => {
   </div>
 
   <div v-else class="site">
+    <div v-if="state.data.settings.maintenancePreview" class="maint-preview" role="status"><span class="ms" aria-hidden="true">construction</span>Mode maintenance actif : les visiteurs voient la page de maintenance. Vous voyez le site parce que vous êtes connectée à l’administration.</div>
     <SiteHeader />
     <ServiceModal v-if="state.svc" />
     <CertViewer v-if="state.certView" />

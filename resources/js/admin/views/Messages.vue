@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
-import SocialIcon from '../../shared/SocialIcon.vue';
+import ReplyBox from '../components/ReplyBox.vue';
 import { TRASH_HINT, ask, fmtMD, save, state, t, trash } from '../store';
 
 const DEFS = [
@@ -22,8 +22,6 @@ const mobile = computed(() => state.w < 1000);
 const setStatus = (m, status, msg) => save(() => { const x = state.data.messages.find((y) => y.id === m.id); if (x) x.status = status; }, msg, () => api.patch('/admin/messages/' + m.id, { status, activity: msg }));
 const open = (m) => { state.msgId = m.id; if (m.status === 'new') setStatus(m, 'read'); };
 const meta = (m) => [{ label: 'Nom', value: m.name }, { label: 'E-mail', value: m.email }, m.phone && { label: 'Téléphone', value: m.phone }, m.service && { label: 'Service', value: m.service }, { label: 'Langue', value: (m.lang || 'fr').toUpperCase() }].filter(Boolean);
-const mailto = (m) => 'mailto:' + m.email + '?subject=' + encodeURIComponent('Re: ' + (t(m.subject) || 'Votre message'));
-const digits = (m) => String(m.phone || '').replace(/\D/g, '');
 const del = (m) => ask('Placer ce message dans la corbeille ?', TRASH_HINT, () => {
   save((d) => { d.messages = d.messages.filter((x) => x.id !== m.id); }, 'Message placé dans la corbeille', () => trash(api.delete('/admin/messages/' + m.id)));
   state.msgId = null;
@@ -58,9 +56,8 @@ const del = (m) => ask('Placer ce message dans la corbeille ?', TRASH_HINT, () =
       </div>
       <dl class="msg-meta"><div v-for="mm in meta(cm)" :key="mm.label"><dt>{{ mm.label }}</dt><dd>{{ mm.value }}</dd></div></dl>
       <p class="msg-body">{{ cm.body }}</p>
+      <ReplyBox :message="cm" />
       <div class="msg-actions">
-        <a :href="mailto(cm)" class="abtn primary" @click="setStatus(cm, 'replied')"><span class="ms">reply</span>Répondre par e-mail</a>
-        <a v-if="digits(cm).length > 6" :href="'https://wa.me/' + digits(cm)" target="_blank" rel="noopener" class="abtn"><SocialIcon url="https://wa.me/" label="WhatsApp" :size="16" />WhatsApp</a>
         <button type="button" class="abtn" @click="setStatus(cm, cm.status === 'new' ? 'read' : 'new')"><span class="ms">mark_email_read</span>{{ cm.status === 'new' ? 'Marquer comme lu' : 'Marquer comme non lu' }}</button>
         <button type="button" class="abtn" @click="setStatus(cm, cm.status === 'archived' ? 'read' : 'archived', cm.status === 'archived' ? 'Message restauré' : 'Message archivé')"><span class="ms">archive</span>{{ cm.status === 'archived' ? 'Désarchiver' : 'Archiver' }}</button>
         <button type="button" class="abtn red" @click="del(cm)"><span class="ms">delete</span>Corbeille</button>

@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { COLS, fmtMD, go, isLocal, missingEn, nf, state, stats, t } from '../store';
+import { COLS, ask, fmtMD, go, isLocal, missingEn, nf, save, state, stats, syncDoc, t } from '../store';
 import Panel from '../components/Panel.vue';
 import KpiGrid from '../components/KpiGrid.vue';
 
@@ -10,6 +10,11 @@ import KpiGrid from '../components/KpiGrid.vue';
 | L'analyse d'audience détaillée est dans « Statistiques » ; ici, un seul indicateur sur 30 jours y renvoie.
 */
 const router = useRouter();
+
+// Disponibilité du site : maintenance activable en un clic (confirmation demandée pour la couper aux visiteurs).
+const maint = computed(() => !!(state.data.settings || {}).maintenance);
+const setMaint = (v) => { const msg = v ? 'Site mis en maintenance' : 'Site remis en ligne'; save((d) => { d.settings = { ...(d.settings || {}), maintenance: v }; }, msg, () => syncDoc('settings', msg)); };
+const toggleMaint = () => (maint.value ? setMaint(false) : ask('Mettre le site en maintenance ?', 'Les visiteurs verront une page « site en maintenance » et le contenu ne sera plus indexé. Vous continuerez à voir le site tant que vous êtes connectée.', () => setMaint(true), 'Mettre en maintenance'));
 const NEUTRAL = { dBg: 'var(--ln2)', dFg: 'var(--mu)' };
 const WARN = { dBg: 'var(--warnBg)', dFg: 'var(--warnFg)' };
 const GOOD = { dBg: 'var(--okBg)', dFg: 'var(--okFg)' };
@@ -83,6 +88,11 @@ const when = (ts) => { const m = Math.round((Date.now() - ts) / 60000); return m
 </script>
 
 <template>
+  <div class="panel avail-bar" :class="{ off: maint }">
+    <span class="avail-state"><span class="avail-dot" aria-hidden="true"></span><strong>{{ maint ? 'Site en maintenance' : 'Site en ligne' }}</strong><span class="sm-mu">{{ maint ? 'Les visiteurs voient la page de maintenance.' : 'Les visiteurs voient le site normalement.' }}</span></span>
+    <button type="button" class="abtn" :class="{ primary: maint }" @click="toggleMaint"><span class="ms">{{ maint ? 'public' : 'construction' }}</span>{{ maint ? 'Remettre le site en ligne' : 'Mettre en maintenance' }}</button>
+  </div>
+
   <KpiGrid :kpis="kpis" />
 
   <div class="grid g360">

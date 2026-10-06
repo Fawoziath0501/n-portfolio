@@ -129,6 +129,7 @@ const doLogout = async () => { await logout(); router.push('/'); };
             <span class="f1"></span>
             <span v-if="autosave" class="autosave"><span class="ms">cloud_done</span>Enregistrement automatique</span>
             <button type="button" class="ibtn lg" :aria-label="dark ? 'Passer en mode clair' : 'Passer en mode sombre'" :title="dark ? 'Passer en mode clair' : 'Passer en mode sombre'" @click="toggleTheme"><span class="ms">{{ dark ? 'light_mode' : 'dark_mode' }}</span></button>
+            <button v-if="state.data && state.data.settings && state.data.settings.maintenance" type="button" class="maint-badge" title="Le site public affiche la page de maintenance" @click="go(router, 'dashboard')"><span class="ms">construction</span><span v-if="!mobile">Site en maintenance</span></button>
             <a href="/" target="_blank" rel="noopener" class="abtn"><span class="ms">open_in_new</span><span v-if="!mobile">Voir le site</span></a>
           </header>
 
