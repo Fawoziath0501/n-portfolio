@@ -24,7 +24,7 @@ while [ $# -gt 0 ]; do
     --dry-run) DRY=1 ;;
     --skip-tests) TESTS=0 ;;
     --sync) SYNC="${2:?--sync attend une liste de projets}"; shift ;;
-    -h|--help) sed -n '2,13p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,12p' "$0"; exit 0 ;;
     *) echo "Option inconnue : $1 (voir bash deploy.sh --help)"; exit 1 ;;
   esac
   shift
