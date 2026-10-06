@@ -50,8 +50,9 @@ const backdrop = (e) => { if (e.target === e.currentTarget) closeSvc(); };
           </label>
         </div>
         <div class="grid2">
-          <label class="fld"><span>{{ L.phoneLbl }}</span>
-            <input name="svc-phone" type="tel" autocomplete="tel" :value="sv.phone" placeholder="+229 …" @input="set('phone', $event.target.value)">
+          <label class="fld"><span>{{ L.phoneLbl }} <span aria-hidden="true">*</span></span>
+            <input name="svc-phone" type="tel" autocomplete="tel" inputmode="tel" :value="sv.phone" placeholder="+229 01 00 00 00 00" :aria-invalid="!!err.phone" :class="{ bad: err.phone }" @input="set('phone', $event.target.value)">
+            <span v-if="err.phone" role="alert" class="fld-err">{{ err.phone }}</span>
           </label>
           <label class="fld"><span>{{ L.svcWhen }}</span>
             <select name="svc-when" :value="sv.when || L.choose" @change="set('when', $event.target.value)">

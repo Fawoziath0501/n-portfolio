@@ -42,7 +42,7 @@ export const state = reactive({
     data: window.__SITE__ || null,
     lang: 'fr', route: 'home', slug: null,
     menu: false, scrolled: false, pc: 0, w: window.innerWidth, filter: 'all',
-    cf: { name: '', email: '', subject: '', message: '' }, errs: {}, fs: 'idle',
+    cf: { name: '', email: '', phone: '', subject: '', message: '' }, errs: {}, fs: 'idle',
     nl: '', nls: '', flip: null, tlh: null,
     svc: null, svcErr: {}, svcFs: 'idle',
     // Anti-spam : jetons du captcha par formulaire, compteur pour en recréer un après envoi, champ piège invisible.
@@ -250,8 +250,12 @@ export function setField(k, v) {
     if (state.fs === 'sent') state.fs = 'idle';
 }
 
+/** Numéro de téléphone ou WhatsApp plausible : au moins 8 chiffres, indicatif « + » accepté. */
+const isPhone = (v) => /^\+?[0-9][0-9 ().-]{6,}[0-9]$/.test(String(v || '').trim()) && String(v).replace(/\D/g, '').length >= 8;
+
 /** Captcha actif sur ce formulaire (réglé dans l'administration). */
 export const capOn = (form) => !!(state.data.captcha && state.data.captcha.forms.includes(form));
+const fieldErr = (e, k) => e && e.response && e.response.data && e.response.data.errors && e.response.data.errors[k] && e.response.data.errors[k][0];
 const capErr = (e) => e && e.response && e.response.data && e.response.data.errors && e.response.data.errors.captcha && e.response.data.errors.captcha[0];
 const capReset = (form) => { state.cap[form] = ''; state.capN[form]++; };
 const capMissing = (form) => capOn(form) && !state.cap[form];
@@ -260,17 +264,18 @@ export async function submitContact() {
     const L = labels(state.data.labels, state.lang), c = state.cf, errs = {};
     if (!c.name.trim()) errs.name = L.eName;
     if (!isEmail(c.email)) errs.email = L.eEmail;
+    if (!isPhone(c.phone)) errs.phone = L.ePhone;
     if (c.message.trim().length < 10) errs.message = L.eMsg;
     if (capMissing('contact')) errs.captcha = L.eCaptcha;
     if (Object.keys(errs).length) { state.errs = errs; state.fs = 'error'; return; }
     state.fs = 'sending';
     try {
-        await api.post('/messages', { type: 'contact', name: c.name, email: c.email, subject: c.subject, message: c.message, lang: state.lang, website: state.hp, captcha: state.cap.contact });
+        await api.post('/messages', { type: 'contact', name: c.name, email: c.email, phone: c.phone, subject: c.subject, message: c.message, lang: state.lang, website: state.hp, captcha: state.cap.contact });
         state.fs = 'sent';
-        state.cf = { name: '', email: '', subject: '', message: '' };
+        state.cf = { name: '', email: '', phone: '', subject: '', message: '' };
         state.errs = {};
     } catch (e) {
-        if (capErr(e)) { state.errs = { captcha: capErr(e) }; state.fs = 'error'; } else state.fs = 'failed';
+        if (capErr(e)) { state.errs = { captcha: capErr(e) }; state.fs = 'error'; } else if (fieldErr(e, 'phone')) { state.errs = { phone: fieldErr(e, 'phone') }; state.fs = 'error'; } else state.fs = 'failed';
     }
     if (capOn('contact')) capReset('contact');
 }
@@ -296,6 +301,7 @@ export async function submitSvc() {
     const L = labels(state.data.labels, state.lang), c = state.svc, errs = {};
     if (!c.name.trim()) errs.name = L.eName;
     if (!isEmail(c.email)) errs.email = L.eEmail;
+    if (!isPhone(c.phone)) errs.phone = L.ePhone;
     if (c.message.trim().length < 10) errs.message = L.eMsg;
     if (capMissing('service')) errs.captcha = L.eCaptcha;
     if (Object.keys(errs).length) { state.svcErr = errs; return; }
@@ -305,7 +311,7 @@ export async function submitSvc() {
         state.svcFs = 'sent';
     } catch (e) {
         state.svcFs = 'idle';
-        state.svcErr = capErr(e) ? { captcha: capErr(e) } : { message: L.errSend };
+        state.svcErr = capErr(e) ? { captcha: capErr(e) } : fieldErr(e, 'phone') ? { phone: fieldErr(e, 'phone') } : { message: L.errSend };
     }
     if (capOn('service')) capReset('service');
 }

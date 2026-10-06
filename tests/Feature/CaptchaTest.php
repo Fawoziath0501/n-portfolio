@@ -14,7 +14,7 @@ class CaptchaTest extends TestCase
 {
     use RefreshDatabase;
 
-    private array $msg = ['type' => 'contact', 'name' => 'Ada', 'email' => 'ada@example.com', 'message' => 'Bonjour, un projet à discuter.'];
+    private array $msg = ['type' => 'contact', 'name' => 'Ada', 'email' => 'ada@example.com', 'phone' => '+229 01 97 36 32 97', 'message' => 'Bonjour, un projet à discuter.'];
 
     private function enable(array $forms = ['contact' => true, 'service' => true, 'newsletter' => true, 'login' => true]): void
     {

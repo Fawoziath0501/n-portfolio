@@ -990,6 +990,12 @@
   "en": "Please enter a valid email address."
  },
  {
+  "key": "ePhone",
+  "group": "Contact & formulaires",
+  "fr": "Indiquez votre numéro de téléphone ou WhatsApp, avec l’indicatif (ex. +229).",
+  "en": "Please enter your phone or WhatsApp number, with country code (e.g. +229)."
+ },
+ {
   "key": "eMsg",
   "group": "Contact & formulaires",
   "fr": "Votre message doit contenir au moins 10 caractères.",

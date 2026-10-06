@@ -18,7 +18,7 @@ class InteractionTest extends TestCase
         Mail::fake();
 
         $this->postJson('/api/messages', [
-            'name' => 'Ada', 'email' => 'ada@example.com', 'subject' => 'Bonjour',
+            'name' => 'Ada', 'email' => 'ada@example.com', 'phone' => '+229 01 97 36 32 97', 'subject' => 'Bonjour',
             'message' => 'Un message suffisamment long.', 'lang' => 'en',
         ])->assertCreated();
 
@@ -33,13 +33,13 @@ class InteractionTest extends TestCase
         $service = Service::published()->firstOrFail();
 
         $this->postJson('/api/messages', [
-            'type' => 'service', 'name' => 'Ada', 'email' => 'ada@example.com', 'phone' => '+229 00',
+            'type' => 'service', 'name' => 'Ada', 'email' => 'ada@example.com', 'phone' => '+229 01 00 00 00 00',
             'service' => $service->title['en'], 'when' => '1 mois', 'message' => 'Besoin de refaire mon site vitrine.',
         ])->assertCreated();
 
         $message = Message::sole();
         $this->assertSame($service->id, $message->service_id);
-        $this->assertStringContainsString('+229 00', $message->body);
+        $this->assertStringContainsString('+229 01 00 00 00 00', $message->body);
         $this->assertStringContainsString('1 mois', $message->body);
     }
 
@@ -47,7 +47,18 @@ class InteractionTest extends TestCase
     {
         $this->postJson('/api/messages', ['name' => '', 'email' => 'x', 'message' => 'court'])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['name', 'email', 'message']);
+            ->assertJsonValidationErrors(['name', 'email', 'phone', 'message']);
+    }
+
+    public function test_phone_is_required_and_checked(): void
+    {
+        $base = ['name' => 'Ada', 'email' => 'ada@example.com', 'message' => 'Un message assez long.'];
+
+        $this->postJson('/api/messages', $base)->assertUnprocessable()->assertJsonValidationErrors('phone');
+        $this->postJson('/api/messages', $base + ['phone' => '12'])->assertUnprocessable()->assertJsonValidationErrors('phone');
+        $this->postJson('/api/messages', $base + ['phone' => 'abc'])->assertUnprocessable()->assertJsonValidationErrors('phone');
+        $this->postJson('/api/messages', $base + ['phone' => '+229 01 97 36 32 97'])->assertCreated();
+        $this->assertSame('+229 01 97 36 32 97', Message::sole()->phone);
     }
 
     public function test_no_notification_when_disabled(): void
@@ -55,7 +66,7 @@ class InteractionTest extends TestCase
         Mail::fake();
         Setting::put('settings', ['notifyOnMessage' => false] + Setting::get('settings'));
 
-        $this->postJson('/api/messages', ['name' => 'Ada', 'email' => 'ada@example.com', 'message' => 'Un message assez long.'])->assertCreated();
+        $this->postJson('/api/messages', ['name' => 'Ada', 'email' => 'ada@example.com', 'phone' => '0197363297', 'message' => 'Un message assez long.'])->assertCreated();
 
         Mail::assertNothingSent();
     }

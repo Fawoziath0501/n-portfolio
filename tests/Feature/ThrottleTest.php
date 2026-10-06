@@ -16,7 +16,7 @@ class ThrottleTest extends TestCase
             $this->postJson('/api/track', ['t' => 'pv', 'path' => '/fr', 'sid' => 'visite-test']);
         }
 
-        $this->postJson('/api/messages', ['type' => 'contact', 'name' => 'Ada', 'email' => 'ada@example.com', 'message' => 'Bonjour, un projet à discuter.'])
+        $this->postJson('/api/messages', ['type' => 'contact', 'name' => 'Ada', 'email' => 'ada@example.com', 'phone' => '+229 01 97 36 32 97', 'message' => 'Bonjour, un projet à discuter.'])
             ->assertCreated();
     }
 }

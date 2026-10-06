@@ -19,9 +19,15 @@ import SocialIcon from '../../shared/SocialIcon.vue';
             <span v-if="state.errs.email" role="alert" class="fld-err">{{ state.errs.email }}</span>
           </label>
         </div>
-        <label class="fld up"><span>{{ vm.L.subject }}</span>
-          <input name="subject" :value="state.cf.subject" :placeholder="vm.L.subjectPh" @input="setField('subject', $event.target.value)">
-        </label>
+        <div class="grid2 gap20">
+          <label class="fld up"><span>{{ vm.L.phoneLbl }} <span aria-hidden="true">*</span></span>
+            <input name="phone" type="tel" autocomplete="tel" inputmode="tel" :value="state.cf.phone" placeholder="+229 01 00 00 00 00" :aria-invalid="!!state.errs.phone" :class="{ bad: state.errs.phone }" @input="setField('phone', $event.target.value)">
+            <span v-if="state.errs.phone" role="alert" class="fld-err">{{ state.errs.phone }}</span>
+          </label>
+          <label class="fld up"><span>{{ vm.L.subject }}</span>
+            <input name="subject" :value="state.cf.subject" :placeholder="vm.L.subjectPh" @input="setField('subject', $event.target.value)">
+          </label>
+        </div>
         <label class="fld up"><span>{{ vm.L.message }} <span aria-hidden="true">*</span></span>
           <textarea name="message" rows="7" :value="state.cf.message" :placeholder="vm.L.messagePh" :aria-invalid="!!state.errs.message" :class="{ bad: state.errs.message }" @input="setField('message', $event.target.value)"></textarea>
           <span v-if="state.errs.message" role="alert" class="fld-err">{{ state.errs.message }}</span>

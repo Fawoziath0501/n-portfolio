@@ -24,12 +24,15 @@ class InteractionController extends Controller
             'type' => 'nullable|in:contact,service',
             'name' => 'required|string|max:120',
             'email' => 'required|email|max:180',
-            'phone' => 'nullable|string|max:40',
+            'phone' => ['required', 'string', 'max:40', 'regex:/^\+?[0-9][0-9 ().-]{6,}[0-9]$/'],
             'subject' => 'nullable|string|max:200',
             'service' => 'nullable|string|max:200',
             'when' => 'nullable|string|max:80',
             'message' => 'required|string|min:10|max:5000',
             'lang' => 'nullable|in:fr,en',
+        ], [
+            'phone.required' => $request->input('lang') === 'en' ? 'Please enter your phone or WhatsApp number.' : 'Indiquez votre numéro de téléphone ou WhatsApp.',
+            'phone.regex' => $request->input('lang') === 'en' ? 'Please enter a valid phone number, with country code (e.g. +229).' : 'Indiquez un numéro valide, avec l’indicatif (ex. +229).',
         ]);
 
         $isService = ($v['type'] ?? 'contact') === 'service';
