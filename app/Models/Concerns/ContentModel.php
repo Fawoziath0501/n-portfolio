@@ -2,6 +2,7 @@
 
 namespace App\Models\Concerns;
 
+use App\Support\RichText;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -38,7 +39,8 @@ trait ContentModel
         foreach ($data as $k => $v) {
             $col = Str::snake($k);
             if (in_array($col, $this->getFillable(), true)) {
-                $attrs[$col] = $v ?? $this->emptyValue($col);
+                // Champs saisis avec l'éditeur enrichi ($rich) : HTML nettoyé avant l'enregistrement.
+                $attrs[$col] = in_array($col, $this->rich ?? [], true) && $v !== null ? RichText::cleanI18n($v) : ($v ?? $this->emptyValue($col));
             }
         }
 

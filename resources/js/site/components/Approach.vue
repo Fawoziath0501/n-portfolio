@@ -13,7 +13,7 @@ const toggle = (i) => { state.flip = state.flip === i ? null : i; };
         <div data-reveal class="approach-bio">
           <p class="pill"><span class="ms">person</span>{{ vm.L.aboutLabel }}</p>
           <h2 id="approach-title" class="h2">{{ vm.L.aboutTitle }}</h2>
-          <p v-for="b in vm.bio" :key="b.n" class="body">{{ b.text }}</p>
+          <div class="body rich" v-html="vm.bio"></div>
         </div>
         <dl data-reveal class="info-list">
           <div v-for="ai in vm.aboutInfo" :key="ai.num">

@@ -24,3 +24,24 @@ export const host = (u) => (u || '').replace(/^https?:\/\/(www\.)?/, '').replace
 export const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v).trim());
 
 export const reducedMotion = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+export const escHtml = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+export const isHtml = (s) => /<(p|br|ul|ol|h[1-6]|blockquote|strong|em|a)\b[^>]*>/i.test(String(s || ''));
+
+/**
+ * Texte enrichi saisi dans l'administration (HTML déjà nettoyé par le serveur), prêt pour v-html.
+ * Un ancien texte brut devient un paragraphe par ligne, échappé.
+ */
+export const richHtml = (v) => {
+    const s = String(v || '').trim();
+    if (!s || /^<p>\s*<\/p>$/.test(s)) return '';
+    return isHtml(s) ? s : s.split('\n').map((l) => l.trim()).filter(Boolean).map((l) => '<p>' + escHtml(l) + '</p>').join('');
+};
+
+/** Texte brut d'un contenu enrichi (aperçus, extraits). DOMParser ne charge aucune ressource. */
+export const plainText = (v) => {
+    const s = String(v || '');
+    if (!isHtml(s)) return s;
+    return (new DOMParser().parseFromString(s.replace(/<\/(p|li|h[23]|blockquote)>/g, '$& '), 'text/html').body.textContent || '').replace(/\s+/g, ' ').trim();
+};

@@ -5,6 +5,7 @@ import { FORMS, ask, flash, reload, save, setPath, state, syncDoc } from '../sto
 import Fields from '../components/Fields.vue';
 import Panel from '../components/Panel.vue';
 import ProfileRelations from '../components/ProfileRelations.vue';
+import SocialIcon from '../../shared/SocialIcon.vue';
 
 const props = defineProps({ doc: String });
 const cards = computed(() => FORMS[props.doc] || []);
@@ -59,6 +60,7 @@ function importJson(e) {
   <Panel v-if="doc === 'profile'" title="Réseaux & liens" sub="Affichés dans le hero, le contact et le footer">
     <div class="socials">
       <div v-for="s in socials" :key="s.id" class="row-wrap center gap8">
+        <span class="soc-ico" :title="s.label"><SocialIcon :url="s.url" :label="s.label" :size="20" /></span>
         <input :value="s.label" aria-label="Libellé" class="ain soc-l" @input="setSocial(s, 'label', $event.target.value)">
         <input :value="s.url" aria-label="URL" placeholder="https://" class="ain soc-u" @input="setSocial(s, 'url', $event.target.value)">
         <button type="button" class="ibtn h44" :aria-label="s.visible ? 'Masquer' : 'Afficher'" :title="s.visible ? 'Masquer' : 'Afficher'" @click="setSocial(s, 'visible', !s.visible)"><span class="ms">{{ s.visible ? 'visibility' : 'visibility_off' }}</span></button>

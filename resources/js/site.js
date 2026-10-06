@@ -12,7 +12,7 @@ const router = createRouter({
         { path: '/', redirect: () => '/' + preferredLang() },
         { path: '/:lang(fr|en)', name: 'home', component: Empty },
         { path: '/:lang(fr|en)/:work(projets|work)/:slug', name: 'project', component: Empty },
-        { path: '/:lang(fr|en)/:page(a-propos|about|projets|work|services|contact|blog)', name: 'page', component: Empty },
+        { path: '/:lang(fr|en)/:page(a-propos|about|projets|work|services|contact|blog|confidentialite|privacy)', name: 'page', component: Empty },
         { path: '/:rest(.*)*', redirect: () => '/' + preferredLang() },
     ],
     scrollBehavior: (to, from) => (to.path !== from.path ? { top: 0 } : false),

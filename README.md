@@ -6,7 +6,9 @@ d'après les maquettes du dossier [`design/`](design/).
 ## Fonctionnalités
 
 **Site public** (`/fr`, `/en`)
-- Accueil, À propos (méthode, parcours, langues, compétences), Projets avec filtres et études de cas, Services, Blog, Contact
+- Accueil, À propos (méthode, parcours, langues, compétences), Projets avec filtres et études de cas, Services, Blog, Contact,
+  Politique de confidentialité (`/fr/confidentialite`, `/en/privacy`), liée depuis le pied de page et les formulaires
+- Logos officiels des réseaux sociaux (déduits de l’adresse du lien)
 - Formulaire de contact et demande de service (enregistrés en base, notification e-mail facultative)
 - Inscription à la newsletter, sélecteur de langue, menu mobile
 - SEO côté serveur : titre / description par page, canonique, `hreflang`, Open Graph, données structurées `Person`,
@@ -20,6 +22,9 @@ d'après les maquettes du dossier [`design/`](design/).
 - Gestion des projets, articles, expériences, formations, services, certifications, témoignages : ajout, modification,
   publication, mise en avant, duplication, réordonnancement, suppression
 - Compétences, sections de l'accueil, profil et réseaux, SEO & partage, paramètres (maintenance, notifications)
+- Éditeur de texte enrichi (Tiptap) pour les textes longs : biographie, contexte / enjeu / résultat des projets,
+  descriptions des expériences et services, politique de confidentialité. Le HTML est nettoyé côté serveur
+  (`App\Support\RichText`, symfony/html-sanitizer) avant l’enregistrement
 - Médiathèque (import d'images / PDF), sauvegarde et restauration JSON, thème clair / sombre
 
 ## Stack
@@ -27,7 +32,7 @@ d'après les maquettes du dossier [`design/`](design/).
 | Côté | Outils |
 | --- | --- |
 | Back-end | Laravel 12, PHP 8.2+, Eloquent, SQLite (ou MySQL) |
-| Front-end | Vue 3 (`<script setup>`), Vue Router, Axios, Vite |
+| Front-end | Vue 3 (`<script setup>`), Vue Router, Axios, Tiptap, Vite |
 | Design | Hanken Grotesk, Schibsted Grotesk, JetBrains Mono, Material Symbols |
 
 ## Installation

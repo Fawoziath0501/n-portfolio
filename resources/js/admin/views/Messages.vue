@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { api } from '../../shared/util';
+import SocialIcon from '../../shared/SocialIcon.vue';
 import { TRASH_HINT, ask, fmtMD, save, state, t, trash } from '../store';
 
 const DEFS = [
@@ -59,7 +60,7 @@ const del = (m) => ask('Placer ce message dans la corbeille ?', TRASH_HINT, () =
       <p class="msg-body">{{ cm.body }}</p>
       <div class="msg-actions">
         <a :href="mailto(cm)" class="abtn primary" @click="setStatus(cm, 'replied')"><span class="ms">reply</span>Répondre par e-mail</a>
-        <a v-if="digits(cm).length > 6" :href="'https://wa.me/' + digits(cm)" target="_blank" rel="noopener" class="abtn"><span class="ms">chat</span>WhatsApp</a>
+        <a v-if="digits(cm).length > 6" :href="'https://wa.me/' + digits(cm)" target="_blank" rel="noopener" class="abtn"><SocialIcon url="https://wa.me/" label="WhatsApp" :size="16" />WhatsApp</a>
         <button type="button" class="abtn" @click="setStatus(cm, cm.status === 'new' ? 'read' : 'new')"><span class="ms">mark_email_read</span>{{ cm.status === 'new' ? 'Marquer comme lu' : 'Marquer comme non lu' }}</button>
         <button type="button" class="abtn" @click="setStatus(cm, cm.status === 'archived' ? 'read' : 'archived', cm.status === 'archived' ? 'Message restauré' : 'Message archivé')"><span class="ms">archive</span>{{ cm.status === 'archived' ? 'Désarchiver' : 'Archiver' }}</button>
         <button type="button" class="abtn red" @click="del(cm)"><span class="ms">delete</span>Corbeille</button>

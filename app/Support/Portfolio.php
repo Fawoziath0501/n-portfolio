@@ -56,7 +56,7 @@ class Portfolio
     public const TRASH_DAYS = 30;
 
     /** Réglages techniques stockés en clé / valeur. */
-    public const SETTINGS = ['seo', 'settings'];
+    public const SETTINGS = ['seo', 'settings', 'privacy'];
 
     /** En maintenance, seuls le profil (nom, e-mail) et les textes de l'interface sont envoyés : aucun contenu publié. */
     public static function public(): array
@@ -77,6 +77,7 @@ class Portfolio
         $data['home'] = self::home();
         $data['labels'] = UiLabel::dictionary();
         $data['seo'] = Setting::get('seo');
+        $data['privacy'] = Setting::get('privacy');
         $settings = Setting::get('settings');
         $data['settings'] = [
             'siteName' => $settings['siteName'] ?? '',
@@ -142,6 +143,24 @@ class Portfolio
                 HomeSection::updateOrCreate(['type' => $s['type']], ['enabled' => (bool) $s['enabled'], 'position' => $i]);
             }
         });
+    }
+
+    /** Politique de confidentialité : texte enrichi nettoyé, date de mise à jour renseignée automatiquement. */
+    public static function savePrivacy(array $value): void
+    {
+        $old = Setting::get('privacy');
+        $body = RichText::cleanI18n($value['body'] ?? []);
+        Setting::put('privacy', [
+            'title' => $value['title'] ?? ($old['title'] ?? []),
+            'body' => $body,
+            'updatedAt' => $body !== ($old['body'] ?? null) ? now()->toDateString() : ($value['updatedAt'] ?? $old['updatedAt'] ?? now()->toDateString()),
+        ]);
+    }
+
+    /** Enregistre un document de réglages (SEO, paramètres, politique de confidentialité). */
+    public static function saveSetting(string $key, array $value): void
+    {
+        $key === 'privacy' ? self::savePrivacy($value) : Setting::put($key, $value);
     }
 
     public static function maintenance(): bool

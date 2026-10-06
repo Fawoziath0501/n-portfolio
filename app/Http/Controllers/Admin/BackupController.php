@@ -40,7 +40,7 @@ class BackupController extends Controller
             }
             foreach (Portfolio::SETTINGS as $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
-                    Setting::put($key, $data[$key]);
+                    Portfolio::saveSetting($key, $data[$key]);
                 }
             }
             foreach (Portfolio::COLLECTIONS as $key => $model) {

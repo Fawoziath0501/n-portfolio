@@ -1,9 +1,9 @@
 import { computed, reactive } from 'vue';
 import { fill, labels } from './labels';
-import { api, host, isEmail, lines, pad, reducedMotion, tx } from '../shared/util';
+import { api, escHtml, host, isEmail, lines, pad, reducedMotion, richHtml, tx } from '../shared/util';
 
 // Segments d'URL par route : [fr, en].
-export const SLUGS = { blog: ['blog', 'blog'], about: ['a-propos', 'about'], work: ['projets', 'work'], services: ['services', 'services'], contact: ['contact', 'contact'] };
+export const SLUGS = { blog: ['blog', 'blog'], about: ['a-propos', 'about'], work: ['projets', 'work'], services: ['services', 'services'], contact: ['contact', 'contact'], privacy: ['confidentialite', 'privacy'] };
 
 export function href(lang, route, slug) {
     const k = lang === 'en' ? 1 : 0;
@@ -46,7 +46,7 @@ export const vm = computed(() => {
         gFormatsV: t(pr.formats), gZoneV: t(pr.zone) };
     const mobile = s.w < 960, isHome = r === 'home', siteName = (d.settings && d.settings.siteName) || '';
     const H = (route) => href(s.lang, route);
-    const hrefs = { home: H('home'), about: H('about'), work: H('work'), services: H('services'), contact: H('contact'), blog: H('blog') };
+    const hrefs = { home: H('home'), about: H('about'), work: H('work'), services: H('services'), contact: H('contact'), blog: H('blog'), privacy: H('privacy') };
     const activeNav = r === 'project' ? 'work' : r;
     const navItems = ['home', 'about', 'work', 'services', 'contact'].map((k, i) => ({ key: k, label: L.nav[i], num: pad(i + 1), href: hrefs[k], current: activeNav === k }));
 
@@ -87,7 +87,7 @@ export const vm = computed(() => {
     if (cp) {
         const i = pub.indexOf(cp), pv = pub[(i - 1 + pub.length) % pub.length], nx = pub[(i + 1) % pub.length];
         const blocks = [[L.bContext, t(cp.context), false], [L.bChallenge, t(cp.problem), false], [L.bContrib, t(cp.contribution), true], [L.bSolution, t(cp.solution), true], [L.bResult, t(cp.results), false]]
-            .filter((b) => b[1].trim()).map((b, k) => ({ num: pad(k + 1), label: b[0], text: b[1], isList: b[2], items: lines(b[1]) }));
+            .filter((b) => b[1].trim()).map((b, k) => ({ num: pad(k + 1), label: b[0], html: b[2] ? '' : richHtml(b[1]), isList: b[2], items: lines(b[1]) }));
         const gallery = (Array.isArray(cp.images) ? cp.images : []).map((im) => ({ src: typeof im === 'string' ? im : im.src, alt: t(cp.title) })).filter((g) => g.src);
         cs = { ...TONES[i % 3], num: num(cp), title: t(cp.title), link: cp.link, host: host(cp.link),
             meta: [{ label: L.mType, value: t(cp.category) }, { label: L.mRole, value: t(cp.role) }, cp.year && { label: L.mYear, value: cp.year }].filter(Boolean),
@@ -109,7 +109,7 @@ export const vm = computed(() => {
         { label: L.iStatus, value: L.iStatusV },
     ].map((x, i) => ({ ...x, num: pad(i + 1) }));
     const kindOfExp = (e) => { const ro = (e.role && (e.role.fr || '')) || ''; return /stag/i.test(ro) ? L.kStage : /cdd/i.test(ro) ? L.kCdd : L.kCdi; };
-    let tlSrc = exps.map((e) => ({ kind: kindOfExp(e), title: t(e.role), org: [e.company, t(e.location)].filter(Boolean).join(' · '), period: t(e.start) + ' → ' + t(e.end), desc: t(e.description), duties: lines(t(e.duties)), current: !!e.current }));
+    let tlSrc = exps.map((e) => ({ kind: kindOfExp(e), title: t(e.role), org: [e.company, t(e.location)].filter(Boolean).join(' · '), period: t(e.start) + ' → ' + t(e.end), desc: richHtml(t(e.description)), duties: lines(t(e.duties)), current: !!e.current }));
     if (r === 'about') tlSrc = tlSrc.concat(d.education.map((x) => ({ kind: L.kEdu, title: t(x.degree), org: x.school, period: x.period, desc: '', duties: [], current: false })));
     const tlItems = tlSrc.map((x, i) => ({ ...x, col: mobile ? '2' : (i % 2 ? '3' : '1'), on: s.tlh === i }));
     const tl = mobile ? { cols: '20px minmax(0,1fr)', colGap: '16px', dotCol: '1', line: '9px', gap: '36px' } : { cols: 'minmax(0,1fr) 40px minmax(0,1fr)', colGap: '32px', dotCol: '2', line: '50%', gap: '8px' };
@@ -141,16 +141,24 @@ export const vm = computed(() => {
     page.jumps = r === 'about' ? [['approach', L.jMethod], ['experience', L.jPath], ['languages', L.jLang], ['skills', L.jSkills]].map(([id, label]) => ({ id, label })) : [];
 
     const testis = (d.testimonials || []).filter((x) => t(x.quote)).map((x) => ({ id: x.id, quote: t(x.quote), name: x.name, initial: (x.name || '?')[0], role: [t(x.role), x.company].filter(Boolean).join(', ') }));
-    const svcList = d.services.map((x) => ({ id: x.id, icon: x.icon || 'code', title: t(x.title), desc: t(x.description) }));
+    const svcList = d.services.map((x) => ({ id: x.id, icon: x.icon || 'code', title: t(x.title), desc: richHtml(t(x.description)) }));
+
+    // Politique de confidentialité : {name} et {email} remplacés par les valeurs du profil (échappées).
+    const pol = d.privacy || {}, fullName = [pr.firstName, pr.middleName, pr.lastName].filter(Boolean).join(' ');
+    const mailLink = pr.email ? '<a href="mailto:' + escHtml(pr.email) + '">' + escHtml(pr.email) + '</a>' : '';
+    const privacy = {
+        title: t(pol.title), updated: pol.updatedAt ? fill(L.privacyUpdated, { date: fmtDate(pol.updatedAt) }) : '',
+        html: richHtml(t(pol.body)).replace(/\{name\}/g, escHtml(fullName)).replace(/\{email\}/g, mailLink),
+    };
 
     return {
         L, fr, mobile, isHome, r, hrefs, navItems,
         brand: { mark: '[ ' + ((pr.firstName || '')[0] || '') + ((pr.lastName || '')[0] || '') + ' ]', name: siteName.replace(/\.[^.]*$/, ''), tld: (siteName.match(/\.[^.]*$/) || [''])[0],
             short: [pr.firstName, pr.lastName].filter(Boolean).join(' '), full: [pr.firstName, pr.middleName, pr.lastName].filter(Boolean).join(' ') }, show, p, socials, contactRows, wa: wa ? wa.url : '',
-        isWork: r === 'work', isContact: r === 'contact', isProject: !!cp, hasPageHead: r !== 'home', showCta: r !== 'contact', ctaTitle: cp ? L.ctaCase : L.ctaHome,
+        isWork: r === 'work', isContact: r === 'contact', isProject: !!cp, hasPageHead: r !== 'home' && r !== 'privacy', showCta: r !== 'contact' && r !== 'privacy', isPrivacy: r === 'privacy', privacy, ctaTitle: cp ? L.ctaCase : L.ctaHome,
         showTesti: isHome && en.testimonials && testis.length > 0, testis,
         home: { cta1: t(d.home.ctaPrimary), cta2: t(d.home.ctaSecondary) },
-        bio: lines(t(pr.bio)),
+        bio: richHtml(t(pr.bio)),
         values: (pr.values || []).map((v, i) => ({ ...[{ bg: '#0B1530', fg: '#FFFFFF', sub: '#8FA3E8' }, { bg: '#2448C8', fg: '#FFFFFF', sub: '#D3DCF8' }, { bg: '#E8EDFB', fg: '#0B1530', sub: '#2448C8' }][i % 3],
             num: pad(i + 1), title: t(v.title), text: t(v.text), icon: v.icon, keys: (v.keys || []).map((k) => t(k)), open: s.flip === i })),
         cards, filters, projCount: pad(pub.length), cs, page,

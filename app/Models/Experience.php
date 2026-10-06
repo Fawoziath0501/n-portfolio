@@ -18,6 +18,9 @@ class Experience extends Model
         return ['created_at', 'updated_at', 'deleted_at', 'position', 'company_id'];
     }
 
+    /** Champs saisis avec l'éditeur de texte enrichi (HTML nettoyé). */
+    protected array $rich = ['description'];
+
     protected $fillable = ['role', 'start', 'end', 'description', 'current', 'published', 'position'];
 
     protected $with = ['company', 'duties'];

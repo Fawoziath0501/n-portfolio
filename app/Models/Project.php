@@ -13,6 +13,9 @@ class Project extends Model
 {
     use ContentModel, Trashable;
 
+    /** Champs saisis avec l'éditeur de texte enrichi (HTML nettoyé). */
+    protected array $rich = ['context', 'problem', 'results'];
+
     protected $fillable = ['slug', 'title', 'category', 'role', 'summary', 'context', 'problem', 'contribution', 'solution', 'results', 'year', 'link', 'repo', 'featured', 'published', 'position'];
 
     protected $with = ['technologies', 'images'];

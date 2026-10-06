@@ -1,5 +1,6 @@
 <script setup>
 import { vm } from '../store';
+import SocialIcon from '../../shared/SocialIcon.vue';
 </script>
 
 <template>
@@ -13,7 +14,7 @@ import { vm } from '../store';
         </div>
         <div class="cta-r">
           <RouterLink :to="vm.hrefs.contact" class="cta-btn light"><span class="row center gap10"><span class="ms blue">send</span>{{ vm.L.ctaContact }}</span><span class="ms">arrow_forward</span></RouterLink>
-          <a v-if="vm.wa" :href="vm.wa" target="_blank" rel="noopener" class="cta-btn line"><span class="row center gap10"><span class="ms">chat</span>WhatsApp</span><span class="ms">arrow_forward</span></a>
+          <a v-if="vm.wa" :href="vm.wa" target="_blank" rel="noopener" class="cta-btn line"><span class="row center gap10"><SocialIcon :url="vm.wa" label="WhatsApp" :size="20" />WhatsApp</span><span class="ms">arrow_forward</span></a>
         </div>
       </div>
     </div>

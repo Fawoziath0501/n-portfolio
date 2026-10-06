@@ -1074,12 +1074,6 @@
   "en": "Contact"
  },
  {
-  "key": "adminLink",
-  "group": "Pied de page & newsletter",
-  "fr": "Admin",
-  "en": "Admin"
- },
- {
   "key": "maintTitle",
   "group": "Maintenance",
   "fr": "Site en maintenance",
@@ -1090,5 +1084,29 @@
   "group": "Maintenance",
   "fr": "Le portfolio revient très vite. Vous pouvez me joindre par e-mail en attendant.",
   "en": "The portfolio will be back shortly. Feel free to reach me by email in the meantime."
+ },
+ {
+  "key": "privacyLink",
+  "group": "Pied de page & newsletter",
+  "fr": "Politique de confidentialité",
+  "en": "Privacy policy"
+ },
+ {
+  "key": "privacyUpdated",
+  "group": "Pied de page & newsletter",
+  "fr": "Dernière mise à jour : {date}",
+  "en": "Last updated: {date}"
+ },
+ {
+  "key": "formPrivacy",
+  "group": "Contact & formulaires",
+  "fr": "Vos informations servent uniquement à vous répondre.",
+  "en": "Your information is only used to reply to you."
+ },
+ {
+  "key": "nlPrivacy",
+  "group": "Pied de page & newsletter",
+  "fr": "Désinscription possible à tout moment.",
+  "en": "You can unsubscribe at any time."
  }
 ]

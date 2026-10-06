@@ -26,17 +26,21 @@ class DatabaseSeeder extends Seeder
         $this->seedAdmin();
 
         $labels = json_decode(file_get_contents(__DIR__.'/data/labels.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/data/portfolio.json'), true);
 
         if (app()->isProduction() && Profile::query()->exists()) {
             foreach ($labels as $i => $label) {
                 UiLabel::firstOrCreate(['key' => $label['key']], $label + ['position' => $i]);
             }
-            $this->command?->info('Site déjà installé : contenu conservé, nouveaux textes de l\'interface ajoutés.');
+            foreach (Portfolio::SETTINGS as $key) {
+                if (! Setting::find($key)) {
+                    Setting::put($key, $data[$key]);
+                }
+            }
+            $this->command?->info('Site déjà installé : contenu conservé, nouveaux textes et réglages ajoutés.');
 
             return;
         }
-
-        $data = json_decode(file_get_contents(__DIR__.'/data/portfolio.json'), true);
 
         (Profile::query()->first() ?? new Profile)->saveFromFront($data['profile']);
         Portfolio::saveHome($data['home']);

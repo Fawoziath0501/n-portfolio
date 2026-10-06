@@ -1,5 +1,6 @@
 <script setup>
 import { setField, state, submitContact, vm } from '../store';
+import SocialIcon from '../../shared/SocialIcon.vue';
 </script>
 
 <template>
@@ -29,6 +30,7 @@ import { setField, state, submitContact, vm } from '../store';
           <p v-if="state.fs === 'sent'" role="status" class="sent"><span class="ms">check_circle</span>{{ vm.L.sent }}</p>
           <p v-if="state.fs === 'failed'" role="alert" class="fld-err">{{ vm.L.errSend }}</p>
         </div>
+        <p class="form-note">{{ vm.L.formPrivacy }} <RouterLink :to="vm.hrefs.privacy">{{ vm.L.privacyLink }}</RouterLink></p>
       </form>
 
       <aside class="contact-aside">
@@ -45,7 +47,7 @@ import { setField, state, submitContact, vm } from '../store';
         <div class="col gap12">
           <span class="mono-12 muted">{{ vm.L.follow }}</span>
           <div class="row-wrap gap10">
-            <a v-for="so in vm.socials" :key="so.label" :href="so.url" target="_blank" rel="noopener" :aria-label="so.label" :title="so.label" class="soc ms">{{ so.icon }}</a>
+            <a v-for="so in vm.socials" :key="so.label" :href="so.url" target="_blank" rel="noopener" :aria-label="so.label" :title="so.label" class="soc"><SocialIcon :url="so.url" :label="so.label" :size="22" /></a>
           </div>
         </div>
       </aside>

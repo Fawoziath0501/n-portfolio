@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Setting;
 use App\Support\Portfolio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
@@ -28,6 +29,11 @@ class SiteController extends Controller
                 $title = Portfolio::tx($project->title, $lang).' | '.trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
                 $description = Portfolio::tx($project->summary, $lang);
             }
+        }
+        if (in_array($segments[1] ?? '', ['confidentialite', 'privacy'], true)) {
+            $fullName = trim(($data['profile']['firstName'] ?? '').' '.($data['profile']['lastName'] ?? ''));
+            $title = Portfolio::tx($data['privacy']['title'] ?? '', $lang).' | '.$fullName;
+            $description = Str::limit(strip_tags(str_replace(['{name}', '{email}'], [$fullName, $data['profile']['email'] ?? ''], Portfolio::tx($data['privacy']['body'] ?? '', $lang))), 155);
         }
 
         return response()->view('site', [
@@ -53,7 +59,7 @@ class SiteController extends Controller
 
         $base = $this->baseUrl();
         $pages = [['', '']];
-        foreach (['a-propos' => 'about', 'projets' => 'work', 'services' => 'services', 'blog' => 'blog', 'contact' => 'contact'] as $fr => $en) {
+        foreach (['a-propos' => 'about', 'projets' => 'work', 'services' => 'services', 'blog' => 'blog', 'contact' => 'contact', 'confidentialite' => 'privacy'] as $fr => $en) {
             $pages[] = ['/'.$fr, '/'.$en];
         }
         foreach (Project::published()->ordered()->get(['slug', 'updated_at']) as $p) {

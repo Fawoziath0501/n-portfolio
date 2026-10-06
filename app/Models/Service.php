@@ -12,6 +12,9 @@ class Service extends Model
 {
     use ContentModel, Trashable;
 
+    /** Champs saisis avec l'éditeur de texte enrichi (HTML nettoyé). */
+    protected array $rich = ['description'];
+
     protected $fillable = ['icon', 'title', 'description', 'published', 'position'];
 
     protected function casts(): array

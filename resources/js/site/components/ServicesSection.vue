@@ -21,7 +21,7 @@ import { pad } from '../../shared/util';
               <span class="svc-num">{{ pad(i + 1) }}</span>
             </div>
             <h3 class="svc-card-title">{{ sv.title }}</h3>
-            <p class="muted-16">{{ sv.desc }}</p>
+            <div class="muted-16 rich" v-html="sv.desc"></div>
             <button type="button" class="svc-ask" @click="askService(sv.title, sv.icon)">{{ vm.L.askService }} <span class="ms">arrow_forward</span></button>
           </div>
         </li>

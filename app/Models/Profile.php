@@ -17,6 +17,9 @@ class Profile extends Model
         return ['created_at', 'updated_at', 'photo_id', 'cv_id', 'cta_primary', 'cta_secondary'];
     }
 
+    /** Champs saisis avec l'éditeur de texte enrichi (HTML nettoyé). */
+    protected array $rich = ['bio'];
+
     protected $fillable = [
         'first_name', 'middle_name', 'last_name', 'title', 'stack', 'tagline', 'bio', 'location', 'email', 'phone', 'hours', 'since',
         'availability', 'availability_short', 'status', 'reply_time', 'reply_delay', 'formats', 'zone', 'soft_skills', 'cta_primary', 'cta_secondary',

@@ -79,7 +79,7 @@ class ContentController extends Controller
         match ($key) {
             'profile' => $this->saveProfile($value),
             'home' => Portfolio::saveHome($value),
-            'seo', 'settings' => Setting::put($key, $value),
+            'seo', 'settings', 'privacy' => Portfolio::saveSetting($key, $value),
             default => abort(404),
         };
         Activity::log($request->input('activity'));

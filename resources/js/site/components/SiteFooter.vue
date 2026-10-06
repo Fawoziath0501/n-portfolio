@@ -1,6 +1,7 @@
 <script setup>
 import { state, subscribe, vm } from '../store';
 import { reducedMotion } from '../../shared/util';
+import SocialIcon from '../../shared/SocialIcon.vue';
 
 const toTop = () => window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
 const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' ? vm.value.L.nlDup : vm.value.L.nlErr);
@@ -22,6 +23,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
             <button type="submit" class="nl-btn">{{ vm.L.nlCta }}</button>
           </div>
           <p v-if="state.nls" role="status" class="nl-msg" :style="{ color: state.nls === 'ok' ? '#8FA3E8' : '#F0A39C' }">{{ nlMsg() }}</p>
+          <p class="nl-note">{{ vm.L.nlPrivacy }} <RouterLink :to="vm.hrefs.privacy">{{ vm.L.privacyLink }}</RouterLink></p>
         </form>
       </div>
 
@@ -30,7 +32,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
           <span class="ftr-name">{{ vm.brand.short }}<span class="ftr-dot"></span></span>
           <p class="ftr-bio">{{ vm.p.title }} · {{ vm.p.stack }}. {{ vm.L.footBio }}</p>
           <div class="row gap8">
-            <a v-for="so in vm.socials" :key="so.label" :href="so.url" target="_blank" rel="noopener" :aria-label="so.label" :title="so.label" class="ftr-soc ms">{{ so.icon }}</a>
+            <a v-for="so in vm.socials" :key="so.label" :href="so.url" target="_blank" rel="noopener" :aria-label="so.label" :title="so.label" class="ftr-soc"><SocialIcon :url="so.url" :label="so.label" :size="18" /></a>
           </div>
         </div>
         <nav :aria-label="vm.L.footNav" class="ftr-col">
@@ -54,7 +56,7 @@ const nlMsg = () => (state.nls === 'ok' ? vm.value.L.nlOk : state.nls === 'dup' 
       <div class="ftr-bottom">
         <span>© {{ vm.year }} {{ vm.brand.full }} · {{ vm.L.rights }}</span>
         <div class="row center gap16">
-          <a href="/admin" class="ftr-admin">{{ vm.L.adminLink }}</a>
+          <RouterLink :to="vm.hrefs.privacy" class="ftr-link">{{ vm.L.privacyLink }}</RouterLink>
           <button type="button" class="ftr-top ms" :aria-label="vm.L.toTop" @click="toTop">arrow_upward</button>
         </div>
       </div>

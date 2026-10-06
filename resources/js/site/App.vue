@@ -20,6 +20,7 @@ import ContactSection from './components/ContactSection.vue';
 import CtaBand from './components/CtaBand.vue';
 import SkillMarquee from './components/SkillMarquee.vue';
 import SiteFooter from './components/SiteFooter.vue';
+import PrivacyPage from './components/PrivacyPage.vue';
 
 const onScroll = () => {
     const mh = document.documentElement.scrollHeight - window.innerHeight;
@@ -33,7 +34,9 @@ function meta() {
     const d = state.data;
     document.documentElement.lang = state.lang;
     const p = state.route === 'project' && d.projects.find((x) => x.slug === state.slug);
-    document.title = p ? tx(p.title, state.lang) + ' | ' + [d.profile.firstName, d.profile.lastName].join(' ') : tx(d.seo.siteTitle, state.lang);
+    const owner = [d.profile.firstName, d.profile.lastName].join(' ');
+    const pol = state.route === 'privacy' && d.privacy;
+    document.title = p ? tx(p.title, state.lang) + ' | ' + owner : pol ? tx(pol.title, state.lang) + ' | ' + owner : tx(d.seo.siteTitle, state.lang);
     const m = document.querySelector('meta[name="description"]');
     if (m) m.content = p ? tx(p.summary, state.lang) : tx(d.seo.metaDescription, state.lang);
 }
@@ -97,6 +100,7 @@ onBeforeUnmount(() => {
       <Testimonials v-if="vm.showTesti" />
       <CaseStudy v-if="vm.isProject" />
       <ContactSection v-if="vm.isContact" />
+      <PrivacyPage v-if="vm.isPrivacy" />
       <CtaBand v-if="vm.showCta" />
       <SkillMarquee />
     </main>

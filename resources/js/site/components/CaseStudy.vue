@@ -35,7 +35,7 @@ import { vm } from '../store';
           <ul v-if="bk.isList" class="checks">
             <li v-for="it in bk.items" :key="it.n"><span class="ms">check</span>{{ it.text }}</li>
           </ul>
-          <p v-else>{{ bk.text }}</p>
+          <div v-else class="rich" v-html="bk.html"></div>
         </div>
       </section>
       <section v-if="vm.cs.gallery.length" class="gallery">
