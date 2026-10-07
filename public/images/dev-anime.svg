@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" role="img" aria-label="Illustration d’une développeuse">
+<style>
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1) } 95% { transform: scaleY(.08) } }
+  @keyframes bob { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(2.5px) } }
+  @keyframes type { 0% { transform: scaleX(0) } 30%, 85% { transform: scaleX(1) } 100% { transform: scaleX(0) } }
+  @keyframes caret { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+  @keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+  @keyframes steam { 0% { opacity: 0; transform: translateY(6px) } 40% { opacity: .7 } 100% { opacity: 0; transform: translateY(-14px) } }
+  @keyframes shine { 0%, 70% { transform: translateX(-14px); opacity: 0 } 80% { opacity: .6 } 100% { transform: translateX(14px); opacity: 0 } }
+  .eye { transform-box: fill-box; transform-origin: center; animation: blink 4.5s infinite }
+  .head { animation: bob 3.2s ease-in-out infinite }
+  .ln { transform-box: fill-box; transform-origin: left; animation: type 6s ease-in-out infinite }
+  .ln2 { animation-delay: .6s } .ln3 { animation-delay: 1.2s } .ln4 { animation-delay: 1.8s } .ln5 { animation-delay: 2.4s }
+  .caret { animation: caret 1s steps(1) infinite }
+  .fl { animation: float 4s ease-in-out infinite } .fl2 { animation-delay: -2s }
+  .st { animation: steam 2.6s ease-out infinite } .st2 { animation-delay: -1.3s }
+  .sh { opacity: 0; animation: shine 5s ease-in-out infinite }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+</style>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF2FD"/><stop offset="1" stop-color="#C9D3F2"/></linearGradient>
+  <radialGradient id="iris" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#7A4A2A"/><stop offset="1" stop-color="#2A160C"/></radialGradient>
+  <clipPath id="lens-l"><circle cx="129" cy="184" r="17"/></clipPath>
+  <clipPath id="lens-r"><circle cx="171" cy="184" r="17"/></clipPath>
+</defs>
+
+<rect width="300" height="400" fill="url(#bg)"/>
+<g fill="#2448C8" opacity=".08"><circle cx="40" cy="330" r="60"/><circle cx="270" cy="250" r="44"/></g>
+
+<!-- Fenêtre de code -->
+<g transform="translate(176 36)">
+  <rect width="110" height="118" rx="6" fill="#0B1530"/>
+  <circle cx="11" cy="11" r="3" fill="#FF6B6B"/><circle cx="21" cy="11" r="3" fill="#FFC857"/><circle cx="31" cy="11" r="3" fill="#4ADE80"/>
+  <rect class="ln" x="10" y="28" width="56" height="5" rx="2.5" fill="#8EA6F5"/>
+  <rect class="ln ln2" x="18" y="42" width="72" height="5" rx="2.5" fill="#F7A8C4"/>
+  <rect class="ln ln3" x="18" y="56" width="44" height="5" rx="2.5" fill="#FFC857"/>
+  <rect class="ln ln4" x="26" y="70" width="62" height="5" rx="2.5" fill="#4ADE80"/>
+  <rect class="ln ln5" x="10" y="84" width="34" height="5" rx="2.5" fill="#8EA6F5"/>
+  <rect class="caret" x="10" y="98" width="7" height="9" fill="#FFFFFF"/>
+</g>
+
+<!-- Symboles flottants -->
+<g font-family="JetBrains Mono, monospace" font-weight="700" fill="#2448C8">
+  <text class="fl" x="26" y="74" font-size="22">&lt;/&gt;</text>
+  <text class="fl fl2" x="44" y="140" font-size="18" opacity=".55">{ }</text>
+</g>
+
+<!-- Personnage -->
+<g class="head">
+  <!-- Cheveux (arrière) -->
+  <g fill="#1A1430">
+    <ellipse cx="150" cy="168" rx="76" ry="74"/>
+    <circle cx="86" cy="196" r="24"/><circle cx="214" cy="196" r="24"/>
+    <circle cx="96" cy="230" r="20"/><circle cx="204" cy="230" r="20"/>
+    <circle cx="150" cy="84" r="34"/><circle cx="124" cy="94" r="22"/><circle cx="176" cy="94" r="22"/>
+  </g>
+  <rect x="130" y="70" width="40" height="9" rx="4.5" fill="#2448C8" transform="rotate(-8 150 74)"/>
+
+  <!-- Cou et sweat -->
+  <rect x="137" y="222" width="26" height="36" fill="#8A5234"/>
+  <path d="M52 400 Q54 282 112 260 L150 274 L188 260 Q246 282 248 400 Z" fill="#2448C8"/>
+  <path d="M112 260 L150 274 L188 260 L178 254 L150 264 L122 254 Z" fill="#1B379E"/>
+  <path d="M138 272 L136 304 M162 272 L164 304" stroke="#EEF2FD" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Visage -->
+  <ellipse cx="101" cy="186" rx="8" ry="11" fill="#9A5E3D"/><ellipse cx="199" cy="186" rx="8" ry="11" fill="#9A5E3D"/>
+  <circle cx="101" cy="200" r="3" fill="#FFC857"/><circle cx="199" cy="200" r="3" fill="#FFC857"/>
+  <path d="M103 168 Q103 226 150 238 Q197 226 197 168 Q197 122 150 122 Q103 122 103 168 Z" fill="#A0643F"/>
+  <!-- Frange -->
+  <path d="M100 176 Q94 112 150 108 Q208 112 200 176 Q194 146 176 136 Q170 152 146 150 Q152 142 150 136 Q130 152 112 150 Q104 160 100 176 Z" fill="#1A1430"/>
+
+  <!-- Sourcils -->
+  <path d="M117 162 Q128 157 139 161 M161 161 Q172 157 183 162" stroke="#1A1430" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Yeux -->
+  <g class="eye">
+    <ellipse cx="129" cy="186" rx="11" ry="13" fill="#FFFFFF"/>
+    <ellipse cx="130" cy="187" rx="8" ry="11" fill="url(#iris)"/>
+    <circle cx="130" cy="189" r="3.5" fill="#120A06"/>
+    <circle cx="133" cy="182" r="3" fill="#FFFFFF"/><circle cx="127" cy="193" r="1.4" fill="#FFFFFF"/>
+    <path d="M116 180 Q128 168 142 177" stroke="#120A06" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <g class="eye">
+    <ellipse cx="171" cy="186" rx="11" ry="13" fill="#FFFFFF"/>
+    <ellipse cx="170" cy="187" rx="8" ry="11" fill="url(#iris)"/>
+    <circle cx="170" cy="189" r="3.5" fill="#120A06"/>
+    <circle cx="173" cy="182" r="3" fill="#FFFFFF"/><circle cx="167" cy="193" r="1.4" fill="#FFFFFF"/>
+    <path d="M158 177 Q172 168 184 180" stroke="#120A06" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Lunettes et reflet de l’écran -->
+  <g fill="none" stroke="#0B1530" stroke-width="2.5">
+    <circle cx="129" cy="184" r="17"/><circle cx="171" cy="184" r="17"/>
+    <path d="M146 182 Q150 178 154 182 M112 182 L104 178 M188 182 L196 178"/>
+  </g>
+  <g clip-path="url(#lens-l)"><rect class="sh" x="120" y="166" width="5" height="40" fill="#FFFFFF" transform="rotate(20 129 184)"/></g>
+  <g clip-path="url(#lens-r)"><rect class="sh" x="162" y="166" width="5" height="40" fill="#FFFFFF" transform="rotate(20 171 184)"/></g>
+
+  <!-- Joues, nez, sourire -->
+  <ellipse cx="119" cy="208" rx="8" ry="4" fill="#E0766A" opacity=".45"/><ellipse cx="181" cy="208" rx="8" ry="4" fill="#E0766A" opacity=".45"/>
+  <path d="M149 204 Q151 207 153 205" stroke="#6E3F25" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M141 216 Q150 224 159 216" stroke="#5A2E1A" stroke-width="2.5" fill="#FFFFFF" stroke-linecap="round"/>
+</g>
+
+<!-- Ordinateur (dos de l’écran) -->
+<rect x="66" y="292" width="168" height="98" rx="8" fill="#E3E8F2" stroke="#B8C2D6" stroke-width="2"/>
+<rect x="56" y="388" width="188" height="12" rx="4" fill="#B8C2D6"/>
+<g font-family="JetBrains Mono, monospace" font-weight="700">
+  <rect x="84" y="308" width="54" height="22" rx="11" fill="#2448C8"/><text x="111" y="323.5" font-size="11" fill="#FFFFFF" text-anchor="middle">&lt;/&gt;</text>
+  <rect x="164" y="352" width="54" height="22" rx="4" fill="#0B1530" transform="rotate(-6 191 363)"/><text x="191" y="367" font-size="10" fill="#4ADE80" text-anchor="middle" transform="rotate(-6 191 363)">dev</text>
+</g>
+<path d="M150 352 C150 344 140 340 136 346 C132 340 122 344 122 352 C122 362 136 370 136 370 C136 370 150 362 150 352 Z" fill="#F7A8C4"/>
+<circle cx="196" cy="320" r="10" fill="#FFC857"/><path d="M191 320 L195 324 L202 316" stroke="#0B1530" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- Tasse -->
+<path d="M14 352 H44 V380 Q44 390 34 390 H24 Q14 390 14 380 Z" fill="#FFFFFF" stroke="#0B1530" stroke-width="2"/>
+<path d="M44 360 Q54 360 54 368 Q54 376 44 376" stroke="#0B1530" stroke-width="2" fill="none"/>
+<g stroke="#4B5873" stroke-width="2" fill="none" stroke-linecap="round">
+  <path class="st" d="M24 344 Q20 336 24 328 Q28 320 24 312"/>
+  <path class="st st2" d="M34 344 Q30 336 34 328 Q38 320 34 312"/>
+</g>
+</svg>

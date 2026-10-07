@@ -151,8 +151,17 @@ button { font: inherit; }
 .hero-stats dd { margin: 0; display: flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-weight: 500; font-size: 30px; letter-spacing: -.02em; color: var(--ac); }
 .sq { width: 8px; height: 8px; background: var(--ac); }
 .hero-visual { flex: 0 1 460px; min-width: 260px; position: relative; }
-.portrait { position: relative; width: 100%; aspect-ratio: 3 / 4; background: #FFFFFF; border: 1px solid var(--ln); }
-.portrait-img { width: 100%; height: 100%; background-size: cover; background-position: center top; }
+.portrait { position: relative; width: 100%; aspect-ratio: 3 / 4; background: #FFFFFF; border: 1px solid var(--ln); perspective: 1400px; }
+.portrait-flip { position: absolute; inset: 0; display: block; padding: 0; border: 0; background: none; cursor: pointer; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.portrait-flip.on { transform: rotateY(180deg); }
+@media (hover: hover) { .portrait:hover .portrait-flip { transform: rotateY(180deg); } .portrait:hover .portrait-flip.on { transform: none; } }
+.portrait-flip:focus-visible { outline: 2px solid var(--ac); outline-offset: 4px; }
+.portrait-face { position: absolute; inset: 0; display: block; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.portrait-face.back { transform: rotateY(180deg); }
+.portrait-art { display: block; width: 100%; height: 100%; object-fit: cover; }
+.portrait-img { display: block; width: 100%; height: 100%; background-size: cover; background-position: center top; }
+.portrait-hint { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; padding: 6px; border-radius: 50%; background: #FFFFFF; color: var(--ac); box-shadow: 0 4px 12px rgba(11, 21, 48, .12); pointer-events: none; transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.portrait:hover .portrait-hint { transform: rotate(180deg); }
 .portrait-empty { position: absolute; inset: -1px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 16px; text-align: center; background: #F4F4F4; border: 1px dashed #A9A9A9; font-size: 13px; font-weight: 500; color: #3D3D3D; }
 .portrait-empty .ms { font-size: 28px; font-weight: 300; color: #777777; }
 .corner { position: absolute; width: 22px; height: 22px; pointer-events: none; }

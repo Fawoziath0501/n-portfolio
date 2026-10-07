@@ -1,5 +1,7 @@
 <script setup>
+import { ref } from 'vue';
 import { vm, state } from '../store';
+const flipped = ref(false);
 // Portrait : version allégée (WebP 480 px, 960 px sur écran haute définition), sinon l’original.
 const portraitBg = (url) => {
   const th = state.data.thumbs && state.data.thumbs[url];
@@ -37,8 +39,15 @@ const portraitBg = (url) => {
 
       <div class="hero-visual" :style="{ paddingRight: vm.annotPad }">
         <div class="portrait">
-          <div v-if="vm.p.photo" role="img" :aria-label="vm.p.photoAlt" class="portrait-img" :style="{ backgroundImage: portraitBg(vm.p.photo) }"></div>
-          <div v-else class="portrait-empty" role="img" :aria-label="vm.p.photoAlt"><span class="ms">image</span><span>{{ vm.p.photoPlaceholder }}</span></div>
+          <!-- Illustration d’abord ; le portrait se dévoile en retournant la carte (survol, ou toucher au clavier et sur mobile). -->
+          <button type="button" class="portrait-flip" :class="{ on: flipped }" :aria-pressed="flipped" :aria-label="vm.p.photoAlt" @click="flipped = !flipped">
+            <span class="portrait-face"><img src="/images/dev-anime.svg" alt="" class="portrait-art"></span>
+            <span class="portrait-face back">
+              <span v-if="vm.p.photo" class="portrait-img" :style="{ backgroundImage: portraitBg(vm.p.photo) }"></span>
+              <span v-else class="portrait-empty"><span class="ms">image</span><span>{{ vm.p.photoPlaceholder }}</span></span>
+            </span>
+          </button>
+          <svg aria-hidden="true" class="portrait-hint" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span aria-hidden="true" class="corner tl"></span>
           <span aria-hidden="true" class="corner br"></span>
           <div class="stack-card">
