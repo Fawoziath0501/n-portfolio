@@ -121,7 +121,7 @@ class InteractionController extends Controller
     /** Lecture d'un article (une fois par visite, dédoublonnée côté navigateur). */
     public function postView(string $slug)
     {
-        $query = Post::published()->where('slug', $slug);
+        $query = Post::published()->where(fn ($q) => $q->where('slug', $slug)->orWhere('slug_en', $slug));
         abort_unless($query->exists(), 404);
         $query->toBase()->increment('views'); // sans toucher à updated_at
 

@@ -21,7 +21,7 @@ class BlogMenusTest extends TestCase
         $post = tap(Post::query()->first())->update(['published' => true]); // articles d'exemple livrés en brouillon
         $this->assertNotEmpty($post->slug);
 
-        $this->get("/fr/blog/{$post->slug}")->assertOk()->assertSee('<title>'.e($post->title['fr']).' | ', false);
+        $this->get("/fr/blog/{$post->slug}")->assertOk()->assertSee('<title>'.e($post->title['fr']), false);
         $this->get('/sitemap.xml')->assertSee("/fr/blog/{$post->slug}</loc>", false);
         $this->assertContains($post->slug, array_column($this->getJson('/api/site')->json('posts'), 'slug'));
     }

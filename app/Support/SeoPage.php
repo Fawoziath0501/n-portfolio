@@ -71,7 +71,8 @@ class SeoPage
             return;
         }
         $pageKey = collect(self::PAGES)->search(fn ($p) => in_array($s1, [$p[0], $p[1]], true));
-        $named = fn ($title) => trim($title.' | '.$owner, ' |');
+        // « Titre | Nom » ; le nom est omis si le titre complet dépasserait 60 caractères (tronqué par les moteurs de recherche).
+        $named = fn ($title) => mb_strlen($title.' | '.$owner) > 60 && $title !== '' ? $title : trim($title.' | '.$owner, ' |');
 
         if ($pageKey && $s2 === null) {
             $this->page($pageKey);
@@ -79,7 +80,7 @@ class SeoPage
         } elseif (in_array($s1, ['projets', 'work'], true) && $s2 !== null && ($p = $this->find('projects', 'slug', $s2))) {
             $this->project($p);
             $this->title = $named($this->content['h1']);
-        } elseif ($s1 === 'blog' && $s2 !== null && ($p = $this->find('posts', 'slug', $s2))) {
+        } elseif ($s1 === 'blog' && $s2 !== null && ($p = collect($this->d['posts'] ?? [])->first(fn ($x) => in_array($s2, [$x['slug'], $x['slugEn'] ?? null], true)))) {
             $this->post($p);
             $this->title = $named($this->content['h1']);
         } elseif ($s2 === null && ($p = collect($this->d['legalPages'] ?? [])->first(fn ($x) => in_array($s1, [$x['slugFr'], $x['slugEn']], true)))) {
@@ -158,7 +159,7 @@ class SeoPage
         $this->type = 'post';
         // Couverture choisie, sinon image de partage générée aux couleurs du site.
         $this->image = $this->absolute($p['cover'] ?? '') ?: $this->base.'/blog/'.$p['slug'].'/couverture-'.$this->lang.'.png';
-        $this->alternates = ['fr' => '/fr/blog/'.$p['slug'], 'en' => '/en/blog/'.$p['slug']];
+        $this->alternates = ['fr' => '/fr/blog/'.$p['slug'], 'en' => '/en/blog/'.(($p['slugEn'] ?? '') ?: $p['slug'])];
         $this->content['h1'] = $this->tx($p['title']);
         $this->content['intro'] = $this->tx($p['excerpt'] ?? '');
         $this->content['html'] = $this->rich($p['body'] ?? '');
@@ -245,7 +246,7 @@ class SeoPage
 
     private function postLinks(): array
     {
-        return array_map(fn ($p) => [$this->tx($p['title']), '/'.$this->lang.'/blog/'.$p['slug']], $this->d['posts'] ?? []);
+        return array_map(fn ($p) => [$this->tx($p['title']), '/'.$this->lang.'/blog/'.($this->lang === 'en' && ($p['slugEn'] ?? '') ? $p['slugEn'] : $p['slug'])], $this->d['posts'] ?? []);
     }
 
     private function find(string $collection, string $field, string $value): ?array

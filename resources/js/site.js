@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import App from './site/App.vue';
-import { SLUGS, countPostView, findLegal, parseRoute, state, track } from './site/store';
+import { SLUGS, countPostView, findLegal, findPost, parseRoute, state, track } from './site/store';
 
 const Empty = { render: () => null };
 const preferredLang = () => { try { return localStorage.getItem('fz.lang') === 'en' ? 'en' : 'fr'; } catch (e) { return 'fr'; } };
@@ -29,7 +29,7 @@ router.beforeEach((to) => {
         return '/' + to.params.lang + '/' + (to.params.lang === 'en' ? 'work' : 'projets');
     }
     // Article inconnu : retour au blog. Page inconnue (ni page du site, ni page légale) : accueil.
-    if (to.name === 'post' && state.data && !(state.data.posts || []).some((p) => p.slug === to.params.slug)) return '/' + to.params.lang + '/blog';
+    if (to.name === 'post' && state.data && !findPost(to.params.slug)) return '/' + to.params.lang + '/blog';
     if (to.name === 'page' && state.data && !Object.values(SLUGS).flat().includes(to.params.page) && !findLegal(to.params.page)) return '/' + to.params.lang;
 });
 
@@ -37,7 +37,7 @@ router.afterEach((to, from) => {
     Object.assign(state, parseRoute(to), { menu: false });
     try { localStorage.setItem('fz.lang', state.lang); } catch (e) {}
     if (to.path !== from.path) track('pv');
-    if (to.name === 'post') countPostView(to.params.slug);
+    if (to.name === 'post') countPostView(state.slug);
 });
 
 createApp(App).use(router).mount('#app');

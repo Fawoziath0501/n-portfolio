@@ -102,7 +102,7 @@ class ContentController extends Controller
 
     /** Le slug d'un projet reste unique, corbeille comprise (sinon la restauration échouerait). */
     /** Champs d'adresse (slug) par collection, uniques entre eux et réservés aux pages du site. */
-    private const SLUG_FIELDS = ['projects' => ['slug'], 'posts' => ['slug'], 'legalPages' => ['slugFr', 'slugEn']];
+    private const SLUG_FIELDS = ['projects' => ['slug'], 'posts' => ['slug', 'slugEn'], 'legalPages' => ['slugFr', 'slugEn']];
 
     /** Segments déjà utilisés par le site : une page légale ne peut pas les prendre. */
     private const RESERVED = ['a-propos', 'about', 'projets', 'work', 'services', 'contact', 'blog', 'admin', 'api', 'storage'];

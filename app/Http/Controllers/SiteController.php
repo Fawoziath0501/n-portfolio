@@ -21,6 +21,12 @@ class SiteController extends Controller
         $data = Portfolio::public();
         $maintenance = $data['settings']['maintenance'];
         $page = new SeoPage($segments, $lang, $data, $this->baseUrl());
+        // Article ouvert avec l'adresse de l'autre langue (ex. ancien lien /en/blog/{slug français}) : redirection vers la bonne.
+        if (! $maintenance && $page->type === 'post' && '/'.$request->path() !== $page->alternates[$lang]) {
+            $query = $request->getQueryString();
+
+            return redirect($page->alternates[$lang].($query ? '?'.$query : ''), 301);
+        }
         $status = $maintenance ? 503 : ($page->found ? 200 : 404);
 
         return response()->view('site', [
@@ -53,8 +59,8 @@ class SiteController extends Controller
         foreach (Project::published()->ordered()->get(['slug', 'updated_at']) as $p) {
             $pages[] = ['/projets/'.$p->slug, '/work/'.$p->slug, $p->updated_at];
         }
-        foreach (Post::published()->whereNotNull('slug')->orderByDesc('date')->get(['id', 'slug', 'updated_at']) as $p) {
-            $pages[] = ['/blog/'.$p->slug, '/blog/'.$p->slug, $p->updated_at];
+        foreach (Post::published()->whereNotNull('slug')->orderByDesc('date')->get(['id', 'slug', 'slug_en', 'updated_at']) as $p) {
+            $pages[] = ['/blog/'.$p->slug, '/blog/'.($p->slug_en ?: $p->slug), $p->updated_at];
         }
         foreach (LegalPage::published()->ordered()->get(['slug_fr', 'slug_en', 'updated_at']) as $p) {
             $pages[] = ['/'.$p->slug_fr, '/'.$p->slug_en, $p->updated_at];

@@ -32,7 +32,8 @@ import { state, vm } from '../store';
       <p v-if="vm.blog.empty" role="status" class="muted-16">{{ vm.L.noPosts }}</p>
       <ul class="posts">
         <li v-for="po in vm.posts" :key="po.id" data-reveal>
-          <component :is="po.href ? 'RouterLink' : po.url ? 'a' : 'article'" :to="po.href || undefined" :href="!po.href && po.url ? po.url : undefined" :target="!po.href && po.url ? '_blank' : null" :rel="!po.href && po.url ? 'noopener' : null" class="post">
+          <!-- Seuls les attributs utiles : un « href » vide passé au lien du routeur remplacerait l'adresse de l'article. -->
+          <component :is="po.href ? 'RouterLink' : po.url ? 'a' : 'article'" v-bind="po.href ? { to: po.href } : po.url ? { href: po.url, target: '_blank', rel: 'noopener' } : {}" class="post">
             <div class="post-cover" :class="{ img: po.cover }">
               <img v-if="po.cover" :src="po.cover" alt="" loading="lazy">
               <span v-else class="ms" aria-hidden="true">{{ po.icon }}</span>

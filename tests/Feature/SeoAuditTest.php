@@ -24,7 +24,7 @@ class SeoAuditTest extends TestCase
         $this->get('/en/'.$legal->slug_en)->assertSee('hreflang="fr" href="http://localhost/fr/'.$legal->slug_fr.'"', false);
 
         $post = tap(Post::query()->first())->update(['published' => true]); // articles d'exemple livrés en brouillon
-        $this->get('/fr/blog/'.$post->slug)->assertSee('hreflang="en" href="http://localhost/en/blog/'.$post->slug.'"', false);
+        $this->get('/fr/blog/'.$post->slug)->assertSee('hreflang="en" href="http://localhost/en/blog/'.$post->slug_en.'"', false);
     }
 
     public function test_pages_are_readable_without_javascript(): void

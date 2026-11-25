@@ -36,7 +36,7 @@ class PostNewsletterMail extends Mailable
         $tx = fn ($v) => trim(strip_tags((string) (($v[$this->lang] ?? '') ?: ($v['fr'] ?? ''))));
         $this->title = $tx($post->title);
         $this->excerpt = $tx($post->excerpt);
-        $this->link = rtrim((string) config('app.url'), '/').'/'.$this->lang.'/blog/'.$post->slug;
+        $this->link = rtrim((string) config('app.url'), '/').$post->path($this->lang);
         $this->image = $post->shareImageUrl($this->lang);
         $this->unsubscribe = self::unsubscribeUrl($subscriber);
         $this->locale($this->lang);

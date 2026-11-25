@@ -19,7 +19,7 @@ class BackupController extends Controller
     /** Colonnes uniques par collection (clé front => colonne), corbeille comprise. */
     private const UNIQUE = [
         'projects' => ['slug' => 'slug'],
-        'posts' => ['slug' => 'slug'],
+        'posts' => ['slug' => 'slug', 'slugEn' => 'slug_en'],
         'legalPages' => ['slugFr' => 'slug_fr', 'slugEn' => 'slug_en', 'key' => 'key'],
     ];
 

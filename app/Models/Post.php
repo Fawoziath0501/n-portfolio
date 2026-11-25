@@ -8,6 +8,7 @@ use App\Support\Portfolio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -18,7 +19,7 @@ class Post extends Model
     protected array $rich = ['body'];
 
     // « views » n'est pas modifiable depuis l'administration : il est incrémenté à chaque lecture.
-    protected $fillable = ['slug', 'title', 'excerpt', 'body', 'icon', 'date', 'read_min', 'url', 'published', 'position'];
+    protected $fillable = ['slug', 'slug_en', 'title', 'excerpt', 'body', 'icon', 'date', 'read_min', 'url', 'published', 'position'];
 
     protected $with = ['tags', 'cover'];
 
@@ -30,9 +31,12 @@ class Post extends Model
     protected static function booted(): void
     {
         static::saving(function (Post $post) {
-            // Adresse générée depuis le titre si elle est vide.
+            // Adresses générées depuis le titre si elles sont vides : /fr/blog/{slug} et /en/blog/{slug_en}.
             if (! $post->slug) {
                 $post->slug = static::uniqueSlug($post->title['fr'] ?? ($post->title['en'] ?? ''), $post->id);
+            }
+            if (! $post->slug_en && ($post->title['en'] ?? '') !== '') {
+                $post->slug_en = static::uniqueSlug($post->title['en'], $post->id, 'slug_en');
             }
             // Temps de lecture calculé depuis le contenu (environ 220 mots par minute).
             if ($post->isDirty('body') && ($words = str_word_count(strip_tags(Portfolio::tx($post->body)), 0, 'À..ÿ')) > 0) {
@@ -41,12 +45,17 @@ class Post extends Model
         });
     }
 
-    /** Slug libre tiré d'un titre (suffixe numérique si déjà pris, corbeille comprise). */
-    public static function uniqueSlug(string $title, ?int $ignoreId = null): string
+    /** Slug libre tiré d'un titre (suffixe numérique si déjà pris, corbeille comprise), pour « slug » (FR) ou « slug_en ». */
+    public static function uniqueSlug(string $title, ?int $ignoreId = null, string $column = 'slug'): string
     {
         $base = Str::slug($title) ?: 'article';
         $slug = $base;
-        for ($n = 2; static::withTrashed()->where('slug', $slug)->when($ignoreId, fn ($q) => $q->whereKeyNot($ignoreId))->exists(); $n++) {
+        // Une adresse ne reprend ni l'adresse française ni l'adresse anglaise d'un autre article (colonne slug_en si elle existe déjà).
+        static $columns = null;
+        $columns ??= Schema::hasColumn('posts', 'slug_en') ? ['slug', 'slug_en'] : ['slug'];
+        $taken = fn ($s) => static::withTrashed()->where(fn ($q) => array_map(fn ($c) => $q->orWhere($c, $s), array_unique([$column, ...$columns])))
+            ->when($ignoreId, fn ($q) => $q->whereKeyNot($ignoreId))->exists();
+        for ($n = 2; $taken($slug); $n++) {
             $slug = $base.'-'.$n;
         }
 
@@ -56,6 +65,12 @@ class Post extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class)->withPivot('position')->orderByPivot('position');
+    }
+
+    /** Adresse de l'article dans une langue (/fr/blog/… ou /en/blog/…). */
+    public function path(string $lang = 'fr'): string
+    {
+        return '/'.($lang === 'en' ? 'en' : 'fr').'/blog/'.($lang === 'en' && $this->slug_en ? $this->slug_en : $this->slug);
     }
 
     /** Image de partage : la couverture choisie, sinon l’image générée aux couleurs du site (adresse absolue). */

@@ -6,6 +6,8 @@ import { api, escHtml, host, isEmail, lines, pad, reducedMotion, richHtml, tx } 
 export const SLUGS = { blog: ['blog', 'blog'], about: ['a-propos', 'about'], work: ['projets', 'work'], services: ['services', 'services'], contact: ['contact', 'contact'] };
 
 /** Page légale publiée correspondant à un segment d'URL (slug FR ou EN). */
+// Article à partir de l'adresse, française ou anglaise ; l'article est ensuite repéré par son slug français.
+export const findPost = (seg) => ((state.data && state.data.posts) || []).find((p) => p.slug === seg || p.slugEn === seg) || null;
 export const findLegal = (seg) => ((state.data && state.data.legalPages) || []).find((p) => p.slugFr === seg || p.slugEn === seg) || null;
 
 /** Adresse d'une route ; « slug » est le slug d'un projet ou d'un article, ou l'id d'une page légale. */
@@ -13,7 +15,10 @@ export function href(lang, route, slug) {
     const k = lang === 'en' ? 1 : 0;
     if (route === 'home') return '/' + lang;
     if (route === 'project') return '/' + lang + '/' + SLUGS.work[k] + '/' + slug;
-    if (route === 'post') return '/' + lang + '/blog/' + slug;
+    if (route === 'post') {
+        const p = findPost(slug);
+        return '/' + lang + '/blog/' + (p && lang === 'en' && p.slugEn ? p.slugEn : slug);
+    }
     if (route === 'legal') {
         const p = ((state.data && state.data.legalPages) || []).find((x) => x.id === slug);
         return p ? '/' + lang + '/' + (lang === 'en' ? p.slugEn : p.slugFr) : '/' + lang;
@@ -25,7 +30,7 @@ export function parseRoute(r) {
     const lang = r.params.lang === 'en' ? 'en' : 'fr';
     let route = 'home', slug = null;
     if (r.name === 'project') { route = 'project'; slug = r.params.slug; }
-    else if (r.name === 'post') { route = 'post'; slug = r.params.slug; }
+    else if (r.name === 'post') { route = 'post'; const p = findPost(r.params.slug); slug = p ? p.slug : r.params.slug; }
     else if (r.name === 'page') {
         const k = Object.keys(SLUGS).find((x) => SLUGS[x].includes(r.params.page));
         const legal = !k && findLegal(r.params.page);
@@ -36,6 +41,7 @@ export function parseRoute(r) {
 }
 
 
+const MIN_VIEWS = 50;
 // Statut d'un projet → clé du libellé affiché sur sa fiche.
 const STATUS = { live: 'stLive', private: 'stPrivate', internal: 'stInternal', offline: 'stOffline' };
 const TONES = [{ bg: '#0B1530', fg: '#FFFFFF', sub: '#8FA3E8' }, { bg: '#2448C8', fg: '#FFFFFF', sub: '#D3DCF8' }, { bg: '#E8EDFB', fg: '#1B379E', sub: '#2448C8' }];
@@ -158,7 +164,8 @@ export const vm = computed(() => {
         const fmtDate = (iso) => { try { return new Date(iso + 'T12:00:00').toLocaleDateString(L.dateLocale || (fr ? 'fr-FR' : 'en-GB'), { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } };
     const allPosts = (d.posts || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
     // Blog : filtre par thème, recherche et tri (récents / plus lus) sur la page Blog ; 3 plus récents sur l'accueil.
-    const viewsLabel = (n) => (!n ? '' : n === 1 ? L.viewsOne : fill(L.views, { count: n }));
+    // Compteur de lectures affiché à partir de MIN_VIEWS lectures (un « 3 lectures » dessert plus qu'il ne sert).
+    const viewsLabel = (n) => (!n || n < MIN_VIEWS ? '' : fill(L.views, { count: n }));
     const postCard = (x, i) => ({ id: x.id, num: pad(i + 1), title: t(x.title), excerpt: t(x.excerpt), date: fmtDate(x.date), read: (x.readMin || 1) + ' ' + L.read,
         icon: x.icon || 'article', cover: x.cover || '', url: x.url, href: x.slug ? href(s.lang, 'post', x.slug) : '', views: viewsLabel(x.views), tags: (x.tags || []).map((v) => t(v)) });
     const blogTags = [...new Set(allPosts.flatMap((x) => (x.tags || []).map((v) => t(v))))];
