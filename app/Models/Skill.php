@@ -24,7 +24,7 @@ class Skill extends Model
         'flutter' => 'flutter', 'dart' => 'dart', 'typescript' => 'typescript',
         'google search console' => 'google', 'google analytics' => 'google',
         'node.js' => 'nodejs', 'mysql' => 'mysql', 'postgresql' => 'postgresql', 'firebase' => 'firebase',
-        'tailwind css' => 'tailwindcss', 'bootstrap' => 'bootstrap', 'figma' => 'figma', 'postman' => 'postman',
+        'tailwind css' => 'tailwindcss', 'bootstrap' => 'bootstrap', 'figma' => 'figma', 'postman' => 'postman', 'docker' => 'docker', 'docker compose' => 'docker',
     ];
 
     protected function casts(): array

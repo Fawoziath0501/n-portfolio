@@ -27,8 +27,8 @@
     },
     "since": "2023",
     "bio": {
-      "fr": "<p>Développeuse Full Stack basée à Cotonou, je conçois et développe depuis 2023 des applications web et mobiles en production : applications métier avec espaces multi-utilisateurs, rôles et permissions, paiements en ligne, API REST, temps réel et mode hors ligne. J’interviens de l’analyse du besoin à la mise en production, y compris le design des interfaces et la publication des applications mobiles.</p><p>Mon socle : Laravel et PHP, Vue.js, Angular et Flutter, MySQL et PostgreSQL, tests avec PHPUnit, Pest et Postman. J’utilise aussi au quotidien des outils d’IA (Claude, ChatGPT, Gemini) pour générer, corriger et optimiser du code.</p>",
-      "en": "<p>Full Stack developer based in Cotonou, Benin, I have been designing and building web and mobile applications in production since 2023: business applications with multi-user areas, roles and permissions, online payments, REST APIs, real-time features and offline mode. I work from needs analysis through to production, including interface design and mobile app store submission.</p><p>My core stack: Laravel and PHP, Vue.js, Angular and Flutter, MySQL and PostgreSQL, testing with PHPUnit, Pest and Postman. I also use AI tools daily (Claude, ChatGPT, Gemini) to generate, fix and optimise code.</p>"
+      "fr": "<p>Développeuse Full Stack basée à Cotonou, je conçois et développe depuis 2023 des applications web et mobiles en production : applications métier avec espaces multi-utilisateurs, rôles et permissions, paiements en ligne, API REST, temps réel et mode hors ligne. J’interviens de l’analyse du besoin à la mise en production, y compris le design des interfaces et la publication des applications mobiles.</p><p>Mon socle : Laravel et PHP, Vue.js, Angular et Flutter, MySQL et PostgreSQL, Docker, tests avec PHPUnit, Pest et Postman. J’utilise aussi au quotidien des outils d’IA (Claude, ChatGPT, Gemini) pour générer, corriger et optimiser du code.</p>",
+      "en": "<p>Full Stack developer based in Cotonou, Benin, I have been designing and building web and mobile applications in production since 2023: business applications with multi-user areas, roles and permissions, online payments, REST APIs, real-time features and offline mode. I work from needs analysis through to production, including interface design and mobile app store submission.</p><p>My core stack: Laravel and PHP, Vue.js, Angular and Flutter, MySQL and PostgreSQL, Docker, testing with PHPUnit, Pest and Postman. I also use AI tools daily (Claude, ChatGPT, Gemini) to generate, fix and optimise code.</p>"
     },
     "availability": {
       "fr": "Disponible pour missions freelance et opportunités",
@@ -326,6 +326,7 @@
         "PostgreSQL",
         "Redis",
         "Socket.IO",
+        "Docker",
         "Firebase",
         "KkiaPay"
       ]
@@ -1507,6 +1508,36 @@
             "fr": "Google Analytics",
             "en": "Google Analytics"
           }
+        }
+      ]
+    },
+    {
+      "id": "sg10",
+      "icon": "cloud_upload",
+      "label": {
+        "fr": "Déploiement & environnement",
+        "en": "Deployment & environment"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": {
+            "fr": "Docker",
+            "en": "Docker"
+          }
+        },
+        {
+          "name": {
+            "fr": "Docker Compose",
+            "en": "Docker Compose"
+          }
+        },
+        {
+          "name": {
+            "fr": "Mise en production",
+            "en": "Production deployment"
+          },
+          "icon": "rocket_launch"
         }
       ]
     },

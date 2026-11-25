@@ -64,6 +64,24 @@ class RefreshContentTest extends TestCase
         $this->assertSame($posts, Post::count(), 'les articles ne sont pas touchés');
     }
 
+    public function test_deployment_skills_are_added_to_an_installed_site(): void
+    {
+        // État « avant » : site déjà passé par la refonte, sans Docker.
+        SkillGroup::firstWhere('code', 'sg10')->forceDelete();
+        Project::firstWhere('slug', 'doubovo')->saveFromFront(['tech' => ['Flutter', 'Angular']]);
+        $profile = Profile::first();
+        $profile->update(['bio' => ['fr' => '<p>Bio sans conteneurs.</p>', 'en' => '<p>Bio.</p>']]);
+
+        (require database_path('migrations/2026_11_25_000300_add_deployment_skills.php'))->up();
+        (require database_path('migrations/2026_11_25_000300_add_deployment_skills.php'))->up(); // relancée : aucun doublon
+
+        $seed = json_decode(file_get_contents(database_path('seeders/data/portfolio.json')), true);
+        $this->assertSame(array_column($seed['skillGroups'], 'id'), SkillGroup::ordered()->pluck('code')->all());
+        $this->assertSame('/images/devicons/dv_docker.svg', Skill::query()->whereJsonContains('name->fr', 'Docker')->first()->logo);
+        $this->assertContains('Docker', Project::firstWhere('slug', 'doubovo')->technologies->pluck('name')->all());
+        $this->assertStringContainsString('Docker', $profile->fresh()->bio['fr']);
+    }
+
     public function test_the_public_site_shows_status_freelance_badge_and_project_share_image(): void
     {
         $data = $this->getJson('/api/site')->json();
