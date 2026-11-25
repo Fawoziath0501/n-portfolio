@@ -11,7 +11,6 @@ import { srcset, vm } from '../store';
       <div v-else class="case-cover" :style="{ background: vm.cs.bg }">
         <span class="mono-12" :style="{ color: vm.cs.sub }">{{ vm.L.caseLabel }} {{ vm.cs.num }}</span>
         <span class="case-cover-title" :style="{ color: vm.cs.fg }">{{ vm.cs.title }}</span>
-        <span class="mono-12" :style="{ color: vm.cs.sub }">{{ vm.cs.gallery.length ? '' : vm.L.noShots }}</span>
       </div>
       <aside class="case-aside">
         <dl class="case-meta">
@@ -22,6 +21,10 @@ import { srcset, vm } from '../store';
           <div v-if="vm.cs.link">
             <dt>{{ vm.L.mLink }}</dt>
             <dd><a :href="vm.cs.link" target="_blank" rel="noopener">{{ vm.cs.host }} ↗</a></dd>
+          </div>
+          <div v-if="vm.cs.repo">
+            <dt>{{ vm.L.mCode }}</dt>
+            <dd><a :href="vm.cs.repo" target="_blank" rel="noopener">{{ vm.cs.repoHost }} ↗</a></dd>
           </div>
         </dl>
         <div v-if="vm.cs.tech.length" class="col gap10 pt20">
@@ -41,8 +44,8 @@ import { srcset, vm } from '../store';
           <div v-else class="rich" v-html="bk.html"></div>
         </div>
       </section>
-      <section v-if="vm.cs.gallery.length" class="gallery">
-        <img v-for="im in vm.cs.gallery" :key="im.src" :src="im.src" :srcset="srcset(im.src)" sizes="(max-width: 900px) calc(100vw - 40px), 600px" :alt="im.alt" loading="lazy" decoding="async">
+      <section v-if="vm.cs.more.length" class="gallery">
+        <img v-for="im in vm.cs.more" :key="im.src" :src="im.src" :srcset="srcset(im.src)" sizes="(max-width: 900px) calc(100vw - 40px), 600px" :alt="im.alt" loading="lazy" decoding="async">
       </section>
     </div>
 

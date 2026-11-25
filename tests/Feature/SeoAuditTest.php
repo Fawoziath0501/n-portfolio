@@ -72,7 +72,7 @@ class SeoAuditTest extends TestCase
         foreach (['/fr/page-inconnue', '/fr/projets/inconnu', '/en/blog/inconnu', '/de', '/fr/a-propos/trop/long', '/fr/mentions-legales'] as $path) {
             $this->get($path)->assertNotFound()->assertSee('noindex', false)->assertDontSee('rel="canonical"', false);
         }
-        $this->get('/')->assertOk();
+        $this->get('/fr')->assertOk();
         $this->get('/en')->assertOk();
     }
 

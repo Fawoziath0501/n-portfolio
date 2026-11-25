@@ -9,7 +9,8 @@ class PublicSiteTest extends TestCase
 {
     public function test_home_pages_render_in_both_languages(): void
     {
-        $this->get('/')->assertOk()->assertSee('<html lang="fr"', false);
+        $this->get('/')->assertStatus(301)->assertRedirect('/fr');
+        $this->get('/fr')->assertOk()->assertSee('<html lang="fr"', false);
         $this->get('/en')->assertOk()->assertSee('<html lang="en"', false);
     }
 

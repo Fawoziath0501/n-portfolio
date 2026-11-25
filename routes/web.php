@@ -103,4 +103,6 @@ Route::get('/'.config('portfolio.admin.path').'/{any?}', fn () => view('admin', 
     'owner' => \App\Models\Profile::query()->first(['first_name', 'last_name']),
     'base' => '/'.config('portfolio.admin.path'),
 ]))->where('any', '.*');
+// La racine renvoie vers la version française (une seule adresse indexée par page).
+Route::permanentRedirect('/', '/fr');
 Route::get('/{any?}', [SiteController::class, 'show'])->where('any', '^(?!storage/).*$');

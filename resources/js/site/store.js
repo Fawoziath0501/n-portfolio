@@ -36,6 +36,8 @@ export function parseRoute(r) {
 }
 
 
+// Statut d'un projet → clé du libellé affiché sur sa fiche.
+const STATUS = { live: 'stLive', private: 'stPrivate', internal: 'stInternal', offline: 'stOffline' };
 const TONES = [{ bg: '#0B1530', fg: '#FFFFFF', sub: '#8FA3E8' }, { bg: '#2448C8', fg: '#FFFFFF', sub: '#D3DCF8' }, { bg: '#E8EDFB', fg: '#1B379E', sub: '#2448C8' }];
 
 export const state = reactive({
@@ -105,7 +107,8 @@ export const vm = computed(() => {
     ].filter(Boolean).map((c, i) => ({ ...c, num: pad(i + 1) }));
 
     const exps = d.experiences;
-    const cur = exps.find((e) => e.current);
+    const currents = exps.filter((e) => e.current);
+    const cur = currents[0];
     const pub = d.projects;
     const kindOf = (x) => /site|website|vitrine/i.test(t(x.category)) ? 'site' : 'app';
     const num = (x) => pad(pub.indexOf(x) + 1);
@@ -124,8 +127,9 @@ export const vm = computed(() => {
             .filter((b) => b[1].trim()).map((b, k) => ({ num: pad(k + 1), label: b[0], html: b[2] ? '' : richHtml(b[1]), isList: b[2], items: lines(b[1]) }));
         const gallery = (Array.isArray(cp.images) ? cp.images : []).map((im) => ({ src: typeof im === 'string' ? im : im.src, alt: t(cp.title) })).filter((g) => g.src);
         cs = { ...TONES[i % 3], num: num(cp), title: t(cp.title), link: cp.link, host: host(cp.link),
-            meta: [{ label: L.mType, value: t(cp.category) }, { label: L.mRole, value: t(cp.role) }, cp.year && { label: L.mYear, value: cp.year }].filter(Boolean),
-            tech: cp.tech || [], blocks, gallery,
+            meta: [{ label: L.mType, value: t(cp.category) }, { label: L.mRole, value: t(cp.role) }, cp.year && { label: L.mYear, value: cp.year }, STATUS[cp.status] && { label: L.mStatus, value: L[STATUS[cp.status]] }].filter((m) => m && m.value),
+            repo: cp.repo, repoHost: host(cp.repo),
+            tech: cp.tech || [], blocks, gallery, more: gallery.slice(1),
             prev: { title: t(pv.title), href: href(s.lang, 'project', pv.slug) }, next: { title: t(nx.title), href: href(s.lang, 'project', nx.slug) } };
     }
 
@@ -142,7 +146,7 @@ export const vm = computed(() => {
         { label: L.iLang, value: (pr.languages || []).map((l) => t(l.name)).join(' · ') },
         { label: L.iStatus, value: L.iStatusV },
     ].map((x, i) => ({ ...x, num: pad(i + 1) }));
-    const kindOfExp = (e) => { const ro = (e.role && (e.role.fr || '')) || ''; return /stag/i.test(ro) ? L.kStage : /cdd/i.test(ro) ? L.kCdd : L.kCdi; };
+    const kindOfExp = (e) => { const ro = (e.role && (e.role.fr || '')) || ''; return /stag/i.test(ro) ? L.kStage : /freelance/i.test(ro) ? L.kFree : /cdd/i.test(ro) ? L.kCdd : L.kCdi; };
     let tlSrc = exps.map((e) => ({ kind: kindOfExp(e), title: t(e.role), org: [e.company, t(e.location)].filter(Boolean).join(' · '), period: t(e.start) + ' → ' + t(e.end), desc: richHtml(t(e.description)), duties: lines(t(e.duties)), current: !!e.current }));
     if (r === 'about') tlSrc = tlSrc.concat(d.education.map((x) => ({ kind: L.kEdu, title: t(x.degree), org: x.school, period: x.period, desc: '', duties: [], current: false })));
     const tlItems = tlSrc.map((x, i) => ({ ...x, idx: i, col: mobile ? '2' : (i % 2 ? '3' : '1'), on: s.tlh === i }));
@@ -186,7 +190,7 @@ export const vm = computed(() => {
     const pPos = cp ? pub.indexOf(cp) : -1;
     page.index = pPos >= 0 ? pad(pPos + 1) + ' / ' + pad(pub.length) : pIdx > 0 ? pad(pIdx + 1) + ' / 05' : (r === 'blog' ? L.blogNav : '');
     const panels = {
-        about: [{ label: L.fWhere, value: t(pr.location) }, cur && { label: L.fNow, value: cur.company }, { label: L.fSince, value: L.fSinceV }, { label: L.fLang, value: L.fLangV }],
+        about: [{ label: L.fWhere, value: t(pr.location) }, currents.length && { label: L.fNow, value: currents.map((e) => e.company).join(' · ') }, { label: L.fSince, value: L.fSinceV }, { label: L.fLang, value: L.fLangV }],
         work: [{ label: L.gProjects, value: String(pub.length) }, { label: L.kApp, value: String(pub.filter((x) => kindOf(x) === 'app').length) }, { label: L.kSite, value: String(pub.filter((x) => kindOf(x) === 'site').length) }, { label: L.gOnline, value: String(pub.filter((x) => x.link).length) }],
         services: [{ label: L.gServices, value: String(d.services.length) }, { label: L.gFormats, value: L.gFormatsV }, { label: L.gZone, value: L.gZoneV }],
         contact: [{ label: L.email, value: pr.email }, { label: L.phone, value: pr.phone }, { label: L.gReply, value: L.gReplyV }, { label: L.hours, value: t(pr.hours) }],

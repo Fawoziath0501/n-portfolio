@@ -64,19 +64,19 @@ class BlogMenusTest extends TestCase
     public function test_menus_are_editable_and_sanitized(): void
     {
         $menus = $this->admin()->getJson('/api/admin/data')->json('menus');
-        $this->assertSame(['home', 'about', 'work', 'services', 'contact'], array_column($menus['header']['items'], 'page'));
+        $this->assertSame(['home', 'about', 'work', 'services', 'blog', 'contact'], array_column($menus['header']['items'], 'page'));
         $this->assertCount(2, $menus['footer']);
 
-        $menus['header']['items'][] = ['id' => 'x1', 'page' => 'blog', 'label' => ['fr' => 'Blog', 'en' => 'Blog'], 'visible' => true];
+        $menus['header']['items'][] = ['id' => 'x1', 'page' => 'skills', 'label' => ['fr' => 'Blog', 'en' => 'Blog'], 'visible' => true];
         $menus['header']['items'][] = ['id' => 'x2', 'page' => 'url', 'url' => 'javascript:alert(1)', 'label' => ['fr' => 'Piège', 'en' => 'Trap'], 'visible' => true];
         $menus['header']['items'][] = ['id' => 'x3', 'page' => 'inconnue', 'label' => ['fr' => 'A', 'en' => 'A']];
         $menus['header']['cta']['visible'] = false;
         $this->putJson('/api/admin/documents/menus', ['value' => $menus])->assertOk();
 
         $saved = Setting::get('menus');
-        $this->assertSame('blog', $saved['header']['items'][5]['page']);
-        $this->assertSame('', $saved['header']['items'][6]['url']);
-        $this->assertSame('home', $saved['header']['items'][7]['page']);
+        $this->assertSame('skills', $saved['header']['items'][6]['page']);
+        $this->assertSame('', $saved['header']['items'][7]['url']);
+        $this->assertSame('home', $saved['header']['items'][8]['page']);
         $this->assertFalse($saved['header']['cta']['visible']);
         $this->assertSame($saved, $this->getJson('/api/site')->json('menus'));
     }

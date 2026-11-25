@@ -4,31 +4,31 @@
     "middleName": "Modjissola",
     "lastName": "SALOU",
     "title": {
-      "fr": "Développeuse fullstack",
-      "en": "Fullstack developer"
+      "fr": "Développeuse Full Stack",
+      "en": "Full Stack Developer"
     },
     "stack": {
-      "fr": "Laravel · PHP · Vue.js",
-      "en": "Laravel · PHP · Vue.js"
+      "fr": "Laravel · Vue.js · Flutter",
+      "en": "Laravel · Vue.js · Flutter"
     },
     "tagline": {
-      "fr": "Je conçois des solutions web innovantes et orientées utilisateur, principalement avec Laravel et Vue.js.",
-      "en": "I design innovative, user-focused web solutions, mainly with Laravel and Vue.js."
+      "fr": "Je conçois et développe des applications métier web et mobiles : espaces multi-utilisateurs, rôles et permissions, paiements en ligne et API, de l’analyse du besoin à la mise en production.",
+      "en": "I design and build web and mobile business applications: multi-user areas, roles and permissions, online payments and APIs, from needs analysis to production."
     },
     "location": {
       "fr": "Cotonou, Bénin",
       "en": "Cotonou, Benin"
     },
     "email": "saloufawoziath236@gmail.com",
-    "phone": "+229 01 97 36 32 97",
+    "phone": "+229 01 59 97 08 90",
     "hours": {
       "fr": "Lun – Ven, 8h – 18h",
       "en": "Mon – Fri, 8am – 6pm"
     },
     "since": "2023",
     "bio": {
-      "fr": "Développeuse fullstack passionnée, je me spécialise dans la conception de solutions web innovantes et orientées utilisateur, principalement avec Laravel et Vue.js. Forte d’une solide expertise technique, je conçois des applications robustes et performantes, avec un soin particulier pour la qualité du code, l’expérience utilisateur et le référencement naturel (SEO).\nAutonome et collaborative, je m’engage à respecter les délais et à dépasser les attentes, en équipe comme en freelance, tout en restant en veille constante pour adopter les meilleures pratiques du secteur.",
-      "en": "A passionate fullstack developer, I specialise in designing innovative, user-focused web solutions, mainly with Laravel and Vue.js. With solid technical expertise, I build robust, high-performing applications, paying close attention to code quality, user experience and search engine optimisation (SEO).\nIndependent and collaborative, I am committed to meeting deadlines and exceeding expectations, both in a team and as a freelancer, while keeping up with the industry’s best practices."
+      "fr": "<p>Développeuse Full Stack basée à Cotonou, je conçois et développe depuis 2023 des applications web et mobiles en production : applications métier avec espaces multi-utilisateurs, rôles et permissions, paiements en ligne, API REST, temps réel et mode hors ligne. J’interviens de l’analyse du besoin à la mise en production, y compris le design des interfaces et la publication des applications mobiles.</p><p>Mon socle : Laravel et PHP, Vue.js, Angular et Flutter, MySQL et PostgreSQL, tests avec PHPUnit, Pest et Postman. J’utilise aussi au quotidien des outils d’IA (Claude, ChatGPT, Gemini) pour générer, corriger et optimiser du code.</p>",
+      "en": "<p>Full Stack developer based in Cotonou, Benin, I have been designing and building web and mobile applications in production since 2023: business applications with multi-user areas, roles and permissions, online payments, REST APIs, real-time features and offline mode. I work from needs analysis through to production, including interface design and mobile app store submission.</p><p>My core stack: Laravel and PHP, Vue.js, Angular and Flutter, MySQL and PostgreSQL, testing with PHPUnit, Pest and Postman. I also use AI tools daily (Claude, ChatGPT, Gemini) to generate, fix and optimise code.</p>"
     },
     "availability": {
       "fr": "Disponible pour missions freelance et opportunités",
@@ -270,45 +270,107 @@
   },
   "projects": [
     {
-      "id": "p1",
+      "id": "p4",
       "published": true,
       "featured": true,
-      "slug": "presentia",
+      "slug": "doubovo",
       "title": {
-        "fr": "Présentia",
-        "en": "Présentia"
+        "fr": "Doubovo",
+        "en": "Doubovo"
+      },
+      "year": "2026",
+      "link": "https://doubovo.tech",
+      "repo": "",
+      "status": "live",
+      "images": [],
+      "category": {
+        "fr": "Livraison de repas par abonnement · web, mobile et API",
+        "en": "Meal subscription & delivery · web, mobile and API"
+      },
+      "role": {
+        "fr": "Développeuse full stack web et mobile, designer UI/UX (freelance)",
+        "en": "Full stack web & mobile developer, UI/UX designer (freelance)"
+      },
+      "summary": {
+        "fr": "Plateforme de repas livrés par abonnement : identité visuelle et maquettes, deux applications mobiles Flutter, site et back-office Angular, évolutions de l’API et publication sur les stores.",
+        "en": "Meal subscription and delivery platform: visual identity and mockups, two Flutter mobile apps, Angular website and back office, API extensions and app store submission."
+      },
+      "context": {
+        "fr": "Doubovo livre des repas à domicile à Cotonou et Abomey-Calavi, à l’unité ou par forfait. Les clients commandent depuis le site ou l’application, paient par Mobile Money, suivent leur livraison en direct et la réceptionnent avec un code à 4 chiffres. Les livreurs suivent leurs tournées depuis leur propre application, et l’équipe pilote l’ensemble depuis le back-office. Site, applications et back-office partagent le même serveur.",
+        "en": "Doubovo delivers home meals in Cotonou and Abomey-Calavi, one-off or through meal plans. Customers order from the website or the app, pay with Mobile Money, track their delivery live and receive it with a 4-digit code. Couriers follow their rounds in their own app, and the team runs everything from the back office. Website, apps and back office share the same server."
+      },
+      "problem": {
+        "fr": "Offrir la même expérience sur le web et sur mobile, garantir des paiements sans double débit, livrer à l’heure et permettre aux livreurs de travailler même sans réseau.",
+        "en": "Delivering the same experience on web and mobile, guaranteeing payments without double charges, delivering on time and letting couriers work even without a network."
+      },
+      "contribution": {
+        "fr": "Design UI/UX : parcours utilisateurs, wireframes, maquettes Figma, prototype interactif, identité visuelle et supports marketing\nApplication client (Flutter) : abonnement, planning des repas, paiement Mobile Money, suivi de livraison en temps réel, profil\nApplication livreur (Flutter) : tournées, navigation, remise par code ou QR code, incidents, mode hors ligne avec synchronisation\nArchitecture mobile : Clean Architecture par fonctionnalité, provider, dio, get_it, gestion d’erreurs avec dartz, stockage sécurisé des jetons, notifications push\nSite web (Angular) : application installable, panier multi-plats, commande par créneau, espace client\nBack-office (Angular) : refonte visuelle complète et création de nouvelles pages\nAPI : évolution des fonctionnalités commande, gestion cuisine, suivi de livraison et alertes, envoi des codes OTP par notification\nPublication : fiches Google Play et App Store, visuels, politiques de confidentialité, soumission",
+        "en": "UI/UX design: user flows, wireframes, Figma mockups, interactive prototype, visual identity and marketing materials\nCustomer app (Flutter): subscriptions, meal planning, Mobile Money payment, live delivery tracking, profile\nCourier app (Flutter): delivery rounds, navigation, handover by code or QR code, incident reporting, offline mode with sync\nMobile architecture: feature-based Clean Architecture, provider, dio, get_it, error handling with dartz, secure token storage, push notifications\nWebsite (Angular): installable app, multi-dish cart, ordering by time slot, customer area\nBack office (Angular): complete visual redesign and new pages\nAPI: extended ordering, kitchen management, delivery tracking and alerts, OTP code notifications\nStore submission: Google Play and App Store listings, visuals, privacy policies, submission"
+      },
+      "solution": {
+        "fr": "Site web : menu du jour et de la semaine, fiches plats, formules, panier multi-plats avec quantités (« Garba × 3 »), commande par créneau, espace client et suivi de livraison\nSite installable comme une application (PWA) avec invitation à l’installation, guide pour iPhone et page hors ligne ; pages légales et page de suppression de compte\nApplication client : découverte sans compte, connexion par code WhatsApp, commande de plusieurs plats par créneau, choix de l’adresse\nPaiement Mobile Money via KkiaPay, par le solde du compte ou par les repas du forfait, avec protection contre le double débit\nForfaits : achat avec démarrage immédiat ou programmé, repas restants, changement et programmation du forfait suivant\nPlanning de la semaine : choisir, remplacer ou annuler un repas, confirmation la veille\nSuivi de livraison en direct, code de remise, partage du lien de suivi ; historique, reçus, notation des repas et « Recommander »\nProfil : adresses, préférences alimentaires, parrainage, aide et suppression du compte ; notifications à chaque étape de la commande\nApplication livreur : activation du compte par lien, tournées du jour dans l’ordre, chargement des colis, navigation vers chaque client\nRemise validée par le code du client, déclaration d’incident, livraisons groupées en une seule visite, heure d’arrivée estimée et ponctualité\nFonctionnement sans réseau : arrivées, incidents et validations enregistrés hors ligne puis envoyés au retour du réseau ; gains et historique des tournées\nBack-office : commandes regroupées par client et par créneau, fiches livreurs, validation des dossiers et liens d’activation, préparation et suivi des tournées\nMessages WhatsApp professionnels à chaque étape (confirmation, départ, livraison, incident, échéance du forfait, parrainage) et pilotage du numéro depuis le back-office\nStatistiques : chiffre d’affaires, commandes, livreurs, stock, fidélisation, audience du site et installations de l’application web",
+        "en": "Website: daily and weekly menu, dish pages, meal plans, multi-dish cart with quantities (“Garba × 3”), ordering by time slot, customer area and delivery tracking\nInstallable website (PWA) with an install prompt, an iPhone guide and an offline page; legal pages and an account deletion page\nCustomer app: browsing without an account, WhatsApp code login, several dishes per time slot, address selection\nMobile Money payment through KkiaPay, account balance or meal plan credits, with double-charge protection\nMeal plans: purchase with immediate or scheduled start, remaining meals, plan changes and scheduling the next plan\nWeekly schedule: choose, replace or cancel a meal, confirmation the day before\nLive delivery tracking, handover code, shareable tracking link; history, receipts, meal ratings and “Order again”\nProfile: addresses, dietary preferences, referrals, help and account deletion; notifications at every order step\nCourier app: account activation by link, ordered daily rounds, parcel loading, navigation to each customer\nHandover validated by the customer’s code, incident reports, grouped deliveries as a single visit, estimated arrival time and punctuality\nOffline mode: arrivals, incidents and validations saved offline then sent when the network returns; earnings and round history\nBack office: orders grouped by customer and time slot, courier profiles, application approval and activation links, round preparation and live tracking\nProfessional WhatsApp messages at every step (confirmation, departure, delivery, incident, plan expiry, referral) and number management from the back office\nStatistics: revenue, orders, couriers, stock, retention, website audience and web app installs"
+      },
+      "results": {
+        "fr": "<p>doubovo.tech et l’API sont en ligne. Les deux applications ont été livrées en version bêta (APK) et soumises à Google Play et à l’App Store, en attente de validation.</p>",
+        "en": "<p>doubovo.tech and the API are live. Both apps were delivered as beta builds (APK) and submitted to Google Play and the App Store, awaiting review.</p>"
+      },
+      "tech": [
+        "Flutter",
+        "Dart",
+        "Angular",
+        "Node.js",
+        "TypeScript",
+        "Fastify",
+        "Prisma",
+        "PostgreSQL",
+        "Redis",
+        "Socket.IO",
+        "Firebase",
+        "KkiaPay"
+      ]
+    },
+    {
+      "id": "p13",
+      "published": true,
+      "featured": true,
+      "slug": "logiciste",
+      "title": {
+        "fr": "LOGICISTE",
+        "en": "LOGICISTE"
       },
       "year": "",
       "link": "",
       "repo": "",
+      "status": "live",
       "images": [],
       "category": {
-        "fr": "Application interne · RH & présence",
-        "en": "Internal tool · HR & attendance"
+        "fr": "Application web · santé au travail",
+        "en": "Web application · occupational health"
       },
       "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
+        "fr": "Développeuse full stack (analyse, conception, développement)",
+        "en": "Full stack developer (analysis, design, development)"
       },
       "summary": {
-        "fr": "Application interne de gestion RH et de présence de MEGATECH : utilisateurs et rôles, présence, congés, stagiaires, statistiques.",
-        "en": "MEGATECH’s internal HR and attendance application: users and roles, attendance, leave, interns, statistics."
+        "fr": "Application de suivi de la santé au travail qui réunit cinq profils d’utilisateurs dans six espaces sécurisés : dossiers médicaux, accidents et arrêts, visites, équipements, rappels automatiques et API.",
+        "en": "Occupational health tracking application bringing five user profiles together in six secure areas: medical records, work accidents and sick leave, medical visits, equipment, automatic reminders and an API."
       },
       "context": {
-        "fr": "Présentia centralise la gestion des ressources humaines de MEGATECH : comptes et droits d’accès, départements, registre de présence, congés, suivi des stagiaires et de leurs conventions, documents d’accueil et indicateurs.",
-        "en": "Présentia brings MEGATECH’s HR management together: accounts and access rights, departments, attendance register, leave, intern follow-up and agreements, onboarding documents and indicators."
+        "fr": "LOGICISTE est l’application intégrée au service CISTE. Elle réunit tous les acteurs de la santé au travail : l’équipe CISTE, les entreprises clientes, les médecins, les prestataires et les salariés, chacun dans son propre espace.",
+        "en": "LOGICISTE is the application built into the CISTE service. It brings together everyone involved in occupational health: the CISTE team, client companies, doctors, providers and employees, each in their own area."
       },
       "problem": {
-        "fr": "",
-        "en": ""
+        "fr": "Faire travailler ensemble des profils très différents sur des données médicales sensibles, en garantissant à chacun l’accès aux seules informations qui le concernent, et automatiser les relances liées aux obligations de santé au travail.",
+        "en": "Getting very different profiles to work together on sensitive medical data, making sure each one only accesses the information that concerns them, and automating the reminders tied to occupational health obligations."
       },
       "contribution": {
-        "fr": "Utilisateurs : création, modification, suppression, activation et désactivation, renvoi de l’invitation ou du lien d’activation, envoi d’un e-mail à un utilisateur, permissions individuelles\nRôles et permissions : création de rôles, activation et désactivation, attribution des permissions par rôle, liste des permissions\nDépartements : création, modification, suppression et gestion des membres\nRegistre de présence : consultation, saisie manuelle, export (Excel, Word et autres formats)\nCongés : liste, détail, validation ou refus, suppression, saisie d’un congé pour un employé\nStagiaires : liste, fiche, modification, renouvellement du stage, PDF de la convention, ajout et téléchargement des documents liés au stage\nModèle de convention de stage : en-tête et articles modifiables, avec aperçu\nRappel automatique : chaque jour à 8 h, une notification signale les stages qui se terminent bientôt\nStatistiques : tableau de bord, export Excel ou Word\nJournal d’activité : historique des actions effectuées dans l’application\nDocuments d’accueil : gestion des textes que les nouveaux employés doivent accepter\nParamètres : réglages généraux, logo, test d’envoi d’e-mail",
-        "en": "Users: create, edit, delete, activate and deactivate, resend the invitation or activation link, email a user, individual permissions\nRoles and permissions: create roles, activate and deactivate them, assign permissions per role, list of permissions\nDepartments: create, edit, delete and manage members\nAttendance register: view, manual entry, export (Excel, Word and other formats)\nLeave: list, details, approve or reject, delete, record leave for an employee\nInterns: list, profile, edit, renew the internship, agreement PDF, upload and download internship documents\nInternship agreement template: editable header and clauses, with preview\nAutomatic reminder: every day at 8 am, a notification flags internships ending soon\nStatistics: dashboard, Excel or Word export\nActivity log: history of actions performed in the application\nOnboarding documents: manage the texts new employees must accept\nSettings: general settings, logo, email sending test"
+        "fr": "Analyse, conception et développement de l’application\nSix espaces utilisateurs avec rôles et permissions\nDossier médical, consultations, visites, accidents et arrêts de travail\nSécurité : double authentification par code e-mail, reCAPTCHA, journal des actions avec données sensibles masquées\nTâches automatiques quotidiennes et envoi programmé des messages\nAPI sécurisée par jeton avec clés API, journal des appels et documentation\nTests automatisés avec Pest",
+        "en": "Analysis, design and development of the application\nSix user areas with roles and permissions\nMedical records, consultations, visits, work accidents and sick leave\nSecurity: two-factor authentication by email code, reCAPTCHA, action log with sensitive data masked\nDaily automated tasks and scheduled message sending\nToken-secured API with API keys, call logging and documentation\nAutomated testing with Pest"
       },
       "solution": {
-        "fr": "",
-        "en": ""
+        "fr": "Administration : incidents, clients et statut de leur demande, assignation des entreprises aux prestataires et aux médecins, rendez-vous et visites, équipements et maintenance, documents\nCommunication : campagnes de sensibilisation avec suivi des envois et ouvertures, notifications, e-mails en échec\nGénérateur de rapports, échéances des contrats et paiements\nActivités du service de santé : registre SST, signalements de situations dangereuses, surveillance du milieu de travail\nEspace entreprise : personnel, accidents et arrêts de travail, consultations, visites et rapports\nEspace médecin : consultations (ordonnance, examens), recommandations envoyées en PDF par e-mail, dossier médical complet du salarié avec historique et recherche, cachet et signature\nEspaces prestataires : entreprises suivies, équipements et rappels de révision, saisie des résultats\nEspace salarié : accidents, arrêts, consultations, visites annuelles, téléconsultation, certificats d’aptitude et passeport de prévention\nSécurité : connexion par espace, double authentification par code e-mail réglable par type de compte, reCAPTCHA, approbation des salariés avant activation\nJournal des actions et des connexions, avec les données sensibles masquées\nRappels automatiques quotidiens : révision des équipements, validations en attente, questionnaire de reprise après plus de 28 jours d’arrêt, fins d’arrêt, alerte mensuelle des 9 mois\nEnvoi des messages programmés en continu\nAPI LOGICISTE : connexion par jeton, clés API, journal des appels ; gestion des agents (création unitaire ou par lot) et de leurs résultats, visites, consultations, examens, accidents et arrêts",
+        "en": "Admin: incidents, clients and the status of their request, assigning companies to providers and doctors, appointments and visits, equipment and maintenance, documents\nCommunication: awareness campaigns with send and open tracking, notifications, failed emails\nReport generator, contract deadlines and payments\nHealth service activities: occupational safety register, hazard reports, workplace monitoring\nCompany area: staff, work accidents and sick leave, consultations, visits and reports\nDoctor area: consultations (prescription, tests), recommendations emailed as PDF, full employee medical record with history and search, stamp and signature\nProvider areas: companies followed, equipment and servicing reminders, entering results\nEmployee area: accidents, sick leave, consultations, annual visits, teleconsultation, fitness certificates and prevention passport\nSecurity: per-area login, email code two-factor authentication configurable per account type, reCAPTCHA, employee approval before activation\nLog of actions and logins, with sensitive data masked\nDaily automatic reminders: equipment servicing, pending approvals, return-to-work questionnaire after more than 28 days of leave, end of leave, monthly 9-month alert\nContinuous sending of scheduled messages\nLOGICISTE API: token login, API keys, call log; agent management (single or batch creation) with their results, visits, consultations, tests, accidents and sick leave"
       },
       "results": {
         "fr": "",
@@ -316,8 +378,123 @@
       },
       "tech": [
         "Laravel",
-        "Bootstrap 5",
-        "MySQL"
+        "Livewire",
+        "Alpine.js",
+        "Tailwind CSS",
+        "Laravel Sanctum",
+        "Spatie Permission",
+        "DomPDF",
+        "Pest",
+        "Swagger"
+      ]
+    },
+    {
+      "id": "p-portfolio",
+      "published": true,
+      "featured": true,
+      "slug": "portfolio",
+      "title": {
+        "fr": "Portfolio",
+        "en": "Portfolio"
+      },
+      "year": "2026",
+      "link": "",
+      "repo": "https://github.com/Fawoziath0501/n-portfolio",
+      "status": "live",
+      "images": [],
+      "category": {
+        "fr": "Site personnel bilingue avec administration",
+        "en": "Bilingual personal website with admin area"
+      },
+      "role": {
+        "fr": "Conception, développement et déploiement",
+        "en": "Design, development and deployment"
+      },
+      "summary": {
+        "fr": "Mon portfolio bilingue et son espace d’administration en Laravel 12 et Vue 3 : tout le contenu se modifie sans toucher au code, et chaque page est pensée pour le référencement.",
+        "en": "My bilingual portfolio and its admin area, built with Laravel 12 and Vue 3: all content can be edited without touching the code, and every page is built for search engines."
+      },
+      "context": {
+        "fr": "<p>Un site personnel en français et en anglais pour présenter mon parcours, mes projets et mes services, avec une administration complète pour le faire vivre sans intervention dans le code.</p>",
+        "en": "<p>A personal website in French and English presenting my background, projects and services, with a full admin area so it can be kept up to date without touching the code.</p>"
+      },
+      "problem": {
+        "fr": "<p>Un site entièrement administrable, bien référencé malgré une interface en Vue, et sûr pour un site exposé publiquement.</p>",
+        "en": "<p>A fully manageable website that ranks well despite a Vue front end, and stays secure while publicly exposed.</p>"
+      },
+      "contribution": {
+        "fr": "Conception, développement et déploiement du site et de son administration\nSite public en Vue 3 et administration en Vue 3, API JSON en Laravel 12\nSEO technique : pages prérendues côté serveur, hreflang, données structurées, sitemap\nSécurité de l’administration et des formulaires\nTests fonctionnels PHPUnit et déploiement scripté",
+        "en": "Design, development and deployment of the site and its admin area\nVue 3 public site and Vue 3 admin area, Laravel 12 JSON API\nTechnical SEO: server-prerendered pages, hreflang, structured data, sitemap\nAdmin area and form security\nPHPUnit feature tests and scripted deployment"
+      },
+      "solution": {
+        "fr": "Site public FR / EN : projets et études de cas, blog avec recherche, services, contact, newsletter\nSEO : pages prérendues côté serveur, hreflang, données structurées, sitemap, vraies erreurs 404, images de partage générées pour les articles\nAdministration : contenus, menus, textes de l’interface, médiathèque, boîte de réception avec réponse par e-mail, statistiques d’audience sans cookie\nSécurité : adresse d’administration configurable, verrouillage après 5 essais ratés, limitation des requêtes, HTML nettoyé côté serveur, en-têtes de sécurité, anti-spam des formulaires, liens de désinscription signés\nExploitation : sauvegardes, corbeille avec restauration, alerte quotidienne des erreurs par e-mail, images WebP en plusieurs tailles\nQualité : 27 fichiers de tests fonctionnels PHPUnit, script de déploiement qui lance les tests avant chaque mise en ligne",
+        "en": "Public site in French and English: projects and case studies, searchable blog, services, contact, newsletter\nSEO: server-prerendered pages, hreflang, structured data, sitemap, real 404 errors, generated social images for articles\nAdmin area: content, menus, interface texts, media library, inbox with email replies, cookie-free audience analytics\nSecurity: configurable admin URL, lockout after 5 failed attempts, rate limiting, server-side HTML sanitising, security headers, form spam protection, signed unsubscribe links\nOperations: backups, recycle bin with restore, daily error digest by email, WebP images in several sizes\nQuality: 27 PHPUnit feature test files, deployment script that runs the tests before every release"
+      },
+      "results": {
+        "fr": "<p>Site en production ; chaque déploiement est précédé de l’exécution des tests.</p>",
+        "en": "<p>Live in production; every deployment runs the test suite first.</p>"
+      },
+      "tech": [
+        "Laravel",
+        "Vue.js",
+        "Vite",
+        "Tiptap",
+        "SQLite",
+        "PHPUnit"
+      ]
+    },
+    {
+      "id": "p7",
+      "published": true,
+      "featured": true,
+      "slug": "gstock",
+      "title": {
+        "fr": "GStock",
+        "en": "GStock"
+      },
+      "year": "",
+      "link": "",
+      "repo": "",
+      "status": "private",
+      "images": [],
+      "category": {
+        "fr": "Gestion de stock et de ventes multi-rôles",
+        "en": "Multi-role stock and sales management"
+      },
+      "role": {
+        "fr": "Développeuse full stack (analyse, conception, développement)",
+        "en": "Full stack developer (analysis, design, development)"
+      },
+      "summary": {
+        "fr": "Application de gestion de stock de compléments alimentaires, du magasin central aux boutiques et pharmacies : dépôts, ventes, inventaires, rapports et accès par rôle.",
+        "en": "Stock management application for dietary supplements, from the central warehouse to shops and pharmacies: transfers, sales, stocktakes, reports and role-based access."
+      },
+      "context": {
+        "fr": "GStock suit des compléments alimentaires qui partent d’un magasin central vers un réseau de boutiques et de pharmacies. Chaque produit a deux prix : le prix gros, appliqué aux boutiques et pharmacies, et le prix normal, payé par le client final. Administrateurs, magasiniers et équipes opérationnelles y travaillent chacun avec leur propre vue.",
+        "en": "GStock tracks dietary supplements that move from a central warehouse to a network of shops and pharmacies. Each product has two prices: the wholesale price charged to shops and pharmacies, and the retail price paid by end customers. Admins, warehouse staff and operational teams each work in it with their own view."
+      },
+      "problem": {
+        "fr": "Garder un stock juste à chaque étape, entre le magasin, les boutiques et les pharmacies, tout en limitant chaque utilisateur à ses propres données et en empêchant les erreurs de saisie (prix modifiés, ventes au-delà du stock disponible).",
+        "en": "Keeping stock accurate at every step between the warehouse, shops and pharmacies, while limiting each user to their own data and preventing input errors (edited prices, sales beyond available stock)."
+      },
+      "contribution": {
+        "fr": "Analyse du besoin et conception de l’application\nCircuit du stock : magasin central, bons de dépôt et de retour, stock par entité et inventaires\nModule de ventes avec contrôle du stock, prix imposés et réductions\nTableaux de bord par rôle, rapports et alertes\nRôles et permissions, cloisonnement des données par entité, journal d’activité\nTableaux de bord et rapports filtrés par boutique, pharmacie, grossiste et période",
+        "en": "Needs analysis and application design\nStock flow: central warehouse, transfer and return slips, stock per entity and stocktakes\nSales module with stock checks, fixed prices and discounts\nRole-based dashboards, reports and alerts\nRoles and permissions, per-entity data isolation, activity log\nDashboards and reports filtered by shop, pharmacy, wholesaler and period"
+      },
+      "solution": {
+        "fr": "Tableau de bord adapté au rôle (admin, magasinier, opérationnel) : chiffre d’affaires, ventes, stock central, stock vendu et restant, CA restant au prix gros et au prix normal\nFiltres par date, boutique, pharmacie et canal ; graphiques de l’évolution sur 6 mois et des produits les plus vendus\nAlertes : produits sous le seuil ou en rupture, rappels produit, dépôts en attente de validation\nProduits et familles avec référence générée automatiquement (PRD-0001), prix gros et prix normal, boîtes par carton, seuil d’alerte et rappels datés\nMagasin central : entrées en cartons et en boîtes, valeur du stock, ruptures, entrées, retours, sorties et historique des mouvements\nBons de dépôt et de retour : stock transféré seulement à l’acceptation, annulation possible tant que le bon est en attente, stock disponible affiché en direct pendant la saisie\nVentes en boutique, en pharmacie ou au magasin (client grossiste) : stock vérifié ligne par ligne, prix toujours repris du produit, réductions automatiques ou manuelles\nRelevés de pharmacie saisis après coup avec pièce jointe, ventes filtrables et tableau des ventes par client\nZones, boutiques et pharmacies avec leurs indicateurs, stock par entité consultable à une date donnée, sessions d’inventaire\nClients (création rapide pendant une vente) et médecins rattachés aux pharmacies\nRéductions par produit, par famille ou globales\nRapports : produits les plus vendus, ventes par famille, meilleurs clients\nRôles et permissions sur mesure, superadmin protégé, chaque boutique et pharmacie limitée à ses propres données\nJournal d’activité automatique, notifications dans l’application, mot de passe oublié par e-mail et réglage du serveur d’envoi (SMTP) avec e-mail de test",
+        "en": "Role-based dashboard (admin, warehouse, operations): revenue, sales, central stock, sold and remaining stock, remaining revenue at wholesale and retail prices\nFilters by date, shop, pharmacy and channel; charts for the 6-month trend and best-selling products\nAlerts: products below threshold or out of stock, product reminders, transfers awaiting approval\nProducts and families with auto-generated references (PRD-0001), wholesale and retail prices, boxes per carton, alert threshold and dated reminders\nCentral warehouse: stock intake in cartons and boxes, stock value, stock-outs, intakes, returns, outflows and movement history\nTransfer and return slips: stock moves only once accepted, cancellation allowed while pending, live available stock while filling in\nSales in shops, pharmacies or at the warehouse (wholesale customers): stock checked line by line, price always taken from the product, automatic or manual discounts\nPharmacy statements entered afterwards with an attachment, filterable sales and a sales-by-customer table\nZones, shops and pharmacies with their indicators, stock per entity viewable at any past date, stocktake sessions\nCustomers (quick creation during a sale) and doctors linked to pharmacies\nDiscounts per product, per family or global\nReports: best-selling products, sales by family, top customers\nCustom roles and permissions, protected superadmin, each shop and pharmacy limited to its own data\nAutomatic activity log, in-app notifications, password reset by email and email server (SMTP) settings with a test email"
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": [
+        "Laravel",
+        "Tailwind CSS",
+        "Laravel Sanctum",
+        "DomPDF",
+        "PHPUnit"
       ]
     },
     {
@@ -332,14 +509,15 @@
       "year": "",
       "link": "https://www.ciste.org",
       "repo": "",
+      "status": "live",
       "images": [],
       "category": {
         "fr": "Site web · santé au travail · SEO",
         "en": "Website · occupational health · SEO"
       },
       "role": {
-        "fr": "Développeuse fullstack · SEO",
-        "en": "Fullstack developer · SEO"
+        "fr": "Développeuse full stack · SEO",
+        "en": "Full stack developer · SEO"
       },
       "summary": {
         "fr": "Site public de CISTE, service de santé au travail au Bénin : prestations, inscription des entreprises en ligne, contenus gérés depuis l’administration et stratégie SEO complète.",
@@ -362,80 +540,142 @@
         "en": "Home page, “Occupational health in Benin” page and LOGICISTE presentation\nServices organised in sections, content and sub-content managed from the admin area\nBlog, case studies, partners and clients, provider centres\nSeparate FAQs for the general public, employees and employers\nContact page and “Request the service” form\nMulti-step company registration: join, contact, address, confirmation\nLegal pages (legal notice, terms, cookies, privacy), sitemap page and XML sitemap"
       },
       "results": {
-        "fr": "",
-        "en": ""
+        "fr": "<p>Site en ligne sur ciste.org, avec l’inscription des entreprises et l’accès à l’application LOGICISTE.</p>",
+        "en": "<p>Live at ciste.org, with company registration and access to the LOGICISTE application.</p>"
       },
-      "tech": []
+      "tech": [
+        "Laravel",
+        "Livewire",
+        "Alpine.js",
+        "Tailwind CSS",
+        "Pest"
+      ]
     },
     {
-      "id": "p13",
+      "id": "p1",
       "published": true,
       "featured": true,
-      "slug": "logiciste",
+      "slug": "presentia",
+      "title": {
+        "fr": "Présentia",
+        "en": "Présentia"
+      },
       "year": "",
       "link": "",
       "repo": "",
+      "status": "internal",
       "images": [],
-      "title": {
-        "fr": "LOGICISTE",
-        "en": "LOGICISTE"
-      },
       "category": {
-        "fr": "Application web · santé au travail",
-        "en": "Web application · occupational health"
+        "fr": "Application interne · RH & présence",
+        "en": "Internal tool · HR & attendance"
       },
       "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
+        "fr": "Développeuse full stack (conception et développement de modules)",
+        "en": "Full stack developer (module design and development)"
       },
       "summary": {
-        "fr": "Application de suivi de la santé au travail : six espaces (administration, entreprise, médecin, prestataires, salarié), dossier médical, accidents et arrêts, rappels automatiques et API.",
-        "en": "Occupational health tracking application: six areas (admin, company, doctor, providers, employee), medical records, accidents and sick leave, automatic reminders and an API."
+        "fr": "Application interne de gestion RH et de présence de MEGATECH : utilisateurs et rôles, présence, congés, stagiaires, statistiques.",
+        "en": "MEGATECH’s internal HR and attendance application: users and roles, attendance, leave, interns, statistics."
       },
       "context": {
-        "fr": "LOGICISTE est l’application intégrée au service CISTE. Elle réunit tous les acteurs de la santé au travail : l’équipe CISTE, les entreprises clientes, les médecins, les prestataires et les salariés, chacun dans son propre espace.",
-        "en": "LOGICISTE is the application built into the CISTE service. It brings together everyone involved in occupational health: the CISTE team, client companies, doctors, providers and employees, each in their own area."
+        "fr": "Présentia centralise la gestion des ressources humaines de MEGATECH : comptes et droits d’accès, départements, registre de présence, congés, suivi des stagiaires et de leurs conventions, documents d’accueil et indicateurs.",
+        "en": "Présentia brings MEGATECH’s HR management together: accounts and access rights, departments, attendance register, leave, intern follow-up and agreements, onboarding documents and indicators."
       },
       "problem": {
-        "fr": "Faire travailler ensemble des profils très différents sur des données médicales sensibles, en garantissant à chacun l’accès aux seules informations qui le concernent, et automatiser les relances liées aux obligations de santé au travail.",
-        "en": "Getting very different profiles to work together on sensitive medical data, making sure each one only accesses the information that concerns them, and automating the reminders tied to occupational health obligations."
+        "fr": "<p>Centraliser la gestion RH d’une entreprise dans un seul outil, avec des droits d’accès fins selon les rôles et des documents générés automatiquement (conventions de stage, exports).</p>",
+        "en": "<p>Bringing a company’s HR management into one tool, with fine-grained role-based access and automatically generated documents (internship agreements, exports).</p>"
       },
       "contribution": {
-        "fr": "Analyse, conception et développement de l’application\nSix espaces utilisateurs avec rôles et permissions\nDossier médical, consultations, accidents et arrêts de travail\nSécurité : double authentification, reCAPTCHA, journalisation des actions\nTâches automatiques et API LOGICISTE",
-        "en": "Analysis, design and development of the application\nSix user areas with roles and permissions\nMedical records, consultations, work accidents and sick leave\nSecurity: two-factor authentication, reCAPTCHA, action logging\nScheduled tasks and the LOGICISTE API"
+        "fr": "Conception et développement de plusieurs modules : tâches et projets, rôles et permissions dynamiques, gestion documentaire\nDigitalisation de la convention de stage : modèle modifiable, aperçu et PDF\nTableaux de bord et indicateurs clés, exports Excel et Word\nTests automatisés et revues de sécurité systématiques",
+        "en": "Designed and built several modules: tasks and projects, dynamic roles and permissions, document management\nDigital internship agreements: editable template, preview and PDF\nDashboards and key indicators, Excel and Word exports\nAutomated tests and systematic security reviews"
       },
       "solution": {
-        "fr": "Administration : incidents, clients et statut de leur demande, assignation des entreprises aux prestataires et aux médecins, rendez-vous et visites, équipements et maintenance, documents\nCommunication : campagnes de sensibilisation avec suivi des envois et ouvertures, notifications, e-mails en échec\nGénérateur de rapports, échéances des contrats et paiements\nActivités du service de santé : registre SST, signalements de situations dangereuses, surveillance du milieu de travail\nEspace entreprise : personnel, accidents et arrêts de travail, consultations, visites et rapports\nEspace médecin : consultations (ordonnance, examens), recommandations envoyées en PDF par e-mail, dossier médical complet du salarié avec historique et recherche, cachet et signature\nEspaces prestataires : entreprises suivies, équipements et rappels de révision, saisie des résultats\nEspace salarié : accidents, arrêts, consultations, visites annuelles, téléconsultation, certificats d’aptitude et passeport de prévention\nSécurité : connexion par espace, double authentification par code e-mail réglable par type de compte, reCAPTCHA, approbation des salariés avant activation\nJournal des actions et des connexions, avec les données sensibles masquées\nRappels automatiques quotidiens : révision des équipements, validations en attente, questionnaire de reprise après plus de 28 jours d’arrêt, fins d’arrêt, alerte mensuelle des 9 mois\nEnvoi des messages programmés en continu\nAPI LOGICISTE : connexion par jeton, clés API, journal des appels ; gestion des agents (création unitaire ou par lot) et de leurs résultats, visites, consultations, examens, accidents et arrêts",
-        "en": "Admin: incidents, clients and the status of their request, assigning companies to providers and doctors, appointments and visits, equipment and maintenance, documents\nCommunication: awareness campaigns with send and open tracking, notifications, failed emails\nReport generator, contract deadlines and payments\nHealth service activities: occupational safety register, hazard reports, workplace monitoring\nCompany area: staff, work accidents and sick leave, consultations, visits and reports\nDoctor area: consultations (prescription, tests), recommendations emailed as PDF, full employee medical record with history and search, stamp and signature\nProvider areas: companies followed, equipment and servicing reminders, entering results\nEmployee area: accidents, sick leave, consultations, annual visits, teleconsultation, fitness certificates and prevention passport\nSecurity: per-area login, email code two-factor authentication configurable per account type, reCAPTCHA, employee approval before activation\nLog of actions and logins, with sensitive data masked\nDaily automatic reminders: equipment servicing, pending approvals, return-to-work questionnaire after more than 28 days of leave, end of leave, monthly 9-month alert\nContinuous sending of scheduled messages\nLOGICISTE API: token login, API keys, call log; agent management (single or batch creation) with their results, visits, consultations, tests, accidents and sick leave"
+        "fr": "Utilisateurs : création, modification, suppression, activation et désactivation, renvoi de l’invitation ou du lien d’activation, envoi d’un e-mail à un utilisateur, permissions individuelles\nRôles et permissions : création de rôles, activation et désactivation, attribution des permissions par rôle, liste des permissions\nDépartements : création, modification, suppression et gestion des membres\nRegistre de présence : consultation, saisie manuelle, export (Excel, Word et autres formats)\nCongés : liste, détail, validation ou refus, suppression, saisie d’un congé pour un employé\nStagiaires : liste, fiche, modification, renouvellement du stage, PDF de la convention, ajout et téléchargement des documents liés au stage\nModèle de convention de stage : en-tête et articles modifiables, avec aperçu\nRappel automatique : chaque jour à 8 h, une notification signale les stages qui se terminent bientôt\nStatistiques : tableau de bord, export Excel ou Word\nJournal d’activité : historique des actions effectuées dans l’application\nDocuments d’accueil : gestion des textes que les nouveaux employés doivent accepter\nParamètres : réglages généraux, logo, test d’envoi d’e-mail",
+        "en": "Users: create, edit, delete, activate and deactivate, resend the invitation or activation link, email a user, individual permissions\nRoles and permissions: create roles, activate and deactivate them, assign permissions per role, list of permissions\nDepartments: create, edit, delete and manage members\nAttendance register: view, manual entry, export (Excel, Word and other formats)\nLeave: list, details, approve or reject, delete, record leave for an employee\nInterns: list, profile, edit, renew the internship, agreement PDF, upload and download internship documents\nInternship agreement template: editable header and clauses, with preview\nAutomatic reminder: every day at 8 am, a notification flags internships ending soon\nStatistics: dashboard, Excel or Word export\nActivity log: history of actions performed in the application\nOnboarding documents: manage the texts new employees must accept\nSettings: general settings, logo, email sending test"
       },
       "results": {
         "fr": "",
         "en": ""
       },
       "tech": [
-        "Laravel"
+        "Laravel",
+        "Bootstrap 5",
+        "MySQL",
+        "DomPDF",
+        "PhpSpreadsheet",
+        "PhpWord",
+        "Pest"
       ]
+    },
+    {
+      "id": "p6",
+      "published": true,
+      "featured": false,
+      "slug": "eventreet",
+      "title": {
+        "fr": "Eventreet",
+        "en": "Eventreet"
+      },
+      "year": "",
+      "link": "https://eventreet.com",
+      "repo": "",
+      "status": "live",
+      "images": [],
+      "category": {
+        "fr": "Billetterie, événements & badges",
+        "en": "Ticketing, events & badges"
+      },
+      "role": {
+        "fr": "Développeuse full stack",
+        "en": "Full stack developer"
+      },
+      "summary": {
+        "fr": "Audit et refonte d’une plateforme de billetterie et de gestion d’événements : revue des fonctionnalités, nouvelle identité visuelle des pages, pages et fonctionnalités supplémentaires.",
+        "en": "Audit and overhaul of a ticketing and event management platform: feature review, new visual design for the pages, additional pages and features."
+      },
+      "context": {
+        "fr": "Eventreet réunit sur une même plateforme les visiteurs qui découvrent et réservent des événements, les clients qui suivent leurs achats, les organisateurs qui publient et pilotent leurs événements, et l’équipe d’administration qui supervise l’ensemble. La plateforme gère aussi des badges d’adhésion ou de certification, des formulaires, une boutique et une vingtaine de passerelles de paiement.",
+        "en": "Eventreet brings together, on a single platform, visitors who discover and book events, customers who follow their purchases, organisers who publish and run their events, and the admin team overseeing it all. It also handles membership or certification badges, forms, a shop and around twenty payment gateways."
+      },
+      "problem": {
+        "fr": "Faire évoluer, sur le plan fonctionnel comme technique, une plateforme riche utilisée par quatre profils aux besoins très différents : visiteurs, clients, organisateurs et administrateurs.",
+        "en": "Evolving a feature-rich platform, both functionally and technically, used by four profiles with very different needs: visitors, customers, organisers and administrators."
+      },
+      "contribution": {
+        "fr": "Audit complet de la plateforme et revue des fonctionnalités existantes\nRefonte visuelle des pages : couleurs, mise en page, disposition des éléments\nCréation de pages supplémentaires et de leurs fonctionnalités associées\nAjout de nouvelles fonctionnalités",
+        "en": "Full platform audit and review of existing features\nVisual redesign of the pages: colours, layout, positioning of elements\nNew pages with their associated features\nNew features"
+      },
+      "solution": {
+        "fr": "Événements : liste, filtres, catégories, page de détail, nombre de vues et favoris\nRéservation de billets : choix du ticket, codes promo, paiement, facture PDF et e-mail de confirmation ; téléchargement groupé des factures en ZIP\nBadges d’adhésion ou de certification : galerie, inscription, plusieurs tarifs, codes promo, options personnalisées et paiement\nFormulaires dynamiques, payants ou non, avec réponses exportables en Excel, CSV ou PDF\nBoutique : produits, panier, commande, paiement et livraison\nContenus : blog, FAQ, contact, pages personnalisées gérées par le CMS, menus, popups d’annonce et publicités\nEspace client : inscription, vérification de l’e-mail, mot de passe oublié, réservations et commandes personnelles, tickets de support\nEspace organisateur : création d’événements multilingues, gestion des tickets, réservations, coupons et badges, relances des participants, revenus et demandes de retrait\nContrôle d’accès : scanner de QR code des billets à l’entrée, depuis l’application installable (PWA)\nAdministration : administrateurs et rôles aux permissions détaillées, comptes organisateurs et clients, soldes, retraits, langues et traductions\nParamètres : SEO, e-mails et modèles de mails, cookies, maintenance, devise, PWA et scanner\nPaiements : une vingtaine de passerelles (FedaPay, Stripe, PayPal, Flutterwave, Paystack, Mollie…) et paiement hors ligne\nNotifications push aux visiteurs, site multilingue, newsletter",
+        "en": "Events: list, filters, categories, detail page, view count and favourites\nTicket booking: ticket choice, promo codes, payment, PDF invoice and confirmation email; bulk invoice download as ZIP\nMembership or certification badges: gallery, registration, multiple prices, promo codes, custom options and payment\nDynamic forms, free or paid, with answers exportable to Excel, CSV or PDF\nShop: products, cart, checkout, payment and shipping\nContent: blog, FAQ, contact, custom pages handled by the CMS, menus, announcement popups and ads\nCustomer area: sign-up, email verification, password reset, personal bookings and orders, support tickets\nOrganiser area: multilingual event creation, ticket, booking, coupon and badge management, attendee reminders, revenue and payout requests\nAccess control: QR code ticket scanner at the entrance, from the installable app (PWA)\nAdministration: admins and roles with fine-grained permissions, organiser and customer accounts, balances, payouts, languages and translations\nSettings: SEO, emails and email templates, cookies, maintenance, currency, PWA and scanner\nPayments: around twenty gateways (FedaPay, Stripe, PayPal, Flutterwave, Paystack, Mollie…) plus offline payment\nPush notifications to visitors, multilingual website, newsletter"
+      },
+      "results": {
+        "fr": "",
+        "en": ""
+      },
+      "tech": []
     },
     {
       "id": "p3",
       "published": true,
-      "featured": true,
+      "featured": false,
       "slug": "wura",
       "title": {
         "fr": "Wura",
         "en": "Wura"
       },
       "year": "",
-      "link": "https://www.wura.africa",
+      "link": "",
       "repo": "",
+      "status": "offline",
       "images": [],
       "category": {
         "fr": "Plateforme d’emploi et de recrutement",
         "en": "Job and recruitment platform"
       },
       "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
+        "fr": "Développeuse full stack",
+        "en": "Full stack developer"
       },
       "summary": {
         "fr": "Plateforme d’emploi et de recrutement : offres, candidatures, CV, suivi des candidats en kanban, abonnements payants et application mobile via API.",
@@ -450,8 +690,8 @@
         "en": "Adapting an existing foundation to a specific market, with several languages, countries and currencies, suitable payment methods and three areas (candidate, company, admin) with very different needs."
       },
       "contribution": {
-        "fr": "Analyse du besoin\nDéveloppement et adaptation de la plateforme à partir du script Jobpilot\nEspaces candidat, entreprise et administration\nPaiements, abonnements et paramétrage de la plateforme",
-        "en": "Needs analysis\nDevelopment and adaptation of the platform on top of the Jobpilot script\nCandidate, company and admin areas\nPayments, subscription plans and platform configuration"
+        "fr": "Analyse du besoin et adaptation de la plateforme Jobpilot au marché visé\nRefonte de l’interface (front-end)\nAjustement des fonctionnalités existantes\nParamétrage de la plateforme, des moyens de paiement et des abonnements",
+        "en": "Needs analysis and adaptation of the Jobpilot platform to the target market\nFront-end redesign\nAdjustment of existing features\nConfiguration of the platform, payment methods and subscription plans"
       },
       "solution": {
         "fr": "Recherche d’offres avec autocomplétion, liste filtrée par catégorie et page détail ; offres externes issues de Careerjet et d’Indeed\nAnnuaires des candidats et des entreprises, blog avec commentaires, services et coaching, offres d’abonnement\nSite multilingue, choix du pays et multi-devise, application installable (PWA) avec page hors ligne, SEO, sitemap et newsletter\nCandidat : inscription classique ou via les réseaux sociaux, profil complet avec barre de progression, plusieurs CV, candidatures avec questions de présélection, offres sauvegardées et alertes emploi\nEntreprise : vérification par documents, publication, clonage, expiration ou réactivation des offres, validées par l’administration après modification\nSuivi des candidatures en kanban avec colonnes personnalisables\nRecherche de candidats et consultation des CV selon le plan, favoris classés par catégories\nMessagerie entre candidats et entreprises, notifications d’entretien et notifications RH\nPaiement à l’offre ou par abonnement, mise en avant des offres, factures PDF et historique des transactions\nPasserelles de paiement : FedaPay, PayPal, Stripe, Flutterwave, Paystack, Mollie… et paiement manuel, plans gratuits\nAdministration : utilisateurs, rôles et permissions, validation des entreprises et des offres, import en masse, données de référence importables depuis Excel\nCMS (pages, menus, page d’accueil, FAQ, CGU), SEO par page, paramètres de thème, e-mails, reCAPTCHA, temps réel, Google Analytics, cookies, maintenance et publicités\nTâches automatiques : expiration des offres, mise à jour des taux de change, envoi en file d’attente des alertes d’offres\nAPI REST pour l’application mobile : authentification, offres, candidatures, CV et favoris",
@@ -463,84 +703,90 @@
       },
       "tech": [
         "Laravel",
-        "Jobpilot"
+        "Jobpilot",
+        "Livewire",
+        "Bootstrap",
+        "Tailwind CSS",
+        "Spatie Permission",
+        "Laravel Sanctum",
+        "FedaPay"
       ]
     },
     {
-      "id": "p4",
+      "id": "p8",
       "published": true,
-      "featured": true,
-      "slug": "doubovo",
+      "featured": false,
+      "slug": "wisafrica",
       "title": {
-        "fr": "Doubovo",
-        "en": "Doubovo"
+        "fr": "WIS AFRICA",
+        "en": "WIS AFRICA"
       },
-      "year": "2026",
-      "link": "https://doubovo.tech",
+      "year": "",
+      "link": "https://formation.megatech-web.com",
       "repo": "",
+      "status": "live",
       "images": [],
       "category": {
-        "fr": "Livraison de repas par abonnement · web & mobile",
-        "en": "Meal subscription & delivery · web & mobile"
+        "fr": "Plateforme de formation en ligne",
+        "en": "Online training platform"
       },
       "role": {
-        "fr": "Développeuse web & mobile fullstack (freelance)",
-        "en": "Fullstack web & mobile developer (freelance)"
+        "fr": "Développeuse full stack (analyse, conception, développement)",
+        "en": "Full stack developer (analysis, design, development)"
       },
       "summary": {
-        "fr": "Plateforme d’abonnement et de livraison de repas à domicile au Bénin : site web installable, application client, application livreur et back-office.",
-        "en": "Home meal subscription and delivery platform in Benin: installable website, customer app, courier app and back office."
+        "fr": "Plateforme de formations aux métiers du numérique : catalogue, inscription en ligne avec paiement FedaPay, blog et administration complète.",
+        "en": "Training platform for digital careers: course catalogue, online enrolment with FedaPay payment, blog and a full admin area."
       },
       "context": {
-        "fr": "Doubovo livre des repas à domicile à Cotonou et Abomey-Calavi, à l’unité ou par forfait. Les clients commandent depuis le site ou l’application, paient par Mobile Money, suivent leur livraison en direct et la réceptionnent avec un code à 4 chiffres. Les livreurs suivent leurs tournées depuis leur propre application, et l’équipe pilote l’ensemble depuis le back-office. Site, applications et back-office partagent le même serveur.",
-        "en": "Doubovo delivers home meals in Cotonou and Abomey-Calavi, one-off or through meal plans. Customers order from the website or the app, pay with Mobile Money, track their delivery live and receive it with a 4-digit code. Couriers follow their rounds in their own app, and the team runs everything from the back office. Website, apps and back office share the same server."
+        "fr": "WIS AFRICA propose des formations aux métiers du numérique, pour les débutants comme pour les professionnels : formations métier organisées en périodes, formations continues découpées en modules et formations ponctuelles. La plateforme présente l’offre, prend les inscriptions et les paiements en ligne, et se gère entièrement depuis une administration.",
+        "en": "WIS AFRICA offers training for digital careers, for beginners and professionals alike: career programmes organised in periods, continuing education split into modules, and one-off courses. The platform presents the offer, takes enrolments and payments online, and is fully managed from an admin area."
       },
       "problem": {
-        "fr": "Offrir la même expérience sur le web et sur mobile, garantir des paiements sans double débit, livrer à l’heure et permettre aux livreurs de travailler même sans réseau.",
-        "en": "Delivering the same experience on web and mobile, guaranteeing payments without double charges, delivering on time and letting couriers work even without a network."
+        "fr": "Remplacer l’ancien site par une plateforme moderne, administrable sans développeur, capable d’encaisser les inscriptions en ligne, sans perdre les données existantes ni le référencement acquis.",
+        "en": "Replacing the old website with a modern platform, manageable without a developer and able to take enrolment payments online, without losing existing data or search rankings."
       },
       "contribution": {
-        "fr": "Site vitrine doubovo.tech et espace client de gestion des commandes\nApplication mobile client : commande, paiement, forfaits, planning et suivi\nApplication mobile livreur : tournées, remise par code et mode hors ligne\nRefonte et amélioration du back-office : clients, commandes, livreurs, services et opérations\nAudit complet de l’application client avant publication et préparation de la mise en ligne sur Google Play",
-        "en": "doubovo.tech showcase website and customer order area\nCustomer mobile app: ordering, payment, meal plans, schedule and tracking\nCourier mobile app: rounds, code-based handover and offline mode\nBack office redesign and improvements: customers, orders, couriers, services and operations\nFull audit of the customer app before release and Google Play launch preparation"
+        "fr": "Analyse du besoin et conception de la plateforme\nSite public : accueil, catalogues de formations, fiches, inscription et paiement en ligne\nAdministration : formations, inscriptions, blog, page d’accueil, menus, pages légales, rôles et paramètres\nPaiement FedaPay en XOF, de la transaction à la confirmation\nReprise des données et des images de l’ancien site, redirections des anciennes adresses pour le SEO",
+        "en": "Needs analysis and platform design\nPublic website: home page, course catalogues, course pages, online enrolment and payment\nAdmin area: courses, enrolments, blog, home page, menus, legal pages, roles and settings\nFedaPay payment in XOF, from transaction to confirmation\nMigration of the old website’s data and images, redirects from old URLs to preserve SEO"
       },
       "solution": {
-        "fr": "Site web : menu du jour et de la semaine, fiches plats, formules, panier multi-plats avec quantités (« Garba × 3 »), commande par créneau, espace client et suivi de livraison\nSite installable comme une application (PWA) avec invitation à l’installation, guide pour iPhone et page hors ligne ; pages légales et page de suppression de compte\nApplication client : découverte sans compte, connexion par code WhatsApp, commande de plusieurs plats par créneau, choix de l’adresse\nPaiement Mobile Money via KkiaPay, par le solde du compte ou par les repas du forfait, avec protection contre le double débit\nForfaits : achat avec démarrage immédiat ou programmé, repas restants, changement et programmation du forfait suivant\nPlanning de la semaine : choisir, remplacer ou annuler un repas, confirmation la veille\nSuivi de livraison en direct, code de remise, partage du lien de suivi ; historique, reçus, notation des repas et « Recommander »\nProfil : adresses, préférences alimentaires, parrainage, aide et suppression du compte ; notifications à chaque étape de la commande\nApplication livreur : activation du compte par lien, tournées du jour dans l’ordre, chargement des colis, navigation vers chaque client\nRemise validée par le code du client, déclaration d’incident, livraisons groupées en une seule visite, heure d’arrivée estimée et ponctualité\nFonctionnement sans réseau : arrivées, incidents et validations enregistrés hors ligne puis envoyés au retour du réseau ; gains et historique des tournées\nBack-office : commandes regroupées par client et par créneau, fiches livreurs, validation des dossiers et liens d’activation, préparation et suivi des tournées\nMessages WhatsApp professionnels à chaque étape (confirmation, départ, livraison, incident, échéance du forfait, parrainage) et pilotage du numéro depuis le back-office\nStatistiques : chiffre d’affaires, commandes, livreurs, stock, fidélisation, audience du site et installations de l’application web",
-        "en": "Website: daily and weekly menu, dish pages, meal plans, multi-dish cart with quantities (“Garba × 3”), ordering by time slot, customer area and delivery tracking\nInstallable website (PWA) with an install prompt, an iPhone guide and an offline page; legal pages and an account deletion page\nCustomer app: browsing without an account, WhatsApp code login, several dishes per time slot, address selection\nMobile Money payment through KkiaPay, account balance or meal plan credits, with double-charge protection\nMeal plans: purchase with immediate or scheduled start, remaining meals, plan changes and scheduling the next plan\nWeekly schedule: choose, replace or cancel a meal, confirmation the day before\nLive delivery tracking, handover code, shareable tracking link; history, receipts, meal ratings and “Order again”\nProfile: addresses, dietary preferences, referrals, help and account deletion; notifications at every order step\nCourier app: account activation by link, ordered daily rounds, parcel loading, navigation to each customer\nHandover validated by the customer’s code, incident reports, grouped deliveries as a single visit, estimated arrival time and punctuality\nOffline mode: arrivals, incidents and validations saved offline then sent when the network returns; earnings and round history\nBack office: orders grouped by customer and time slot, courier profiles, application approval and activation links, round preparation and live tracking\nProfessional WhatsApp messages at every step (confirmation, departure, delivery, incident, plan expiry, referral) and number management from the back office\nStatistics: revenue, orders, couriers, stock, retention, website audience and web app installs"
+        "fr": "Accueil entièrement géré depuis l’administration : hero, deux parcours (débutants et professionnels), « Qui sommes-nous », « Pourquoi WIS AFRICA », pôles et thèmes de formation, chiffres clés, témoignages, galerie photo, FAQ, bouton WhatsApp et appel à l’action avec compte à rebours\nTrois types de formation : métier (avec périodes), continue (avec modules) et ponctuelle, avec un catalogue complet et des catalogues dédiés\nFiche formation : présentation, objectifs, programme par période, déroulement et prérequis\nInscription en ligne : choix d’une période ou de plusieurs modules, avec les places disponibles\nPaiement FedaPay en XOF : création de la transaction, redirection vers le paiement et confirmation au retour, avec e-mail de notification à chaque inscription\nBlog : catégories, recherche et commentaires publiés après validation\nContact avec cartes de contact et carte Google Maps optionnelle, FAQ, page « À propos », pages légales dynamiques et newsletter\nMenus de navigation et de pied de page configurables\nAdministration : tableau de bord, formations avec périodes, modules et statistiques, inscriptions, messages, modération des commentaires, abonnés newsletter avec export\nAccès : administrateurs gérés par le superadmin, droits par module pour chaque rôle\nParamètres en cinq onglets (général, contact, réseaux sociaux, SEO, page d’accueil), clés FedaPay test et production\nSuppression douce sur 19 tables : aucune donnée n’est perdue définitivement\nCommandes de migration de l’ancien site (rôles, administrateurs, utilisateurs, formations, inscriptions, blog et images), redirections des anciennes adresses\nDonnées de départ réelles utilisables en production, données de test réservées au poste de développement",
+        "en": "Home page fully managed from the admin area: hero, two tracks (beginners and professionals), “About us”, “Why WIS AFRICA”, training areas and topics, key figures, testimonials, photo gallery, FAQ, WhatsApp button and a call to action with a countdown\nThree course types: career (with periods), continuing (with modules) and one-off, with a full catalogue and dedicated catalogues\nCourse page: overview, learning outcomes, programme by period, format and prerequisites\nOnline enrolment: choose a period or several modules, with available seats\nFedaPay payment in XOF: transaction creation, redirect to payment and confirmation on return, with a notification email for every enrolment\nBlog: categories, search and comments published after approval\nContact page with contact cards and an optional Google Map, FAQ, About page, dynamic legal pages and newsletter\nConfigurable navigation and footer menus\nAdmin area: dashboard, courses with periods, modules and statistics, enrolments, messages, comment moderation, newsletter subscribers with export\nAccess: admins managed by the superadmin, per-module permissions for each role\nSettings in five tabs (general, contact, social networks, SEO, home page), FedaPay test and live keys\nSoft deletes on 19 tables: no data is ever permanently lost\nMigration commands from the old website (roles, admins, users, courses, enrolments, blog and images), redirects from old URLs\nReal seed data usable in production, test data kept for the development machine"
       },
       "results": {
-        "fr": "",
-        "en": ""
+        "fr": "<p>Ancien site remplacé : données et images reprises, anciennes adresses redirigées pour préserver le référencement.</p>",
+        "en": "<p>Old website replaced: data and images migrated, old URLs redirected to preserve search rankings.</p>"
       },
       "tech": [
-        "Angular",
-        "Flutter",
-        "TypeScript",
-        "Node.js",
-        "PostgreSQL",
-        "Firebase",
-        "KkiaPay"
+        "Laravel",
+        "Alpine.js",
+        "Tailwind CSS",
+        "FedaPay",
+        "Pest"
       ]
     },
     {
       "id": "p5",
       "published": true,
-      "featured": true,
+      "featured": false,
       "slug": "forbmit",
       "title": {
         "fr": "Forbmit",
         "en": "Forbmit"
       },
       "year": "",
-      "link": "https://www.forbmit.com",
+      "link": "",
       "repo": "",
+      "status": "offline",
       "images": [],
       "category": {
         "fr": "Générateur de formulaires en ligne",
         "en": "Online form builder"
       },
       "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
+        "fr": "Développeuse full stack",
+        "en": "Full stack developer"
       },
       "summary": {
         "fr": "Application web de création de formulaires en ligne, avec collecte des réponses, gestion administrative et paiement intégré via FedaPay.",
@@ -571,92 +817,46 @@
       ]
     },
     {
-      "id": "p6",
-      "published": true,
-      "featured": true,
-      "slug": "eventreet",
-      "title": {
-        "fr": "Eventreet",
-        "en": "Eventreet"
-      },
-      "year": "",
-      "link": "",
-      "repo": "",
-      "images": [],
-      "category": {
-        "fr": "Billetterie, événements & badges",
-        "en": "Ticketing, events & badges"
-      },
-      "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
-      },
-      "summary": {
-        "fr": "Refonte d’une plateforme de billetterie et de gestion d’événements : réservations, badges, boutique, espaces client et organisateur, une vingtaine de moyens de paiement.",
-        "en": "Overhaul of a ticketing and event management platform: bookings, badges, shop, customer and organiser areas, around twenty payment gateways."
-      },
-      "context": {
-        "fr": "Eventreet réunit sur une même plateforme les visiteurs qui découvrent et réservent des événements, les clients qui suivent leurs achats, les organisateurs qui publient et pilotent leurs événements, et l’équipe d’administration qui supervise l’ensemble. La plateforme gère aussi des badges d’adhésion ou de certification, des formulaires, une boutique et une vingtaine de passerelles de paiement.",
-        "en": "Eventreet brings together, on a single platform, visitors who discover and book events, customers who follow their purchases, organisers who publish and run their events, and the admin team overseeing it all. It also handles membership or certification badges, forms, a shop and around twenty payment gateways."
-      },
-      "problem": {
-        "fr": "Faire évoluer, sur le plan fonctionnel comme technique, une plateforme riche utilisée par quatre profils aux besoins très différents : visiteurs, clients, organisateurs et administrateurs.",
-        "en": "Evolving a feature-rich platform, both functionally and technically, used by four profiles with very different needs: visitors, customers, organisers and administrators."
-      },
-      "contribution": {
-        "fr": "Refonte fonctionnelle et applicative de la plateforme\nSite public : événements, réservation de billets, badges, formulaires, boutique et contenus\nEspace client : compte, historique des réservations et des commandes, support\nEspace organisateur : événements, billets, coupons, inscrits, formulaires, scanner, revenus et retraits\nPanneau d’administration : rôles et permissions, contenus, paramètres, paiements et notifications",
-        "en": "Functional and technical overhaul of the platform\nPublic website: events, ticket booking, badges, forms, shop and content\nCustomer area: account, booking and order history, support\nOrganiser area: events, tickets, coupons, registrants, forms, scanner, revenue and payouts\nAdmin panel: roles and permissions, content, settings, payments and notifications"
-      },
-      "solution": {
-        "fr": "Événements : liste, filtres, catégories, page de détail, nombre de vues et favoris\nRéservation de billets : choix du ticket, codes promo, paiement, facture PDF et e-mail de confirmation ; téléchargement groupé des factures en ZIP\nBadges d’adhésion ou de certification : galerie, inscription, plusieurs tarifs, codes promo, options personnalisées et paiement\nFormulaires dynamiques, payants ou non, avec réponses exportables en Excel, CSV ou PDF\nBoutique : produits, panier, commande, paiement et livraison\nContenus : blog, FAQ, contact, pages personnalisées gérées par le CMS, menus, popups d’annonce et publicités\nEspace client : inscription, vérification de l’e-mail, mot de passe oublié, réservations et commandes personnelles, tickets de support\nEspace organisateur : création d’événements multilingues, gestion des tickets, réservations, coupons et badges, relances des participants, revenus et demandes de retrait\nContrôle d’accès : scanner de QR code des billets à l’entrée, depuis l’application installable (PWA)\nAdministration : administrateurs et rôles aux permissions détaillées, comptes organisateurs et clients, soldes, retraits, langues et traductions\nParamètres : SEO, e-mails et modèles de mails, cookies, maintenance, devise, PWA et scanner\nPaiements : une vingtaine de passerelles (FedaPay, Stripe, PayPal, Flutterwave, Paystack, Mollie…) et paiement hors ligne\nNotifications push aux visiteurs, site multilingue, newsletter",
-        "en": "Events: list, filters, categories, detail page, view count and favourites\nTicket booking: ticket choice, promo codes, payment, PDF invoice and confirmation email; bulk invoice download as ZIP\nMembership or certification badges: gallery, registration, multiple prices, promo codes, custom options and payment\nDynamic forms, free or paid, with answers exportable to Excel, CSV or PDF\nShop: products, cart, checkout, payment and shipping\nContent: blog, FAQ, contact, custom pages handled by the CMS, menus, announcement popups and ads\nCustomer area: sign-up, email verification, password reset, personal bookings and orders, support tickets\nOrganiser area: multilingual event creation, ticket, booking, coupon and badge management, attendee reminders, revenue and payout requests\nAccess control: QR code ticket scanner at the entrance, from the installable app (PWA)\nAdministration: admins and roles with fine-grained permissions, organiser and customer accounts, balances, payouts, languages and translations\nSettings: SEO, emails and email templates, cookies, maintenance, currency, PWA and scanner\nPayments: around twenty gateways (FedaPay, Stripe, PayPal, Flutterwave, Paystack, Mollie…) plus offline payment\nPush notifications to visitors, multilingual website, newsletter"
-      },
-      "results": {
-        "fr": "",
-        "en": ""
-      },
-      "tech": []
-    },
-    {
-      "id": "p8",
+      "id": "p11",
       "published": true,
       "featured": false,
-      "slug": "wisafrica",
+      "slug": "megatech",
       "title": {
-        "fr": "WIS AFRICA",
-        "en": "WIS AFRICA"
+        "fr": "Site MEGATECH",
+        "en": "MEGATECH website"
       },
       "year": "",
-      "link": "https://formation.megatech-web.com",
+      "link": "https://megatech-web.com",
       "repo": "",
+      "status": "live",
       "images": [],
       "category": {
-        "fr": "Plateforme de formation en ligne",
-        "en": "Online training platform"
+        "fr": "Site d’entreprise avec administration complète",
+        "en": "Company website with a full admin area"
       },
       "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
+        "fr": "Développeuse web full stack",
+        "en": "Full stack web developer"
       },
       "summary": {
-        "fr": "Plateforme de formations aux métiers du numérique : catalogue, inscription en ligne avec paiement FedaPay, blog et administration complète.",
-        "en": "Training platform for digital careers: course catalogue, online enrolment with FedaPay payment, blog and a full admin area."
+        "fr": "Refonte du site de MEGATECH : services, réalisations, blog, demandes de devis et une administration qui gère chaque contenu, avec historique des versions.",
+        "en": "Redesign of the MEGATECH website: services, portfolio, blog, quote requests and an admin area managing every piece of content, with version history."
       },
       "context": {
-        "fr": "WIS AFRICA propose des formations aux métiers du numérique, pour les débutants comme pour les professionnels : formations métier organisées en périodes, formations continues découpées en modules et formations ponctuelles. La plateforme présente l’offre, prend les inscriptions et les paiements en ligne, et se gère entièrement depuis une administration.",
-        "en": "WIS AFRICA offers training for digital careers, for beginners and professionals alike: career programmes organised in periods, continuing education split into modules, and one-off courses. The platform presents the offer, takes enrolments and payments online, and is fully managed from an admin area."
+        "fr": "MEGATECH est une entreprise de services numériques basée à Cotonou. Son site présente ses services, ses réalisations, son équipe et sa méthode, publie des articles et des vidéos, et reçoit les demandes de contact et de devis des prospects.",
+        "en": "MEGATECH is a digital services company based in Cotonou. Its website presents its services, work, team and approach, publishes articles and videos, and receives contact and quote requests from prospects."
       },
       "problem": {
-        "fr": "Remplacer l’ancien site par une plateforme moderne, administrable sans développeur, capable d’encaisser les inscriptions en ligne, sans perdre les données existantes ni le référencement acquis.",
-        "en": "Replacing the old website with a modern platform, manageable without a developer and able to take enrolment payments online, without losing existing data or search rankings."
+        "fr": "Donner à l’équipe la main sur tout le contenu du site, sans développeur, avec la possibilité de revenir à une version précédente, tout en centralisant les demandes entrantes.",
+        "en": "Giving the team control over all of the website’s content, without a developer, with the ability to roll back to a previous version, while centralising incoming requests."
       },
       "contribution": {
-        "fr": "Analyse du besoin et conception de la plateforme\nSite public : accueil, catalogues de formations, fiches, inscription et paiement en ligne\nAdministration : formations, inscriptions, blog, page d’accueil, menus, pages légales, rôles et paramètres\nPaiement FedaPay en XOF, de la transaction à la confirmation\nReprise des données et des images de l’ancien site, redirections des anciennes adresses pour le SEO",
-        "en": "Needs analysis and platform design\nPublic website: home page, course catalogues, course pages, online enrolment and payment\nAdmin area: courses, enrolments, blog, home page, menus, legal pages, roles and settings\nFedaPay payment in XOF, from transaction to confirmation\nMigration of the old website’s data and images, redirects from old URLs to preserve SEO"
+        "fr": "Refonte du site web de MEGATECH\nSite public : services, réalisations, vidéos, FAQ, blog, contact et demande de devis\nEspace d’administration : contenus, échanges, médiathèque, utilisateurs et paramètres\nHistorique des versions avec restauration sur chaque contenu",
+        "en": "Redesign of the MEGATECH website\nPublic website: services, portfolio, videos, FAQ, blog, contact and quote request\nAdmin area: content, inbox, media library, users and settings\nVersion history with restore on every piece of content"
       },
       "solution": {
-        "fr": "Accueil entièrement géré depuis l’administration : hero, deux parcours (débutants et professionnels), « Qui sommes-nous », « Pourquoi WIS AFRICA », pôles et thèmes de formation, chiffres clés, témoignages, galerie photo, FAQ, bouton WhatsApp et appel à l’action avec compte à rebours\nTrois types de formation : métier (avec périodes), continue (avec modules) et ponctuelle, avec un catalogue complet et des catalogues dédiés\nFiche formation : présentation, objectifs, programme par période, déroulement et prérequis\nInscription en ligne : choix d’une période ou de plusieurs modules, avec les places disponibles\nPaiement FedaPay en XOF : création de la transaction, redirection vers le paiement et confirmation au retour, avec e-mail de notification à chaque inscription\nBlog : catégories, recherche et commentaires publiés après validation\nContact avec cartes de contact et carte Google Maps optionnelle, FAQ, page « À propos », pages légales dynamiques et newsletter\nMenus de navigation et de pied de page configurables\nAdministration : tableau de bord, formations avec périodes, modules et statistiques, inscriptions, messages, modération des commentaires, abonnés newsletter avec export\nAccès : administrateurs gérés par le superadmin, droits par module pour chaque rôle\nParamètres en cinq onglets (général, contact, réseaux sociaux, SEO, page d’accueil), clés FedaPay test et production\nSuppression douce sur 19 tables : aucune donnée n’est perdue définitivement\nCommandes de migration de l’ancien site (rôles, administrateurs, utilisateurs, formations, inscriptions, blog et images), redirections des anciennes adresses\nDonnées de départ réelles utilisables en production, données de test réservées au poste de développement",
-        "en": "Home page fully managed from the admin area: hero, two tracks (beginners and professionals), “About us”, “Why WIS AFRICA”, training areas and topics, key figures, testimonials, photo gallery, FAQ, WhatsApp button and a call to action with a countdown\nThree course types: career (with periods), continuing (with modules) and one-off, with a full catalogue and dedicated catalogues\nCourse page: overview, learning outcomes, programme by period, format and prerequisites\nOnline enrolment: choose a period or several modules, with available seats\nFedaPay payment in XOF: transaction creation, redirect to payment and confirmation on return, with a notification email for every enrolment\nBlog: categories, search and comments published after approval\nContact page with contact cards and an optional Google Map, FAQ, About page, dynamic legal pages and newsletter\nConfigurable navigation and footer menus\nAdmin area: dashboard, courses with periods, modules and statistics, enrolments, messages, comment moderation, newsletter subscribers with export\nAccess: admins managed by the superadmin, per-module permissions for each role\nSettings in five tabs (general, contact, social networks, SEO, home page), FedaPay test and live keys\nSoft deletes on 19 tables: no data is ever permanently lost\nMigration commands from the old website (roles, admins, users, courses, enrolments, blog and images), redirects from old URLs\nReal seed data usable in production, test data kept for the development machine"
+        "fr": "Pages publiques : accueil, à propos, services et réalisations (liste et détail), vidéos et FAQ\nBlog avec articles, catégories et commentaires publiés après modération\nFormulaire de contact et demande de devis dédiée\nNewsletter avec désabonnement par lien sécurisé\nPages légales (mentions légales, CGU, cookies, plan du site) et pages d’erreur personnalisées (403, 404, 500, 503)\nTableau de bord : choix de la période, comparaison avec la période précédente et actions rapides\nGestion complète de chaque contenu : création, modification, suppression, actions groupées, export, duplication, activation et désactivation\nHistorique des versions avec restauration pour les services, réalisations, témoignages, FAQ, partenaires, clients, équipe, vidéos et articles\nPage « À propos » administrable : points forts, méthodologie, jalons, valeurs et histoire\nMenus, page d’accueil et pages légales réglables depuis l’administration\nÉchanges : messages de contact, demandes de devis, modération des commentaires et abonnés à la newsletter\nMédiathèque, utilisateurs et rôles, paramètres du site avec e-mail de test, journal d’activité\nCompte : connexion, mot de passe oublié, vérification de l’e-mail, profil et changement de mot de passe",
+        "en": "Public pages: home, about, services and portfolio (list and detail), videos and FAQ\nBlog with articles, categories and comments published after moderation\nContact form and a dedicated quote request\nNewsletter with secure unsubscribe links\nLegal pages (legal notice, terms, cookies, sitemap) and custom error pages (403, 404, 500, 503)\nDashboard: period selection, comparison with the previous period and quick actions\nFull management of every piece of content: create, edit, delete, bulk actions, export, duplicate, enable and disable\nVersion history with restore for services, portfolio, testimonials, FAQ, partners, clients, team, videos and articles\nEditable About page: strengths, methodology, milestones, values and history\nMenus, home page and legal pages configurable from the admin area\nInbox: contact messages, quote requests, comment moderation and newsletter subscribers\nMedia library, users and roles, site settings with a test email, activity log\nAccount: login, password reset, email verification, profile and password change"
       },
       "results": {
         "fr": "",
@@ -664,55 +864,62 @@
       },
       "tech": [
         "Laravel",
-        "FedaPay"
+        "AdminLTE",
+        "Tailwind CSS",
+        "Alpine.js",
+        "Pest"
       ]
     },
     {
-      "id": "p7",
+      "id": "p12",
       "published": true,
       "featured": false,
-      "slug": "gstock",
+      "slug": "gestion-cabinets-avocats",
       "title": {
-        "fr": "GStock",
-        "en": "GStock"
+        "fr": "Prunelle",
+        "en": "Prunelle"
       },
-      "year": "",
+      "year": "2024",
       "link": "",
       "repo": "",
+      "status": "",
       "images": [],
       "category": {
-        "fr": "Gestion de stock et de ventes multi-rôles",
-        "en": "Multi-role stock and sales management"
+        "fr": "Application web métier · gestion de cabinets d’avocats",
+        "en": "Business web application · law firm management"
       },
       "role": {
-        "fr": "Développeuse fullstack",
-        "en": "Fullstack developer"
+        "fr": "Stagiaire développeuse full stack, Waouh Monde",
+        "en": "Full stack developer intern, Waouh Monde"
       },
       "summary": {
-        "fr": "Application de gestion de stock de compléments alimentaires, du magasin central aux boutiques et pharmacies : dépôts, ventes, inventaires, rapports et accès par rôle.",
-        "en": "Stock management application for dietary supplements, from the central warehouse to shops and pharmacies: transfers, sales, stocktakes, reports and role-based access."
+        "fr": "Application web de gestion destinée aux cabinets d’avocats, analysée et développée pendant mon stage chez Waouh Monde avec Laravel et Vue.js.",
+        "en": "Management web application for law firms, analysed and built during my internship at Waouh Monde with Laravel and Vue.js."
       },
       "context": {
-        "fr": "GStock suit des compléments alimentaires qui partent d’un magasin central vers un réseau de boutiques et de pharmacies. Chaque produit a deux prix : le prix gros, appliqué aux boutiques et pharmacies, et le prix normal, payé par le client final. Administrateurs, magasiniers et équipes opérationnelles y travaillent chacun avec leur propre vue.",
-        "en": "GStock tracks dietary supplements that move from a central warehouse to a network of shops and pharmacies. Each product has two prices: the wholesale price charged to shops and pharmacies, and the retail price paid by end customers. Admins, warehouse staff and operational teams each work in it with their own view."
+        "fr": "<p>Prunelle a été réalisée chez Waouh Monde pour aider les cabinets d’avocats à organiser leur activité au sein d’une même application web.</p>",
+        "en": "<p>Prunelle was built at Waouh Monde to help law firms organise their work within a single web application.</p>"
       },
       "problem": {
-        "fr": "Garder un stock juste à chaque étape, entre le magasin, les boutiques et les pharmacies, tout en limitant chaque utilisateur à ses propres données et en empêchant les erreurs de saisie (prix modifiés, ventes au-delà du stock disponible).",
-        "en": "Keeping stock accurate at every step between the warehouse, shops and pharmacies, while limiting each user to their own data and preventing input errors (edited prices, sales beyond available stock)."
+        "fr": "",
+        "en": ""
       },
       "contribution": {
-        "fr": "Analyse du besoin et conception de l’application\nCircuit du stock : magasin central, bons de dépôt et de retour, stock par entité et inventaires\nModule de ventes avec contrôle du stock, prix imposés et réductions\nTableaux de bord par rôle, rapports et alertes\nRôles et permissions, cloisonnement des données par entité, journal d’activité",
-        "en": "Needs analysis and application design\nStock flow: central warehouse, transfer and return slips, stock per entity and stocktakes\nSales module with stock checks, fixed prices and discounts\nRole-based dashboards, reports and alerts\nRoles and permissions, per-entity data isolation, activity log"
+        "fr": "Analyse du besoin\nDéveloppement de l’application, côté serveur avec Laravel et côté interface avec Vue.js",
+        "en": "Needs analysis\nApplication development, with Laravel on the server side and Vue.js for the interface"
       },
       "solution": {
-        "fr": "Tableau de bord adapté au rôle (admin, magasinier, opérationnel) : chiffre d’affaires, ventes, stock central, stock vendu et restant, CA restant au prix gros et au prix normal\nFiltres par date, boutique, pharmacie et canal ; graphiques de l’évolution sur 6 mois et des produits les plus vendus\nAlertes : produits sous le seuil ou en rupture, rappels produit, dépôts en attente de validation\nProduits et familles avec référence générée automatiquement (PRD-0001), prix gros et prix normal, boîtes par carton, seuil d’alerte et rappels datés\nMagasin central : entrées en cartons et en boîtes, valeur du stock, ruptures, entrées, retours, sorties et historique des mouvements\nBons de dépôt et de retour : stock transféré seulement à l’acceptation, annulation possible tant que le bon est en attente, stock disponible affiché en direct pendant la saisie\nVentes en boutique, en pharmacie ou au magasin (client grossiste) : stock vérifié ligne par ligne, prix toujours repris du produit, réductions automatiques ou manuelles\nRelevés de pharmacie saisis après coup avec pièce jointe, ventes filtrables et tableau des ventes par client\nZones, boutiques et pharmacies avec leurs indicateurs, stock par entité consultable à une date donnée, sessions d’inventaire\nClients (création rapide pendant une vente) et médecins rattachés aux pharmacies\nRéductions par produit, par famille ou globales\nRapports : produits les plus vendus, ventes par famille, meilleurs clients\nRôles et permissions sur mesure, superadmin protégé, chaque boutique et pharmacie limitée à ses propres données\nJournal d’activité automatique, notifications dans l’application, mot de passe oublié par e-mail et réglage du serveur d’envoi (SMTP) avec e-mail de test",
-        "en": "Role-based dashboard (admin, warehouse, operations): revenue, sales, central stock, sold and remaining stock, remaining revenue at wholesale and retail prices\nFilters by date, shop, pharmacy and channel; charts for the 6-month trend and best-selling products\nAlerts: products below threshold or out of stock, product reminders, transfers awaiting approval\nProducts and families with auto-generated references (PRD-0001), wholesale and retail prices, boxes per carton, alert threshold and dated reminders\nCentral warehouse: stock intake in cartons and boxes, stock value, stock-outs, intakes, returns, outflows and movement history\nTransfer and return slips: stock moves only once accepted, cancellation allowed while pending, live available stock while filling in\nSales in shops, pharmacies or at the warehouse (wholesale customers): stock checked line by line, price always taken from the product, automatic or manual discounts\nPharmacy statements entered afterwards with an attachment, filterable sales and a sales-by-customer table\nZones, shops and pharmacies with their indicators, stock per entity viewable at any past date, stocktake sessions\nCustomers (quick creation during a sale) and doctors linked to pharmacies\nDiscounts per product, per family or global\nReports: best-selling products, sales by family, top customers\nCustom roles and permissions, protected superadmin, each shop and pharmacy limited to its own data\nAutomatic activity log, in-app notifications, password reset by email and email server (SMTP) settings with a test email"
+        "fr": "",
+        "en": ""
       },
       "results": {
         "fr": "",
         "en": ""
       },
-      "tech": []
+      "tech": [
+        "Laravel",
+        "Vue.js"
+      ]
     },
     {
       "id": "p10",
@@ -726,14 +933,15 @@
       "year": "2024",
       "link": "https://becsarl.com",
       "repo": "",
+      "status": "live",
       "images": [],
       "category": {
         "fr": "Site vitrine · expertise comptable",
         "en": "Website · accounting firm"
       },
       "role": {
-        "fr": "Développeuse web",
-        "en": "Web developer"
+        "fr": "Développeuse web (stage chez Waouh Monde)",
+        "en": "Web developer (Waouh Monde internship)"
       },
       "summary": {
         "fr": "Site de présentation d’un cabinet d’expertise comptable, d’audit et de conseil.",
@@ -748,8 +956,8 @@
         "en": ""
       },
       "contribution": {
-        "fr": "",
-        "en": ""
+        "fr": "Développement du site de présentation du cabinet",
+        "en": "Development of the firm’s website"
       },
       "solution": {
         "fr": "",
@@ -764,100 +972,6 @@
         "HTML",
         "CSS"
       ]
-    },
-    {
-      "published": true,
-      "featured": false,
-      "year": "",
-      "link": "https://megatech-web.com",
-      "repo": "",
-      "images": [],
-      "problem": {
-        "fr": "Donner à l’équipe la main sur tout le contenu du site, sans développeur, avec la possibilité de revenir à une version précédente, tout en centralisant les demandes entrantes.",
-        "en": "Giving the team control over all of the website’s content, without a developer, with the ability to roll back to a previous version, while centralising incoming requests."
-      },
-      "solution": {
-        "fr": "Pages publiques : accueil, à propos, services et réalisations (liste et détail), vidéos et FAQ\nBlog avec articles, catégories et commentaires publiés après modération\nFormulaire de contact et demande de devis dédiée\nNewsletter avec désabonnement par lien sécurisé\nPages légales (mentions légales, CGU, cookies, plan du site) et pages d’erreur personnalisées (403, 404, 500, 503)\nTableau de bord : choix de la période, comparaison avec la période précédente et actions rapides\nGestion complète de chaque contenu : création, modification, suppression, actions groupées, export, duplication, activation et désactivation\nHistorique des versions avec restauration pour les services, réalisations, témoignages, FAQ, partenaires, clients, équipe, vidéos et articles\nPage « À propos » administrable : points forts, méthodologie, jalons, valeurs et histoire\nMenus, page d’accueil et pages légales réglables depuis l’administration\nÉchanges : messages de contact, demandes de devis, modération des commentaires et abonnés à la newsletter\nMédiathèque, utilisateurs et rôles, paramètres du site avec e-mail de test, journal d’activité\nCompte : connexion, mot de passe oublié, vérification de l’e-mail, profil et changement de mot de passe",
-        "en": "Public pages: home, about, services and portfolio (list and detail), videos and FAQ\nBlog with articles, categories and comments published after moderation\nContact form and a dedicated quote request\nNewsletter with secure unsubscribe links\nLegal pages (legal notice, terms, cookies, sitemap) and custom error pages (403, 404, 500, 503)\nDashboard: period selection, comparison with the previous period and quick actions\nFull management of every piece of content: create, edit, delete, bulk actions, export, duplicate, enable and disable\nVersion history with restore for services, portfolio, testimonials, FAQ, partners, clients, team, videos and articles\nEditable About page: strengths, methodology, milestones, values and history\nMenus, home page and legal pages configurable from the admin area\nInbox: contact messages, quote requests, comment moderation and newsletter subscribers\nMedia library, users and roles, site settings with a test email, activity log\nAccount: login, password reset, email verification, profile and password change"
-      },
-      "results": {
-        "fr": "",
-        "en": ""
-      },
-      "tech": [],
-      "id": "p11",
-      "slug": "megatech",
-      "title": {
-        "fr": "Site MEGATECH",
-        "en": "MEGATECH website"
-      },
-      "category": {
-        "fr": "Site d’entreprise avec administration complète",
-        "en": "Company website with a full admin area"
-      },
-      "role": {
-        "fr": "Développeuse web fullstack",
-        "en": "Fullstack web developer"
-      },
-      "summary": {
-        "fr": "Refonte du site de MEGATECH : services, réalisations, blog, demandes de devis et une administration qui gère chaque contenu, avec historique des versions.",
-        "en": "Redesign of the MEGATECH website: services, portfolio, blog, quote requests and an admin area managing every piece of content, with version history."
-      },
-      "context": {
-        "fr": "MEGATECH est une entreprise de services numériques basée à Cotonou. Son site présente ses services, ses réalisations, son équipe et sa méthode, publie des articles et des vidéos, et reçoit les demandes de contact et de devis des prospects.",
-        "en": "MEGATECH is a digital services company based in Cotonou. Its website presents its services, work, team and approach, publishes articles and videos, and receives contact and quote requests from prospects."
-      },
-      "contribution": {
-        "fr": "Refonte du site web de MEGATECH\nSite public : services, réalisations, vidéos, FAQ, blog, contact et demande de devis\nEspace d’administration : contenus, échanges, médiathèque, utilisateurs et paramètres\nHistorique des versions avec restauration sur chaque contenu",
-        "en": "Redesign of the MEGATECH website\nPublic website: services, portfolio, videos, FAQ, blog, contact and quote request\nAdmin area: content, inbox, media library, users and settings\nVersion history with restore on every piece of content"
-      }
-    },
-    {
-      "published": true,
-      "featured": false,
-      "year": "2024",
-      "link": "",
-      "repo": "",
-      "images": [],
-      "problem": {
-        "fr": "",
-        "en": ""
-      },
-      "solution": {
-        "fr": "",
-        "en": ""
-      },
-      "results": {
-        "fr": "",
-        "en": ""
-      },
-      "tech": [],
-      "id": "p12",
-      "slug": "gestion-cabinets-avocats",
-      "title": {
-        "fr": "Gestion de cabinets d’avocats",
-        "en": "Law firm management"
-      },
-      "category": {
-        "fr": "Application web métier",
-        "en": "Business web application"
-      },
-      "role": {
-        "fr": "Stagiaire développeuse fullstack",
-        "en": "Fullstack developer intern"
-      },
-      "summary": {
-        "fr": "Analyse et développement d’une application web de gestion de cabinets d’avocats, réalisée chez Waouh Monde.",
-        "en": "Analysis and development of a law-firm management web application, built at Waouh Monde."
-      },
-      "context": {
-        "fr": "Application de gestion destinée aux cabinets d’avocats, réalisée pendant le stage chez Waouh Monde.",
-        "en": "Management application for law firms, built during the internship at Waouh Monde."
-      },
-      "contribution": {
-        "fr": "Analyse du besoin\nDéveloppement de l’application",
-        "en": "Needs analysis\nApplication development"
-      }
     }
   ],
   "experiences": [
@@ -871,8 +985,8 @@
         "en": "Cotonou, Benin"
       },
       "role": {
-        "fr": "Développeuse web & mobile fullstack (freelance)",
-        "en": "Fullstack web & mobile developer (freelance)"
+        "fr": "Développeuse full stack web & mobile, designer UI/UX (freelance)",
+        "en": "Full stack web & mobile developer, UI/UX designer (freelance)"
       },
       "start": {
         "fr": "Juin 2026",
@@ -887,8 +1001,8 @@
         "en": "Home meal subscription and delivery platform: website, customer and courier mobile apps, back office."
       },
       "duties": {
-        "fr": "Développement du site vitrine doubovo.tech pour présenter les services et l’offre de la plateforme, avec un espace client permettant aux utilisateurs de gérer leurs commandes\nDéveloppement des applications mobiles dédiées aux livreurs et aux clients\nRefonte et amélioration de l’espace d’administration pour faciliter la gestion des clients, commandes, livreurs, services et opérations de la plateforme",
-        "en": "Built the doubovo.tech showcase website presenting the platform’s services, with a customer area where users manage their orders\nBuilt the dedicated courier and customer mobile apps\nRedesigned and improved the back office to make managing customers, orders, couriers, services and operations easier"
+        "fr": "Conception de l’identité visuelle et des interfaces : parcours utilisateurs, wireframes, maquettes Figma et prototype interactif\nDéveloppement des deux applications mobiles Flutter (client et livreur) et préparation de leur publication sur Google Play et l’App Store\nDéveloppement du site doubovo.tech (Angular, application installable) avec un espace client de gestion des commandes\nRefonte et évolution du back-office (Angular) : gestion des clients, commandes, livreurs, services et opérations\nÉvolution de l’API Node.js : commandes, gestion cuisine, suivi de livraison, alertes et envoi des codes OTP",
+        "en": "Designed the visual identity and interfaces: user flows, wireframes, Figma mockups and interactive prototype\nBuilt both Flutter mobile apps (customer and courier) and prepared their submission to Google Play and the App Store\nBuilt the doubovo.tech website (Angular, installable app) with a customer area for managing orders\nRedesigned and extended the back office (Angular): customers, orders, couriers, services and operations\nExtended the Node.js API: orders, kitchen management, delivery tracking, alerts and OTP code delivery"
       }
     },
     {
@@ -901,8 +1015,8 @@
         "en": "Cotonou, Benin"
       },
       "role": {
-        "fr": "Développeuse web fullstack",
-        "en": "Fullstack web developer"
+        "fr": "Développeuse web full stack",
+        "en": "Full stack web developer"
       },
       "start": {
         "fr": "Oct. 2024",
@@ -931,8 +1045,8 @@
         "en": "Abomey-Calavi, Benin"
       },
       "role": {
-        "fr": "Stagiaire en développement web fullstack",
-        "en": "Fullstack web development intern"
+        "fr": "Stagiaire en développement web full stack",
+        "en": "Full stack web development intern"
       },
       "start": {
         "fr": "Mai 2024",
@@ -961,8 +1075,8 @@
         "en": "Abomey-Calavi, Benin"
       },
       "role": {
-        "fr": "Développeuse web fullstack (CDD)",
-        "en": "Fullstack web developer (fixed-term contract)"
+        "fr": "Développeuse web full stack (CDD)",
+        "en": "Full stack web developer (fixed-term contract)"
       },
       "start": {
         "fr": "Oct. 2023",
@@ -991,8 +1105,8 @@
         "en": "Abomey-Calavi, Benin"
       },
       "role": {
-        "fr": "Stagiaire en développement web fullstack",
-        "en": "Fullstack web development intern"
+        "fr": "Stagiaire en développement web full stack",
+        "en": "Full stack web development intern"
       },
       "start": {
         "fr": "Juil. 2023",
@@ -1015,9 +1129,10 @@
   "skillGroups": [
     {
       "id": "sg1",
+      "icon": "dns",
       "label": {
-        "fr": "Backend",
-        "en": "Backend"
+        "fr": "Backend & API",
+        "en": "Backend & API"
       },
       "visible": true,
       "skills": [
@@ -1034,12 +1149,39 @@
             "en": "PHP"
           },
           "heroPosition": 3
+        },
+        {
+          "name": {
+            "fr": "Node.js",
+            "en": "Node.js"
+          }
+        },
+        {
+          "name": {
+            "fr": "API REST",
+            "en": "REST APIs"
+          },
+          "icon": "api"
+        },
+        {
+          "name": {
+            "fr": "Authentification (jetons, 2FA, OTP)",
+            "en": "Authentication (tokens, 2FA, OTP)"
+          },
+          "icon": "lock"
+        },
+        {
+          "name": {
+            "fr": "Tâches planifiées & files d’attente",
+            "en": "Scheduled jobs & queues"
+          },
+          "icon": "schedule"
         }
-      ],
-      "icon": "dns"
+      ]
     },
     {
       "id": "sg2",
+      "icon": "web",
       "label": {
         "fr": "Frontend",
         "en": "Frontend"
@@ -1052,6 +1194,12 @@
             "en": "Vue.js"
           },
           "heroPosition": 2
+        },
+        {
+          "name": {
+            "fr": "Angular",
+            "en": "Angular"
+          }
         },
         {
           "name": {
@@ -1079,42 +1227,104 @@
         },
         {
           "name": {
-            "fr": "Angular",
-            "en": "Angular"
-          },
-          "note": {
-            "fr": "intermédiaire",
-            "en": "intermediate"
+            "fr": "Tailwind CSS",
+            "en": "Tailwind CSS"
+          }
+        },
+        {
+          "name": {
+            "fr": "Bootstrap",
+            "en": "Bootstrap"
           }
         }
-      ],
-      "icon": "web"
+      ]
     },
     {
       "id": "sg6",
+      "icon": "smartphone",
       "label": {
         "fr": "Mobile",
         "en": "Mobile"
       },
       "visible": true,
-      "icon": "smartphone",
       "skills": [
         {
           "name": {
             "fr": "Flutter",
             "en": "Flutter"
-          }
+          },
+          "heroPosition": 4
         },
         {
           "name": {
             "fr": "Dart",
             "en": "Dart"
           }
+        },
+        {
+          "name": {
+            "fr": "Mode hors ligne & synchronisation",
+            "en": "Offline mode & sync"
+          },
+          "icon": "sync"
+        },
+        {
+          "name": {
+            "fr": "Notifications push",
+            "en": "Push notifications"
+          },
+          "icon": "notifications"
+        },
+        {
+          "name": {
+            "fr": "Publication sur les stores",
+            "en": "App store submission"
+          },
+          "icon": "storefront"
+        }
+      ]
+    },
+    {
+      "id": "sg7",
+      "icon": "palette",
+      "label": {
+        "fr": "Design UI/UX",
+        "en": "UI/UX design"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": {
+            "fr": "Figma",
+            "en": "Figma"
+          }
+        },
+        {
+          "name": {
+            "fr": "Wireframes & maquettes",
+            "en": "Wireframes & mockups"
+          },
+          "icon": "draw"
+        },
+        {
+          "name": {
+            "fr": "Prototypage",
+            "en": "Prototyping"
+          },
+          "icon": "touch_app"
+        },
+        {
+          "name": {
+            "fr": "Identité visuelle",
+            "en": "Visual identity"
+          },
+          "icon": "brush"
         }
       ]
     },
     {
       "id": "sg3",
+      "icon": "database",
       "label": {
         "fr": "Données",
         "en": "Data"
@@ -1123,23 +1333,142 @@
       "skills": [
         {
           "name": {
-            "fr": "SQL",
-            "en": "SQL"
+            "fr": "MySQL",
+            "en": "MySQL"
+          }
+        },
+        {
+          "name": {
+            "fr": "PostgreSQL",
+            "en": "PostgreSQL"
+          }
+        },
+        {
+          "name": {
+            "fr": "Firebase",
+            "en": "Firebase"
+          }
+        },
+        {
+          "name": {
+            "fr": "Modélisation relationnelle",
+            "en": "Relational modelling"
           },
-          "icon": "database",
-          "heroPosition": 4
+          "icon": "schema"
         },
         {
           "name": {
             "fr": "Python",
             "en": "Python"
+          },
+          "note": {
+            "fr": "notions",
+            "en": "basics"
           }
         }
-      ],
-      "icon": "database"
+      ]
+    },
+    {
+      "id": "sg9",
+      "icon": "shield",
+      "label": {
+        "fr": "Applications métier & intégrations",
+        "en": "Business apps & integrations"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": {
+            "fr": "Rôles & permissions",
+            "en": "Roles & permissions"
+          },
+          "icon": "admin_panel_settings"
+        },
+        {
+          "name": {
+            "fr": "Espaces multi-utilisateurs",
+            "en": "Multi-user areas"
+          },
+          "icon": "groups"
+        },
+        {
+          "name": {
+            "fr": "Journal d’activité",
+            "en": "Activity logging"
+          },
+          "icon": "history"
+        },
+        {
+          "name": {
+            "fr": "Paiement en ligne (FedaPay, KkiaPay)",
+            "en": "Online payment (FedaPay, KkiaPay)"
+          },
+          "icon": "payments"
+        },
+        {
+          "name": {
+            "fr": "Temps réel (Socket.IO)",
+            "en": "Real time (Socket.IO)"
+          },
+          "icon": "bolt"
+        },
+        {
+          "name": {
+            "fr": "Génération PDF & exports Excel",
+            "en": "PDF generation & Excel exports"
+          },
+          "icon": "description"
+        }
+      ]
+    },
+    {
+      "id": "sg8",
+      "icon": "fact_check",
+      "label": {
+        "fr": "Qualité & tests",
+        "en": "Quality & testing"
+      },
+      "visible": true,
+      "skills": [
+        {
+          "name": {
+            "fr": "PHPUnit",
+            "en": "PHPUnit"
+          },
+          "icon": "fact_check"
+        },
+        {
+          "name": {
+            "fr": "Pest",
+            "en": "Pest"
+          },
+          "icon": "fact_check"
+        },
+        {
+          "name": {
+            "fr": "Postman",
+            "en": "Postman"
+          }
+        },
+        {
+          "name": {
+            "fr": "Tests manuels & recette",
+            "en": "Manual & acceptance testing"
+          },
+          "icon": "checklist"
+        },
+        {
+          "name": {
+            "fr": "Débogage",
+            "en": "Debugging"
+          },
+          "icon": "bug_report"
+        }
+      ]
     },
     {
       "id": "sg4",
+      "icon": "travel_explore",
       "label": {
         "fr": "SEO",
         "en": "SEO"
@@ -1162,6 +1491,13 @@
         },
         {
           "name": {
+            "fr": "Données structurées",
+            "en": "Structured data"
+          },
+          "icon": "data_object"
+        },
+        {
+          "name": {
             "fr": "Google Search Console",
             "en": "Google Search Console"
           }
@@ -1172,14 +1508,14 @@
             "en": "Google Analytics"
           }
         }
-      ],
-      "icon": "travel_explore"
+      ]
     },
     {
       "id": "sg5",
+      "icon": "build",
       "label": {
-        "fr": "Outils",
-        "en": "Tools"
+        "fr": "Méthode & outils",
+        "en": "Workflow & tools"
       },
       "visible": true,
       "skills": [
@@ -1203,13 +1539,23 @@
         },
         {
           "name": {
-            "fr": "Pack Office",
-            "en": "Pack Office"
+            "fr": "Développement assisté par l’IA",
+            "en": "AI-assisted development"
           },
-          "icon": "description"
+          "icon": "auto_awesome",
+          "note": {
+            "fr": "Claude, ChatGPT, Gemini",
+            "en": "Claude, ChatGPT, Gemini"
+          }
+        },
+        {
+          "name": {
+            "fr": "Documentation technique",
+            "en": "Technical documentation"
+          },
+          "icon": "menu_book"
         }
-      ],
-      "icon": "build"
+      ]
     }
   ],
   "services": [
@@ -1218,12 +1564,12 @@
       "published": true,
       "icon": "code",
       "title": {
-        "fr": "Développement web fullstack",
-        "en": "Fullstack web development"
+        "fr": "Développement web et mobile full stack",
+        "en": "Full stack web & mobile development"
       },
       "description": {
-        "fr": "Conception et développement d’applications web complètes, de la base de données à l’interface, avec Laravel et Vue.js.",
-        "en": "Design and development of complete web applications, from database to interface, with Laravel and Vue.js."
+        "fr": "<p>Conception et développement d’applications web et mobiles complètes, de la base de données à l’interface, avec Laravel, Vue.js et Flutter.</p>",
+        "en": "<p>Design and development of complete web and mobile applications, from database to interface, with Laravel, Vue.js and Flutter.</p>"
       }
     },
     {
@@ -1416,12 +1762,12 @@
     "indexable": true,
     "structuredData": true,
     "siteTitle": {
-      "fr": "Fawoziath Modjissola SALOU | Développeuse fullstack",
-      "en": "Fawoziath Modjissola SALOU | Fullstack developer"
+      "fr": "Fawoziath Modjissola SALOU | Développeuse Full Stack",
+      "en": "Fawoziath Modjissola SALOU | Full Stack Developer"
     },
     "metaDescription": {
-      "fr": "Développeuse fullstack à Cotonou : applications web Laravel et Vue.js, outils métier, SEO technique.",
-      "en": "Fullstack developer in Cotonou: Laravel and Vue.js web applications, business tools, technical SEO."
+      "fr": "Développeuse Full Stack à Cotonou : applications web et mobiles avec Laravel, Vue.js et Flutter, applications métier, API et SEO technique.",
+      "en": "Full Stack developer in Cotonou: web and mobile applications with Laravel, Vue.js and Flutter, business applications, APIs and technical SEO."
     }
   },
   "legalPages": [
@@ -1522,6 +1868,16 @@
           "label": {
             "fr": "Services",
             "en": "Services"
+          },
+          "visible": true
+        },
+        {
+          "id": "Blg7hdr2",
+          "page": "blog",
+          "url": "",
+          "label": {
+            "fr": "Blog",
+            "en": "Blog"
           },
           "visible": true
         },
@@ -1628,18 +1984,8 @@
             "page": "experience",
             "url": "",
             "label": {
-              "fr": "Formation",
-              "en": "Education"
-            },
-            "visible": true
-          },
-          {
-            "id": "JUJcCRZo",
-            "page": "work",
-            "url": "",
-            "label": {
-              "fr": "Projets",
-              "en": "Work"
+              "fr": "Parcours",
+              "en": "Background"
             },
             "visible": true
           },

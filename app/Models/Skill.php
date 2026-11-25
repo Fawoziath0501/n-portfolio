@@ -23,6 +23,8 @@ class Skill extends Model
         'angular' => 'angularjs', 'python' => 'python', 'git' => 'git', 'github' => 'github', 'gitlab' => 'gitlab',
         'flutter' => 'flutter', 'dart' => 'dart', 'typescript' => 'typescript',
         'google search console' => 'google', 'google analytics' => 'google',
+        'node.js' => 'nodejs', 'mysql' => 'mysql', 'postgresql' => 'postgresql', 'firebase' => 'firebase',
+        'tailwind css' => 'tailwindcss', 'bootstrap' => 'bootstrap', 'figma' => 'figma', 'postman' => 'postman',
     ];
 
     protected function casts(): array

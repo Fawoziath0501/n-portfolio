@@ -140,6 +140,8 @@ class SeoPage
         $list = fn ($v) => ($l = $lines($v)) ? '<ul>'.implode('', array_map(fn ($x) => '<li>'.e($x).'</li>', $l)).'</ul>' : '';
         $this->content['html'] = $this->rich($p['context'] ?? '').$this->rich($p['problem'] ?? '').$list($p['contribution'] ?? '').$list($p['solution'] ?? '').$this->rich($p['results'] ?? '');
         $this->crumbs = [[$this->label('pWork', 1), $this->path('work')], [$this->content['h1'], $this->alternates[$this->lang]]];
+        // Première capture du projet comme image de partage (sinon le portrait du profil).
+        $this->image = $this->absolute(($p['images'] ?? [])[0] ?? '') ?: null;
         $this->item = array_filter([
             '@type' => 'CreativeWork', 'name' => $this->content['h1'], 'description' => $this->content['intro'],
             'url' => $this->base.$this->alternates[$this->lang], 'genre' => $this->tx($p['category'] ?? ''),
@@ -194,7 +196,11 @@ class SeoPage
     {
         $p = $this->d['profile'] ?? [];
         $name = trim(($p['firstName'] ?? '').' '.($p['middleName'] ?? '').' '.($p['lastName'] ?? ''));
-        $current = collect($this->d['experiences'] ?? [])->firstWhere('current', true);
+        // Tous les postes en cours (ex. salariat et freelance en parallèle).
+        $employers = collect($this->d['experiences'] ?? [])->where('current', true)->pluck('company')->filter()->unique()
+            ->map(fn ($c) => ['@type' => 'Organization', 'name' => $c])->values()->all();
+        // « Cotonou, Bénin » : ville et pays séparés, comme le prévoit schema.org.
+        $place = array_map('trim', explode(',', $this->tx($p['location'] ?? ''), 2));
         $skills = collect($this->d['skillGroups'] ?? [])->flatMap(fn ($g) => $g['skills'] ?? [])->map(fn ($s) => $this->tx($s['name']))->filter()->values()->all();
         $graph = [
             ['@type' => 'WebSite', '@id' => $this->base.'/#website', 'url' => $this->base.'/', 'name' => $this->d['settings']['siteName'] ?? $name,
@@ -203,11 +209,11 @@ class SeoPage
                 'jobTitle' => $this->tx($p['title'] ?? ''), 'description' => $this->tx($p['tagline'] ?? ''),
                 'email' => ! empty($p['email']) ? 'mailto:'.$p['email'] : null, 'telephone' => $p['phone'] ?? null,
                 'image' => $this->absolute($p['photo'] ?? ''),
-                'address' => ['@type' => 'PostalAddress', 'addressLocality' => $this->tx($p['location'] ?? '')],
-                'worksFor' => $current && ! empty($current['company']) ? ['@type' => 'Organization', 'name' => $current['company']] : null,
+                'address' => array_filter(['@type' => 'PostalAddress', 'addressLocality' => $place[0] ?: null, 'addressCountry' => $place[1] ?? null]),
+                'worksFor' => $employers ? (count($employers) === 1 ? $employers[0] : $employers) : null,
                 'knowsAbout' => $skills ?: null,
                 'knowsLanguage' => array_map(fn ($l) => $this->tx($l['name']), $p['languages'] ?? []) ?: null,
-                'sameAs' => collect($p['socials'] ?? [])->filter(fn ($s) => ($s['visible'] ?? false) && ! empty($s['url']))->pluck('url')->values()->all() ?: null]),
+                'sameAs' => collect($p['socials'] ?? [])->filter(fn ($s) => ($s['visible'] ?? false) && ! empty($s['url']) && ! preg_match('#^https?://(wa.me|api.whatsapp.com)/#i', $s['url']))->pluck('url')->values()->all() ?: null]),
         ];
         if ($this->item) {
             $graph[] = $this->item;

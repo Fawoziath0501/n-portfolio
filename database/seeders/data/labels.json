@@ -122,8 +122,8 @@
  {
   "key": "heroBadge",
   "group": "Accueil",
-  "fr": "Développeuse fullstack",
-  "en": "Fullstack developer"
+  "fr": "Développeuse Full Stack",
+  "en": "Full Stack Developer"
  },
  {
   "key": "hello",
@@ -170,14 +170,14 @@
  {
   "key": "aboutShortTitle",
   "group": "Accueil",
-  "fr": "Développeuse fullstack, orientée produit.",
-  "en": "Fullstack developer with a product mindset."
+  "fr": "Développeuse Full Stack, orientée produit.",
+  "en": "Full Stack developer with a product mindset."
  },
  {
   "key": "aboutShortText",
   "group": "Accueil",
-  "fr": "Je conçois des applications web avec Laravel et Vue.js, de l’analyse du besoin jusqu’à la mise en ligne. Mon objectif : des outils fiables, simples à utiliser et faciles à faire évoluer.",
-  "en": "I build web applications with Laravel and Vue.js, from understanding the need through to launch. My goal: reliable tools that are simple to use and easy to evolve."
+  "fr": "Je conçois des applications web et mobiles avec Laravel, Vue.js et Flutter, de l’analyse du besoin jusqu’à la mise en production. Mon objectif : des outils fiables, simples à utiliser et faciles à faire évoluer.",
+  "en": "I build web and mobile applications with Laravel, Vue.js and Flutter, from understanding the need through to production. My goal: reliable tools that are simple to use and easy to evolve."
  },
  {
   "key": "stackLabel",
@@ -212,8 +212,8 @@
  {
   "key": "fNow",
   "group": "À propos",
-  "fr": "Poste actuel",
-  "en": "Current role"
+  "fr": "En poste chez",
+  "en": "Currently at"
  },
  {
   "key": "fSince",
@@ -248,8 +248,8 @@
  {
   "key": "expIntro",
   "group": "À propos",
-  "fr": "Quatre postes en développement web fullstack, de l’e-commerce aux applications métier.",
-  "en": "Four fullstack web development roles, from e-commerce to business applications."
+  "fr": "Mes postes en développement web et mobile full stack, des sites e-commerce aux applications métier.",
+  "en": "My full stack web and mobile development roles, from e-commerce sites to business applications."
  },
  {
   "key": "current",
@@ -344,8 +344,8 @@
  {
   "key": "pAbout.2",
   "group": "À propos",
-  "fr": "Développeuse fullstack, je conçois des applications web avec Laravel et Vue.js, de la compréhension du besoin à la mise en ligne.",
-  "en": "Fullstack developer building web applications with Laravel and Vue.js, from understanding the need to going live."
+  "fr": "Développeuse Full Stack, je conçois des applications web et mobiles avec Laravel, Vue.js et Flutter, de la compréhension du besoin à la mise en production.",
+  "en": "Full Stack developer building web and mobile applications with Laravel, Vue.js and Flutter, from understanding the need to production."
  },
  {
   "key": "jMethod",
@@ -424,6 +424,12 @@
   "group": "À propos",
   "fr": "Expérience · Stage",
   "en": "Experience · Internship"
+ },
+ {
+  "key": "kFree",
+  "group": "À propos",
+  "fr": "Expérience · Freelance",
+  "en": "Experience · Freelance"
  },
  {
   "key": "kEdu",
@@ -526,6 +532,42 @@
   "group": "Projets & études de cas",
   "fr": "Lien",
   "en": "Link"
+ },
+ {
+  "key": "mStatus",
+  "group": "Projets & études de cas",
+  "fr": "Statut",
+  "en": "Status"
+ },
+ {
+  "key": "stLive",
+  "group": "Projets & études de cas",
+  "fr": "En production",
+  "en": "Live"
+ },
+ {
+  "key": "stPrivate",
+  "group": "Projets & études de cas",
+  "fr": "Application privée",
+  "en": "Private application"
+ },
+ {
+  "key": "stInternal",
+  "group": "Projets & études de cas",
+  "fr": "Application interne",
+  "en": "Internal application"
+ },
+ {
+  "key": "stOffline",
+  "group": "Projets & études de cas",
+  "fr": "Hors ligne (hébergement expiré)",
+  "en": "Offline (hosting expired)"
+ },
+ {
+  "key": "mCode",
+  "group": "Projets & études de cas",
+  "fr": "Code source",
+  "en": "Source code"
  },
  {
   "key": "bContext",
